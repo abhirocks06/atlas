@@ -64,6 +64,7 @@ const COUNTRY_CODES: Record<string, string> = {
   'Thailand': 'th',
   'Tunisia': 'tn',
   'Turkey': 'tr',
+  'Türkiye': 'tr',
   'Ukraine': 'ua',
   'United Arab Emirates': 'ae',
   'United Kingdom': 'gb',

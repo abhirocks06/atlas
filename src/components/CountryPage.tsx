@@ -545,7 +545,10 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                           onClick={e => e.stopPropagation()}
                           className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-zinc-600 hover:text-zinc-300 border border-zinc-800 hover:border-zinc-600 px-3 py-1.5 transition-colors"
                         >
-                          View Source ↗
+                          View Source
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0" aria-hidden="true">
+                            <path d="M6.5 1H9v2.5M9 1 5 5M4 2H2.5A1.5 1.5 0 0 0 1 3.5v5A1.5 1.5 0 0 0 2.5 10h5A1.5 1.5 0 0 0 9 8.5V7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </a>
                       )}
                     </div>

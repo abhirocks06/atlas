@@ -65,6 +65,7 @@ export const COUNTRY_NAME_TO_ISO3: Record<string, string> = {
   "Thailand": "THA",
   "Tunisia": "TUN",
   "Turkey": "TUR",
+  "Türkiye": "TUR",
   "Ukraine": "UKR",
   "United Arab Emirates": "ARE",
   "United Kingdom": "GBR",
