@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-06-17T21:57:33.072Z",
+  "dateRangeStart": "2023-01-01",
+  "dateRangeEnd": "2026-06-17",
+  "totalStubsFetched": 805,
+  "filteredAsFMS": 599,
+  "parsedCount": 599,
+  "parseErrors": 0,
+  "skippedByTitleFilter": 206,
+  "errors": []
+}
