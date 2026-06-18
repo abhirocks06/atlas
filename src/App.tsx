@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import rawData from '../data/fms_notifications.json'
 import type { Notification } from './types'
@@ -37,12 +37,41 @@ function NetworkIcon() {
   )
 }
 
+function getInitialState() {
+  const params = new URLSearchParams(window.location.search)
+  const view = params.get('view') === 'network' ? 'network' : 'map'
+  const country = params.get('country') || null
+  const region = (params.get('region') as Region) || null
+  const fromYear = params.get('from')
+  const toYear = params.get('to')
+  const dateRange: [string, string] = [
+    fromYear ? `${fromYear}-01-01` : DATA_MIN_DATE,
+    toYear ? `${toYear}-12-31` : DATA_MAX_DATE,
+  ]
+  return { view, country, region, dateRange }
+}
+
 export default function App() {
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
-  const [dateRange, setDateRange] = useState<[string, string]>([DATA_MIN_DATE, DATA_MAX_DATE])
+  const initial = useMemo(getInitialState, [])
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(initial.country)
+  const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
-  const [regionFilter, setRegionFilter] = useState<Region | null>(null)
-  const [view, setView] = useState<'map' | 'network'>('map')
+  const [regionFilter, setRegionFilter] = useState<Region | null>(initial.region)
+  const [view, setView] = useState<'map' | 'network'>(initial.view as 'map' | 'network')
+
+  // Sync state → URL
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (view !== 'map') params.set('view', view)
+    if (selectedCountry) params.set('country', selectedCountry)
+    if (regionFilter) params.set('region', regionFilter)
+    const fromYear = dateRange[0].slice(0, 4)
+    const toYear = dateRange[1].slice(0, 4)
+    if (fromYear !== DATA_MIN_DATE.slice(0, 4)) params.set('from', fromYear)
+    if (toYear !== DATA_MAX_DATE.slice(0, 4)) params.set('to', toYear)
+    const qs = params.toString()
+    window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
+  }, [view, selectedCountry, regionFilter, dateRange])
 
   const filtered = useMemo(() => {
     return allNotifications.filter(n => {

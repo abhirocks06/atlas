@@ -43,28 +43,6 @@ export function FilterBar({
   return (
     <div className="px-4 md:px-5 py-2 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
       <div className="flex items-center flex-wrap gap-x-3 md:gap-x-4 gap-y-1.5">
-        {/* View toggle */}
-        <div className="flex items-center gap-1 border border-zinc-800 p-0.5">
-          {(['map', 'network'] as const).map(v => (
-            <button
-              key={v}
-              onClick={() => onViewChange(v)}
-              className={`flex items-center gap-1.5 px-2 py-1 text-[10px] uppercase tracking-widest transition-colors ${
-                view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
-              }`}
-            >
-              {v === 'map' ? (
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
-              ) : (
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
-              )}
-              <span className="hidden sm:inline">{v}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="w-px h-3.5 bg-zinc-800" />
-
         {/* Date range — year selectors */}
         <div className="flex items-center gap-2">
           <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest">Year</span>
@@ -107,6 +85,26 @@ export function FilterBar({
               <option key={r} value={r}>{r}</option>
             ))}
           </select>
+        </div>
+
+        {/* View toggle — far right */}
+        <div className="ml-auto flex items-center gap-1 border border-zinc-800 p-0.5">
+          {(['map', 'network'] as const).map(v => (
+            <button
+              key={v}
+              onClick={() => onViewChange(v)}
+              className={`flex items-center gap-1.5 px-2 py-1 text-[10px] uppercase tracking-widest transition-colors ${
+                view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
+              }`}
+            >
+              {v === 'map' ? (
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
+              ) : (
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
+              )}
+              <span className="hidden sm:inline">{v}</span>
+            </button>
+          ))}
         </div>
 
       </div>

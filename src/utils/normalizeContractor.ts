@@ -23,24 +23,24 @@ export function normalizeContractor(raw: string): string {
   if (/g\s+eneral\s+electric|ge\s*nera\s+l\s+elec/i.test(s)) return 'GE Aerospace'
 
   // ── Javelin Joint Venture (Raytheon + Lockheed Martin) ─────────────────────
-  if (/javelin\s+joint\s+venture|joint\s+javelin\s+venture/i.test(s)) return 'Javelin JV'
+  if (/javelin\s+joint\s+venture|joint\s+javelin\s+venture/i.test(s)) return 'Javelin Joint Venture'
 
   // ── Sikorsky before Lockheed Martin (LM acquired Sikorsky but it stays Sikorsky) ──
   if (/sikorsky/i.test(s)) return 'Sikorsky'
 
   // ── Major primes ────────────────────────────────────────────────────────────
   if (/lockheed[- ]martin/i.test(s)) return 'Lockheed Martin'
-  if (/\braytheon\b|rtx\s+(corp|missile|missile\s+defense|technologies|mdsc)/i.test(s)) return 'RTX / Raytheon'
-  if (/^rtx\s+corp/i.test(s)) return 'RTX / Raytheon'
-  if (/^rtx$/i.test(s)) return 'RTX / Raytheon'
+  if (/\braytheon\b|rtx\s+(corp|missile|missile\s+defense|technologies|mdsc)/i.test(s)) return 'RTX'
+  if (/^rtx\s+corp/i.test(s)) return 'RTX'
+  if (/^rtx$/i.test(s)) return 'RTX'
 
   if (/northrop\s+grumman/i.test(s)) return 'Northrop Grumman'
 
   // Boeing (must come after Bell Helicopter which mentions Boeing in JV)
-  if (/boeing\s+helicopter\s+and\s+boeing|bell\s+helicopter\s+and\s+boeing/i.test(s)) return 'Bell / Boeing JV'
+  if (/boeing\s+helicopter\s+and\s+boeing|bell\s+helicopter\s+and\s+boeing/i.test(s)) return 'Bell Boeing'
   if (/\bboeing\b/i.test(s)) return 'Boeing'
 
-  if (/huntington\s+ingalls/i.test(s)) return 'Huntington Ingalls'
+  if (/huntington\s+ingalls/i.test(s)) return 'HII'
 
   // BAE Systems (before bare "BAE of X")
   if (/bae\s+systems|british\s+aerospace\s+enterprise|bae\s+of\b/i.test(s)) return 'BAE Systems'
@@ -55,8 +55,8 @@ export function normalizeContractor(raw: string): string {
   if (/general\s+electric|ge\s+aviation|ge\s+of\b|ge\s+aerospace/i.test(s)) return 'GE Aerospace'
 
   // L3Harris
-  if (/l[\-\s]?3[\s]*(harris|communications|wescam|technologies)|harris\s+corp|l3harris|\bthe\s+harris\s+corp/i.test(s)) return 'L3Harris'
-  if (/^harris$/i.test(s)) return 'L3Harris'
+  if (/l[\-\s]?3[\s]*(harris|communications|wescam|technologies)|harris\s+corp|l3harris|\bthe\s+harris\s+corp/i.test(s)) return 'L3Harris Technologies'
+  if (/^harris$/i.test(s)) return 'L3Harris Technologies'
 
   // Bell / Textron
   if (/bell\s+(helicopter|textron)/i.test(s)) return 'Bell Textron'
@@ -91,7 +91,7 @@ export function normalizeContractor(raw: string): string {
   if (/aerojet/i.test(s)) return 'Aerojet Rocketdyne'
 
   // Leonardo / DRS (Leonardo subsidiary)
-  if (/\bleonardo\b|drs\s+north\s+america/i.test(s)) return 'Leonardo / DRS'
+  if (/\bleonardo\b|drs\s+north\s+america/i.test(s)) return 'Leonardo DRS'
 
   // Sierra Nevada Corporation
   if (/sierra\s+nevada/i.test(s)) return 'Sierra Nevada'

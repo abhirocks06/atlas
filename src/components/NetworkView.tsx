@@ -4,7 +4,6 @@ import type { Notification } from '../types'
 import { normalizeContractor } from '../utils/normalizeContractor'
 import { formatCost } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl } from '../utils/contractorLogos'
 
 interface Props {
   filtered: Notification[]
@@ -135,7 +134,6 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
         {contractors.map((c, i) => {
           const x = CX, y = cY(i)
           const active = isNodeActive('contractor', c.name)
-          const logoUrl = getContractorLogoUrl(c.name)
 
           return (
             <g
@@ -150,18 +148,8 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
                 animate={{ opacity: active ? 1 : 0.2 }}
                 transition={{ duration: 0.15 }}
               />
-              {/* Logo */}
-              {logoUrl && (
-                <motion.image
-                  href={logoUrl}
-                  x={x - 130} y={y - 10}
-                  width={20} height={20}
-                  style={{ opacity: active ? 0.7 : 0.15 }}
-                  preserveAspectRatio="xMidYMid meet"
-                />
-              )}
               <motion.text
-                x={logoUrl ? x - 106 : x - 12}
+                x={x - 12}
                 y={y}
                 textAnchor="end"
                 dominantBaseline="middle"

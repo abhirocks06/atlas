@@ -405,7 +405,7 @@ export function CountryPage({ country, notifications, onBack }: Props) {
           </div>
 
           {/* Rows */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
             {filtered.length === 0 && (
               <div className="flex items-center justify-center h-24 text-xs text-zinc-700">
                 No notifications match current filters
@@ -529,14 +529,6 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                         <div className="mb-4">
                           <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">Principal Contractor</div>
                           <div className="flex items-center gap-2">
-                            {primaryContractor && getContractorLogoUrl(primaryContractor) && (
-                              <img
-                                src={getContractorLogoUrl(primaryContractor)!}
-                                alt={primaryContractor}
-                                className="h-5 object-contain opacity-80"
-                                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-                              />
-                            )}
                             <div className="text-xs text-zinc-400">{n.contractor}</div>
                           </div>
                           {n.contractorLocation && (
