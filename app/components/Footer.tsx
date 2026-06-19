@@ -17,14 +17,6 @@ function FooterLinks() {
       >
         Atlas
       </a>
-      <a
-        href="https://maenad-map.vercel.app/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={linkClass}
-      >
-        FMS Map
-      </a>
       <a href="/mission" className={linkClass}>Mission</a>
       <a href="/privacy" className={linkClass}>Privacy</a>
       <a href="/terms" className={linkClass}>Terms</a>
