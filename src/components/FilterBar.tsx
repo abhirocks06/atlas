@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react'
 import type { WeaponCategory } from '../utils/weaponCategories'
 import type { Region } from '../utils/countryRegions'
 import { ALL_REGIONS } from '../utils/countryRegions'
@@ -21,6 +22,8 @@ interface Props {
   onRegionFilterChange: (r: Region | null) => void
   view: 'map' | 'network'
   onViewChange: (v: 'map' | 'network') => void
+  countries: string[]
+  onSelectCountry: (country: string) => void
 }
 
 export function FilterBar({
@@ -32,7 +35,28 @@ export function FilterBar({
   onRegionFilterChange,
   view,
   onViewChange,
+  countries,
+  onSelectCountry,
 }: Props) {
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const matches = query.length > 0
+    ? countries.filter(c => c.toLowerCase().includes(query.toLowerCase())).slice(0, 8)
+    : []
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
   const minYear = parseInt(minDate.slice(0, 4))
   const maxYear = parseInt(maxDate.slice(0, 4))
   const fromYear = parseInt(dateRange[0].slice(0, 4))
@@ -85,6 +109,50 @@ export function FilterBar({
               <option key={r} value={r}>{r}</option>
             ))}
           </select>
+        </div>
+
+        <div className="w-px h-3.5 bg-zinc-800 hidden sm:block" />
+
+        {/* Country search */}
+        <div ref={containerRef} className="relative flex items-center gap-2">
+          <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest hidden sm:block">Country</span>
+          <div className="relative">
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              placeholder="Search…"
+              onChange={e => { setQuery(e.target.value); setOpen(true) }}
+              onFocus={() => { if (query) setOpen(true) }}
+              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors w-28 md:w-36"
+            />
+            {query && (
+              <button
+                onClick={() => { setQuery(''); setOpen(false); inputRef.current?.focus() }}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400"
+                aria-label="Clear"
+              >
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+              </button>
+            )}
+            {open && matches.length > 0 && (
+              <div className="absolute top-full left-0 mt-1 w-48 bg-[#111] border border-zinc-800 shadow-xl z-50">
+                {matches.map(c => (
+                  <button
+                    key={c}
+                    onMouseDown={() => {
+                      setQuery('')
+                      setOpen(false)
+                      onSelectCountry(c)
+                    }}
+                    className="w-full text-left px-3 py-1.5 text-[11px] text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors"
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* View toggle — far right */}

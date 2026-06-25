@@ -140,7 +140,7 @@ export default function App() {
               <div className="w-px h-5 bg-zinc-800 shrink-0" />
               <div className="min-w-0">
                 <div className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 truncate">
-                  U.S. Foreign Military Sales
+                  Atlas | U.S. FOREIGN MILITARY SALES
                 </div>
                 <div className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide hidden sm:block">
                   Source: Defense Security Cooperation Agency &amp; State Dept. Bureau of Political-Military Affairs
@@ -163,6 +163,8 @@ export default function App() {
             onRegionFilterChange={setRegionFilter}
             view={view}
             onViewChange={setView}
+            countries={Array.from(countryTotals.keys()).sort()}
+            onSelectCountry={setSelectedCountry}
           />
 
           <div className="flex-1 relative overflow-hidden">
