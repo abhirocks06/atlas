@@ -12966,5 +12966,15 @@
     "contractor": "Sikorsky, a Lockheed Martin Company",
     "contractorLocation": "Jupiter, FL",
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/06/austria-uh-60m-black-hawk-helicopters/"
+  },
+  {
+    "date": "2026-06-25",
+    "transmittal": "26-57",
+    "country": "Australia",
+    "system": "F/A-18F Super Hornet and EA-18G Growler Aircraft Training",
+    "costUSD": 250000000,
+    "contractor": null,
+    "contractorLocation": null,
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/06/australia-f-a-18f-ea-18g-growler-aircraft-training-transmittal-no-26-57/"
   }
 ]
