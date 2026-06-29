@@ -13,6 +13,8 @@ interface Props {
   onBack: () => void
 }
 
+const TABLE_GRID = '7rem 6rem minmax(0, 1fr) minmax(0, 10rem) 6.5rem'
+
 export function CountryPage({ country, notifications, onBack }: Props) {
   const [activeCategory, setActiveCategory] = useState<WeaponCategory | null>(null)
   const [activeContractor, setActiveContractor] = useState<string | null>(null)
@@ -408,10 +410,10 @@ export function CountryPage({ country, notifications, onBack }: Props) {
           </div>
 
           {/* Table header */}
-          <div className="hidden md:grid px-6 py-2 border-b border-zinc-800/60 flex-shrink-0 bg-[#0a0a0a]"
-               style={{ gridTemplateColumns: '7rem 6rem 1fr 10rem 7rem' }}>
+          <div className="hidden xl:grid px-6 py-2 border-b border-zinc-800/60 flex-shrink-0 bg-[#0a0a0a]"
+               style={{ gridTemplateColumns: TABLE_GRID }}>
             {['Date', 'Transmittal', 'System', 'Contractor', 'Value'].map(h => (
-              <div key={h} className={`text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium ${h === 'Value' ? 'text-right' : ''}`}>{h}</div>
+              <div key={h} className={`min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium ${h === 'Value' ? 'text-right' : ''}`}>{h}</div>
             ))}
           </div>
 
@@ -440,22 +442,22 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                 >
                   {/* Desktop row */}
                   <button
-                    className="hidden md:grid w-full text-left px-6 py-3.5 items-center gap-4"
-                    style={{ gridTemplateColumns: '7rem 6rem 1fr 10rem 7rem' }}
+                    className="hidden xl:grid w-full text-left px-6 py-3.5 items-center gap-4"
+                    style={{ gridTemplateColumns: TABLE_GRID }}
                     onClick={() => setExpandedIdx(isOpen ? null : i)}
                   >
-                    <div className="text-[11px] font-mono text-zinc-500">{formatDate(n.date)}</div>
-                    <div className="flex items-center gap-2">
+                    <div className="min-w-0 overflow-hidden text-[11px] font-mono text-zinc-500">{formatDate(n.date)}</div>
+                    <div className="min-w-0 overflow-hidden flex items-center gap-2">
                       <div className="w-[3px] h-4 rounded-full flex-shrink-0" style={{ background: color }} />
-                      <span className="text-[11px] font-mono text-zinc-500">{n.transmittal ?? '—'}</span>
+                      <span className="text-[11px] font-mono text-zinc-500 truncate">{n.transmittal ?? '—'}</span>
                     </div>
-                    <div className="min-w-0">
+                    <div className="min-w-0 overflow-hidden">
                       <div className="text-[12px] text-zinc-200 truncate leading-snug">
                         {n.system ?? <span className="text-zinc-600 italic">System not specified</span>}
                       </div>
-                      <div className="text-[9px] uppercase tracking-wider mt-0.5 font-medium" style={{ color }}>{cat}</div>
+                      <div className="text-[9px] uppercase tracking-wider mt-0.5 font-medium truncate" style={{ color }}>{cat}</div>
                     </div>
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="min-w-0 overflow-hidden flex items-center gap-2">
                       {primaryContractor ? (
                         <>
                           {getContractorLogoUrl(primaryContractor) && (
@@ -472,16 +474,16 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                         <span className="text-zinc-800">—</span>
                       )}
                     </div>
-                    <div className="text-right">
+                    <div className="min-w-0 overflow-hidden text-right">
                       <span className={`text-sm font-mono font-light ${n.costUSD ? 'text-amber-400' : 'text-zinc-800'}`}>
                         {n.costUSD ? formatCost(n.costUSD) : '—'}
                       </span>
                     </div>
                   </button>
 
-                  {/* Mobile card row */}
+                  {/* Card row (mobile + compressed desktop) */}
                   <button
-                    className="md:hidden w-full text-left px-4 py-3.5"
+                    className="xl:hidden w-full text-left px-4 py-3.5"
                     onClick={() => setExpandedIdx(isOpen ? null : i)}
                   >
                     <div className="flex items-start gap-3">
@@ -497,9 +499,12 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                         </div>
                         <div className="flex items-center gap-2.5 mt-1.5 flex-wrap">
                           <span className="text-[10px] font-mono text-zinc-600">{formatDate(n.date)}</span>
+                          {n.transmittal && (
+                            <span className="text-[10px] font-mono text-zinc-600">{n.transmittal}</span>
+                          )}
                           <span className="text-[9px] uppercase tracking-wider font-medium" style={{ color }}>{cat}</span>
                           {primaryContractor && (
-                            <span className="text-[10px] text-zinc-600">{primaryContractor}</span>
+                            <span className="text-[10px] text-zinc-600 truncate max-w-full">{primaryContractor}</span>
                           )}
                         </div>
                       </div>
