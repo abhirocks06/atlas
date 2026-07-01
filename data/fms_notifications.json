@@ -12976,5 +12976,16 @@
     "contractor": null,
     "contractorLocation": null,
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/06/australia-f-a-18f-ea-18g-growler-aircraft-training/"
+  },
+  {
+    "date": "2026-06-30",
+    "transmittal": null,
+    "country": "Singapore",
+    "system": "Hellfire Missiles",
+    "costUSD": 22300000,
+    "contractor": "Lockheed Martin",
+    "contractorLocation": "Orlando, Florida",
+    "addedAt": "2026-06-30",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/06/singapore-hellfire-missiles/"
   }
 ]

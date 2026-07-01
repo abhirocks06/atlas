@@ -22,6 +22,7 @@ const PAD_Y = 50
 
 const MAX_CONTRACTORS = 14
 const MAX_COUNTRIES = 22
+const US_LABEL = 'United States of America'
 
 export function NetworkView({ filtered, onSelectCountry }: Props) {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -136,6 +137,8 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
     return hovered.type === 'usg'
   }
 
+  const usFlagUrl = getFlagUrl(US_LABEL)
+
   return (
     <div className="w-full h-full bg-[#0b0e16] relative overflow-hidden">
       <svg
@@ -233,7 +236,7 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
           {/* USG hub */}
           <g
             style={{ cursor: 'default' }}
-            onMouseEnter={() => setHovered({ type: 'usg', name: 'USG' })}
+            onMouseEnter={() => setHovered({ type: 'usg', name: US_LABEL })}
             onMouseLeave={() => setHovered(null)}
           >
             <motion.circle
@@ -242,17 +245,40 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
               animate={{ opacity: isUsgActive() ? 1 : 0.2 }}
               transition={{ duration: 0.15 }}
             />
+            {usFlagUrl && (
+              <motion.image
+                href={usFlagUrl}
+                x={UX - 16}
+                y={UY + 12}
+                width={32}
+                height={22}
+                style={{ opacity: isUsgActive() ? 0.9 : 0.2 }}
+                preserveAspectRatio="xMidYMid meet"
+              />
+            )}
             <motion.text
               x={UX}
-              y={UY + 16}
+              y={UY + 48}
               textAnchor="middle"
               dominantBaseline="middle"
-              fontSize={fontSize}
+              fontSize={10}
               fontFamily="'SF Mono', 'Fira Code', monospace"
               animate={{ fill: isUsgActive() ? '#c9c3b8' : '#3a3f4a', opacity: isUsgActive() ? 1 : 0.4 }}
               transition={{ duration: 0.15 }}
             >
-              U.S. Govt
+              United States
+            </motion.text>
+            <motion.text
+              x={UX}
+              y={UY + 61}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontSize={10}
+              fontFamily="'SF Mono', 'Fira Code', monospace"
+              animate={{ fill: isUsgActive() ? '#c9c3b8' : '#3a3f4a', opacity: isUsgActive() ? 1 : 0.4 }}
+              transition={{ duration: 0.15 }}
+            >
+              of America
             </motion.text>
           </g>
 
@@ -318,7 +344,7 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
             CONTRACTORS
           </text>
           <text x={UX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
-            USG
+            UNITED STATES
           </text>
           <text x={KX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
             COUNTRIES

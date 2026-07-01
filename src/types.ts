@@ -8,4 +8,6 @@ export interface Notification {
   contractorLocation: string | null
   description: string | null
   sourceUrl: string | null
+  /** ISO date when this record was added to Atlas; drives the "new" badge for 3 days. */
+  addedAt?: string
 }

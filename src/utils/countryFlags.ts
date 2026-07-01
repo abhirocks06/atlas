@@ -76,6 +76,8 @@ const COUNTRY_CODES: Record<string, string> = {
   'Ukraine': 'ua',
   'United Arab Emirates': 'ae',
   'United Kingdom': 'gb',
+  'United States': 'us',
+  'United States of America': 'us',
   'Uruguay': 'uy',
   'Vietnam': 'vn',
   'Zambia': 'zm',

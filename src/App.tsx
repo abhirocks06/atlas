@@ -9,6 +9,8 @@ import { FilterBar } from './components/FilterBar'
 import { SummaryStats } from './components/SummaryStats'
 import { categorize, type WeaponCategory } from './utils/weaponCategories'
 import { getRegion, type Region } from './utils/countryRegions'
+import { getNewNotifications } from './utils/newNotifications'
+import { NewNotificationBanner } from './components/NewNotificationBanner'
 
 const allNotifications = rawData as Notification[]
 
@@ -105,13 +107,19 @@ export default function App() {
     )
   }, [selectedCountry, dateRange])
 
+  const newNotifications = useMemo(() => getNewNotifications(allNotifications), [])
+
   return (
     <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#0f0f0f]">
+    <NewNotificationBanner
+      notifications={newNotifications}
+      onSelect={setSelectedCountry}
+    />
     <AnimatePresence mode="wait">
       {selectedCountry ? (
         <motion.div
           key="country"
-          className="h-[100dvh] overflow-hidden bg-[#0f0f0f]"
+          className="flex-1 min-h-0 overflow-hidden bg-[#0f0f0f]"
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 24 }}
@@ -126,7 +134,7 @@ export default function App() {
       ) : (
         <motion.div
           key="map"
-          className="flex flex-col h-[100dvh] overflow-hidden"
+          className="flex flex-col flex-1 min-h-0 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

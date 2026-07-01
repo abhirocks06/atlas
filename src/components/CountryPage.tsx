@@ -6,6 +6,7 @@ import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from
 import { getFlagUrl } from '../utils/countryFlags'
 import { getContractorLogoUrl } from '../utils/contractorLogos'
 import { normalizeContractor } from '../utils/normalizeContractor'
+import { isNotificationNew } from '../utils/newNotifications'
 
 interface Props {
   country: string
@@ -428,6 +429,7 @@ export function CountryPage({ country, notifications, onBack }: Props) {
               const cat = categorize(n.system)
               const color = CATEGORY_COLORS[cat]
               const isOpen = expandedIdx === i
+              const isNew = isNotificationNew(n)
               const primaryContractor = n.contractor
                 ? normalizeContractor(n.contractor.split(' / ')[0].trim())
                 : null
@@ -452,8 +454,15 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                       <span className="text-[11px] font-mono text-zinc-500 truncate">{n.transmittal ?? '—'}</span>
                     </div>
                     <div className="min-w-0 overflow-hidden">
-                      <div className="text-[12px] text-zinc-200 truncate leading-snug">
-                        {n.system ?? <span className="text-zinc-600 italic">System not specified</span>}
+                      <div className="text-[12px] text-zinc-200 truncate leading-snug flex items-center gap-2">
+                        <span className="truncate">
+                          {n.system ?? <span className="text-zinc-600 italic">System not specified</span>}
+                        </span>
+                        {isNew && (
+                          <span className="shrink-0 px-1.5 py-px rounded text-[8px] font-semibold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
+                            New
+                          </span>
+                        )}
                       </div>
                       <div className="text-[9px] uppercase tracking-wider mt-0.5 font-medium truncate" style={{ color }}>{cat}</div>
                     </div>
@@ -490,8 +499,15 @@ export function CountryPage({ country, notifications, onBack }: Props) {
                       <div className="w-[3px] self-stretch rounded-full flex-shrink-0" style={{ background: color }} />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-3">
-                          <div className="text-[12px] text-zinc-200 leading-snug line-clamp-2 flex-1 min-w-0">
-                            {n.system ?? <span className="text-zinc-600 italic">Not specified</span>}
+                          <div className="text-[12px] text-zinc-200 leading-snug line-clamp-2 flex-1 min-w-0 flex items-start gap-2">
+                            <span className="line-clamp-2">
+                              {n.system ?? <span className="text-zinc-600 italic">Not specified</span>}
+                            </span>
+                            {isNew && (
+                              <span className="shrink-0 px-1.5 py-px rounded text-[8px] font-semibold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
+                                New
+                              </span>
+                            )}
                           </div>
                           {n.costUSD && (
                             <span className="text-sm font-mono font-light text-amber-400 flex-shrink-0">{formatCost(n.costUSD)}</span>
