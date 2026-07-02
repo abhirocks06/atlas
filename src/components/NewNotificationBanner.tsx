@@ -64,9 +64,10 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
           <button
             type="button"
             onClick={handleOpen}
-            className="px-12 text-[12px] text-zinc-300 hover:text-zinc-100 underline underline-offset-[3px] decoration-zinc-600 hover:decoration-zinc-400 transition-colors truncate max-w-full"
+            className="flex items-center gap-2 px-12 text-[12px] text-zinc-300 hover:text-zinc-100 underline underline-offset-[3px] decoration-zinc-600 hover:decoration-zinc-400 transition-colors max-w-full min-w-0"
           >
-            {buildLabel(visible)}
+            <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+            <span className="truncate">{buildLabel(visible)}</span>
           </button>
 
           <button
