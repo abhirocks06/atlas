@@ -142,7 +142,7 @@ export default function App() {
         >
           <header className="px-4 md:px-5 border-b border-zinc-800 flex items-center justify-between flex-shrink-0 h-14 bg-[#0d0d0d]">
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <a href="https://maenad.vercel.app" target="_blank" rel="noopener noreferrer" className="shrink-0 opacity-80 hover:opacity-100 transition-opacity">
+              <a href="https://atlas-fms.vercel.app" target="_blank" rel="noopener noreferrer" className="shrink-0 opacity-80 hover:opacity-100 transition-opacity">
                 <img src="/icon-only.svg" alt="Maenad" width={22} height={22} className="select-none" draggable={false} />
               </a>
               <div className="w-px h-5 bg-zinc-800 shrink-0" />
