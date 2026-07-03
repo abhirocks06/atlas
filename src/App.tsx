@@ -107,7 +107,22 @@ export default function App() {
     )
   }, [selectedCountry, dateRange])
 
-  const newNotifications = useMemo(() => getNewNotifications(allNotifications), [])
+  const [todayKey, setTodayKey] = useState(() => new Date().toDateString())
+
+  useEffect(() => {
+    const tick = () => {
+      const next = new Date().toDateString()
+      setTodayKey(prev => (prev === next ? prev : next))
+    }
+    tick()
+    const id = window.setInterval(tick, 60_000)
+    return () => window.clearInterval(id)
+  }, [])
+
+  const newNotifications = useMemo(
+    () => getNewNotifications(allNotifications),
+    [todayKey],
+  )
 
   return (
     <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#0f0f0f]">

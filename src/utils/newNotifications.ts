@@ -1,23 +1,28 @@
 import type { Notification } from '../types'
 
-/** How long a notification shows as "new" after being added to the dataset. */
+/** How long a notification shows as "new" after being added to the dataset (calendar days). */
 export const NEW_NOTIFICATION_WINDOW_DAYS = 3
 
-const WINDOW_MS = NEW_NOTIFICATION_WINDOW_DAYS * 24 * 60 * 60 * 1000
-
-function parseDateMs(dateStr: string): number {
+function startOfDayMs(dateStr: string): number {
   const [year, month, day] = dateStr.split('-').map(Number)
   return new Date(year, month - 1, day).getTime()
 }
 
-export function isNotificationNew(n: Notification, now = Date.now()): boolean {
-  if (!n.addedAt) return false
-  return now - parseDateMs(n.addedAt) < WINDOW_MS
+function startOfTodayMs(now = new Date()): number {
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()
 }
 
-export function getNewNotifications(notifications: Notification[]): Notification[] {
+export function isNotificationNew(n: Notification, now = new Date()): boolean {
+  if (!n.addedAt) return false
+  const daysSinceAdded = Math.floor(
+    (startOfTodayMs(now) - startOfDayMs(n.addedAt)) / (24 * 60 * 60 * 1000),
+  )
+  return daysSinceAdded < NEW_NOTIFICATION_WINDOW_DAYS
+}
+
+export function getNewNotifications(notifications: Notification[], now = new Date()): Notification[] {
   return notifications
-    .filter(isNotificationNew)
+    .filter(n => isNotificationNew(n, now))
     .sort((a, b) => (b.addedAt ?? '').localeCompare(a.addedAt ?? ''))
 }
 
