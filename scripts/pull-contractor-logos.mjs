@@ -56,6 +56,8 @@ const DOMAINS = [
   'maxar.com',
   'huntingtoningalls.com',
   'generalatomics.com',
+  'zone5tech.com',
+  'coaspire.com',
 ]
 
 function slug(domain) {

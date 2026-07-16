@@ -5,7 +5,7 @@ import { COUNTRY_NAME_TO_ISO3, NUMERIC_TO_ISO3 } from '../utils/countryMapping'
 import { formatCost } from '../utils/formatters'
 import { prefetchFlag } from '../utils/countryFlags'
 
-const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
+const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'
 
 // Build reverse map: ISO3 → canonical country name
 // Prefer shorter/simpler names when there are aliases
@@ -20,8 +20,8 @@ interface Tooltip {
   x: number
   y: number
   country: string
-  total: number
-  count: number
+  total: number | null
+  count: number | null
 }
 
 interface Props {
@@ -64,11 +64,17 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                 // Strip leading zeros so "076" → "76" to match our lookup keys
                 const rawId = String(geo.id ?? '')
                 const numericId = rawId.replace(/^0+/, '') || rawId
-                const iso3 = NUMERIC_TO_ISO3[numericId] ?? null
-                const countryName = iso3 ? ISO3_TO_COUNTRY[iso3] ?? null : null
+                const propName = (geo.properties?.name as string | undefined) ?? null
+                // Kosovo (and a few disputed areas) lack a stable numeric id in world-atlas
+                const iso3 =
+                  NUMERIC_TO_ISO3[numericId] ??
+                  (propName ? COUNTRY_NAME_TO_ISO3[propName] : null) ??
+                  null
+                const countryName = iso3 ? ISO3_TO_COUNTRY[iso3] ?? propName : propName
                 const data = iso3 ? iso3Data.get(iso3) ?? null : null
                 const isSelected = countryName !== null && countryName === selectedCountry
                 const hasSales = data !== null && data.count > 0
+                const label = countryName
 
                 return (
                   <Geography
@@ -80,16 +86,15 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                       }
                     }}
                     onMouseEnter={(evt) => {
-                      if (hasSales && countryName && data) {
-                        prefetchFlag(countryName)
-                        setTooltip({
-                          x: evt.clientX,
-                          y: evt.clientY,
-                          country: countryName,
-                          total: data.total,
-                          count: data.count,
-                        })
-                      }
+                      if (!label) return
+                      if (hasSales) prefetchFlag(label)
+                      setTooltip({
+                        x: evt.clientX,
+                        y: evt.clientY,
+                        country: label,
+                        total: hasSales && data ? data.total : null,
+                        count: hasSales && data ? data.count : null,
+                      })
                     }}
                     onMouseMove={(evt) => {
                       if (tooltip) {
@@ -151,8 +156,14 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
           }}
         >
           <div className="font-semibold text-[#c9c3b8] mb-0.5">{tooltip.country}</div>
-          <div className="text-[#c4873a] font-medium">{formatCost(tooltip.total)}</div>
-          <div className="text-[#4a5568] mt-0.5">{tooltip.count} notification{tooltip.count !== 1 ? 's' : ''}</div>
+          {tooltip.total != null && tooltip.count != null ? (
+            <>
+              <div className="text-[#c4873a] font-medium">{formatCost(tooltip.total)}</div>
+              <div className="text-[#4a5568] mt-0.5">{tooltip.count} notification{tooltip.count !== 1 ? 's' : ''}</div>
+            </>
+          ) : (
+            <div className="text-[#4a5568] mt-0.5">No sales data</div>
+          )}
         </div>
       )}
 

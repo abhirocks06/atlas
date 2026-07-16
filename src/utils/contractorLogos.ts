@@ -42,6 +42,8 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/kratos/i, 'kratosdefense.com'],
   [/anduril/i, 'anduril.com'],
   [/maxar/i, 'maxar.com'],
+  [/zone\s*5/i, 'zone5tech.com'],
+  [/coaspire/i, 'coaspire.com'],
 ]
 
 function domainToSlug(domain: string): string {

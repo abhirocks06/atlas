@@ -233,5 +233,15 @@
     "blurb": "Vinell Arabia is a U.S.-linked training and support contractor long associated with Saudi Arabian military modernization programs. It appears in FMS material mainly as a services and training provider rather than an equipment OEM.",
     "source": "curated",
     "updatedAt": "2026-07-15"
+  },
+  "Zone 5 Technologies": {
+    "blurb": "Zone 5 Technologies is a California-based U.S. missile and unmanned systems company focused on affordable, mass-producible strike munitions. It is a principal contractor on the Extended Range Attack Munition (ERAM) program, including the major Ukraine FMS case.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
+  },
+  "CoAspire": {
+    "blurb": "CoAspire is a U.S. defense contractor developing affordable air-launched cruise missiles, including the RAACM family. Alongside Zone 5 Technologies, it is a principal contractor for Extended Range Attack Munition (ERAM) Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
   }
 }

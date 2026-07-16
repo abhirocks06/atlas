@@ -38,7 +38,7 @@ export function FilterBar({
   const desktopSearchRef = useRef<HTMLDivElement>(null)
 
   const matches = query.length > 0
-    ? countries.filter(c => c.toLowerCase().includes(query.toLowerCase())).slice(0, 8)
+    ? countries.filter(c => c.toLowerCase().startsWith(query.toLowerCase())).slice(0, 8)
     : []
 
   useEffect(() => {
