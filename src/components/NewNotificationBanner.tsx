@@ -116,7 +116,6 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
                             )}
                             <span className="absolute left-1.5 top-1/2 w-2.5 h-px bg-zinc-700" />
                           </span>
-                          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-400/80" aria-hidden="true" />
                           {flagUrl && (
                             <img
                               src={flagUrl}

@@ -59,16 +59,16 @@ export function FilterBar({
   const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
 
   return (
-    <div className="px-4 md:px-5 py-2 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
+    <div className="px-3 sm:px-4 md:px-5 py-1.5 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
       {/* Mobile-only layout */}
-      <div className="flex flex-col gap-2 sm:hidden">
-        <div className="flex items-center gap-2">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1.5 flex-1 min-w-0">
+      <div className="flex flex-col gap-1 sm:hidden">
+        <div className="flex items-center gap-1.5">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1 flex-1 min-w-0">
             <select
               aria-label="From year"
               value={fromYear}
               onChange={e => onDateRangeChange([`${e.target.value}-01-01`, dateRange[1]])}
-              className={`${selectClass} w-full py-2 text-base sm:text-xs text-zinc-300`}
+              className={`${selectClass} w-full h-8 py-0 text-xs text-zinc-300`}
               style={selectStyle}
             >
               {years.filter(y => y <= toYear).map(y => (
@@ -80,7 +80,7 @@ export function FilterBar({
               aria-label="To year"
               value={toYear}
               onChange={e => onDateRangeChange([dateRange[0], `${e.target.value}-12-31`])}
-              className={`${selectClass} w-full py-2 text-base sm:text-xs text-zinc-300`}
+              className={`${selectClass} w-full h-8 py-0 text-xs text-zinc-300`}
               style={selectStyle}
             >
               {years.filter(y => y >= fromYear).map(y => (
@@ -88,13 +88,13 @@ export function FilterBar({
               ))}
             </select>
           </div>
-          <div className="flex items-center gap-0.5 border border-zinc-800 p-0.5 flex-shrink-0">
+          <div className="flex items-center gap-0.5 border border-zinc-800 p-0.5 flex-shrink-0 h-8">
             {(['map', 'network'] as const).map(v => (
               <button
                 key={v}
                 onClick={() => onViewChange(v)}
                 aria-label={v}
-                className={`flex items-center justify-center px-2.5 py-2 transition-colors ${
+                className={`flex items-center justify-center px-2 h-full transition-colors ${
                   view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
                 }`}
               >
@@ -115,7 +115,7 @@ export function FilterBar({
             placeholder="Search country…"
             onChange={e => { setQuery(e.target.value); setOpen(true) }}
             onFocus={() => { if (query) setOpen(true) }}
-            className="w-full bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 py-2 text-base sm:text-xs outline-none transition-colors"
+            className="w-full h-8 bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 text-xs outline-none transition-colors"
           />
           {query && (
             <button
@@ -136,7 +136,7 @@ export function FilterBar({
                     setOpen(false)
                     onSelectCountry(c)
                   }}
-                  className="w-full text-left px-3 py-2.5 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors border-b border-zinc-800/60 last:border-0"
+                  className="w-full text-left px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors border-b border-zinc-800/60 last:border-0"
                 >
                   {c}
                 </button>
@@ -184,7 +184,7 @@ export function FilterBar({
               placeholder="Search…"
               onChange={e => { setQuery(e.target.value); setOpen(true) }}
               onFocus={() => { if (query) setOpen(true) }}
-              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-base sm:text-[11px] md:text-xs outline-none transition-colors w-28 md:w-36"
+              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors w-28 md:w-36"
             />
             {query && (
               <button

@@ -23,22 +23,22 @@ export function SummaryStats({ filtered }: Props) {
   }, [])
 
   return (
-    <div className="flex items-center gap-4 md:gap-6 text-right">
+    <div className="flex items-center gap-2.5 sm:gap-4 md:gap-6 text-right">
       <div>
-        <div className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">
+        <div className="text-[8px] sm:text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">
           Total Value
         </div>
-        <div className="text-xs md:text-sm font-mono text-amber-400">{formatCost(animatedTotal)}</div>
+        <div className="text-[11px] sm:text-xs md:text-sm font-mono text-amber-400">{formatCost(animatedTotal)}</div>
       </div>
       <div>
-        <div className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">
+        <div className="text-[8px] sm:text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">
           Notifications
         </div>
-        <div className="text-xs md:text-sm font-mono text-zinc-300">{Math.round(animatedNotifs).toLocaleString()}</div>
+        <div className="text-[11px] sm:text-xs md:text-sm font-mono text-zinc-300">{Math.round(animatedNotifs).toLocaleString()}</div>
       </div>
-      <div className="hidden sm:block">
-        <div className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">Countries</div>
-        <div className="text-xs md:text-sm font-mono text-zinc-300">{Math.round(animatedCountries).toLocaleString()}</div>
+      <div>
+        <div className="text-[8px] sm:text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">Countries</div>
+        <div className="text-[11px] sm:text-xs md:text-sm font-mono text-zinc-300">{Math.round(animatedCountries).toLocaleString()}</div>
       </div>
     </div>
   )

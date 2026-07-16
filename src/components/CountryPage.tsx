@@ -346,11 +346,11 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
         <div className="flex-1 overflow-hidden flex flex-col min-w-0">
 
           {/* Controls bar */}
-          <div className="pl-3 pr-4 md:pl-4 md:pr-6 py-2.5 border-b border-zinc-800/60 flex-shrink-0 bg-[#0d0d0d] flex items-center gap-3">
+          <div className="pl-3 pr-4 md:pl-4 md:pr-6 py-1.5 md:py-2.5 border-b border-zinc-800/60 flex-shrink-0 bg-[#0d0d0d] flex items-center gap-2 md:gap-3">
             {/* Mobile overview toggle */}
             <button
               onClick={() => setSidebarOpen(true)}
-              className={`md:hidden flex items-center gap-1.5 text-[10px] uppercase tracking-widest border px-2.5 py-1.5 flex-shrink-0 transition-colors ${
+              className={`md:hidden flex items-center gap-1.5 h-8 text-[10px] uppercase tracking-widest border px-2 flex-shrink-0 transition-colors ${
                 activeFilters > 0
                   ? 'border-amber-800 text-amber-500 hover:border-amber-600'
                   : 'border-zinc-800 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600'
@@ -363,7 +363,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
             </button>
 
             {/* Search */}
-            <div className="flex-1 relative">
+            <div className="flex-1 relative min-w-0">
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none" className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-700 pointer-events-none">
                 <circle cx="5" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.2"/>
                 <path d="M8 8l2.5 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
@@ -373,7 +373,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search systems, transmittals…"
-                className="w-full bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-7 pr-8 py-1.5 text-base sm:text-xs outline-none placeholder:text-zinc-700 transition-colors"
+                className="w-full h-8 bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-7 pr-8 text-xs outline-none placeholder:text-zinc-700 transition-colors"
               />
               {search && (
                 <button
@@ -386,7 +386,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
             </div>
 
             {/* Sort controls */}
-            <div className="flex items-center gap-1 border border-zinc-800 p-0.5 flex-shrink-0">
+            <div className="flex items-center gap-0.5 border border-zinc-800 p-0.5 flex-shrink-0 h-8">
               {(['date', 'cost'] as const).map(s => {
                 const isActive = sort === s
                 return (
@@ -396,7 +396,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                       if (isActive) setSortDir(d => d === 'desc' ? 'asc' : 'desc')
                       else { setSort(s); setSortDir('desc') }
                     }}
-                    className={`flex items-center gap-0.5 px-2 py-1 text-[10px] uppercase tracking-widest transition-colors ${
+                    className={`flex items-center gap-0.5 px-2 h-full text-[10px] uppercase tracking-widest transition-colors ${
                       isActive ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
                     }`}
                   >
