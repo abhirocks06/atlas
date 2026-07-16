@@ -555,7 +555,7 @@
     "country": "Saudi Arabia",
     "system": "Communication and Navigation Surveillance/Air Traffic Management (CNS/ATM) Upgrades",
     "costUSD": 1500000000,
-    "contractor": "chosen after a competitive source selection",
+    "contractor": null,
     "contractorLocation": null,
     "description": "a possible sale of a two-phased approach for the Communication Navigation and Surveillance/Air Traffic Management upgrades of the communication and navigation systems for the Royal Saudi Air Force’s fleet of 13 RE-3, KE-3, and E-3 aircraft. Phase One will include Global Positioning System/Inertial Navigation Systems, 8.33 kHz Very High Frequency radios, Traffic Collision Avoidance Systems, Mode S Transponders, Mode 4/5 Identification Friend or Foe Encryption, High Frequency radio replacements, Multifunctional Information Display Systems for Link 16 operations, Have Quick II radios, Satellite Communications and Common Secure Voice encryptions. Phase 2 will include digital flight deck instrumentation and displays, flight director system/autopilot, flight management system, cockpit data line message and combat situational awareness information. Also included are spare and repair parts, support and test equipment, publication and technical documentation, personnel training and training equipment, personnel support and test equipment to include flight simulators, U.S. government and contractor engineering support, technical and logistics support services, and other related elements of logistical and program support.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606714/-1/-1/0/SAUDIA_ARABIA_09-40.PDF"
@@ -1468,8 +1468,8 @@
     "country": "Australia",
     "system": "Sustainment for MH-60R Multi-Mission Helicopters",
     "costUSD": 1600000000,
-    "contractor": "Sikorsky Aircraft Corporation of Stratford / Lockheed Martin of Owego / New York / GE of Lynn / the Raytheon Corporation of Portsmouth",
-    "contractorLocation": "Connecticut / Massachusetts / Rhode Island",
+    "contractor": "Sikorsky Aircraft Corporation of Stratford, Connecticut / Lockheed Martin of Owego, New York / GE of Lynn, Massachusetts / Raytheon Corporation of Portsmouth, Rhode Island",
+    "contractorLocation": null,
     "description": "a possible sale of ten year Through-Life-Support (TLS) for (24) MH-60R Multi-Mission Helicopters. The sustainment effort will include spare and repair parts provisioning, support and test equipment, publications and technical documentation, U.S. Government and contractor engineering, technical and logistics support services, and other related elements of logistical and program support. The estimated cost is $1.6 billion. Australia, one of our most important allies in the Western Pacific, contributes significantly to ensuring peace and economic stability in the region. Australia’s efforts in peacekeeping and humanitarian operations in Iraq and in Afghanistan have served U.S. national security interests. The proposed sale will provide Australia the resources necessary to properly maintain its 24 MH-60R helicopters. Australia, which already has S-70B helicopters in its inventory, will have no difficulty performing the actions necessary to properly sustain these additional helicopters.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610665/-1/-1/0/AUSTRALIA_11-05_0.PDF"
   },
@@ -5329,7 +5329,7 @@
     "country": "Canada",
     "system": "Sustainment Support for C-17 Aircraft",
     "costUSD": 195000000,
-    "contractor": "Boeing Company / Boeing Company Training Systems / Lockheed Martin Corporation/MFC",
+    "contractor": "Boeing Company / Lockheed Martin",
     "contractorLocation": "Long Beach, California / St. Louis, Missouri / Lexington, Kentucky",
     "description": "a possible sale of follow-on support for five (5) CC177 aircraft (Canada’s designator for the C-17), including contractor logistics support (CLS) provided through the Globemaster III Integrated Sustainment Program (GISP), in-country field services support, aircraft maintenance and technical support, support equipment, alternate mission equipment, software support, spares, personnel training and training equipment, U.S. Government and contractor engineering and logistics support services, publications and technical documentation, and major modification and retrofit kits support. The total estimated program cost is $195 million.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003607839/-1/-1/0/CANADA_17-18.PDF"
@@ -7001,7 +7001,7 @@
     "country": "Egypt",
     "system": "Follow on Technical Support (FOTS) for Ships",
     "costUSD": 554000000,
-    "contractor": "VSE Corporation and US Government activities will provide FOTS for Egypt",
+    "contractor": "VSE Corporation",
     "contractorLocation": null,
     "description": "a possible sale of Follow on Technical Support (FOTS) that provides for material and labor services in support of Oliver Hazard Perry Class Frigates (FFG-7 class ships), Fast Missile Craft (FMC), Mine Hunter Coastal (MHC) ships, Coastal Mine Hunter (CMH) ships, and 25 Meter and 28 Meter Fast Patrol Craft (FPC). The estimated cost is $554 million.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003607788/-1/-1/0/EGYPT_19-40_CN.PDF"
@@ -8035,8 +8035,8 @@
     "country": "North Macedonia",
     "system": "Stryker Vehicles",
     "costUSD": 210000000,
-    "contractor": "General Dynamics Land Systems (GDLS) / vehicles will be produced at GDLS-Canada in London",
-    "contractorLocation": "Sterling Heights, MI / Ontario",
+    "contractor": "General Dynamics Land Systems (GDLS)",
+    "contractorLocation": "Sterling Heights, MI / London, Ontario",
     "description": "the possible sale of fifty-four (54) Stryker Vehicles, to include M1126 Infantry Carrier Vehicles (ICV), M1130 Command Vehicles (CV), and M1129 Mortar Carrier Vehicles (MCV). Also included are Also included are M2A1 .50 cal machine guns; M6 Smoke Grenade launchers and associated spares; Harris radios; Common Remote Operated Weapons Station (CROWS); Defense Advanced GPS Receiver; AN/VAS-5 Driver’s Vision Enhancer; spare parts and components; special tools and test equipment; publications and technical manuals; training; field service representatives; U.S. Government and contractor engineering, technical, and logistical support services, and other related elements of program and logistical support. The estimated cost is $210 million.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604174/-1/-1/0/NORTH_MACEDONIA_21-22.PDF"
   },
@@ -12072,8 +12072,8 @@
     "country": "Germany",
     "system": "Standard Missile 6 Block I and Standard Missile 2 Block IIIC",
     "costUSD": 3500000000,
-    "contractor": "RTX Corporation / Tucson / Huntsville",
-    "contractorLocation": "with locations in Camden, AR / AZ / AL",
+    "contractor": "RTX Corporation",
+    "contractorLocation": "Camden, AR / Tucson, AZ / Huntsville, AL",
     "description": "up to one hundred seventy three (173) Standard Missile 6 (SM-6) Block I missiles and up to five hundred seventy seven (577) Standard Missile 2 Block IIIC missiles, along with the non-MDE inclusion of MK 21 and MK 13 Vertical Launch System (VLS) missile transport, storage and launch canisters into which are installed SM-6 Block I and SM-2 Block IIIC missiles, respectively. The following additional non-MDE items will also be included: MK 21 Mod 3 Vertical Launch System (VLS) canisters; MK 13 Mod 1 VLS canisters; missile and support test equipment component parts; engineering, integration, and test (EI&T) materiel and support required to produce SM-6 Block I and SM-2 Block IIIC missiles; special test and handling equipment; training and training equipment aids; technical publications data; U.S. Government and contractor engineering, technical, and logistics support services; related studies and analysis support; and product life cycle sustainment support. The total estimated cost is $3.5 billion.",
     "sourceUrl": "https://media.defense.gov/2025/Nov/14/2003820825/-1/-1/0/PRESS%20RELEASE%20-%20GERMANY%2025-74%20CN.PDF"
   },
@@ -12336,8 +12336,8 @@
     "country": "NATO",
     "system": "Stinger Service Life Extension Program Components, Parts, and Services",
     "costUSD": 136100000,
-    "contractor": "PTI Technologies Inc",
-    "contractorLocation": null,
+    "contractor": "PTI Technologies Inc. / L3Harris",
+    "contractorLocation": "Oxnard, CA / Camden, AR",
     "description": "additional booster pellets; flight motors; gas generator cartridges; Stinger warheads sections; U.S. Government and contractor technical, engineering, and logistics support services; technical documentation; and other related elements of logistics and program support that will be added to a previously implemented case whose value was under the congressional notification threshold. The original Foreign Military Sales case, valued at $50.7 million, included the following non-MDE items: booster pellets; flight motors; gas generators; Stinger warheads sections; and U.S. Government and contractor engineering and technical services.",
     "sourceUrl": "https://media.defense.gov/2025/Dec/18/2003844868/-1/-1/0/PRESS%20RELEASE%20-%20NSPA%2025-97%20CN.PDF"
   },

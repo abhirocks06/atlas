@@ -35,6 +35,38 @@ function cleanLocation(loc: string | null | undefined): string | null {
   return s || null
 }
 
+/** US states / DC — OCR sometimes splits "Owego; New York" into a fake contractor. */
+const US_STATE_NAME =
+  /^(Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming|District of Columbia|D\.?C\.?)$/i
+
+function isPlaceOnlyName(name: string): boolean {
+  const s = name.trim()
+  if (!s) return true
+  if (US_STATE_NAME.test(s)) return true
+  // Bare city names that leaked from plant-location lists
+  if (/^(Tucson|Huntsville|Anniston|London|Mesa|Lynn|Orlando|Bethesda|Camden)$/i.test(s)) return true
+  // Bare "City, ST" or "City, State" leftovers
+  if (/^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?,\s*[A-Z]{2}$/.test(s)) return true
+  if (/^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?,\s*(Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming)$/i.test(s)) {
+    return true
+  }
+  // Division fragments, not firms
+  if (/^communications$/i.test(s)) return true
+  return false
+}
+
+/** Press-release prose that leaked into a slash-separated contractor field. */
+function isProseFragment(name: string): boolean {
+  const s = name.trim()
+  if (!s) return true
+  if (/\b(will be|are being|to be)\s+(produced|manufactured|built|assembled|provided)\b/i.test(s)) return true
+  if (/\bwill provide\b/i.test(s)) return true
+  if (/\b(produced|manufactured|built|assembled)\s+at\b/i.test(s)) return true
+  if (/^(vehicles|aircraft|systems|equipment|items|missiles|helicopters)\s+\w+/i.test(s)) return true
+  if (/\band\s+US\s+Government\s+activities\b/i.test(s)) return true
+  return false
+}
+
 /** Split "Company in/of City" when the suffix looks like a place, not another firm. */
 function splitEmbeddedLocation(raw: string): { name: string; location: string | null } {
   const m = raw.match(/^(.+?)\s+(?:located\s+)?(?:in|of)\s+(.+)$/i)
@@ -74,7 +106,7 @@ export function parseContractors(
   // Treat TBD / unknown scrape leftovers as missing (hide Principal contractor section)
   if (
     !rawContractor ||
-    /\b(not known|to be determined|determined from|approved vendors|no prime|will be part of a new contractor|unknown at this time|not associated with)\b/i.test(
+    /\b(not known|to be determined|determined from|approved vendors|no prime|will be part of a new contractor|unknown at this time|not associated with|competitive source selection|chosen after|to be announced|to be selected|selection process|competition among)\b/i.test(
       rawContractor,
     )
   ) {
@@ -85,7 +117,7 @@ export function parseContractors(
   if (rawContractor?.includes(' / ') || rawLocation?.includes(' / ')) {
     const names = (rawContractor ?? '').split(/\s*\/\s*/).map(s => s.trim()).filter(Boolean)
     const locs = (rawLocation ?? '').split(/\s*\/\s*/).map(s => s.trim())
-    return names.map((n, i) => entry(n, cleanLocation(locs[i] || null)))
+    return dedupeEntries(names.map((n, i) => entry(n, cleanLocation(locs[i] || null))))
   }
 
   if (rawLocation) {
@@ -138,10 +170,18 @@ export function parseContractors(
       ])
     }
 
-    // "and Company in Place" continuation
+    // "and Company in Place" continuation — but not "and Anniston, Alabama" (2nd plant)
     const andIn = rawLocation.match(/^and\s+(.+)$/i)
     if (andIn && rawContractor) {
-      const rest = andIn[1]
+      const rest = andIn[1].trim()
+      if (isPlaceOnlyName(rest) || /^[A-Z][a-z]+/.test(rest) && /,\s*(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|[A-Z][a-z]+)$/i.test(rest)
+        && !/\b(Company|Corporation|Corp|Inc|LLC|Systems|Martin|Boeing|Aerospace|Dynamics)\b/i.test(rest)) {
+        const primary = entry(rawContractor, null)
+        return [{
+          name: primary.name,
+          location: [primary.location, cleanLocation(rest)].filter(Boolean).join('; '),
+        }]
+      }
       const contMatch = rest.match(/^(.+?)\s+in\s+(.+)$/i)
       return dedupeEntries([
         entry(rawContractor, null),
@@ -168,7 +208,7 @@ export function parseContractors(
         }]
       }
     }
-    return [entry(rawContractor, cleanLocation(rawLocation))]
+    return dedupeEntries([entry(rawContractor, cleanLocation(rawLocation))])
   }
 
   return []
@@ -178,7 +218,7 @@ function dedupeEntries(entries: ContractorEntry[]): ContractorEntry[] {
   const out: ContractorEntry[] = []
   const seen = new Set<string>()
   for (const e of entries) {
-    if (!e.name || seen.has(e.name)) continue
+    if (!e.name || isPlaceOnlyName(e.name) || isProseFragment(e.name) || seen.has(e.name)) continue
     seen.add(e.name)
     out.push(e)
   }

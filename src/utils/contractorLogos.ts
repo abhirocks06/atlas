@@ -13,6 +13,7 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/bae systems|^bae$/i, 'baesystems.com'],
   [/am general/i, 'amgeneral.com'],
   [/bell textron|bell helicopter|bell boeing|bell flight/i, 'bellflight.com'],
+  [/beechcraft|hawker\s+beechcraft/i, 'beechcraft.com'],
   [/textron/i, 'textron.com'],
   [/sikorsky/i, 'lockheedmartin.com'],
   [/general atomics/i, 'generalatomics.com'],
@@ -44,6 +45,8 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/maxar/i, 'maxar.com'],
   [/zone\s*5/i, 'zone5tech.com'],
   [/coaspire/i, 'coaspire.com'],
+  [/allison\s+transmission/i, 'allisontransmission.com'],
+  [/marvin/i, 'marvingroup.com'],
 ]
 
 function domainToSlug(domain: string): string {

@@ -150,6 +150,16 @@ export default function App() {
     return map
   }, [filtered])
 
+  const contractorOptions = useMemo(() => {
+    const set = new Set<string>()
+    for (const n of filtered) {
+      for (const name of contractorNames(n.contractor, n.contractorLocation)) {
+        set.add(name)
+      }
+    }
+    return Array.from(set).sort((a, b) => a.localeCompare(b))
+  }, [filtered])
+
   const selectedNotifications = useMemo(() => {
     if (!selectedCountry) return []
     return allNotifications.filter(n =>
@@ -267,7 +277,9 @@ export default function App() {
             view={view}
             onViewChange={setView}
             countries={Array.from(countryTotals.keys()).sort()}
+            contractors={contractorOptions}
             onSelectCountry={openCountry}
+            onSelectContractor={openContractor}
           />
 
           <div className="flex-1 relative overflow-hidden">

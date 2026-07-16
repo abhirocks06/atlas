@@ -43,7 +43,11 @@ export function normalizeContractor(raw: string): string {
   if (/sikorsky/i.test(s)) return 'Sikorsky'
 
   // ── Major primes ────────────────────────────────────────────────────────────
-  if (/lockheed[- ]martin/i.test(s)) return 'Lockheed Martin'
+  // Lockheed-Martin / Lockheed- Martin / Lockheed Corporation / …/MFC
+  if (/lockheed[- ]\s*martin|\blockheed\b.*\bmfc\b|^lockheed(\s+(corp|corporation))?$/i.test(s)) {
+    return 'Lockheed Martin'
+  }
+  if (/^mfc$/i.test(s)) return 'Lockheed Martin'
   if (/\braytheon\b|\brtx\b/i.test(s)) return 'RTX'
 
   if (/northrop|northrup|northr\s*op/i.test(s)) return 'Northrop Grumman'
@@ -52,31 +56,36 @@ export function normalizeContractor(raw: string): string {
   if (/boeing\s+helicopter\s+and\s+boeing|bell\s+helicopter\s+and\s+boeing/i.test(s)) return 'Bell Boeing'
   if (/\bboeing\b/i.test(s)) return 'Boeing'
 
-  if (/huntington\s+ingalls/i.test(s)) return 'HII'
+  if (/huntington\s+ingalls|^hii$/i.test(s)) return 'Huntington Ingalls Industries'
 
   // BAE Systems (before bare "BAE of X")
   if (/bae\s+systems|british\s+aerospace\s+enterprise|bae\s+of\b|\bbae\b/i.test(s)) return 'BAE Systems'
 
-  // General Dynamics (before "General Electric" or "General Atomics")
-  if (/general\s+dynamics/i.test(s)) return 'General Dynamics'
+  // General Dynamics (incl. GDLS / GDLS-Canada)
+  if (/general\s+dynamics|\bgdls\b/i.test(s)) return 'General Dynamics'
 
   // General Atomics
   if (/general\s+atom(ic|ics)/i.test(s)) return 'General Atomics'
 
   // General Electric / GE
-  if (/general\s+electric|ge\s+aviation|ge\s+of\b|ge\s+aerospace/i.test(s)) return 'GE Aerospace'
+  if (/general\s+electric|ge\s+aviation|ge\s+aerospace|ge\s+aircraft|\bge\s+of\b|^ge$/i.test(s)) return 'GE Aerospace'
 
-  // L3Harris
-  if (/l[\-\s]?3[\s]*(harris|communications|wescam|technologies)|harris\s+corp|l3harris|\bthe\s+harris\s+corp/i.test(s)) return 'L3Harris Technologies'
-  if (/^harris$/i.test(s)) return 'L3Harris Technologies'
+  // L3Harris (incl. legacy L-3, Harris, Exelis, and ITT defense electronics spun into Exelis)
+  if (/l[\-\s]?3/i.test(s)) return 'L3Harris Technologies'
+  if (/harris\s+(corp|corporation|international|radio|defense)|l3harris|\bthe\s+harris\s+corp|^harris$/i.test(s)) {
+    return 'L3Harris Technologies'
+  }
+  if (/exelis|excelis/i.test(s)) return 'L3Harris Technologies'
+  // ITT Aerospace / Night Vision / Exelis-era defense units → L3Harris (not modern ITT Inc.)
+  if (/\bitt\b/i.test(s)) return 'L3Harris Technologies'
 
-  // Bell / Textron
-  if (/bell\s+(helicopter|textron)/i.test(s)) return 'Bell Textron'
+  // Bell / Textron (incl. Bell-Textron hyphenation)
+  if (/bell[-\s]+(helicopter|textron)/i.test(s)) return 'Bell Textron'
   if (/^bell(\s+(corp|corporation))?$/i.test(s)) return 'Bell Textron'
   if (/textron\s+(aviation|defense|systems)/i.test(s)) return 'Textron'
 
-  // Collins Aerospace (formerly Rockwell Collins / UTC Aerospace)
-  if (/collins\s+aerospace|rockwell\s+collins/i.test(s)) return 'Collins Aerospace'
+  // Collins Aerospace (formerly Rockwell Collins / UTC Aerospace Systems)
+  if (/collins\s+aerospace|rockwell\s+collins|utc\s+aerospace/i.test(s)) return 'Collins Aerospace'
 
   // Honeywell
   if (/honeywell/i.test(s)) return 'Honeywell'
@@ -85,7 +94,7 @@ export function normalizeContractor(raw: string): string {
   if (/rolls[- ]royce/i.test(s)) return 'Rolls-Royce'
 
   // Pratt & Whitney
-  if (/pratt\s+(and|&)\s+whitney|pratt\s+whitney/i.test(s)) return 'Pratt & Whitney'
+  if (/pratt\s*(and|&)\s*whitney|pratt\s+whitney/i.test(s)) return 'Pratt & Whitney'
 
   // American General → AM General
   if (/american\s+general/i.test(s)) return 'AM General'
@@ -106,26 +115,85 @@ export function normalizeContractor(raw: string): string {
   if (/aerojet/i.test(s)) return 'Aerojet Rocketdyne'
   if (/\batk\b|alliant\s+techsystems|orbital\s+atk/i.test(s)) return 'Orbital ATK'
 
-  // Leonardo / DRS (Leonardo subsidiary)
-  if (/\bleonardo\b|drs\s+north\s+america/i.test(s)) return 'Leonardo DRS'
+  // Leonardo / DRS (Leonardo subsidiary; historically DRS Technologies)
+  if (/\bleonardo\b|\bdrs\b/i.test(s)) return 'Leonardo DRS'
 
   // Sierra Nevada Corporation
-  if (/sierra\s+nevada/i.test(s)) return 'Sierra Nevada'
+  if (/sierra\s+nevada/i.test(s)) return 'Sierra Nevada Corporation'
 
   // Oshkosh
-  if (/oshkosh/i.test(s)) return 'Oshkosh'
+  if (/oshkosh/i.test(s)) return 'Oshkosh Defense'
 
   // Gulfstream
   if (/gulfstream/i.test(s)) return 'Gulfstream'
 
+  // FN America (FN Herstal / FN Enterprise / Fabrique Nationale)
+  if (/\bfn\s+(america|enterprise|manufacturing)\b|fabrique\s+nationale|\bfn\s+herstal\b/i.test(s)) return 'FN America'
+
+  // Allison Transmission
+  if (/allison\s+transmission/i.test(s)) return 'Allison Transmission'
+
+  // Beechcraft / Hawker Beechcraft / Beechcraft Defense
+  if (/hawker\s+beechcraft|beechcraft/i.test(s)) return 'Beechcraft Defense'
+
   // ViaSat / Viasat
   if (/viasat/i.test(s)) return 'Viasat'
 
-  // Kongsberg
-  if (/kongsberg/i.test(s)) return 'Kongsberg'
+  // VSE Corporation (sometimes bare "VSE", or prose after the name)
+  if (/\bvse\b/i.test(s)) return 'VSE Corporation'
+
+  // Kongsberg (incl. OCR typo "Konsberg")
+  if (/kongsberg|konsberg/i.test(s)) return 'Kongsberg Defence & Aerospace'
+
+  // Saab (often all-caps SAAB in older notices)
+  if (/\bsaab\b/i.test(s)) return 'Saab'
+
+  // US Ordnance (sometimes listed with plant location, e.g. McCarran, NV)
+  if (/us\s*ordnance/i.test(s)) return 'US Ordnance'
+
+  // American Ordnance (distinct from US Ordnance; notices sometimes misspell Ordinance)
+  if (/american\s+ordinan[cs]e/i.test(s)) return 'American Ordnance'
+
+  // Goodrich (incl. CT Goodrich ISR Systems — later UTC/Collins lineage)
+  if (/goodrich/i.test(s)) return 'Goodrich'
+
+  // DynCorp International (notices often say DynCorps)
+  if (/dyncorp/i.test(s)) return 'DynCorp International'
+
+  // Colt
+  if (/\bcolt\b/i.test(s)) return 'Colt'
+
+  // Dillon Aero
+  if (/dillon/i.test(s)) return 'Dillon Aero'
+
+  // Kaman
+  if (/\bkaman\b/i.test(s)) return 'Kaman'
+
+  // Selex (Leonardo UK / Selex ES)
+  if (/selex/i.test(s)) return 'Selex'
+
+  // Seiler Instrument (OCR: "Seile r Instrument")
+  if (/seile\s*r\s+instrument|seiler\s+instrument/i.test(s)) return 'Seiler Instrument'
+
+  // ARINC
+  if (/\barinc\b/i.test(s)) return 'ARINC'
+
+  // AgustaWestland
+  if (/agustawestland|agusta\s*westland/i.test(s)) return 'AgustaWestland'
 
   // Repkon
   if (/repkon/i.test(s)) return 'Repkon USA'
+
+  // Marvin Group (notices say Marvin Engineering / Marvin Industries)
+  if (/marvin/i.test(s)) return 'Marvin Group'
+
+  // Kratos Defense & Security Solutions
+  if (/kratos/i.test(s)) return 'Kratos Defense & Security Solutions'
+
+  // Hellfire Systems LLC (Lockheed Martin / Boeing JV for Hellfire missiles)
+  if (/hellfire\s+(systems\s+)?(limited\s+liability|llc)/i.test(s) || /^hellfire\s+limited/i.test(s)) {
+    return 'Hellfire Systems LLC'
+  }
 
   // Longbow LLC (Lockheed Martin / Northrop Grumman JV for Apache fire-control radar)
   if (/longbow\s+(limited\s+liability|llc)/i.test(s)) return 'Longbow LLC'
@@ -136,16 +204,18 @@ export function normalizeContractor(raw: string): string {
   // Booz Allen Hamilton
   if (/booz\s*allen/i.test(s)) return 'Booz Allen Hamilton'
 
-  // Vinell Arabia — no known logo but normalize anyway
-  if (/vinell/i.test(s)) return 'Vinell Arabia'
+  // Vinnell Arabia (notices sometimes spell Vinell)
+  if (/vin+ell/i.test(s)) return 'Vinnell Arabia'
 
   // ── Generic cleanup for everything else ─────────────────────────────────────
   // Remove parenthetical asides: "(GEAC)", "(United Technologies)", etc.
   s = s.replace(/\s*\([^)]*\)/g, '').trim()
   // Remove location suffixes: "in [City]", "of [City]"
   s = s.replace(/\s+(?:in|of)\s+\w[\w\s,]*$/i, '').trim()
-  // Remove trailing corporate designations
-  s = s.replace(/\s*,?\s*(Corporation|Corp\.?|Incorporated|Inc\.?|LLC|Ltd\.?|Company|Co\.)$/i, '').trim()
+  // Remove trailing corporate designations (require whitespace so "ARINC" ≠ "… Inc")
+  s = s.replace(/\s+(Corporation|Corp\.?|Incorporated|Inc\.?|LLC|Ltd\.?|Company|Co\.)$/i, '').trim()
+  // Trailing punctuation leftovers from list parsing
+  s = s.replace(/[,;.\s]+$/g, '').trim()
 
   return s || raw.trim()
 }

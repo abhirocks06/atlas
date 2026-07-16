@@ -49,6 +49,16 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
+  "Hellfire Systems LLC": {
+    "blurb": "Hellfire Systems LLC is the Lockheed Martin–Boeing joint venture that produces AGM-114 Hellfire missiles. It is the recurring prime contractor on Hellfire Foreign Military Sales cases and related missile support packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
+  },
+  "Javelin Joint Venture": {
+    "blurb": "The Javelin Joint Venture is a Lockheed Martin–RTX (Raytheon) consortium that builds the FGM-148 Javelin anti-armor missile. It is the standard prime on Javelin Foreign Military Sales cases, covering missiles, launch units, and related training and support.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
+  },
   "Pratt & Whitney": {
     "blurb": "Pratt & Whitney is an RTX company and a leading maker of military aircraft engines. Its powerplants equip many U.S. fighters and trainers sold abroad, making engine support a recurring line in FMS sustainment packages.",
     "source": "curated",
@@ -84,16 +94,6 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Oshkosh": {
-    "blurb": "Oshkosh Defense builds tactical wheeled vehicles, including JLTV and heavy trucks used by U.S. and partner ground forces. Vehicle fleets and sustainment kits make it a frequent name in land-system Foreign Military Sales.",
-    "source": "curated",
-    "updatedAt": "2026-07-15"
-  },
-  "HII": {
-    "blurb": "HII (Huntington Ingalls Industries) is America’s largest military shipbuilder, constructing aircraft carriers, amphibious ships, and surface combatants. In FMS it more often appears through ship systems, support, or specialized naval work than full hull transfers.",
-    "source": "curated",
-    "updatedAt": "2026-07-15"
-  },
   "Leonardo DRS": {
     "blurb": "Leonardo DRS is the U.S. defense arm of Leonardo, focused on electro-optics, computing, and force-protection systems. It supplies sensors and electronic subsystems that integrate into broader U.S. platform and vehicle sales.",
     "source": "curated",
@@ -116,16 +116,6 @@
   },
   "Anduril": {
     "blurb": "Anduril Industries is a newer U.S. defense technology company focused on autonomous systems, counter-UAS, and software-defined sensing. Its growing FMS footprint reflects partner demand for faster, networked unmanned and air-defense capabilities.",
-    "source": "curated",
-    "updatedAt": "2026-07-15"
-  },
-  "Kratos": {
-    "blurb": "Kratos Defense & Security Solutions builds unmanned aircraft, rocket systems, and C5ISR products for U.S. and allied customers. It often appears in FMS as a supplier of drones, targets, or specialized mission systems.",
-    "source": "curated",
-    "updatedAt": "2026-07-15"
-  },
-  "Sierra Nevada": {
-    "blurb": "Sierra Nevada Corporation is a U.S. aerospace and defense company known for aircraft modernization, ISR platforms, and space systems. In FMS it commonly supports special-mission aircraft and related integration work.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
@@ -209,11 +199,6 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Kongsberg": {
-    "blurb": "Kongsberg Defence & Aerospace is a Norwegian defense company known for naval strike missiles and remote weapon stations. It appears in U.S. FMS when American cases include Kongsberg systems produced or integrated for partner nations.",
-    "source": "curated",
-    "updatedAt": "2026-07-15"
-  },
   "Gulfstream": {
     "blurb": "Gulfstream builds business jets that are often converted into special-mission or VIP transport aircraft for partner governments. Those aircraft and related support packages occasionally move through U.S. Foreign Military Sales channels.",
     "source": "curated",
@@ -229,11 +214,6 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Vinell Arabia": {
-    "blurb": "Vinell Arabia is a U.S.-linked training and support contractor long associated with Saudi Arabian military modernization programs. It appears in FMS material mainly as a services and training provider rather than an equipment OEM.",
-    "source": "curated",
-    "updatedAt": "2026-07-15"
-  },
   "Zone 5 Technologies": {
     "blurb": "Zone 5 Technologies is a California-based U.S. missile and unmanned systems company focused on affordable, mass-producible strike munitions. It is a principal contractor on the Extended Range Attack Munition (ERAM) program, including the major Ukraine FMS case.",
     "source": "curated",
@@ -241,6 +221,51 @@
   },
   "CoAspire": {
     "blurb": "CoAspire is a U.S. defense contractor developing affordable air-launched cruise missiles, including the RAACM family. Alongside Zone 5 Technologies, it is a principal contractor for Extended Range Attack Munition (ERAM) Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
+  },
+  "Allison Transmission": {
+    "blurb": "Allison Transmission is a U.S. propulsion company that builds automatic and cross-drive transmissions for wheeled and tracked military vehicles. In Foreign Military Sales it typically appears as a drivetrain supplier within armored-vehicle and tactical-truck packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
+  },
+  "Kratos Defense & Security Solutions": {
+    "blurb": "Kratos Defense & Security Solutions builds unmanned aircraft, rocket systems, and C5ISR products for U.S. and allied customers. It often appears in FMS as a supplier of drones, targets, or specialized mission systems.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Beechcraft Defense": {
+    "blurb": "Beechcraft, part of Textron Aviation, builds military trainers and special-mission aircraft such as the T-6 Texan II family. It appears in FMS mainly as the airframe prime for training and light attack or ISR derivatives sold to partner air forces.",
+    "source": "curated",
+    "updatedAt": "2026-07-16"
+  },
+  "Oshkosh Defense": {
+    "blurb": "Oshkosh Defense builds tactical wheeled vehicles, including JLTV and heavy trucks used by U.S. and partner ground forces. Vehicle fleets and sustainment kits make it a frequent name in land-system Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Sierra Nevada Corporation": {
+    "blurb": "Sierra Nevada Corporation is a U.S. aerospace and defense company known for aircraft modernization, ISR platforms, and space systems. In FMS it commonly supports special-mission aircraft and related integration work.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Kongsberg Defence & Aerospace": {
+    "blurb": "Kongsberg Defence & Aerospace is a Norwegian defense company known for naval strike missiles and remote weapon stations. It appears in U.S. FMS when American cases include Kongsberg systems produced or integrated for partner nations.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Huntington Ingalls Industries": {
+    "blurb": "HII (Huntington Ingalls Industries) is America’s largest military shipbuilder, constructing aircraft carriers, amphibious ships, and surface combatants. In FMS it more often appears through ship systems, support, or specialized naval work than full hull transfers.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Vinnell Arabia": {
+    "blurb": "Vinnell Arabia is a U.S.-linked training and support contractor long associated with Saudi Arabian military modernization programs. It appears in FMS material mainly as a services and training provider rather than an equipment OEM.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Marvin Group": {
+    "blurb": "The Marvin Group is a Southern California aerospace and defense manufacturer whose flagship unit, Marvin Engineering, builds stores carriage and release gear and other alternate mission equipment for fighters, helicopters, and UAS. It commonly appears in FMS as a teammate supplying aircraft armament and auxiliary equipment alongside the primes.",
     "source": "curated",
     "updatedAt": "2026-07-16"
   }

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import type { WeaponCategory } from '../utils/weaponCategories'
 
 const selectClass =
@@ -19,7 +19,9 @@ interface Props {
   view: 'map' | 'network'
   onViewChange: (v: 'map' | 'network') => void
   countries: string[]
+  contractors: string[]
   onSelectCountry: (country: string) => void
+  onSelectContractor: (contractor: string) => void
 }
 
 export function FilterBar({
@@ -30,16 +32,30 @@ export function FilterBar({
   view,
   onViewChange,
   countries,
+  contractors,
   onSelectCountry,
+  onSelectContractor,
 }: Props) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const mobileSearchRef = useRef<HTMLDivElement>(null)
   const desktopSearchRef = useRef<HTMLDivElement>(null)
 
-  const matches = query.length > 0
-    ? countries.filter(c => c.toLowerCase().startsWith(query.toLowerCase())).slice(0, 8)
-    : []
+  // Map → countries; network → contractors
+  const searchContractors = view === 'network'
+
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return []
+    const pool = searchContractors ? contractors : countries
+    return pool.filter(c => c.toLowerCase().startsWith(q)).slice(0, 10)
+  }, [query, countries, contractors, searchContractors])
+
+  // Clear query when switching views so leftover country/contractor text doesn't confuse
+  useEffect(() => {
+    setQuery('')
+    setOpen(false)
+  }, [view])
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -52,11 +68,42 @@ export function FilterBar({
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
+  const selectHit = (name: string) => {
+    setQuery('')
+    setOpen(false)
+    if (searchContractors) onSelectContractor(name)
+    else onSelectCountry(name)
+  }
+
   const minYear = parseInt(minDate.slice(0, 4))
   const maxYear = parseInt(maxDate.slice(0, 4))
   const fromYear = parseInt(dateRange[0].slice(0, 4))
   const toYear = parseInt(dateRange[1].slice(0, 4))
   const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
+
+  const placeholder = searchContractors ? 'Search contractor…' : 'Search country…'
+  const desktopPlaceholder = searchContractors ? 'Contractor…' : 'Country…'
+
+  const resultsList = (wide: boolean) =>
+    open && matches.length > 0 ? (
+      <div
+        className={`absolute top-full mt-1 bg-[#111] border border-zinc-800 shadow-xl z-50 max-h-56 overflow-y-auto ${
+          wide ? 'left-0 right-0' : 'left-0 w-56'
+        }`}
+      >
+        {matches.map(name => (
+          <button
+            key={name}
+            onMouseDown={() => selectHit(name)}
+            className={`w-full text-left px-3 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors border-b border-zinc-800/60 last:border-0 truncate ${
+              wide ? 'py-2 text-xs' : 'py-1.5 text-[11px]'
+            }`}
+          >
+            {name}
+          </button>
+        ))}
+      </div>
+    ) : null
 
   return (
     <div className="px-3 sm:px-4 md:px-5 py-1.5 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
@@ -112,7 +159,7 @@ export function FilterBar({
           <input
             type="text"
             value={query}
-            placeholder="Search country…"
+            placeholder={placeholder}
             onChange={e => { setQuery(e.target.value); setOpen(true) }}
             onFocus={() => { if (query) setOpen(true) }}
             className="w-full h-8 bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 text-xs outline-none transition-colors"
@@ -126,23 +173,7 @@ export function FilterBar({
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
             </button>
           )}
-          {open && matches.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-[#111] border border-zinc-800 shadow-xl z-50 max-h-56 overflow-y-auto">
-              {matches.map(c => (
-                <button
-                  key={c}
-                  onMouseDown={() => {
-                    setQuery('')
-                    setOpen(false)
-                    onSelectCountry(c)
-                  }}
-                  className="w-full text-left px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors border-b border-zinc-800/60 last:border-0"
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          )}
+          {resultsList(true)}
         </div>
       </div>
 
@@ -176,15 +207,15 @@ export function FilterBar({
         <div className="w-px h-3.5 bg-zinc-800" />
 
         <div ref={desktopSearchRef} className="relative flex items-center gap-2">
-          <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest hidden sm:block">Country</span>
+          <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest hidden sm:block">Search</span>
           <div className="relative">
             <input
               type="text"
               value={query}
-              placeholder="Search…"
+              placeholder={desktopPlaceholder}
               onChange={e => { setQuery(e.target.value); setOpen(true) }}
               onFocus={() => { if (query) setOpen(true) }}
-              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors w-28 md:w-36"
+              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors w-40 md:w-48"
             />
             {query && (
               <button
@@ -195,23 +226,7 @@ export function FilterBar({
                 <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
               </button>
             )}
-            {open && matches.length > 0 && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-[#111] border border-zinc-800 shadow-xl z-50">
-                {matches.map(c => (
-                  <button
-                    key={c}
-                    onMouseDown={() => {
-                      setQuery('')
-                      setOpen(false)
-                      onSelectCountry(c)
-                    }}
-                    className="w-full text-left px-3 py-1.5 text-[11px] text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors"
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            )}
+            {resultsList(false)}
           </div>
         </div>
 

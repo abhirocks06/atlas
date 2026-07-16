@@ -26,6 +26,7 @@ const DOMAINS = [
   'baesystems.com',
   'amgeneral.com',
   'bellflight.com',
+  'beechcraft.com',
   'textron.com',
   'ga.com',
   'leonardodrs.com',
@@ -58,6 +59,8 @@ const DOMAINS = [
   'generalatomics.com',
   'zone5tech.com',
   'coaspire.com',
+  'allisontransmission.com',
+  'marvingroup.com',
 ]
 
 function slug(domain) {
@@ -90,6 +93,19 @@ async function fetchLogo(domain) {
             'https://icons.duckduckgo.com/ip3/amgeneral.com.ico',
             'https://www.google.com/s2/favicons?domain=amgeneral.com&sz=256',
           ]
+        : domain === 'generalatomics.com'
+          ? [
+              // Official site SVG is white-on-transparent; Clearbit wordmark is black and invisible on dark UI
+              'https://www.ga.com/images/favicon.ico',
+              'https://icons.duckduckgo.com/ip3/ga.com.ico',
+              'https://www.google.com/s2/favicons?domain=ga.com&sz=256',
+            ]
+        : domain === 'marvingroup.com'
+          ? [
+              // Official site wordmark (Clearbit often fails for this domain)
+              'https://marvingroup.com/wp-content/uploads/2017/11/logo.png',
+              'https://www.google.com/s2/favicons?domain=marvingroup.com&sz=128',
+            ]
         : [
             `https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/${domain}`,
             `https://web.archive.org/web/20230101000000id_/https://logo.clearbit.com/${domain}`,
@@ -119,6 +135,12 @@ for (const domain of DOMAINS) {
   // RTX circle mark is curated as black-on-white (favicon sources are dark-on-black)
   if (domain === 'rtx.com' && !process.argv.includes('--force-rtx') && existsSync(file)) {
     console.log(`skip  ${domain} (curated black-on-white; pass --force-rtx to overwrite)`)
+    ok++
+    continue
+  }
+  // General Atomics mark is curated (white star on navy) — Clearbit wordmark is invisible on dark UI
+  if (domain === 'generalatomics.com' && !process.argv.includes('--force-ga') && existsSync(file)) {
+    console.log(`skip  ${domain} (curated navy mark; pass --force-ga to overwrite)`)
     ok++
     continue
   }
