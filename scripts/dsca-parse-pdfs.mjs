@@ -6,6 +6,8 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { createRequire } from 'module'
+import { fileURLToPath } from 'url'
+import { extractContractors } from './extract-contractors.mjs'
 const require = createRequire(import.meta.url)
 // pdf-parse v1.1.1 is CommonJS only
 const pdfParse = require('pdf-parse')
@@ -320,47 +322,13 @@ function parsePressRelease(rawText, meta) {
   // --- Contractor(s) ---
   // Patterns:
   //   "The principal contractor will be Leidos, located in Reston, VA."
+  //   "The principal contractor for the BQM-177A SSATs will be Kratos Defense, located in Sacramento, CA."
   //   "The principal contractor will be AM General LLC, located in Auburn Hills, MI and Mishawaka, IN."
   //   "The principal contractors will be A, City, ST; and B, City, ST."
+  //   Multiple "principal contractor for X will be…" sentences → joined with " / "
   //   "The principal contractor(s) will be determined from approved vendors." → null (valid)
   //   "there is no prime contractor" → null (valid)
-  //   "There will be various contractors associated... there is no prime contractor." → null (valid)
-  let contractor = null
-  let contractorLocation = null
-
-  const contractorSentence = fullText.match(
-    /[Pp]rincipal [Cc]ontractors?\(?s?\)?\s+will be\s+([^.]+)\./
-  )
-  if (contractorSentence) {
-    const raw = contractorSentence[1].trim()
-    const isTBD = /\b(determined|identified|negotiated|selected|award|various|no prime)\b/i.test(raw)
-    if (!isTBD) {
-      // "X, located in City, ST" or "X, located in City, ST and City2, ST2"
-      const locatedIn = raw.match(/^(.+?),?\s+located in\s+(.+)$/i)
-      if (locatedIn) {
-        contractor = locatedIn[1].trim()
-        contractorLocation = locatedIn[2].trim()
-      } else {
-        // Multiple contractors: "A, City, ST; and B, City, ST"
-        const parts = raw.split(/;\s*(?:and\s+)?/)
-        const names = [], locs = []
-        for (const part of parts) {
-          const chunks = part.split(',').map(s => s.trim()).filter(Boolean)
-          if (chunks.length >= 3) {
-            names.push(chunks.slice(0, -2).join(', '))
-            locs.push(chunks.slice(-2).join(', '))
-          } else if (chunks.length === 2) {
-            names.push(chunks[0])
-            locs.push(chunks[1])
-          } else {
-            names.push(part.trim())
-          }
-        }
-        contractor = names.filter(Boolean).join(' / ') || null
-        contractorLocation = locs.filter(Boolean).join(' / ') || null
-      }
-    }
-  }
+  const { contractor, contractorLocation } = extractContractors(fullText)
 
   // --- Description (the "has requested" paragraph — most informative part) ---
   let description = null
@@ -425,8 +393,11 @@ async function downloadAndParse(pdfEntry) {
   }
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+// ── Main (only when run directly — importing must not trigger a full reparse) ─
 
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]
+
+if (isMain) {
 if (!existsSync(PDF_URLS_PATH)) {
   console.error(`Missing ${PDF_URLS_PATH}`)
   console.error('Run the browser console script first to collect PDF URLs.')
@@ -509,4 +480,5 @@ if (flagged.length > 0) {
   flagged.forEach(r => {
     console.log(`  ${r.transmittal || '?'} ${r.country || '?'} → ${r.flags.join(', ')}`)
   })
+}
 }

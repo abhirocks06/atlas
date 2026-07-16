@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import type { WeaponCategory } from '../utils/weaponCategories'
-import type { Region } from '../utils/countryRegions'
-import { ALL_REGIONS } from '../utils/countryRegions'
 
 const selectClass =
   'bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-400 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors cursor-pointer appearance-none pr-5 bg-no-repeat'
@@ -11,6 +9,100 @@ const selectStyle = {
   backgroundPosition: 'right 6px center',
 }
 
+interface YearMenuProps {
+  value: number
+  options: number[]
+  onChange: (year: number) => void
+  label: string
+  /** Align the menu to the right edge of the trigger (for the "to" year). */
+  align?: 'left' | 'right'
+}
+
+function YearMenu({ value, options, onChange, label, align = 'left' }: YearMenuProps) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function handleClick(e: MouseEvent) {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [open])
+
+  useEffect(() => {
+    if (!open || !listRef.current) return
+    const active = listRef.current.querySelector('[data-active="true"]')
+    if (active instanceof HTMLElement) {
+      active.scrollIntoView({ block: 'nearest' })
+    }
+  }, [open, value])
+
+  return (
+    <div ref={ref} className="relative min-w-0">
+      <button
+        type="button"
+        aria-label={label}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        onClick={() => setOpen(o => !o)}
+        className={`w-full flex items-center justify-between gap-2 bg-[#0a0a0a] border px-2.5 py-2 text-xs text-left outline-none transition-colors ${
+          open ? 'border-zinc-600 text-zinc-200' : 'border-zinc-800 text-zinc-300 hover:border-zinc-700'
+        }`}
+      >
+        <span className="font-mono tabular-nums">{value}</span>
+        <svg
+          width="10"
+          height="6"
+          viewBox="0 0 10 6"
+          fill="none"
+          className={`flex-shrink-0 text-zinc-600 transition-transform ${open ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        >
+          <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          ref={listRef}
+          role="listbox"
+          aria-label={label}
+          className={`absolute top-full mt-1 z-50 max-h-52 overflow-y-auto bg-[#111] border border-zinc-800 shadow-xl min-w-full w-max ${
+            align === 'right' ? 'right-0' : 'left-0'
+          }`}
+        >
+          {options.map(y => {
+            const active = y === value
+            return (
+              <button
+                key={y}
+                type="button"
+                role="option"
+                aria-selected={active}
+                data-active={active ? 'true' : undefined}
+                onClick={() => {
+                  onChange(y)
+                  setOpen(false)
+                }}
+                className={`w-full text-left px-3 py-2.5 text-xs font-mono tabular-nums transition-colors border-b border-zinc-800/60 last:border-0 ${
+                  active
+                    ? 'bg-zinc-800 text-white'
+                    : 'text-zinc-400 hover:bg-zinc-800/70 hover:text-zinc-200'
+                }`}
+              >
+                {y}
+              </button>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 interface Props {
   dateRange: [string, string]
   onDateRangeChange: (range: [string, string]) => void
@@ -18,8 +110,6 @@ interface Props {
   maxDate: string
   categoryFilter: WeaponCategory | null
   onCategoryFilterChange: (cat: WeaponCategory | null) => void
-  regionFilter: Region | null
-  onRegionFilterChange: (r: Region | null) => void
   view: 'map' | 'network'
   onViewChange: (v: 'map' | 'network') => void
   countries: string[]
@@ -31,8 +121,6 @@ export function FilterBar({
   onDateRangeChange,
   minDate,
   maxDate,
-  regionFilter,
-  onRegionFilterChange,
   view,
   onViewChange,
   countries,
@@ -40,8 +128,8 @@ export function FilterBar({
 }: Props) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const mobileSearchRef = useRef<HTMLDivElement>(null)
+  const desktopSearchRef = useRef<HTMLDivElement>(null)
 
   const matches = query.length > 0
     ? countries.filter(c => c.toLowerCase().includes(query.toLowerCase())).slice(0, 8)
@@ -49,7 +137,8 @@ export function FilterBar({
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const t = e.target as Node
+      if (!mobileSearchRef.current?.contains(t) && !desktopSearchRef.current?.contains(t)) {
         setOpen(false)
       }
     }
@@ -61,13 +150,89 @@ export function FilterBar({
   const maxYear = parseInt(maxDate.slice(0, 4))
   const fromYear = parseInt(dateRange[0].slice(0, 4))
   const toYear = parseInt(dateRange[1].slice(0, 4))
-
   const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
 
   return (
     <div className="px-4 md:px-5 py-2 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
-      <div className="flex items-center flex-wrap gap-x-3 md:gap-x-4 gap-y-1.5">
-        {/* Date range — year selectors */}
+      {/* Mobile-only layout */}
+      <div className="flex flex-col gap-2 sm:hidden">
+        <div className="flex items-center gap-2">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1.5 flex-1 min-w-0">
+            <YearMenu
+              label="From year"
+              value={fromYear}
+              options={years.filter(y => y <= toYear)}
+              onChange={y => onDateRangeChange([`${y}-01-01`, dateRange[1]])}
+            />
+            <span className="text-[11px] text-zinc-600 px-0.5">–</span>
+            <YearMenu
+              label="To year"
+              value={toYear}
+              options={years.filter(y => y >= fromYear)}
+              onChange={y => onDateRangeChange([dateRange[0], `${y}-12-31`])}
+              align="right"
+            />
+          </div>
+          <div className="flex items-center gap-0.5 border border-zinc-800 p-0.5 flex-shrink-0">
+            {(['map', 'network'] as const).map(v => (
+              <button
+                key={v}
+                onClick={() => onViewChange(v)}
+                aria-label={v}
+                className={`flex items-center justify-center px-2.5 py-2 transition-colors ${
+                  view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
+                }`}
+              >
+                {v === 'map' ? (
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div ref={mobileSearchRef} className="relative w-full">
+          <input
+            type="text"
+            value={query}
+            placeholder="Search country…"
+            onChange={e => { setQuery(e.target.value); setOpen(true) }}
+            onFocus={() => { if (query) setOpen(true) }}
+            className="w-full bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 py-2 text-xs outline-none transition-colors"
+          />
+          {query && (
+            <button
+              onClick={() => { setQuery(''); setOpen(false) }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400 p-1"
+              aria-label="Clear"
+            >
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+            </button>
+          )}
+          {open && matches.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-[#111] border border-zinc-800 shadow-xl z-50 max-h-56 overflow-y-auto">
+              {matches.map(c => (
+                <button
+                  key={c}
+                  onMouseDown={() => {
+                    setQuery('')
+                    setOpen(false)
+                    onSelectCountry(c)
+                  }}
+                  className="w-full text-left px-3 py-2.5 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors border-b border-zinc-800/60 last:border-0"
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop — original layout */}
+      <div className="hidden sm:flex items-center flex-wrap gap-x-3 md:gap-x-4 gap-y-1.5">
         <div className="flex items-center gap-2">
           <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest">Year</span>
           <select
@@ -93,32 +258,12 @@ export function FilterBar({
           </select>
         </div>
 
-        <div className="w-px h-3.5 bg-zinc-800 hidden sm:block" />
+        <div className="w-px h-3.5 bg-zinc-800" />
 
-        {/* Region */}
-        <div className="flex items-center gap-2">
-          <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest">Region</span>
-          <select
-            value={regionFilter ?? ''}
-            onChange={e => onRegionFilterChange((e.target.value as Region) || null)}
-            className={`${selectClass} ${regionFilter ? 'text-zinc-200 border-zinc-600' : ''}`}
-            style={selectStyle}
-          >
-            <option value="">All regions</option>
-            {ALL_REGIONS.map(r => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="w-px h-3.5 bg-zinc-800 hidden sm:block" />
-
-        {/* Country search */}
-        <div ref={containerRef} className="relative flex items-center gap-2">
+        <div ref={desktopSearchRef} className="relative flex items-center gap-2">
           <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest hidden sm:block">Country</span>
           <div className="relative">
             <input
-              ref={inputRef}
               type="text"
               value={query}
               placeholder="Search…"
@@ -128,7 +273,7 @@ export function FilterBar({
             />
             {query && (
               <button
-                onClick={() => { setQuery(''); setOpen(false); inputRef.current?.focus() }}
+                onClick={() => { setQuery(''); setOpen(false) }}
                 className="absolute right-1.5 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400"
                 aria-label="Clear"
               >
@@ -155,7 +300,6 @@ export function FilterBar({
           </div>
         </div>
 
-        {/* View toggle — far right */}
         <div className="ml-auto flex items-center gap-1 border border-zinc-800 p-0.5">
           {(['map', 'network'] as const).map(v => (
             <button
@@ -174,7 +318,6 @@ export function FilterBar({
             </button>
           ))}
         </div>
-
       </div>
     </div>
   )

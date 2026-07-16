@@ -1,0 +1,482 @@
+[
+  {
+    "pattern": "hellfire|agm-114",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/AGM-114_Hellfire_hung_on_a_Predator_drone.JPEG/960px-AGM-114_Hellfire_hung_on_a_Predator_drone.JPEG",
+    "title": "File:AGM-114 Hellfire hung on a Predator drone.JPEG",
+    "query": "AGM-114 Hellfire missile"
+  },
+  {
+    "pattern": "apkws|precision kill weapon",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/HSC-7_SH-60S_Sea_Hawk_firing_Advanced_Precision_Kill_Weapon_System_II_150817-N-XB010-635.jpg/960px-HSC-7_SH-60S_Sea_Hawk_firing_Advanced_Precision_Kill_Weapon_System_II_150817-N-XB010-635.jpg",
+    "title": "File:HSC-7 SH-60S Sea Hawk firing APKWS II",
+    "query": "Advanced Precision Kill Weapon System"
+  },
+  {
+    "pattern": "patriot|pac-3|mim-104",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Flickr_-_Government_Press_Office_%28GPO%29_-_Patriot_missiles_being_launched_to_intercept_an_Iraqi_Scud_missile.jpg/960px-Flickr_-_Government_Press_Office_%28GPO%29_-_Patriot_missiles_being_launched_to_intercept_an_Iraqi_Scud_missile.jpg",
+    "title": "File:Flickr - Government Press Office (GPO) - Patriot missiles being launched to intercept an Iraqi Scud missile.jpg",
+    "query": "Patriot missile launch"
+  },
+  {
+    "pattern": "\\bf-15\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Green_Flag_West_11-08.jpg/960px-Green_Flag_West_11-08.jpg",
+    "title": "File:Green Flag West 11-08.jpg",
+    "query": "F-15E Strike Eagle aircraft"
+  },
+  {
+    "pattern": "\\bf-16\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/F-16_Demo_Team_2722.jpg/960px-F-16_Demo_Team_2722.jpg",
+    "title": "File:F-16 Demo Team 2722.jpg",
+    "query": "F-16 Fighting Falcon aircraft"
+  },
+  {
+    "pattern": "\\bf-35\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/RAF_Lockheed_Martin_F-35A_Lightning_II_ZM163_Royal_International_Air_Tattoo_2024_01.jpg/960px-RAF_Lockheed_Martin_F-35A_Lightning_II_ZM163_Royal_International_Air_Tattoo_2024_01.jpg",
+    "title": "File:RAF Lockheed Martin F-35A Lightning II ZM163 Royal International Air Tattoo 2024 01.jpg",
+    "query": "F-35A Lightning II aircraft"
+  },
+  {
+    "pattern": "f/?a?-?18|super hornet|\\bhornet\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/F-18F_after_launch_from_USS_Abraham_Lincoln_%28CVN-72%29.jpg/960px-F-18F_after_launch_from_USS_Abraham_Lincoln_%28CVN-72%29.jpg",
+    "title": "File:F-18F after launch from USS Abraham Lincoln (CVN-72).jpg",
+    "query": "F/A-18 Super Hornet aircraft"
+  },
+  {
+    "pattern": "c-17|globemaster",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/C-17_test_sortie.jpg/960px-C-17_test_sortie.jpg",
+    "title": "File:C-17 test sortie.jpg",
+    "query": "C-17 Globemaster aircraft"
+  },
+  {
+    "pattern": "uh-60|black.?hawk",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Colombian_Air_Force_Sikorsky_UH-60L_Arp%C3%ADa_III_%28S-70A-41%29_Ram%C3%ADrez-1.jpg/960px-Colombian_Air_Force_Sikorsky_UH-60L_Arp%C3%ADa_III_%28S-70A-41%29_Ram%C3%ADrez-1.jpg",
+    "title": "File:Colombian Air Force Sikorsky UH-60L Arpía III (S-70A-41) Ramírez-1.jpg",
+    "query": "UH-60 Black Hawk helicopter"
+  },
+  {
+    "pattern": "kc-46|pegasus",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Paris_Air_Show_2019%2C_Le_Bourget_%28SIAE1178%29.jpg/960px-Paris_Air_Show_2019%2C_Le_Bourget_%28SIAE1178%29.jpg",
+    "title": "File:Paris Air Show 2019, Le Bourget (SIAE1178).jpg",
+    "query": "KC-46 Pegasus"
+  },
+  {
+    "pattern": "mq-1|gray eagle",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/MQ-1C_Warrior_%282005-08-11%29.jpg/960px-MQ-1C_Warrior_%282005-08-11%29.jpg",
+    "title": "File:MQ-1C Warrior (2005-08-11).jpg",
+    "query": "MQ-1C Gray Eagle"
+  },
+  {
+    "pattern": "excalibur",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/XM982_Excalibur_inert.jpg",
+    "title": "File:XM982 Excalibur inert.jpg",
+    "query": "M982 Excalibur"
+  },
+  {
+    "pattern": "naval strike missile|nsm\\b|agm-184|joint strike missile",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Naval_Strike_Missile_%28NSM%29_3.jpg/960px-Naval_Strike_Missile_%28NSM%29_3.jpg",
+    "title": "File:Naval Strike Missile (NSM) 3.jpg",
+    "query": "Naval Strike Missile"
+  },
+  {
+    "pattern": "iron dome",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Flickr_-_Israel_Defense_Forces_-_Iron_Dome_Battery_Deployed_Near_Ashkelon.jpg/960px-Flickr_-_Israel_Defense_Forces_-_Iron_Dome_Battery_Deployed_Near_Ashkelon.jpg",
+    "title": "File:Flickr - Israel Defense Forces - Iron Dome Battery Deployed Near Ashkelon.jpg",
+    "query": "Iron Dome"
+  },
+  {
+    "pattern": "arrow.?3|arrow missile",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Arrow_3%2C_ILA_2024%2C_Schoenefeld_%28ILA45487%29.jpg/960px-Arrow_3%2C_ILA_2024%2C_Schoenefeld_%28ILA45487%29.jpg",
+    "title": "File:Arrow 3, ILA 2024, Schoenefeld (ILA45487).jpg",
+    "query": "Arrow 3 missile"
+  },
+  {
+    "pattern": "david.?s? sling",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/David-Sling-0001.jpg/960px-David-Sling-0001.jpg",
+    "title": "File:David-Sling-0001.jpg",
+    "query": "David's Sling"
+  },
+  {
+    "pattern": "precision strike missile|prsm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Premier_tir_du_PrSM%2C_10_d%C3%A9cembre_2019.jpg",
+    "title": "File:Premier tir du PrSM, 10 décembre 2019.jpg",
+    "query": "Precision Strike Missile"
+  },
+  {
+    "pattern": "atacms",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/MGM-140_ATACMS_WSMR.jpg",
+    "title": "File:MGM-140 ATACMS WSMR.jpg",
+    "query": "ATACMS missile"
+  },
+  {
+    "pattern": "mlrs",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/U.S._Soldiers_download_an_M270_Multiple_Launch_Rocket_System.jpg/960px-U.S._Soldiers_download_an_M270_Multiple_Launch_Rocket_System.jpg",
+    "title": "File:U.S. Soldiers download an M270 Multiple Launch Rocket System.jpg",
+    "query": "M270 MLRS"
+  },
+  {
+    "pattern": "ea-18|growler",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Sailor_directs_an_EA-18G_during_snow_storm_in_Japan_%288367035559%29.jpg/960px-Sailor_directs_an_EA-18G_during_snow_storm_in_Japan_%288367035559%29.jpg",
+    "title": "File:Sailor directs an EA-18G during snow storm in Japan (8367035559).jpg",
+    "query": "EA-18G Growler"
+  },
+  {
+    "pattern": "f/?a?-?18|super hornet",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/F-18F_after_launch_from_USS_Abraham_Lincoln_%28CVN-72%29.jpg/960px-F-18F_after_launch_from_USS_Abraham_Lincoln_%28CVN-72%29.jpg",
+    "title": "File:F-18F after launch from USS Abraham Lincoln (CVN-72).jpg",
+    "query": "F/A-18F Super Hornet"
+  },
+  {
+    "pattern": "kc-130|mc-130|hc-130",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Hannover_Airport_Luftwaffe_German_Air_Force_Lockheed_Martin_C-130J-30_Hercules_55%2B02_%28DSC01156%29.jpg/960px-Hannover_Airport_Luftwaffe_German_Air_Force_Lockheed_Martin_C-130J-30_Hercules_55%2B02_%28DSC01156%29.jpg",
+    "title": "File:Hannover Airport Luftwaffe German Air Force Lockheed Martin C-130J-30 Hercules 55+02 (DSC01156).jpg",
+    "query": "Lockheed Martin C-130J Super Hercules"
+  },
+  {
+    "pattern": "c-130|hercules",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/20180512_C-130J_Super_Hercules_Dyess_AFB_Air_Show_2018_1.jpg/960px-20180512_C-130J_Super_Hercules_Dyess_AFB_Air_Show_2018_1.jpg",
+    "title": "File:20180512 C-130J Super Hercules Dyess AFB Air Show 2018 1.jpg",
+    "query": "Lockheed C-130 Hercules"
+  },
+  {
+    "pattern": "ah-64|apache",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/AH-64D_Apache_Longbow.jpg/960px-AH-64D_Apache_Longbow.jpg",
+    "title": "File:AH-64D Apache Longbow.jpg",
+    "query": "AH-64 Apache"
+  },
+  {
+    "pattern": "ah-1z|viper",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Bell_AH-1Z_168964_of_USMC_HMLA-773_FDK_MD5.jpg/960px-Bell_AH-1Z_168964_of_USMC_HMLA-773_FDK_MD5.jpg",
+    "title": "File:Bell AH-1Z 168964 of USMC HMLA-773 FDK MD5.jpg",
+    "query": "AH-1Z Viper"
+  },
+  {
+    "pattern": "ah-1|cobra",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/AH-1W_Super_Cobra_assigned_to_HMLA_167.jpg/960px-AH-1W_Super_Cobra_assigned_to_HMLA_167.jpg",
+    "title": "File:AH-1W Super Cobra assigned to HMLA 167.jpg",
+    "query": "AH-1 Cobra"
+  },
+  {
+    "pattern": "ch-47|chinook",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/An_Army_CH-47_Chinook_helicopter_during_a_training_exercise_%28210120-A-II094-096M%29.jpg/960px-An_Army_CH-47_Chinook_helicopter_during_a_training_exercise_%28210120-A-II094-096M%29.jpg",
+    "title": "File:An Army CH-47 Chinook helicopter during a training exercise (210120-A-II094-096M).jpg",
+    "query": "CH-47 Chinook"
+  },
+  {
+    "pattern": "mh-60|seahawk",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/CVN-69-SPIE-training.jpg/960px-CVN-69-SPIE-training.jpg",
+    "title": "File:CVN-69-SPIE-training.jpg",
+    "query": "MH-60R Seahawk"
+  },
+  {
+    "pattern": "ch-53|king stallion|super stallion",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Sikorsky_CH-53K_King_Stallion%2C_ILA_2018%2C_Sch%C3%B6nefeld_%281X7A6778%29.jpg/960px-Sikorsky_CH-53K_King_Stallion%2C_ILA_2018%2C_Sch%C3%B6nefeld_%281X7A6778%29.jpg",
+    "title": "File:Sikorsky CH-53K King Stallion, ILA 2018, Schönefeld (1X7A6778).jpg",
+    "query": "CH-53K King Stallion"
+  },
+  {
+    "pattern": "himars|m142",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/180614-A-IY962-102_-_M142_High_Mobility_Artillery_Rocket_System_%28HIMARS%29_firing_during_Saber_Strike_18_%28Image_4_of_7%29.jpg/960px-180614-A-IY962-102_-_M142_High_Mobility_Artillery_Rocket_System_%28HIMARS%29_firing_during_Saber_Strike_18_%28Image_4_of_7%29.jpg",
+    "title": "File:180614-A-IY962-102 - M142 High Mobility Artillery Rocket System (HIMARS) firing during Saber Strike 18 (Image 4 of 7).jpg",
+    "query": "M142 HIMARS"
+  },
+  {
+    "pattern": "gmlrs|guided multiple launch",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/GMLRS_rounds.jpg/960px-GMLRS_rounds.jpg",
+    "title": "File:GMLRS rounds.jpg",
+    "query": "GMLRS rocket"
+  },
+  {
+    "pattern": "mlrs|m270",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/M270A1_Multiple_Launch_Rocket_System_South_Dakota_ANG.jpg/960px-M270A1_Multiple_Launch_Rocket_System_South_Dakota_ANG.jpg",
+    "title": "File:M270A1 Multiple Launch Rocket System South Dakota ANG.jpg",
+    "query": "M270 Multiple Launch Rocket System"
+  },
+  {
+    "pattern": "abrams|m1a",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/M1_Abrams_diagram_num.svg/960px-M1_Abrams_diagram_num.svg.png",
+    "title": "File:M1 Abrams diagram num.svg",
+    "query": "M1 Abrams"
+  },
+  {
+    "pattern": "javelin|fgm-148",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/FGM-148_Javelin_-_ID_061024-A-0497K-004.JPEG/960px-FGM-148_Javelin_-_ID_061024-A-0497K-004.JPEG",
+    "title": "File:FGM-148 Javelin - ID 061024-A-0497K-004.JPEG",
+    "query": "FGM-148 Javelin"
+  },
+  {
+    "pattern": "stinger|fim-92",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/FIM-92_Stinger_USMC.JPG/960px-FIM-92_Stinger_USMC.JPG",
+    "title": "File:FIM-92 Stinger USMC.JPG",
+    "query": "FIM-92 Stinger"
+  },
+  {
+    "pattern": "amraam|aim-120",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/AIM-120C5_AMRAAM_rear_view.svg/960px-AIM-120C5_AMRAAM_rear_view.svg.png",
+    "title": "File:AIM-120C5 AMRAAM rear view.svg",
+    "query": "AIM-120 AMRAAM"
+  },
+  {
+    "pattern": "sidewinder|aim-9",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/AIM-9_Variants.svg/960px-AIM-9_Variants.svg.png",
+    "title": "File:AIM-9 Variants.svg",
+    "query": "AIM-9 Sidewinder"
+  },
+  {
+    "pattern": "harpoon|agm-84|rgm-84|ugm-84",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Harpoon_anti-ship_missile_mounted_on_F803_Zr._Ms._Tromp.jpg/960px-Harpoon_anti-ship_missile_mounted_on_F803_Zr._Ms._Tromp.jpg",
+    "title": "File:Harpoon anti-ship missile mounted on F803 Zr. Ms. Tromp.jpg",
+    "query": "Harpoon missile"
+  },
+  {
+    "pattern": "jassm|agm-158",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Global_Power_Bomber_CTF_conducts_B-1B_external_captive_carry_demonstration_%28201120-F-JG201-9095%29.jpg/960px-Global_Power_Bomber_CTF_conducts_B-1B_external_captive_carry_demonstration_%28201120-F-JG201-9095%29.jpg",
+    "title": "File:Global Power Bomber CTF conducts B-1B external captive carry demonstration (201120-F-JG201-9095).jpg",
+    "query": "AGM-158 JASSM"
+  },
+  {
+    "pattern": "maverick|agm-65",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/AGM-65_Maverick_MG_1382.jpg/960px-AGM-65_Maverick_MG_1382.jpg",
+    "title": "File:AGM-65 Maverick MG 1382.jpg",
+    "query": "AGM-65 Maverick"
+  },
+  {
+    "pattern": "jsow|agm-154",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/AGM-154_JSOW_01.jpg",
+    "title": "File:AGM-154 JSOW 01.jpg",
+    "query": "AGM-154 JSOW"
+  },
+  {
+    "pattern": "naval strike missile|\\bnsm\\b|agm-184|joint strike missile",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Naval_Strike_Missile_%28NSM%29_3.jpg/960px-Naval_Strike_Missile_%28NSM%29_3.jpg",
+    "title": "File:Naval Strike Missile (NSM) 3.jpg",
+    "query": "Naval Strike Missile"
+  },
+  {
+    "pattern": "p-8|poseidon",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/20190206_P-8_Poseidon_Kadena_AB-12.jpg/960px-20190206_P-8_Poseidon_Kadena_AB-12.jpg",
+    "title": "File:20190206 P-8 Poseidon Kadena AB-12.jpg",
+    "query": "Boeing P-8 Poseidon"
+  },
+  {
+    "pattern": "aegis",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Aegis_Combat_System-ja.png",
+    "title": "File:Aegis Combat System-ja.png",
+    "query": "Aegis Combat System"
+  },
+  {
+    "pattern": "mq-9|reaper",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/MQ-9_Reaper_in_flight_%282007%29.jpg/960px-MQ-9_Reaper_in_flight_%282007%29.jpg",
+    "title": "File:MQ-9 Reaper in flight (2007).jpg",
+    "query": "MQ-9 Reaper"
+  },
+  {
+    "pattern": "thaad",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg/960px-The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg",
+    "title": "File:The first of two Terminal High Altitude Area Defense (THAAD) interceptors is launched during a successful intercept test - US Army.jpg",
+    "query": "THAAD"
+  },
+  {
+    "pattern": "nasams",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/NASAMS_1%2C_Bod%C3%B8%2C_2005.jpg",
+    "title": "File:NASAMS 1, Bodø, 2005.jpg",
+    "query": "NASAMS"
+  },
+  {
+    "pattern": "\\bsm-6\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/USS_John_Paul_Jones_%28DDG-53%29_launches_RIM-174_June_2014.JPG/960px-USS_John_Paul_Jones_%28DDG-53%29_launches_RIM-174_June_2014.JPG",
+    "title": "File:USS John Paul Jones (DDG-53) launches RIM-174 June 2014.JPG",
+    "query": "RIM-174 Standard ERAM"
+  },
+  {
+    "pattern": "\\bsm-2\\b|standard missile",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/USS_Texas_%28CGN-39%29_launches_a_RIM-66_Standard_missile%2C_circa_in_1984.jpg/960px-USS_Texas_%28CGN-39%29_launches_a_RIM-66_Standard_missile%2C_circa_in_1984.jpg",
+    "title": "File:USS Texas (CGN-39) launches a RIM-66 Standard missile, circa in 1984.jpg",
+    "query": "RIM-66 Standard Missile"
+  },
+  {
+    "pattern": "\\be-2\\b|hawkeye",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Grumman_E-2C_Hawkeyes_of_VAW-115_fly_past_Mount_Fuji_on_15_February_2007_%28070215-N-2604L-024%29.jpg/960px-Grumman_E-2C_Hawkeyes_of_VAW-115_fly_past_Mount_Fuji_on_15_February_2007_%28070215-N-2604L-024%29.jpg",
+    "title": "File:Grumman E-2C Hawkeyes of VAW-115 fly past Mount Fuji on 15 February 2007 (070215-N-2604L-024).jpg",
+    "query": "E-2 Hawkeye"
+  },
+  {
+    "pattern": "\\be-7\\b|wedgetail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/RAF_E-7_Wedgetail_at_Birmingham_Airport.jpg/960px-RAF_E-7_Wedgetail_at_Birmingham_Airport.jpg",
+    "title": "File:RAF E-7 Wedgetail at Birmingham Airport.jpg",
+    "query": "Boeing E-7 Wedgetail"
+  },
+  {
+    "pattern": "awacs|\\be-3\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/AWACS%2C_ILA_2024%2C_Schoenefeld_%28ILA43889%29.jpg/960px-AWACS%2C_ILA_2024%2C_Schoenefeld_%28ILA43889%29.jpg",
+    "title": "File:AWACS, ILA 2024, Schoenefeld (ILA43889).jpg",
+    "query": "E-3 Sentry"
+  },
+  {
+    "pattern": "laircm|large aircraft infrared",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Northrop_CIRCM_on_US-Army_UH-60M_at_ILA-2022.jpg/960px-Northrop_CIRCM_on_US-Army_UH-60M_at_ILA-2022.jpg",
+    "title": "File:Northrop CIRCM on US-Army UH-60M at ILA-2022.jpg",
+    "query": "LAIRCM"
+  },
+  {
+    "pattern": "dircm|an/aaq-24|directional infrared",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vitebsk_L370_DIRCM_system_pod_on_Il-76_at_ARMY-2022.jpg/960px-Vitebsk_L370_DIRCM_system_pod_on_Il-76_at_ARMY-2022.jpg",
+    "title": "File:Vitebsk L370 DIRCM system pod on Il-76 at ARMY-2022.jpg",
+    "query": "Directional Infrared Countermeasures"
+  },
+  {
+    "pattern": "jdam|joint direct attack",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Joint_Direct_Attack_Munition_operators.png/960px-Joint_Direct_Attack_Munition_operators.png",
+    "title": "File:Joint Direct Attack Munition operators.png",
+    "query": "Joint Direct Attack Munition"
+  },
+  {
+    "pattern": "small diameter bomb|\\bsdb\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Boeing_GBU-39_Small_Diameter_Bomb.jpg",
+    "title": "File:Boeing GBU-39 Small Diameter Bomb.jpg",
+    "query": "GBU-39 Small Diameter Bomb"
+  },
+  {
+    "pattern": "paladin|m109",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/1-82nd_Artillery_Regiment_M109_Paladin_wash_100301-A-ZU930-002.jpg/960px-1-82nd_Artillery_Regiment_M109_Paladin_wash_100301-A-ZU930-002.jpg",
+    "title": "File:1-82nd Artillery Regiment M109 Paladin wash 100301-A-ZU930-002.jpg",
+    "query": "M109 Paladin"
+  },
+  {
+    "pattern": "m777",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/M777_Light_Towed_Howitzer_1.jpg/960px-M777_Light_Towed_Howitzer_1.jpg",
+    "title": "File:M777 Light Towed Howitzer 1.jpg",
+    "query": "M777 howitzer"
+  },
+  {
+    "pattern": "bradley",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/M2-A2_Bradley_Postcard_%2852629519704%29.jpg/960px-M2-A2_Bradley_Postcard_%2852629519704%29.jpg",
+    "title": "File:M2-A2 Bradley Postcard (52629519704).jpg",
+    "query": "M2 Bradley"
+  },
+  {
+    "pattern": "jltv",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Joint_Light_Tactical_Vehicle_technology_demonstrators_c._2010.jpg/960px-Joint_Light_Tactical_Vehicle_technology_demonstrators_c._2010.jpg",
+    "title": "File:Joint Light Tactical Vehicle technology demonstrators c. 2010.jpg",
+    "query": "Joint Light Tactical Vehicle"
+  },
+  {
+    "pattern": "hmmwv|humvee",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/HMMWV_%28High_Mobility_Multipurpose_Wheeled_Vehicle%29_%2853686752373%29.jpg/960px-HMMWV_%28High_Mobility_Multipurpose_Wheeled_Vehicle%29_%2853686752373%29.jpg",
+    "title": "File:HMMWV (High Mobility Multipurpose Wheeled Vehicle) (53686752373).jpg",
+    "query": "Humvee"
+  },
+  {
+    "pattern": "\\btow\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/BGM-71_TOW.jpg/960px-BGM-71_TOW.jpg",
+    "title": "File:BGM-71 TOW.jpg",
+    "query": "BGM-71 TOW"
+  },
+  {
+    "pattern": "mk.?54|mk 54",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/WTUS_PostWWII_mk54_pic.jpg/960px-WTUS_PostWWII_mk54_pic.jpg",
+    "title": "File:WTUS PostWWII mk54 pic.jpg",
+    "query": "Mark 54 torpedo"
+  },
+  {
+    "pattern": "mk.?48|mk 48",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Mk_48_torpedo_maintenance_1982.JPEG/960px-Mk_48_torpedo_maintenance_1982.JPEG",
+    "title": "File:Mk 48 torpedo maintenance 1982.JPEG",
+    "query": "Mark 48 torpedo"
+  },
+  {
+    "pattern": "rolling airframe|rim-116",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/RIM-116_Rolling_Airframe_Missile_Launcher_3.jpg/960px-RIM-116_Rolling_Airframe_Missile_Launcher_3.jpg",
+    "title": "File:RIM-116 Rolling Airframe Missile Launcher 3.jpg",
+    "query": "RIM-116 Rolling Airframe Missile"
+  },
+  {
+    "pattern": "essm|evolved sea sparrow|rim-162",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Aboard_USS_Tripoli_%28LHA-7%29_RIM-116_Rolling_Airframe_Missile_and_RIM-162_Evolved_SeaSparrow_Missile_%28ESSM%29.jpg/960px-Aboard_USS_Tripoli_%28LHA-7%29_RIM-116_Rolling_Airframe_Missile_and_RIM-162_Evolved_SeaSparrow_Missile_%28ESSM%29.jpg",
+    "title": "File:Aboard USS Tripoli (LHA-7) RIM-116 Rolling Airframe Missile and RIM-162 Evolved SeaSparrow Missile (ESSM).jpg",
+    "query": "RIM-162 ESSM"
+  },
+  {
+    "pattern": "phalanx|ciws",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Phalanx_CIWS_test_fire_-_081107-N-5416W-003.jpg/960px-Phalanx_CIWS_test_fire_-_081107-N-5416W-003.jpg",
+    "title": "File:Phalanx CIWS test fire - 081107-N-5416W-003.jpg",
+    "query": "Phalanx CIWS"
+  },
+  {
+    "pattern": "destroyer",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Rendering_of_Arleigh_Burke-class_destroyer_with_SLQ-32%28V%297.jpg",
+    "title": "File:Rendering of Arleigh Burke-class destroyer with SLQ-32(V)7.jpg",
+    "query": "Arleigh Burke-class destroyer"
+  },
+  {
+    "pattern": "frigate",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Oliver_Hazard_Perry-class_frigates_underway_in_1982.JPEG/960px-Oliver_Hazard_Perry-class_frigates_underway_in_1982.JPEG",
+    "title": "File:Oliver Hazard Perry-class frigates underway in 1982.JPEG",
+    "query": "Oliver Hazard Perry-class frigate"
+  },
+  {
+    "pattern": "sentinel|mpq-64",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/ELEC_AN-MPQ-64_Sentinel_Radar_lg.jpg",
+    "title": "File:ELEC AN-MPQ-64 Sentinel Radar lg.jpg",
+    "query": "AN/MPQ-64 Sentinel"
+  },
+  {
+    "pattern": "avenger",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/AN-TWQ-1_Avenger_%288188737%29.jpg/960px-AN-TWQ-1_Avenger_%288188737%29.jpg",
+    "title": "File:AN-TWQ-1 Avenger (8188737).jpg",
+    "query": "AN/TWQ-1 Avenger"
+  },
+  {
+    "pattern": "super tucano|a-29",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Super_Tucano%2C_ILA_2024%2C_Schoenefeld_%28ILA43906%29.jpg/960px-Super_Tucano%2C_ILA_2024%2C_Schoenefeld_%28ILA43906%29.jpg",
+    "title": "File:Super Tucano, ILA 2024, Schoenefeld (ILA43906).jpg",
+    "query": "Embraer EMB 314 Super Tucano"
+  },
+  {
+    "pattern": "lakota|uh-72",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Eurocopter_UH-72A_Lakota_13-72275_FDK_MD2.jpg/960px-Eurocopter_UH-72A_Lakota_13-72275_FDK_MD2.jpg",
+    "title": "File:Eurocopter UH-72A Lakota 13-72275 FDK MD2.jpg",
+    "query": "UH-72 Lakota"
+  },
+  {
+    "pattern": "md-530|ah-6|little bird",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Mh-6_002x.jpg",
+    "title": "File:Mh-6 002x.jpg",
+    "query": "MH-6 Little Bird"
+  },
+  {
+    "pattern": "firefinder|an/tpq-53|an/tpq-36|tpq-50",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/ANTPQ-53.png/960px-ANTPQ-53.png",
+    "title": "File:ANTPQ-53.png",
+    "query": "AN/TPQ-53"
+  },
+  {
+    "pattern": "aerostat",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/OAM_Tethered_Aerostat_Radar_System_%28TARS%29_Fort_Huachuca%2C_Arizona_%2816624323053%29.jpg/960px-OAM_Tethered_Aerostat_Radar_System_%28TARS%29_Fort_Huachuca%2C_Arizona_%2816624323053%29.jpg",
+    "title": "File:OAM Tethered Aerostat Radar System (TARS) Fort Huachuca, Arizona (16624323053).jpg",
+    "query": "Tethered Aerostat Radar System"
+  },
+  {
+    "pattern": "littoral combat|\\blcs\\b",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/MCM_UUV_in_mission_by_of_an_Independence-class_littoral_combat_ship.png/960px-MCM_UUV_in_mission_by_of_an_Independence-class_littoral_combat_ship.png",
+    "title": "File:MCM UUV in mission by of an Independence-class littoral combat ship.png",
+    "query": "Independence-class littoral combat ship"
+  },
+  {
+    "pattern": "patrol boat|patrol craft",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Mark_VI_patrol_boat_being_lifted_for_hull_inspection%2C_in_Guam_-_170111-N-CN059-0006.jpg/960px-Mark_VI_patrol_boat_being_lifted_for_hull_inspection%2C_in_Guam_-_170111-N-CN059-0006.jpg",
+    "title": "File:Mark VI patrol boat being lifted for hull inspection, in Guam - 170111-N-CN059-0006.jpg",
+    "query": "Mark VI patrol boat"
+  },
+  {
+    "pattern": "sonobuoy",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Sonobuoy_%28at_Visakha_Museum%29.jpg/960px-Sonobuoy_%28at_Visakha_Museum%29.jpg",
+    "title": "File:Sonobuoy (at Visakha Museum).jpg",
+    "query": "Sonobuoy"
+  },
+  {
+    "pattern": "hydra.?70",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Hydra_70_M261.jpeg/960px-Hydra_70_M261.jpeg",
+    "title": "File:Hydra 70 M261.jpeg",
+    "query": "Hydra 70"
+  }
+]

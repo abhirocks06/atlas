@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { zoom } from 'd3-zoom'
 import { select } from 'd3-selection'
 import type { Notification } from '../types'
-import { normalizeContractor } from '../utils/normalizeContractor'
+import { contractorNames } from '../utils/parseContractors'
 import { formatCost } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
 
@@ -54,15 +54,13 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
 
     for (const n of filtered) {
       if (!n.country || !n.costUSD) continue
-      const c = n.contractor
-        ? normalizeContractor(n.contractor.split(' / ')[0].trim())
-        : null
+      const names = contractorNames(n.contractor, n.contractorLocation)
       const k = n.country
       const v = n.costUSD
 
       kMap.set(k, (kMap.get(k) ?? 0) + v)
 
-      if (c) {
+      for (const c of names) {
         cMap.set(c, (cMap.get(c) ?? 0) + v)
         const key = `${c}::${k}`
         eMap.set(key, (eMap.get(key) ?? 0) + v)
@@ -137,7 +135,7 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
     return hovered.type === 'usg'
   }
 
-  const usFlagUrl = getFlagUrl(US_LABEL)
+  const usFlagUrl = getFlagUrl(US_LABEL, 160)
 
   return (
     <div className="w-full h-full bg-[#0b0e16] relative overflow-hidden">
@@ -246,13 +244,13 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
               transition={{ duration: 0.15 }}
             />
             {usFlagUrl && (
-              <motion.image
+              <image
                 href={usFlagUrl}
                 x={UX - 16}
                 y={UY + 12}
                 width={32}
                 height={22}
-                style={{ opacity: isUsgActive() ? 0.9 : 0.2 }}
+                opacity={isUsgActive() ? 0.95 : 0.2}
                 preserveAspectRatio="xMidYMid meet"
               />
             )}
@@ -286,7 +284,7 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
           {countries.map((k, i) => {
             const x = KX, y = kY(i)
             const active = isNodeActive('country', k.name)
-            const flagUrl = getFlagUrl(k.name)
+            const flagUrl = getFlagUrl(k.name, 160)
 
             return (
               <g
@@ -303,11 +301,11 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
                   transition={{ duration: 0.15 }}
                 />
                 {flagUrl && (
-                  <motion.image
+                  <image
                     href={flagUrl}
                     x={x + 12} y={y - 9}
                     width={20} height={14}
-                    style={{ opacity: active ? 0.85 : 0.15 }}
+                    opacity={active ? 0.95 : 0.15}
                     preserveAspectRatio="xMidYMid meet"
                   />
                 )}
@@ -342,9 +340,6 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
           {/* Column labels */}
           <text x={CX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
             CONTRACTORS
-          </text>
-          <text x={UX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
-            UNITED STATES
           </text>
           <text x={KX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
             COUNTRIES

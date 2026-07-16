@@ -16,6 +16,20 @@ export function normalizeContractor(raw: string): string {
   // Strip leading "the " (case insensitive)
   s = s.replace(/^the\s+/i, '')
 
+  // Stock / inventory draws (not a commercial prime)
+  if (/marine\s+corps|USMC/i.test(s) && /stock|inventory/i.test(s)) {
+    return 'U.S. Marine Corps inventory'
+  }
+  if (/navy/i.test(s) && /stock|inventory/i.test(s)) {
+    return 'U.S. Navy inventory'
+  }
+  if (/government/i.test(s) && /stock|inventory/i.test(s)) {
+    return 'U.S. Government inventory'
+  }
+  if (/army\s+(stock|inventory)|coming from US Army|from U\.?S\.?\s+Army/i.test(s)) {
+    return 'U.S. Army inventory'
+  }
+
   // ── OCR garbled known company names ────────────────────────────────────────
   // e.g. "S iko rsk y Airc ra ft Co mpa ny in S tratford"
   if (/s\s*iko\s*rsk\s*y/i.test(s)) return 'Sikorsky'
@@ -43,7 +57,7 @@ export function normalizeContractor(raw: string): string {
   if (/huntington\s+ingalls/i.test(s)) return 'HII'
 
   // BAE Systems (before bare "BAE of X")
-  if (/bae\s+systems|british\s+aerospace\s+enterprise|bae\s+of\b/i.test(s)) return 'BAE Systems'
+  if (/bae\s+systems|british\s+aerospace\s+enterprise|bae\s+of\b|\bbae\b/i.test(s)) return 'BAE Systems'
 
   // General Dynamics (before "General Electric" or "General Atomics")
   if (/general\s+dynamics/i.test(s)) return 'General Dynamics'

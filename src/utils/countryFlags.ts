@@ -83,8 +83,24 @@ const COUNTRY_CODES: Record<string, string> = {
   'Zambia': 'zm',
 }
 
-export function getFlagUrl(country: string): string | null {
+export function getFlagUrl(country: string, width: 40 | 80 | 160 | 320 = 80): string | null {
   const code = COUNTRY_CODES[country]
   if (!code || code === 'nato') return null
-  return `https://flagcdn.com/w80/${code}.png`
+  return `https://flagcdn.com/w${width}/${code}.png`
+}
+
+const warmed = new Set<string>()
+
+/** Warm the browser cache so country-page flags appear instantly. */
+export function prefetchFlag(country: string, width: 40 | 80 | 160 | 320 = 80): void {
+  const url = getFlagUrl(country, width)
+  if (!url || warmed.has(url)) return
+  warmed.add(url)
+  const img = new Image()
+  img.decoding = 'async'
+  img.src = url
+}
+
+export function prefetchFlags(countries: Iterable<string>, width: 40 | 80 | 160 | 320 = 80): void {
+  for (const country of countries) prefetchFlag(country, width)
 }

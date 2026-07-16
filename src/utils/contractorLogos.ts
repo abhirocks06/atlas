@@ -47,6 +47,21 @@ export function getContractorLogoUrl(contractor: string): string | null {
   return null
 }
 
+const warmed = new Set<string>()
+
+export function prefetchContractorLogo(contractor: string): void {
+  const url = getContractorLogoUrl(contractor)
+  if (!url || warmed.has(url)) return
+  warmed.add(url)
+  const img = new Image()
+  img.decoding = 'async'
+  img.src = url
+}
+
+export function prefetchContractorLogos(contractors: Iterable<string>): void {
+  for (const name of contractors) prefetchContractorLogo(name)
+}
+
 export function getContractorInitials(contractor: string): string {
   return contractor
     .replace(/\b(the|inc|llc|corp|company|co|ltd|lp|plc)\b\.?/gi, '')

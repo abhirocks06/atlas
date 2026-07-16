@@ -1,0 +1,5 @@
+.env
+.env.local
+.env.*.local
+*.pem
+.DS_Store

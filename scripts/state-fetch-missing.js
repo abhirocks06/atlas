@@ -5,7 +5,7 @@
   const MISSING = [
     { url: 'https://www.state.gov/releases/bureau-of-political-military-affairs/2026/04/singapore-guided-multiple-launch-rocket-system-alternative-warhead/', country: 'Singapore', system: 'Guided Multiple Launch Rocket System-Alternative Warhead' },
     { url: 'https://www.state.gov/releases/bureau-of-political-military-affairs/2026/03/belgium-communications-equipment/', country: 'Belgium', system: 'Communications Equipment' },
-    { url: 'https://www.state.gov/releases/bureau-of-political-military-affairs/2026/03/japan-hyper-velocity-gliding-projectile-hvgp-program-support/', country: 'Japan', system: 'Hyper Velocity Gliding Projectile (HVGP) Program Support' },
+    { url: 'https://www.state.gov/japan-hyper-velocity-gliding-projectile-hvgp-program-support/', country: 'Japan', system: 'Hyper Velocity Gliding Projectile (HVGP) Program Support' },
     { url: 'https://www.state.gov/releases/bureau-of-political-military-affairs/2026/03/republic-of-korea-arc-210-rt-2036c-secure-radios-and-ky-100m-communication-security-devices/', country: 'Republic of Korea', system: 'ARC-210 RT-2036(C) Secure Radios and KY-100M Communication Security Devices' },
     { url: 'https://www.state.gov/releases/bureau-of-political-military-affairs/2026/03/government-of-jordan-aircraft-repair-return-and-spares/', country: 'Jordan', system: 'Aircraft Repair, Return, and Spares' },
     { url: 'https://www.state.gov/releases/bureau-of-political-military-affairs/2026/03/united-arab-emirates-long-range-discrimination-radar-with-terminal-high-altitude-area-defense-integration/', country: 'United Arab Emirates', system: 'Long-Range Discrimination Radar with Terminal High Altitude Area Defense Integration' },

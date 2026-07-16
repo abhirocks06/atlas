@@ -1,0 +1,974 @@
+[
+  {
+    "transmittal": "04-12",
+    "country": "Australia",
+    "system": "M1A1 AIM Tanks",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "04-18",
+    "country": "Afghanistan",
+    "system": "Infrastructure and Construction Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "08-77",
+    "country": "Germany",
+    "system": "Tornado Aircraft Training and Logistics Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-09",
+    "country": "Iraq",
+    "system": "Helicopters and Related Munitions",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-07",
+    "country": "Iraq",
+    "system": "Coastal Patrol Boats, Offshore Support Vessels",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-48",
+    "country": "Netherlands",
+    "system": "F-16 Pilot Training and Logistics Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-51",
+    "country": "Singapore",
+    "system": "F-16 Pilot Proficiency-Training Program",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-50",
+    "country": "Singapore",
+    "system": "F-16 Pilot Training and Logistics Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-66",
+    "country": "Kuwait",
+    "system": "Technical Assistance for Construction of Facilities and Infrastructure",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-78",
+    "country": "Kuwait",
+    "system": "Facilities and Infrastructure Construction Support Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "10-07",
+    "country": "Pakistan",
+    "system": "Technical Support Team",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "09-28",
+    "country": "Pakistan",
+    "system": "Refurbishment of Oliver Hazard Perry Class Frigate",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "10-41",
+    "country": "Israel",
+    "system": "Unleaded Gasoline, JP-8 Aviation Jet Fuel, and Diesel Fuel",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "10-20",
+    "country": "Saudi Arabia",
+    "system": "Blanket Order Training Program",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "10-53",
+    "country": "Singapore",
+    "system": "F-16 Pilot Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "10-43",
+    "country": "Saudi Arabia",
+    "system": "F-15SA Aircraft",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-06",
+    "country": "Canada",
+    "system": "36 MK-48 Mod 7 Advanced Technology (AT) Torpedo Conversion Kits",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-08",
+    "country": "Greece",
+    "system": "Cooperative Logistics Supply Support Agreement Foreign Military Sale Order II Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-13",
+    "country": "Greece",
+    "system": "Spare Parts and Services for F-16 Aircraft",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-04",
+    "country": "Pakistan",
+    "system": "Cooperative Logistics Supply Support Agreement (CLSSA) Foreign Military Sale Order (FMSO)II Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-02",
+    "country": "United Arab Emirates",
+    "system": "F-16 Program Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-16",
+    "country": "Germany",
+    "system": "Tornado Aircraft Training and Logistics Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-32",
+    "country": "Poland",
+    "system": "Service Life Extension Program for ex-FFG-7 Class Frigates",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-34",
+    "country": "Taiwan",
+    "system": "Foreign Military Sales Order II (FMSO II)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-17",
+    "country": "United Arab Emirates",
+    "system": "MIDS/LVT LINK 16 Terminals",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-09",
+    "country": "Argentina",
+    "system": "C-130H Avionics Upgrade",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "11-48",
+    "country": "Indonesia",
+    "system": "Regeneration and Upgrade of F-16C/D Block 25 Aircraft",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "12-16",
+    "country": "Singapore",
+    "system": "F-15SG Pilot Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "12-09",
+    "country": "Bangladesh",
+    "system": "C-130E Aircraft",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "12-33",
+    "country": "Brazil",
+    "system": "Assault Amphibious Vehicles",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "12-36",
+    "country": "Saudi Arabia",
+    "system": "Follow-On Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "12-42",
+    "country": "Iraq",
+    "system": "Air Traffic Control and Landing System",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "12-61",
+    "country": "Saudi Arabia",
+    "system": "Cooperative Logistics Supply Support Arrangement",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-20",
+    "country": "Israel",
+    "system": "JP-8 Aviation Fuel, Diesel Fuel, and Unleaded Gasoline",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-28",
+    "country": "Netherlands",
+    "system": "F-16 Pilot Training and Logistics Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-26",
+    "country": "Saudi Arabia",
+    "system": "Mark V Patrol Boats",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-39",
+    "country": "Greece",
+    "system": "Spare Parts and Services for F100-PW-229 Engines",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-02",
+    "country": "Iraq",
+    "system": "Multi-Platform Maintenance Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-38",
+    "country": "Saudi Arabia",
+    "system": "Sustainment and Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-53",
+    "country": "Saudi Arabia",
+    "system": "Support Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-44",
+    "country": "Saudi Arabia",
+    "system": "C4I System Upgrades and Maintenance",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-46",
+    "country": "United Arab Emirates",
+    "system": "Blanket Order Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-67",
+    "country": "Singapore",
+    "system": "F-16 Block 52 Upgrade",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-74",
+    "country": "Libya",
+    "system": "General Purpose Force Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-61",
+    "country": "Iraq",
+    "system": "Air Traffic Control and Landing System",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "13-76",
+    "country": "Pakistan",
+    "system": "C-130 Fleet Upgrade Program",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "14-02",
+    "country": "Saudi Arabia",
+    "system": "Support Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "14-19",
+    "country": "Kuwait",
+    "system": "Facilities and Infrastructure Construction Support Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "14-24",
+    "country": "Philippines",
+    "system": "C-130T Aircraft",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "14-40",
+    "country": "Canada",
+    "system": "AN/AAQ-24(V) Large Aircraft Infrared Countermeasures (LAIRCM) Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "14-48",
+    "country": "Brazil",
+    "system": "S- 70B Helicopter Follow-On Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "14-45",
+    "country": "Iraq",
+    "system": "M1A1 Abrams Tanks",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-02",
+    "country": "Jordan",
+    "system": "35 Meter Coastal Patrol Boats",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-25",
+    "country": "Egypt",
+    "system": "Border Security Mobile Surveillance Sensor Security System (Corrected*)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-30",
+    "country": "Bahrain",
+    "system": "F-16 Follow-On Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-51",
+    "country": "United Arab Emirates",
+    "system": "Joint Direct Attack Munitions (JDAM), Sustainment and Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-78",
+    "country": "Lithuania",
+    "system": "M 1126 Stryker Infantry Carrier Vehicles (ICV) with 30mm cannon and M2 Machine Guns, and Related Support Equipment",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-57",
+    "country": "Saudi Arabia",
+    "system": "Air-to-Ground Munitions",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-44",
+    "country": "Taiwan",
+    "system": "Follow-On Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-27",
+    "country": "Taiwan",
+    "system": "Oliver Hazard Perry Class Frigates",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-72",
+    "country": "Taiwan",
+    "system": "Assault Amphibious Vehicles (AAVs)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-45",
+    "country": "Taiwan",
+    "system": "Taiwan Advanced Tactical Data Link System (TATDLS) and Link-11 Integration",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-80",
+    "country": "Pakistan",
+    "system": "F-16 Block 52 Aircraft",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-14",
+    "country": "Saudi Arabia",
+    "system": "Support Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "15-81",
+    "country": "Indonesia",
+    "system": "AIM-120C-7 Advanced Medium-Range Air-to-Air Missiles (AMRAAMs)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-28",
+    "country": "Tunisia",
+    "system": "OH-58D Kiowa Warrior Aircraft Equipment and Support:",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-27",
+    "country": "United Arab Emirates",
+    "system": "Munitions, Sustainment, and Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-38",
+    "country": "Kuwait",
+    "system": "Radar Field System",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-45",
+    "country": "United Arab Emirates",
+    "system": "Exercise Participation Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-40",
+    "country": "Kuwait",
+    "system": "Joint Direct Attack Munition (JDAM) Tail Kits",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-78",
+    "country": "Saudi Arabia",
+    "system": "74K Persistent Threat Detection System (PTDS) Aerostats",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-63",
+    "country": "Kuwait",
+    "system": "Sustainment and Contractor Logistics Support for AH-64D Apache Helicopters",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-80",
+    "country": "Kuwait",
+    "system": "Facilities and Infrastructure Construction Support Service",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-84",
+    "country": "Saudi Arabia",
+    "system": "AN/TPQ-53(V) Radar Systems and Related Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-77",
+    "country": "Saudi Arabia",
+    "system": "Blanket Order Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-75",
+    "country": "Taiwan",
+    "system": "Surveillance Radar Program (SRP) Operation and Maintenance Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-74",
+    "country": "Taiwan",
+    "system": "AGM-88B High-Speed Anti-Radiation Missiles (HARM)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-73",
+    "country": "Taiwan",
+    "system": "AGM-154C Joint Standoff Weapon (JSOW) Missiles",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-68",
+    "country": "Taiwan",
+    "system": "MK 54 Lightweight Torpedo (LWT) Conversion Kits",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-01",
+    "country": "Bahrain",
+    "system": "35 Meter Fast Patrol Boats",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-16",
+    "country": "Kuwait",
+    "system": "M1A1 Abrams Tanks",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-22",
+    "country": "Qatar",
+    "system": "F-15QA Construction, Cybersecurity, and Force Protection Infrastructure",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-63",
+    "country": "Mexico",
+    "system": "Harpoon Block II Missiles, RAM Missiles and MK 54 Torpedoes",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-60",
+    "country": "Saudi Arabia",
+    "system": "Royal Saudi Land Forces Ordnance Corps Foreign Military Sales Order (FMSO) II Case",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-72",
+    "country": "Australia",
+    "system": "M795 with Insensitive Munitions Explosive (IMX) 101 Explosive Fill 155mm HE Projectile",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "16-48",
+    "country": "Saudi Arabia",
+    "system": "155mm M109A6 Paladin Medium Self- Propelled Howitzer System",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "18-14",
+    "country": "Netherlands",
+    "system": "F-16 Formal Training Unit at Tucson Air National Guard Base (ANGB), Arizona",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "17-37",
+    "country": "Bahrain",
+    "system": "Munitions",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "18-07",
+    "country": "Bahrain",
+    "system": "Follow-On Technical Support (FOTS) for the Royal Bahrain Navy Ship SABHA (FFG-90)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "18-32",
+    "country": "Netherlands",
+    "system": "Patriot Recapitalization (RECAP)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "18-09",
+    "country": "Taiwan",
+    "system": "Foreign Military Sales Order (FMSO) II Case",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "18-47",
+    "country": "Egypt",
+    "system": "120MM Tank Rounds",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-18",
+    "country": "United Arab Emirates",
+    "system": "Follow-On U.S. Marine Corps Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-01",
+    "country": "Saudi Arabia",
+    "system": "Aircraft Follow-on Support and Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "18-21",
+    "country": "Saudi Arabia",
+    "system": "Aircraft Follow-on Support and Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-50",
+    "country": "Taiwan",
+    "system": "F-16C/D Block 70 Aircraft and Related Equipment and Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-61",
+    "country": "Bahrain",
+    "system": "Refurbishment of the Oliver Hazard Perry Class Ship, Ex ROBERT G. BRADLEY (FFG 49)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-66",
+    "country": "Australia",
+    "system": "Australia Surface Combatant (ASC) Program",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-76",
+    "country": "Jordan",
+    "system": "Artillery Command, Control and Communications (C3) Equipment",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "19-60",
+    "country": "United Arab Emirates",
+    "system": "Foreign Military Sales Order (FMSO) II Case",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "20-21",
+    "country": "Kuwait",
+    "system": "Patriot Program Sustainment and Technical Assistance Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "20-20",
+    "country": "Kuwait",
+    "system": "Patriot Missile Repair and Return",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "20-44",
+    "country": "Israel",
+    "system": "JP-8 Aviation Fuel, Diesel Fuel, and Unleaded Gasoline",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "20-32",
+    "country": "Kuwait",
+    "system": "M1A2K Training Ammunition",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "20-58",
+    "country": "Saudi Arabia",
+    "system": "Security Assistance Office (SAO) Support Services, U.S. Training Mission to Saudi Arabia (USMTM)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-28",
+    "country": "Netherlands",
+    "system": "CH-47 Pilot Training and Logistics Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-39",
+    "country": "Greece",
+    "system": "FMSO II, CLSSA Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-21",
+    "country": "Saudi Arabia",
+    "system": "Continuation of Maintenance Support Services (MSS)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-05",
+    "country": "Greece",
+    "system": "Follow-on Support for F100-PW-229 Engine Maintenance",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-56",
+    "country": "United Arab Emirates",
+    "system": "Foreign Military Sales Order (FMSO) II Case",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-62",
+    "country": "Saudi Arabia",
+    "system": "Multifunctional Information Distribution System-Low Volume Terminals (MIDS-LVT)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-59",
+    "country": "Kuwait",
+    "system": "Design and Construction of the Kuwait Ministry of Defense Headquarters Complex",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-30",
+    "country": "Ukraine",
+    "system": "Non-Standard Ammunition",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-22",
+    "country": "Taiwan",
+    "system": "Ship Spare Parts and Ship System Spare Parts",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-31",
+    "country": "Taiwan",
+    "system": "Blanket Order Contractor Technical Assistance Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-43",
+    "country": "Republic of Korea",
+    "system": "MK 54 Lightweight Torpedoes",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-37",
+    "country": "Singapore",
+    "system": "Munitions and Follow-On Training and Sustainment for PEACE CARVIN V (F-15 Training Detachment)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-56",
+    "country": "Taiwan",
+    "system": "Aircraft Non-Standard Spare Parts",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "22-55",
+    "country": "Taiwan",
+    "system": "Aircraft Standard Spare Parts",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-12",
+    "country": "Greece",
+    "system": "Assault Amphibious Vehicles (AAVs)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-04",
+    "country": "Kuwait",
+    "system": "Cartridge Actuated Device/Propellant Actuated Devices (CAD/PAD) and Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-28",
+    "country": "Latvia",
+    "system": "Naval Strike Missile Coastal Defense System",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-38",
+    "country": "Taiwan",
+    "system": "Blanket Order Cooperative Logistics Supply Support Arrangement (CLSSA) Foreign Military Sales Order II (FMSO II)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-54",
+    "country": "Romania",
+    "system": "Assault Amphibious Vehicles (Corrected)",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-69",
+    "country": "Saudi Arabia",
+    "system": "Cooperative Logistics Supply Support Arrangement (CLSSA) Program, Foreign Military Sales Order (FMSO) II",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-82",
+    "country": "Taiwan",
+    "system": "Command, Control, Communications, and Computers (C4) Life Cycle Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-19",
+    "country": "Saudi Arabia",
+    "system": "Blanket Order Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-91",
+    "country": "Australia",
+    "system": "General Tomahawk Weapons System Support Services Uplift",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-09",
+    "country": "Taiwan",
+    "system": "Taiwan Advanced Tactical Data Link System Upgrade Planning",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "23-61",
+    "country": "Saudi Arabia",
+    "system": "Multifunctional Information Distribution Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-12",
+    "country": "Saudi Arabia",
+    "system": "Blanket Order Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-45",
+    "country": "Ukraine",
+    "system": "Blanket Order Sustainment of U.S. Army Supplied Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-42",
+    "country": "Taiwan",
+    "system": "F-16 Standard Spare and Repair Parts",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-41",
+    "country": "Taiwan",
+    "system": "F-16 Non-Standard Spare and Repair Parts",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-43",
+    "country": "Saudi Arabia",
+    "system": "System Logistics and Sustainment Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-76",
+    "country": "Netherlands",
+    "system": "CH-47 and AH-64 Helicopter Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "21-15",
+    "country": "Saudi Arabia",
+    "system": "Ammunition for Artillery Systems, Machine Guns, and Tanks",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-57",
+    "country": "Taiwan",
+    "system": "AN/TPS-77 and AN/TPS-78 Radar Turnkey Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-119",
+    "country": "Ukraine",
+    "system": "Blanket Order Sustainment of U.S. Army Supplied Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-103",
+    "country": "Taiwan",
+    "system": "Spare Parts and Support for F-16 Aircraft and Active Electronically Scanned Array Radars",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-04",
+    "country": "Taiwan",
+    "system": "Command, Control, Communications, and Computers Modernization",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "20-29",
+    "country": "Egypt",
+    "system": "Abrams Tank Refurbishment, Support, and Equipment",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "24-113",
+    "country": "Kuwait",
+    "system": "Design and Construction Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-21",
+    "country": "Ecuador",
+    "system": "M4A1 Rifles and Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-25",
+    "country": "United Arab Emirates",
+    "system": "F-16 Sustainment",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-52",
+    "country": "Ukraine",
+    "system": "Transportation and Consolidation Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-49",
+    "country": "Singapore",
+    "system": "Ebbing Air National Guard Base Construction Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-78",
+    "country": "Saudi Arabia",
+    "system": "Blanket Order Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-77",
+    "country": "Saudi Arabia",
+    "system": "Cooperative Logistics Supply Support Arrangement Program, Foreign Military Sales Order II Case",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "26-09",
+    "country": "Taiwan",
+    "system": "ALTIUS-700M and ALTIUS-600 Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "26-07",
+    "country": "Taiwan",
+    "system": "Harpoon Missile Repair Follow-on Support",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "26-06",
+    "country": "Taiwan",
+    "system": "Javelin Missile System",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "26-02",
+    "country": "Taiwan",
+    "system": "Tube-launched, Optically tracked, Wire-guided missile system",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "26-01",
+    "country": "Taiwan",
+    "system": "High Mobility Artillery Rocket Systems",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-108",
+    "country": "Taiwan",
+    "system": "M109A7 Self-Propelled Howitzers",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-93",
+    "country": "Taiwan",
+    "system": "AH-1W Helicopter Spare and Repair Parts",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-56",
+    "country": "Taiwan",
+    "system": "Tactical Mission Network Software, Equipment, and Services",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-100",
+    "country": "Spain",
+    "system": "F-404 Engine Fans",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-106",
+    "country": "Poland",
+    "system": "Blanket Order Training",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-37",
+    "country": "Peru",
+    "system": "Design and Construction at Callao Naval Base",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-103",
+    "country": "Saudi Arabia",
+    "system": "F- 15 Sustainment",
+    "status": "still_blank"
+  },
+  {
+    "transmittal": "25-105",
+    "country": "Ukraine",
+    "system": "Class IX Spare Parts",
+    "status": "still_blank"
+  }
+]

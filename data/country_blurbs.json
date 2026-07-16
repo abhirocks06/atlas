@@ -1,0 +1,402 @@
+{
+  "Afghanistan": {
+    "blurb": "Afghanistan was for two decades a central focus of U.S. security assistance while international forces supported the former government. That pipeline effectively ended with the 2021 withdrawal.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Argentina": {
+    "blurb": "Argentina is a Major Non-NATO Ally whose defense ties with Washington have long included equipment cooperation and regional partnership. The relationship remains one of the steadier U.S. security links in South America.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Australia": {
+    "blurb": "Australia is one of America’s closest Major Non-NATO Allies and a core partner in the Indo-Pacific, bound by the ANZUS treaty and deepening AUKUS cooperation. Shared planning and high interoperability make it among the most tightly integrated U.S. security relationships outside NATO.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Austria": {
+    "blurb": "Austria is a neutral European state that still maintains selective defense cooperation with the United States. Purchases tend to support domestic security and mobility rather than alliance combat roles.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Bahrain": {
+    "blurb": "Bahrain is a Major Non-NATO Ally and hosts the U.S. Fifth Fleet, anchoring American naval presence in the Gulf. That basing relationship has made it a durable partner for regional security cooperation.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Bangladesh": {
+    "blurb": "Bangladesh maintains a limited U.S. security relationship built around training, peacekeeping support, and occasional equipment sales. Volume stays modest next to larger Indo-Pacific partners, and there is no defense treaty.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Belgium": {
+    "blurb": "Belgium is a founding NATO ally whose forces are closely integrated with U.S. and alliance planning. As a host of key NATO institutions, its partnership with Washington is institutional as much as military.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Brazil": {
+    "blurb": "Brazil is a Major Non-NATO Ally and the largest defense market in South America with long-running U.S. equipment ties. The partnership reflects Brazil’s regional weight more than a wartime security pipeline.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Brunei": {
+    "blurb": "Brunei is a small Southeast Asian partner with only selective U.S. defense cooperation—occasional training and equipment ties, not a treaty commitment.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Bulgaria": {
+    "blurb": "Bulgaria is a NATO ally on the Black Sea whose strategic importance rose after Russia’s 2014 and 2022 wars on Ukraine. Force modernization has tracked that sharper eastern-flank threat perception.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Canada": {
+    "blurb": "Canada is a founding NATO ally and NORAD partner whose forces train and operate closely with the United States. Continental defense and Atlantic alliance commitments define the relationship more than any single crisis.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Chile": {
+    "blurb": "Chile is a long-standing South American partner with professionalized armed forces and recurring defense cooperation with Washington. Ties rest on equipment and institutional links, not a U.S. combat guarantee.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Colombia": {
+    "blurb": "Colombia is a Major Non-NATO Ally whose security partnership with Washington deepened through decades of counterinsurgency and counternarcotics cooperation. That history still shapes a close, if specialized, defense relationship.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Croatia": {
+    "blurb": "Croatia is a NATO ally whose modernization has tracked alliance standards since joining in 2009. Closer security integration with the United States followed its path into the Western institutional fold after the 1990s wars.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Czech Republic": {
+    "blurb": "The Czech Republic is a NATO ally in Central Europe that has accelerated force modernization amid Russia’s war on Ukraine. Alliance solidarity and eastern-flank deterrence now drive much of its defense relationship with Washington.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Denmark": {
+    "blurb": "Denmark is a NATO ally with high interoperability across Arctic, Baltic, and North Atlantic missions. Greenland and the High North give the U.S.–Danish security relationship strategic weight beyond Europe’s core.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Ecuador": {
+    "blurb": "Ecuador maintains a modest U.S. security relationship focused on basic force needs and limited equipment sales. Scale stays small next to larger South American partners.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Egypt": {
+    "blurb": "Egypt is a Major Non-NATO Ally and one of the longest-running large recipients of U.S. military assistance since the Camp David era. The partnership anchors American influence along the Suez corridor and in Arab–Israeli security diplomacy.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Estonia": {
+    "blurb": "Estonia is a NATO ally on Russia’s frontier whose defense planning hardened after the 2014 Crimea seizure and the 2022 full-scale invasion of Ukraine. Deterrence on NATO’s eastern flank is the core of its U.S. security relationship.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Finland": {
+    "blurb": "Finland joined NATO in 2023 after decades of military non-alignment, reframing a long U.S. defense relationship as formal alliance cooperation. Russia’s full-scale invasion of Ukraine was the decisive catalyst for that shift.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "France": {
+    "blurb": "France is a founding NATO ally and nuclear power with deep but selective U.S. security cooperation alongside a large domestic defense industry. The partnership mixes alliance solidarity with France’s preference for strategic autonomy.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Georgia": {
+    "blurb": "Georgia is a Black Sea partner seeking closer Western security ties after the 2008 war with Russia. It is not a NATO member, but Euro-Atlantic alignment remains the center of its relationship with Washington.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Germany": {
+    "blurb": "Germany is a core NATO ally whose Zeitenwende spending push after Russia’s February 2022 invasion of Ukraine sharply raised the tempo of U.S. defense cooperation. Alliance leadership in Europe now defines much of the relationship.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Ghana": {
+    "blurb": "Ghana is a West African partner whose limited U.S. security cooperation emphasizes regional stability and peacekeeping support. Engagement is capacity-building, not a wartime ally commitment.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Greece": {
+    "blurb": "Greece is a long-standing NATO ally whose Aegean and Eastern Mediterranean security concerns sustain regular defense cooperation with Washington. Geography at NATO’s southeastern approaches gives the partnership enduring strategic value.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Guyana": {
+    "blurb": "Guyana is a small South American partner whose defense relationship with the United States remains narrow. Growing offshore resource wealth has raised its regional profile, but U.S. security ties are still mostly limited equipment and training.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Hungary": {
+    "blurb": "Hungary is a NATO ally with a mixed modernization path and occasional political friction inside the alliance. The U.S. security relationship continues through NATO obligations even when bilateral politics are strained.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "India": {
+    "blurb": "India is a Major Defense Partner whose U.S. security cooperation has deepened through Indo-Pacific alignment, the Quad, and expanding industrial ties. There is no mutual defense treaty; the partnership is built around shared China concerns and technology cooperation instead.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Indonesia": {
+    "blurb": "Indonesia is a key Southeast Asian partner balancing South China Sea security needs with careful great-power diplomacy. U.S. defense cooperation stays selective—training and equipment without a treaty—so Jakarta can keep strategic autonomy.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Iraq": {
+    "blurb": "Iraq’s security partnership with the United States was rebuilt after 2003 and again against ISIS from 2014 onward. The relationship has been shaped by post-conflict state building and residual counterterrorism cooperation.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Iraq F": {
+    "blurb": "Iraq’s security partnership with the United States was rebuilt after 2003 and again against ISIS from 2014 onward. The relationship has been shaped by post-conflict state building and residual counterterrorism cooperation.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Ireland": {
+    "blurb": "Ireland is a militarily non-aligned European state with a very limited security relationship with the United States. Occasional equipment or training links are the exception; neutrality keeps anything alliance-like off the table.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Israel": {
+    "blurb": "Israel has been one of America’s closest security partners for decades and a major Non-NATO Ally whose defense relationship with Washington runs through intelligence, funding, and arms transfers. Since the war that began with Hamas’s attack on October 7th, 2023 and the fighting that followed in Gaza and along Israel’s other fronts, U.S. support has focused on sustaining Israel’s combat readiness under wartime demand.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Italy": {
+    "blurb": "Italy is a founding NATO ally with substantial domestic industry and long-running U.S. security integration. Mediterranean basing and alliance obligations keep the partnership central to American posture in Europe’s south.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Japan": {
+    "blurb": "Japan is a Major Non-NATO Ally and treaty ally whose U.S. defense relationship underpins Indo-Pacific security architecture. Rising regional military pressure has pushed Tokyo and Washington into even tighter operational coordination.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Jordan": {
+    "blurb": "Jordan is a Major Non-NATO Ally and a long-standing U.S. security partner on Israel’s eastern border. Chronic regional conflict and refugee pressures have made the partnership a fixture of American Middle East policy.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Kosovo": {
+    "blurb": "Kosovo is a young Balkan partner whose small defense force has drawn limited U.S. support since the postwar settlement of the late 1990s. Ties center on force development and institutional capacity, not a combat alliance.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Kuwait": {
+    "blurb": "Kuwait is a Major Non-NATO Ally whose defense relationship with Washington dates to the 1991 Gulf War coalition. Hosting U.S. forces and shared Gulf security concerns have kept the partnership structurally close ever since.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Kuwait C": {
+    "blurb": "Kuwait is a Major Non-NATO Ally whose defense relationship with Washington dates to the 1991 Gulf War coalition. Hosting U.S. forces and shared Gulf security concerns have kept the partnership structurally close ever since.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Latvia": {
+    "blurb": "Latvia is a NATO ally on the Baltic frontier whose posture stiffened after Russia’s 2014 and 2022 campaigns against Ukraine. Collective defense on NATO’s eastern edge defines its relationship with the United States.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Lebanon": {
+    "blurb": "Lebanon’s Armed Forces have received episodic U.S. support aimed at internal security and border control amid chronic political crisis. The relationship is constrained by Lebanon’s fractured politics and Hezbollah’s role inside the country.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Libya": {
+    "blurb": "Libya’s post-2011 fragmentation has limited a stable security relationship with Washington. Engagement has been episodic, reflecting the absence of a durable national partner.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Lithuania": {
+    "blurb": "Lithuania is a NATO ally on the eastern flank whose force buildup accelerated after Russia’s full-scale invasion of Ukraine in 2022. Deterrence against Russian revisionism is the core purpose of its U.S. security ties.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Malaysia": {
+    "blurb": "Malaysia is a Southeast Asian partner with selective U.S. defense cooperation alongside a diversified supplier base. Ties center on training and maritime security, not a mutual-defense commitment.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Mexico": {
+    "blurb": "Mexico is a close North American security partner whose cooperation with Washington is shaped heavily by border management and organized-crime pressures. The partnership is law-enforcement and homeland-security heavy, not a wartime combat alliance.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Morocco": {
+    "blurb": "Morocco is a Major Non-NATO Ally and one of Washington’s oldest continuous security relationships. Geostrategic position on the Atlantic approaches to the Mediterranean has long kept the partnership valuable to the United States.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Nato": {
+    "blurb": "NATO is the U.S. treaty alliance spanning Europe and North America. Occasional notifications are framed at alliance level for shared programs rather than a single national partner.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "NATO": {
+    "blurb": "NATO is the U.S. treaty alliance spanning Europe and North America. Alliance-level cases reflect shared logistics and common defense needs across the membership.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Netherlands": {
+    "blurb": "The Netherlands is a founding NATO ally with high interoperability across land, air, and maritime forces. Dense institutional integration with U.S. and alliance planning defines the relationship.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "New Zealand": {
+    "blurb": "New Zealand is a Major Non-NATO Ally whose Pacific defense relationship with Washington has rewarmed after years of narrower cooperation. Shared interest in a stable Indo-Pacific is pulling the partnership closer again.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Nigeria": {
+    "blurb": "Nigeria is West Africa’s largest military and a partner facing prolonged internal conflict with militants. U.S. security cooperation has focused on counterterrorism and domestic stability support, not a defense treaty.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "North Macedonia": {
+    "blurb": "North Macedonia joined NATO in 2020 after a long accession path shaped by Balkan politics. Alliance membership now anchors its security relationship with the United States.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Norway": {
+    "blurb": "Norway is a founding NATO ally whose High North geography makes it central to Allied defense of the North Atlantic. Watching Russia across the Arctic edge gives the U.S.–Norwegian relationship outsized strategic weight.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Norway Aim": {
+    "blurb": "Norway is a founding NATO ally whose High North geography makes it central to Allied defense of the North Atlantic. Watching Russia across the Arctic edge gives the U.S.–Norwegian relationship outsized strategic weight.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Oman": {
+    "blurb": "Oman is a long-standing Gulf partner that has hosted quiet U.S. access arrangements while balancing regional diplomacy. Independence of maneuver and geography on the Strait of Hormuz define the relationship’s value.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Pakistan": {
+    "blurb": "Pakistan is a Major Non-NATO Ally whose U.S. defense relationship has swung with counterterrorism priorities and regional geopolitics. Cooperation has often been episodic and transactional—intense during crises, thin between them.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Peru": {
+    "blurb": "Peru maintains a selective defense relationship with the United States spanning equipment cooperation and infrastructure support. Ties stay practical and limited—no treaty, no combat-alliance framing.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Philippines": {
+    "blurb": "The Philippines is a Major Non-NATO Ally and treaty ally whose South China Sea disputes have renewed focus on the U.S. security commitment. Visits, basing access, and deterrence cooperation have intensified as regional pressure has grown.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Poland": {
+    "blurb": "Poland is a front-line NATO ally whose modernization surge intensified after Russia’s 2014 operations in Ukraine and especially after the February 2022 invasion. Geography on NATO’s eastern flank makes the U.S. relationship existential for Warsaw.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Qatar": {
+    "blurb": "Qatar is a Major Non-NATO Ally that hosts Al Udeid Air Base, a pivotal U.S. command hub in the Gulf. That basing bargain sits at the center of one of Washington’s most consequential Middle East partnerships.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Qatar- Rim": {
+    "blurb": "Qatar is a Major Non-NATO Ally that hosts Al Udeid Air Base, a pivotal U.S. command hub in the Gulf. That basing bargain sits at the center of one of Washington’s most consequential Middle East partnerships.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Republic of Korea": {
+    "blurb": "The Republic of Korea is a Major Non-NATO Ally and treaty ally facing a continuous North Korean military threat. The U.S. alliance remains the backbone of South Korea’s external defense.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Romania": {
+    "blurb": "Romania is a NATO ally on the Black Sea whose strategic value rose sharply after Russia’s 2014 and 2022 wars on Ukraine. Alliance basing and eastern-flank deterrence now shape its partnership with Washington.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Saudi Arabia": {
+    "blurb": "Saudi Arabia is the single largest recipient of U.S. Foreign Military Sales and a long-running security partner in the Gulf. Decades of defense cooperation with Washington deepened further after attacks on Saudi energy infrastructure beginning in 2019 sharpened Riyadh’s demand for American security backing.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Singapore": {
+    "blurb": "Singapore is a close Major Security Cooperation Partner whose forces train extensively with the United States. Location astride critical Indo-Pacific sea lanes makes the partnership strategically dense despite the absence of a formal mutual-defense treaty.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Slovakia": {
+    "blurb": "Slovakia is a NATO ally that has sped force replacement after transferring older equipment to Ukraine. Alliance solidarity after 2022 has become the main driver of its U.S. security relationship.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Spain": {
+    "blurb": "Spain is a NATO ally with substantial U.S. basing and maritime cooperation. Geography on Europe’s southwestern approaches keeps the partnership central to Atlantic and Mediterranean posture.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Sweden": {
+    "blurb": "Sweden joined NATO in 2024 after generations of non-alignment, turning a mature U.S. defense relationship into formal alliance membership. Russia’s war on Ukraine precipitated the shift.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Switzerland": {
+    "blurb": "Switzerland is a neutral European state that nonetheless cooperates selectively with the United States on homeland defense needs. Neutrality constrains the relationship even when equipment ties exist.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Taiwan": {
+    "blurb": "Taiwan is a key Indo-Pacific partner under the Taiwan Relations Act, receiving defensive support amid sustained PRC military pressure. There is no mutual defense treaty: Washington arms Taiwan under the TRA while leaving open whether it would intervene if China attacked.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Thailand": {
+    "blurb": "Thailand is a Major Non-NATO Ally and old treaty partner whose U.S. security relationship has waxed and waned with domestic politics. Historical alliance ties persist even when day-to-day cooperation cools.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Thailand- Uh": {
+    "blurb": "Thailand is a Major Non-NATO Ally and old treaty partner whose U.S. security relationship has waxed and waned with domestic politics. Historical alliance ties persist even when day-to-day cooperation cools.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Tunisia": {
+    "blurb": "Tunisia is a Major Non-NATO Ally on North Africa’s Mediterranean shore facing chronic terrorism and border-security pressures. Those threats have been the practical basis of its U.S. security partnership.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Turkey": {
+    "blurb": "Turkey is a NATO ally of outsized strategic weight whose U.S. defense relationship has been strained by regional and political disputes. Geography still makes it indispensable even when bilateral trust runs thin.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Türkiye": {
+    "blurb": "Turkey is a NATO ally of outsized strategic weight whose U.S. defense relationship has been strained by regional and political disputes. Geography still makes it indispensable even when bilateral trust runs thin.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Ukraine": {
+    "blurb": "Ukraine has become one of America’s most consequential security partners only recently. The relationship hardened after Russia’s seizures of Crimea and parts of the Donbas in 2014, then turned into a wartime arms pipeline following the full-scale invasion that began on February 24th, 2022. U.S. support since then has aimed at keeping Ukrainian forces able to fight and defend under sustained Russian attack.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "United Arab Emirates": {
+    "blurb": "The United Arab Emirates is a Major Non-NATO Ally and a high-capacity Gulf partner that has invested heavily in regional military reach. Intervening in neighboring conflicts and hosting U.S. access have deepened the security relationship with Washington.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "United Kingdom": {
+    "blurb": "The United Kingdom is America’s closest nuclear and intelligence ally and a founding NATO partner with near-seamless force integration. Shared strategy and decades of combined operations make it the densest U.S. security relationship.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Vietnam": {
+    "blurb": "Vietnam is an emerging Indo-Pacific partner whose cautious U.S. security opening is shaped by historical distrust and concern over China. Cooperation stays incremental—port visits, training, and limited equipment—well short of a treaty alliance.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Zambia": {
+    "blurb": "Zambia maintains a very limited security relationship with the United States. Engagement is occasional and small-scale, with no treaty or standing defense partnership.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  }
+}

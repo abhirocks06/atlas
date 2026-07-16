@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "scrape": "node scripts/scrape.mjs",
+    "blurbs": "node scripts/generate-country-blurbs.mjs",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"

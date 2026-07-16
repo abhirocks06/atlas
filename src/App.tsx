@@ -8,9 +8,11 @@ import { CountryPage } from './components/CountryPage'
 import { FilterBar } from './components/FilterBar'
 import { SummaryStats } from './components/SummaryStats'
 import { categorize, type WeaponCategory } from './utils/weaponCategories'
-import { getRegion, type Region } from './utils/countryRegions'
 import { getNewNotifications } from './utils/newNotifications'
 import { NewNotificationBanner } from './components/NewNotificationBanner'
+import { prefetchFlags } from './utils/countryFlags'
+import { prefetchContractorLogos } from './utils/contractorLogos'
+import { contractorNames } from './utils/parseContractors'
 
 const allNotifications = rawData as Notification[]
 
@@ -43,22 +45,28 @@ function getInitialState() {
   const params = new URLSearchParams(window.location.search)
   const view = params.get('view') === 'network' ? 'network' : 'map'
   const country = params.get('country') || null
-  const region = (params.get('region') as Region) || null
+  const sale = params.get('sale') || null
   const fromYear = params.get('from')
   const toYear = params.get('to')
   const dateRange: [string, string] = [
     fromYear ? `${fromYear}-01-01` : DATA_MIN_DATE,
     toYear ? `${toYear}-12-31` : DATA_MAX_DATE,
   ]
-  return { view, country, region, dateRange }
+  return { view, country, sale, dateRange }
+}
+
+/** Stable URL key for a notification (transmittal preferred). */
+function saleUrlKey(n: Notification): string {
+  if (n.transmittal) return n.transmittal
+  return `${n.date}_${n.costUSD ?? 0}`
 }
 
 export default function App() {
   const initial = useMemo(getInitialState, [])
   const [selectedCountry, setSelectedCountry] = useState<string | null>(initial.country)
+  const [selectedSaleKey, setSelectedSaleKey] = useState<string | null>(initial.sale)
   const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
-  const [regionFilter, setRegionFilter] = useState<Region | null>(initial.region)
   const [view, setView] = useState<'map' | 'network'>(initial.view as 'map' | 'network')
 
   // Sync state → URL
@@ -66,24 +74,51 @@ export default function App() {
     const params = new URLSearchParams()
     if (view !== 'map') params.set('view', view)
     if (selectedCountry) params.set('country', selectedCountry)
-    if (regionFilter) params.set('region', regionFilter)
+    if (selectedCountry && selectedSaleKey) params.set('sale', selectedSaleKey)
     const fromYear = dateRange[0].slice(0, 4)
     const toYear = dateRange[1].slice(0, 4)
     if (fromYear !== DATA_MIN_DATE.slice(0, 4)) params.set('from', fromYear)
     if (toYear !== DATA_MAX_DATE.slice(0, 4)) params.set('to', toYear)
     const qs = params.toString()
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
-  }, [view, selectedCountry, regionFilter, dateRange])
+  }, [view, selectedCountry, selectedSaleKey, dateRange])
+
+  // Drop sale key when leaving a country
+  useEffect(() => {
+    if (!selectedCountry) setSelectedSaleKey(null)
+  }, [selectedCountry])
+
+  // Prefetch flag images and contractor logos so country pages don't wait on CDN
+  useEffect(() => {
+    const countries = new Set(
+      allNotifications.map(n => n.country).filter((c): c is string => Boolean(c)),
+    )
+    const contractors = new Set<string>()
+    for (const n of allNotifications) {
+      for (const name of contractorNames(n.contractor, n.contractorLocation)) {
+        contractors.add(name)
+      }
+    }
+    const warm = () => {
+      prefetchFlags(countries)
+      prefetchContractorLogos(contractors)
+    }
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(warm)
+      return () => window.cancelIdleCallback(id)
+    }
+    const t = window.setTimeout(warm, 150)
+    return () => window.clearTimeout(t)
+  }, [])
 
   const filtered = useMemo(() => {
     return allNotifications.filter(n => {
       if (!n.country) return false
       if (n.date < dateRange[0] || n.date > dateRange[1]) return false
       if (categoryFilter && categorize(n.system) !== categoryFilter) return false
-      if (regionFilter && getRegion(n.country) !== regionFilter) return false
       return true
     })
-  }, [dateRange, categoryFilter, regionFilter])
+  }, [dateRange, categoryFilter])
 
   const countryTotals = useMemo(() => {
     const map = new Map<string, { total: number; count: number }>()
@@ -143,6 +178,8 @@ export default function App() {
           <CountryPage
             country={selectedCountry}
             notifications={selectedNotifications}
+            initialSaleKey={selectedSaleKey}
+            onSaleKeyChange={setSelectedSaleKey}
             onBack={() => setSelectedCountry(null)}
           />
         </motion.div>
@@ -164,10 +201,10 @@ export default function App() {
               <div className="min-w-0">
                 <div className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400">
                   <span className="sm:hidden">Atlas</span>
-                  <span className="hidden sm:inline truncate">Atlas | U.S. FOREIGN MILITARY SALES</span>
+                  <span className="hidden sm:inline truncate">Atlas | U.S. Foreign Military Sales Congressional Notifications</span>
                 </div>
                 <div className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide hidden sm:block">
-                  Source: Defense Security Cooperation Agency &amp; State Dept. Bureau of Political-Military Affairs
+                  Source: Defense Security Cooperation Agency &amp; Department of State Bureau of Political-Military Affairs
                 </div>
               </div>
             </div>
@@ -183,8 +220,6 @@ export default function App() {
             maxDate={DATA_MAX_DATE}
             categoryFilter={categoryFilter}
             onCategoryFilterChange={setCategoryFilter}
-            regionFilter={regionFilter}
-            onRegionFilterChange={setRegionFilter}
             view={view}
             onViewChange={setView}
             countries={Array.from(countryTotals.keys()).sort()}

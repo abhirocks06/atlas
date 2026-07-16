@@ -3,6 +3,7 @@ import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simp
 import { scaleLinear } from 'd3-scale'
 import { COUNTRY_NAME_TO_ISO3, NUMERIC_TO_ISO3 } from '../utils/countryMapping'
 import { formatCost } from '../utils/formatters'
+import { prefetchFlag } from '../utils/countryFlags'
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
@@ -80,6 +81,7 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                     }}
                     onMouseEnter={(evt) => {
                       if (hasSales && countryName && data) {
+                        prefetchFlag(countryName)
                         setTooltip({
                           x: evt.clientX,
                           y: evt.clientY,
@@ -111,15 +113,23 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                         fill: isSelected
                           ? '#e8a84e'
                           : hasSales
-                          ? '#d4934a'
+                          ? colorScale(data!.total)
                           : '#1a1f2e',
+                        filter: hasSales || isSelected ? 'brightness(1.35)' : undefined,
                         stroke: '#0b0e16',
                         strokeWidth: 0.4,
                         outline: 'none',
                         cursor: hasSales ? 'pointer' : 'default',
                       },
                       pressed: {
-                        fill: '#e8a84e',
+                        fill: isSelected
+                          ? '#f0b45a'
+                          : hasSales
+                          ? colorScale(data!.total)
+                          : '#1a1f2e',
+                        filter: hasSales || isSelected ? 'brightness(1.2)' : undefined,
+                        stroke: '#0b0e16',
+                        strokeWidth: 0.4,
                         outline: 'none',
                       },
                     }}
