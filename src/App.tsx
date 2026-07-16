@@ -5,6 +5,7 @@ import type { Notification } from './types'
 import { WorldMap } from './components/WorldMap'
 import { NetworkView } from './components/NetworkView'
 import { CountryPage } from './components/CountryPage'
+import { ContractorPage } from './components/ContractorPage'
 import { FilterBar } from './components/FilterBar'
 import { SummaryStats } from './components/SummaryStats'
 import { categorize, type WeaponCategory } from './utils/weaponCategories'
@@ -45,6 +46,7 @@ function getInitialState() {
   const params = new URLSearchParams(window.location.search)
   const view = params.get('view') === 'network' ? 'network' : 'map'
   const country = params.get('country') || null
+  const contractor = params.get('contractor') || null
   const sale = params.get('sale') || null
   const fromYear = params.get('from')
   const toYear = params.get('to')
@@ -52,7 +54,8 @@ function getInitialState() {
     fromYear ? `${fromYear}-01-01` : DATA_MIN_DATE,
     toYear ? `${toYear}-12-31` : DATA_MAX_DATE,
   ]
-  return { view, country, sale, dateRange }
+  // Prefer contractor over country if both somehow present
+  return { view, country: contractor ? null : country, contractor, sale, dateRange }
 }
 
 /** Stable URL key for a notification (transmittal preferred). */
@@ -64,29 +67,43 @@ function saleUrlKey(n: Notification): string {
 export default function App() {
   const initial = useMemo(getInitialState, [])
   const [selectedCountry, setSelectedCountry] = useState<string | null>(initial.country)
+  const [selectedContractor, setSelectedContractor] = useState<string | null>(initial.contractor)
   const [selectedSaleKey, setSelectedSaleKey] = useState<string | null>(initial.sale)
   const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
   const [view, setView] = useState<'map' | 'network'>(initial.view as 'map' | 'network')
 
+  const openCountry = (country: string | null) => {
+    setSelectedContractor(null)
+    setSelectedCountry(country)
+    setSelectedSaleKey(null)
+  }
+
+  const openContractor = (contractor: string | null) => {
+    setSelectedCountry(null)
+    setSelectedContractor(contractor)
+    setSelectedSaleKey(null)
+  }
+
   // Sync state → URL
   useEffect(() => {
     const params = new URLSearchParams()
     if (view !== 'map') params.set('view', view)
-    if (selectedCountry) params.set('country', selectedCountry)
-    if (selectedCountry && selectedSaleKey) params.set('sale', selectedSaleKey)
+    if (selectedContractor) params.set('contractor', selectedContractor)
+    else if (selectedCountry) params.set('country', selectedCountry)
+    if ((selectedCountry || selectedContractor) && selectedSaleKey) params.set('sale', selectedSaleKey)
     const fromYear = dateRange[0].slice(0, 4)
     const toYear = dateRange[1].slice(0, 4)
     if (fromYear !== DATA_MIN_DATE.slice(0, 4)) params.set('from', fromYear)
     if (toYear !== DATA_MAX_DATE.slice(0, 4)) params.set('to', toYear)
     const qs = params.toString()
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
-  }, [view, selectedCountry, selectedSaleKey, dateRange])
+  }, [view, selectedCountry, selectedContractor, selectedSaleKey, dateRange])
 
-  // Drop sale key when leaving a country
+  // Drop sale key when leaving a detail page
   useEffect(() => {
-    if (!selectedCountry) setSelectedSaleKey(null)
-  }, [selectedCountry])
+    if (!selectedCountry && !selectedContractor) setSelectedSaleKey(null)
+  }, [selectedCountry, selectedContractor])
 
   // Prefetch flag images and contractor logos so country pages don't wait on CDN
   useEffect(() => {
@@ -142,6 +159,14 @@ export default function App() {
     )
   }, [selectedCountry, dateRange])
 
+  const contractorNotifications = useMemo(() => {
+    if (!selectedContractor) return []
+    return allNotifications.filter(n => {
+      if (n.date < dateRange[0] || n.date > dateRange[1]) return false
+      return contractorNames(n.contractor, n.contractorLocation).includes(selectedContractor)
+    })
+  }, [selectedContractor, dateRange])
+
   const [todayKey, setTodayKey] = useState(() => new Date().toDateString())
 
   useEffect(() => {
@@ -163,12 +188,30 @@ export default function App() {
     <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#0f0f0f]">
     <NewNotificationBanner
       notifications={newNotifications}
-      onSelect={setSelectedCountry}
+      onSelect={openCountry}
     />
     <AnimatePresence mode="wait">
-      {selectedCountry ? (
+      {selectedContractor ? (
         <motion.div
-          key="country"
+          key={`contractor-${selectedContractor}`}
+          className="flex-1 min-h-0 overflow-hidden bg-[#0f0f0f]"
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 24 }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
+        >
+          <ContractorPage
+            contractor={selectedContractor}
+            notifications={contractorNotifications}
+            initialSaleKey={selectedSaleKey}
+            onSaleKeyChange={setSelectedSaleKey}
+            onSelectCountry={openCountry}
+            onBack={() => openContractor(null)}
+          />
+        </motion.div>
+      ) : selectedCountry ? (
+        <motion.div
+          key={`country-${selectedCountry}`}
           className="flex-1 min-h-0 overflow-hidden bg-[#0f0f0f]"
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
@@ -180,7 +223,8 @@ export default function App() {
             notifications={selectedNotifications}
             initialSaleKey={selectedSaleKey}
             onSaleKeyChange={setSelectedSaleKey}
-            onBack={() => setSelectedCountry(null)}
+            onSelectContractor={openContractor}
+            onBack={() => openCountry(null)}
           />
         </motion.div>
       ) : (
@@ -223,7 +267,7 @@ export default function App() {
             view={view}
             onViewChange={setView}
             countries={Array.from(countryTotals.keys()).sort()}
-            onSelectCountry={setSelectedCountry}
+            onSelectCountry={openCountry}
           />
 
           <div className="flex-1 relative overflow-hidden">
@@ -240,7 +284,7 @@ export default function App() {
                   <WorldMap
                     countryTotals={countryTotals}
                     selectedCountry={selectedCountry}
-                    onSelectCountry={setSelectedCountry}
+                    onSelectCountry={openCountry}
                   />
                 </motion.div>
               ) : (
@@ -254,7 +298,8 @@ export default function App() {
                 >
                   <NetworkView
                     filtered={filtered}
-                    onSelectCountry={(c) => { setSelectedCountry(c) }}
+                    onSelectCountry={openCountry}
+                    onSelectContractor={openContractor}
                   />
                 </motion.div>
               )}

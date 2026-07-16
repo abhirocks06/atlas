@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl } from '../utils/contractorLogos'
+import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
 import { parseContractors, supplySource } from '../utils/parseContractors'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getSystemVisual } from '../utils/systemVisuals'
@@ -13,9 +13,10 @@ interface Props {
   notification: Notification | null
   country: string
   onClose: () => void
+  onSelectContractor?: (contractor: string) => void
 }
 
-export function SaleDetailDrawer({ notification, country, onClose }: Props) {
+export function SaleDetailDrawer({ notification, country, onClose, onSelectContractor }: Props) {
   useEffect(() => {
     if (!notification) return
     const onKey = (e: KeyboardEvent) => {
@@ -174,22 +175,41 @@ export function SaleDetailDrawer({ notification, country, onClose }: Props) {
                   <div className="space-y-3">
                     {contractors.map(c => {
                       const logo = getContractorLogoUrl(c.name)
-                      return (
-                        <div key={c.name} className="flex items-start gap-3">
+                      const body = (
+                        <>
                           {logo && (
                             <img
                               src={logo}
                               alt=""
-                              className="w-8 h-8 object-contain opacity-70 mt-0.5"
+                              className={`w-8 h-8 object-contain opacity-70 mt-0.5 ${contractorLogoClassName(c.name)}`}
                               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                             />
                           )}
-                          <div>
-                            <div className="text-[13px] text-zinc-300">{c.name}</div>
+                          <div className="min-w-0">
+                            <div className={`text-[13px] text-zinc-300 ${onSelectContractor ? 'group-hover:text-white transition-colors' : ''}`}>
+                              {c.name}
+                            </div>
                             {c.location && (
                               <div className="text-[11px] text-zinc-600 mt-1">{c.location}</div>
                             )}
                           </div>
+                        </>
+                      )
+                      if (onSelectContractor) {
+                        return (
+                          <button
+                            key={c.name}
+                            type="button"
+                            onClick={() => onSelectContractor(c.name)}
+                            className="flex items-start gap-3 w-full text-left group cursor-pointer"
+                          >
+                            {body}
+                          </button>
+                        )
+                      }
+                      return (
+                        <div key={c.name} className="flex items-start gap-3">
+                          {body}
                         </div>
                       )
                     })}

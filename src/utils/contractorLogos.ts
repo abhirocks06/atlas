@@ -1,50 +1,65 @@
-// Maps normalized contractor name fragments to their domain for Clearbit logo API
-// Usage: https://logo.clearbit.com/{domain}
+// Local contractor logos in /public/contractor-logos (pulled via scripts/pull-contractor-logos.mjs)
 
 const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/boeing/i, 'boeing.com'],
   [/lockheed/i, 'lockheedmartin.com'],
   [/rtx|raytheon/i, 'rtx.com'],
+  [/booz\s*allen/i, 'boozallen.com'],
   [/^hii$/i, 'hii.com'],
+  [/huntington\s+ingalls/i, 'huntingtoningalls.com'],
   [/general dynamics/i, 'gd.com'],
   [/northrop/i, 'northropgrumman.com'],
   [/l3harris|l3 harris/i, 'l3harris.com'],
-  [/bae systems/i, 'baesystems.com'],
+  [/bae systems|^bae$/i, 'baesystems.com'],
   [/am general/i, 'amgeneral.com'],
-  [/bell textron|bell helicopter|bell boeing/i, 'bellflight.com'],
+  [/bell textron|bell helicopter|bell boeing|bell flight/i, 'bellflight.com'],
   [/textron/i, 'textron.com'],
   [/sikorsky/i, 'lockheedmartin.com'],
-  [/general atomics/i, 'ga.com'],
+  [/general atomics/i, 'generalatomics.com'],
   [/leonardo drs/i, 'leonardodrs.com'],
   [/leidos/i, 'leidos.com'],
-  [/v2x/i, 'v2x.com'],
+  [/v2x|vectrus/i, 'v2x.com'],
   [/flir/i, 'flir.com'],
-  [/cae usa|cae inc/i, 'cae.com'],
+  [/cae\b/i, 'cae.com'],
   [/elbit/i, 'elbitsystems.com'],
   [/thales/i, 'thalesgroup.com'],
   [/airbus/i, 'airbus.com'],
   [/rolls.royce/i, 'rolls-royce.com'],
   [/ge aerospace|general electric/i, 'geaerospace.com'],
-  [/pratt.whitney/i, 'prattwhitney.com'],
+  [/pratt\s*&\s*whitney|pratt\s+whitney/i, 'prattwhitney.com'],
   [/collins aerospace/i, 'collinsaerospace.com'],
   [/honeywell/i, 'honeywell.com'],
   [/kbr/i, 'kbr.com'],
-  [/vectrus|v2x/i, 'v2x.com'],
   [/oshkosh/i, 'oshkoshdefense.com'],
   [/bwx technologies|bwxt/i, 'bwxt.com'],
   [/draper/i, 'draper.com'],
   [/saic/i, 'saic.com'],
   [/moog/i, 'moog.com'],
   [/aerojet/i, 'rocket.com'],
+  [/navistar/i, 'navistar.com'],
+  [/colt\b/i, 'colt.com'],
+  [/spartan college|spartan/i, 'spartan.edu'],
+  [/kratos/i, 'kratosdefense.com'],
+  [/anduril/i, 'anduril.com'],
+  [/maxar/i, 'maxar.com'],
 ]
 
+function domainToSlug(domain: string): string {
+  return domain.replace(/\./g, '-')
+}
+
+/** Local logo path, or null if we don't have a mapping. */
 export function getContractorLogoUrl(contractor: string): string | null {
   for (const [pattern, domain] of CONTRACTOR_DOMAINS) {
     if (pattern.test(contractor)) {
-      return `https://logo.clearbit.com/${domain}`
+      return `/contractor-logos/${domainToSlug(domain)}.png`
     }
   }
   return null
+}
+
+export function contractorLogoClassName(_contractor: string): string {
+  return ''
 }
 
 const warmed = new Set<string>()

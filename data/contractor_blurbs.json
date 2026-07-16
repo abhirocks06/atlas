@@ -1,0 +1,237 @@
+{
+  "Lockheed Martin": {
+    "blurb": "Lockheed Martin is the largest U.S. defense contractor and a central supplier in Foreign Military Sales, spanning fighters, missiles, rotary-wing aircraft, and C4ISR. Its platforms underpin many allied air forces and missile-defense architectures.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Boeing": {
+    "blurb": "Boeing is a major U.S. aerospace and defense prime whose military portfolio includes fighters, airlift, tankers, rotorcraft, and munitions. Through FMS it remains one of the principal sources of U.S. combat aircraft and support fleets for partner nations.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "RTX": {
+    "blurb": "RTX (formerly Raytheon Technologies) is a leading U.S. missiles, sensors, and aerospace systems company. Its air-defense, air-to-air, and precision-strike products are among the most widely transferred U.S. capabilities under Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Northrop Grumman": {
+    "blurb": "Northrop Grumman is a major U.S. defense contractor focused on autonomous systems, airborne early warning, space, and advanced electronics. In FMS it often appears as the supplier for surveillance aircraft, unmanned systems, and mission electronics.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "General Dynamics": {
+    "blurb": "General Dynamics is a diversified U.S. defense contractor covering land combat vehicles, naval systems, munitions, and IT services. Its armored vehicles and related support packages are a recurring element of U.S. ground-force transfers abroad.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "BAE Systems": {
+    "blurb": "BAE Systems is a major UK-based defense contractor with a large U.S. footprint in combat vehicles, electronics, and naval systems. Through its American subsidiaries it frequently appears as a prime or teammate on FMS vehicle and electronics programs.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "L3Harris Technologies": {
+    "blurb": "L3Harris Technologies is a U.S. defense electronics company specializing in communications, ISR, avionics, and electronic warfare. It commonly supplies radios, sensors, and mission systems that integrate into broader FMS platform packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "General Atomics": {
+    "blurb": "General Atomics is best known for long-endurance remotely piloted aircraft and related sensors used for ISR and strike. Its MQ-series systems are among the most visible unmanned platforms transferred through U.S. security cooperation channels.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Sikorsky": {
+    "blurb": "Sikorsky, a Lockheed Martin company, builds military helicopters used for assault, utility, and maritime missions. Black Hawk–family and Seahawk aircraft are staples of U.S. rotary-wing Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Longbow LLC": {
+    "blurb": "Longbow LLC is a Lockheed Martin–Northrop Grumman joint venture that builds the AN/APG-78 Longbow fire-control radar for the AH-64 Apache. In Foreign Military Sales it appears almost exclusively on Apache packages that include the mast-mounted radar and related Hellfire Longbow components.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Pratt & Whitney": {
+    "blurb": "Pratt & Whitney is an RTX company and a leading maker of military aircraft engines. Its powerplants equip many U.S. fighters and trainers sold abroad, making engine support a recurring line in FMS sustainment packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "GE Aerospace": {
+    "blurb": "GE Aerospace produces military aircraft engines and related propulsion systems for fighters, helicopters, and airlifters. Engine sales and follow-on support frequently travel with U.S. aircraft packages under Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Collins Aerospace": {
+    "blurb": "Collins Aerospace, an RTX company, supplies avionics, cabin systems, and mission electronics for military aircraft. In FMS notifications it often appears as a systems or components supplier within larger platform sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Bell Textron": {
+    "blurb": "Bell Textron builds military helicopters and tiltrotors used for attack, utility, and assault support. Its rotorcraft and related training or support packages recur across U.S. aviation Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Textron": {
+    "blurb": "Textron is a diversified U.S. industrial company whose defense brands include aviation, unmanned systems, and specialty vehicles. Through subsidiaries it supplies trainers, light aircraft, and other niche platforms into FMS cases.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Honeywell": {
+    "blurb": "Honeywell supplies aerospace systems, engines, and avionics used across military aircraft fleets. In Foreign Military Sales it typically appears as a propulsion or systems provider tied to larger platform programs.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "AM General": {
+    "blurb": "AM General is the long-time manufacturer of the Humvee and related light tactical vehicles. Its wheeled platforms and spare-parts support have been a durable staple of U.S. ground-vehicle transfers abroad.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Oshkosh": {
+    "blurb": "Oshkosh Defense builds tactical wheeled vehicles, including JLTV and heavy trucks used by U.S. and partner ground forces. Vehicle fleets and sustainment kits make it a frequent name in land-system Foreign Military Sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "HII": {
+    "blurb": "HII (Huntington Ingalls Industries) is America’s largest military shipbuilder, constructing aircraft carriers, amphibious ships, and surface combatants. In FMS it more often appears through ship systems, support, or specialized naval work than full hull transfers.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Leonardo DRS": {
+    "blurb": "Leonardo DRS is the U.S. defense arm of Leonardo, focused on electro-optics, computing, and force-protection systems. It supplies sensors and electronic subsystems that integrate into broader U.S. platform and vehicle sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Rolls-Royce": {
+    "blurb": "Rolls-Royce is a major aero-engine manufacturer whose military engines power helicopters and fixed-wing aircraft in U.S. and allied fleets. Engine supply and logistics support appear in FMS cases tied to those platforms.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Leidos": {
+    "blurb": "Leidos is a U.S. science and technology contractor spanning defense IT, intelligence, and mission support. On FMS pages it typically appears in systems integration, training, or program-support roles rather than as a platform OEM.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Booz Allen Hamilton": {
+    "blurb": "Booz Allen Hamilton is a major U.S. consulting and technology firm with deep defense and intelligence work. In Foreign Military Sales it appears infrequently, usually in engineering services or program-support roles alongside platform primes.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Anduril": {
+    "blurb": "Anduril Industries is a newer U.S. defense technology company focused on autonomous systems, counter-UAS, and software-defined sensing. Its growing FMS footprint reflects partner demand for faster, networked unmanned and air-defense capabilities.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Kratos": {
+    "blurb": "Kratos Defense & Security Solutions builds unmanned aircraft, rocket systems, and C5ISR products for U.S. and allied customers. It often appears in FMS as a supplier of drones, targets, or specialized mission systems.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Sierra Nevada": {
+    "blurb": "Sierra Nevada Corporation is a U.S. aerospace and defense company known for aircraft modernization, ISR platforms, and space systems. In FMS it commonly supports special-mission aircraft and related integration work.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Navistar": {
+    "blurb": "Navistar Defense supplies medium and heavy tactical trucks used for logistics and mobility. Its commercial-derived military vehicles and parts support appear in ground-force Foreign Military Sales packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "CAE": {
+    "blurb": "CAE is a Canadian simulation and training company with a large U.S. defense presence. It supplies flight simulators and training systems that often accompany aircraft Foreign Military Sales as aircrew and maintainer pipelines.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "FLIR": {
+    "blurb": "FLIR (now part of Teledyne) is known for infrared cameras and electro-optical sensors used in surveillance, targeting, and force protection. Those sensors frequently travel as components within larger U.S. FMS equipment packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Elbit Systems": {
+    "blurb": "Elbit Systems is an Israeli defense electronics company with substantial U.S. operations in avionics, munitions, and soldier systems. It appears in FMS when U.S.-sourced cases include Elbit-built components or U.S. subsidiary work.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Thales": {
+    "blurb": "Thales is a European defense and aerospace electronics group with U.S. subsidiaries in communications, sensors, and avionics. In American FMS notifications it typically shows up as a systems or electronics teammate on multinational programs.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Airbus": {
+    "blurb": "Airbus is a European aerospace manufacturer whose defense and helicopter lines serve many allied militaries. U.S. FMS involvement is selective, often tied to specific platforms, components, or U.S.-based support work.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "V2X": {
+    "blurb": "V2X (formerly Vectrus and related mission-support businesses) provides base operations, logistics, and training support for U.S. and partner forces. In FMS it appears as a services contractor rather than a weapons manufacturer.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "KBR": {
+    "blurb": "KBR is a U.S. engineering and government-services company with long-running defense logistics and base-support work. When it appears in FMS material, it is usually for sustainment, training, or program services around equipment sales.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "SAIC": {
+    "blurb": "SAIC is a U.S. technology and engineering services contractor supporting defense IT, training, and systems integration. Its FMS footprint is typically advisory or sustainment-oriented rather than platform production.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Moog": {
+    "blurb": "Moog supplies precision motion-control and actuation systems used in aircraft, missiles, and space vehicles. In Foreign Military Sales it usually appears as a critical components supplier within larger prime-contractor packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Aerojet Rocketdyne": {
+    "blurb": "Aerojet Rocketdyne builds rocket motors and propulsion systems for missiles and spacecraft. Its motors are embedded in many U.S. munitions and space-launch products that can travel with FMS missile and propulsion cases.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "BWX Technologies": {
+    "blurb": "BWX Technologies specializes in nuclear components and related engineering for naval propulsion and national-security applications. Its FMS appearances are rare and usually tied to specialized technical or support work.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Draper": {
+    "blurb": "Draper is a U.S. nonprofit engineering lab known for guidance, navigation, and control systems. In defense transfers it typically contributes specialized guidance technology rather than complete weapon platforms.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Maxar": {
+    "blurb": "Maxar is a U.S. space and geospatial intelligence company providing satellite imagery and related analytics. When it surfaces in security-cooperation contexts, it is usually for ISR data or space-based sensing support.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Colt": {
+    "blurb": "Colt is a historic U.S. small-arms manufacturer whose rifles and related weapons have long equipped American and partner forces. In FMS it appears mainly in infantry-weapons and spare-parts cases.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "SRC": {
+    "blurb": "SRC is a U.S. nonprofit research and development company focused on radar, electronic warfare, and related sensors. It occasionally appears in FMS as a technology or systems provider for specialized electronic missions.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Kongsberg": {
+    "blurb": "Kongsberg Defence & Aerospace is a Norwegian defense company known for naval strike missiles and remote weapon stations. It appears in U.S. FMS when American cases include Kongsberg systems produced or integrated for partner nations.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Gulfstream": {
+    "blurb": "Gulfstream builds business jets that are often converted into special-mission or VIP transport aircraft for partner governments. Those aircraft and related support packages occasionally move through U.S. Foreign Military Sales channels.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Viasat": {
+    "blurb": "Viasat provides military satellite communications and networking equipment used to connect forces beyond line of sight. In FMS it typically appears as a communications or terminal supplier within larger C4ISR packages.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "AeroVironment": {
+    "blurb": "AeroVironment builds small unmanned aircraft and loitering munitions used for tactical ISR and strike. Its portable drone systems are a recurring category in U.S. security assistance for partner ground forces.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  },
+  "Vinell Arabia": {
+    "blurb": "Vinell Arabia is a U.S.-linked training and support contractor long associated with Saudi Arabian military modernization programs. It appears in FMS material mainly as a services and training provider rather than an equipment OEM.",
+    "source": "curated",
+    "updatedAt": "2026-07-15"
+  }
+}

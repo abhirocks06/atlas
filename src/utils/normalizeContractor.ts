@@ -125,8 +125,14 @@ export function normalizeContractor(raw: string): string {
   // Repkon
   if (/repkon/i.test(s)) return 'Repkon USA'
 
+  // Longbow LLC (Lockheed Martin / Northrop Grumman JV for Apache fire-control radar)
+  if (/longbow\s+(limited\s+liability|llc)/i.test(s)) return 'Longbow LLC'
+
   // Leidos
   if (/leidos/i.test(s)) return 'Leidos'
+
+  // Booz Allen Hamilton
+  if (/booz\s*allen/i.test(s)) return 'Booz Allen Hamilton'
 
   // Vinell Arabia — no known logo but normalize anyway
   if (/vinell/i.test(s)) return 'Vinell Arabia'

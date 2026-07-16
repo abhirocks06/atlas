@@ -5,23 +5,22 @@ import { formatCost, formatDate } from '../utils/formatters'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
 import { getFlagUrl } from '../utils/countryFlags'
 import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
-import { parseContractors, contractorNames, supplySource } from '../utils/parseContractors'
-import { isNotificationNew } from '../utils/newNotifications'
-import { getCountryBlurb } from '../utils/countryBlurbs'
+import { getContractorBlurb } from '../utils/contractorBlurbs'
 import { useCountUp } from '../utils/useCountUp'
+import { isNotificationNew } from '../utils/newNotifications'
 import { SaleDetailDrawer } from './SaleDetailDrawer'
 import { YearTrendChart } from './YearTrendChart'
 
 interface Props {
-  country: string
+  contractor: string
   notifications: Notification[]
   initialSaleKey?: string | null
   onSaleKeyChange?: (key: string | null) => void
-  onSelectContractor?: (contractor: string) => void
+  onSelectCountry: (country: string) => void
   onBack: () => void
 }
 
-const TABLE_GRID = '7rem 6rem minmax(0, 1fr) minmax(0, 11rem) 6.5rem'
+const TABLE_GRID = '7rem 6rem 8rem minmax(0, 1fr) 6.5rem'
 
 function saleUrlKey(n: Notification): string {
   if (n.transmittal) return n.transmittal
@@ -33,7 +32,14 @@ function findSale(notifications: Notification[], key: string | null | undefined)
   return notifications.find(n => saleUrlKey(n) === key) ?? null
 }
 
-export function CountryPage({ country, notifications, initialSaleKey = null, onSaleKeyChange, onSelectContractor, onBack }: Props) {
+export function ContractorPage({
+  contractor,
+  notifications,
+  initialSaleKey = null,
+  onSaleKeyChange,
+  onSelectCountry,
+  onBack,
+}: Props) {
   const [activeCategory, setActiveCategory] = useState<WeaponCategory | null>(null)
   const [sort, setSort] = useState<'date' | 'cost'>('date')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
@@ -43,7 +49,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
   const [search, setSearch] = useState('')
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  // Keep drawer in sync when notifications list or URL key changes (e.g. refresh / back)
   useEffect(() => {
     setSelectedSale(findSale(notifications, initialSaleKey))
   }, [notifications, initialSaleKey])
@@ -59,6 +64,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
   const dates = notifications.map(n => n.date).sort()
   const dateMin = dates[0]
   const dateMax = dates[dates.length - 1]
+  const logoUrl = getContractorLogoUrl(contractor)
 
   const categoryTotals = useMemo(() => {
     const map = new Map<WeaponCategory, { cost: number; count: number }>()
@@ -70,19 +76,14 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
     return map
   }, [notifications])
 
-  const contractorTotals = useMemo(() => {
+  const countryTotals = useMemo(() => {
     const map = new Map<string, { cost: number; count: number }>()
     for (const n of notifications) {
-      const names = contractorNames(n.contractor, n.contractorLocation)
-      if (names.length === 0) continue
-      for (const name of names) {
-        const prev = map.get(name) ?? { cost: 0, count: 0 }
-        map.set(name, { cost: prev.cost + (n.costUSD ?? 0), count: prev.count + 1 })
-      }
+      if (!n.country) continue
+      const prev = map.get(n.country) ?? { cost: 0, count: 0 }
+      map.set(n.country, { cost: prev.cost + (n.costUSD ?? 0), count: prev.count + 1 })
     }
-    return [...map.entries()]
-      .sort((a, b) => b[1].cost - a[1].cost)
-      .slice(0, 6)
+    return [...map.entries()].sort((a, b) => b[1].cost - a[1].cost)
   }, [notifications])
 
   const yearTotals = useMemo(() => {
@@ -102,7 +103,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
 
   const presentCategories = ALL_CATEGORIES.filter(cat => categoryTotals.has(cat))
   const maxCatCost = Math.max(...[...categoryTotals.values()].map(v => v.cost), 1)
-  const maxContractorCost = contractorTotals[0]?.[1].cost ?? 1
+  const maxCountryCost = countryTotals[0]?.[1].cost ?? 1
 
   const filtered = useMemo(() => {
     return notifications
@@ -112,7 +113,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
           const q = search.toLowerCase()
           return (
             n.system?.toLowerCase().includes(q) ||
-            n.contractor?.toLowerCase().includes(q) ||
+            n.country?.toLowerCase().includes(q) ||
             n.transmittal?.toLowerCase().includes(q)
           )
         }
@@ -129,20 +130,19 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
   }, [notifications, activeCategory, sort, sortDir, search])
 
   const activeFilters = activeCategory ? 1 : 0
-  const countryBlurb = getCountryBlurb(country)
+  const contractorBlurb = getContractorBlurb(contractor)
 
   const sidebarContent = (
     <div className="flex flex-col gap-0">
-      {countryBlurb && (
+      {contractorBlurb && (
         <div className="px-5 pt-5 pb-4 border-b border-zinc-800/60">
           <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-2.5">Overview</div>
-          <p className="text-[12px] text-zinc-400 leading-relaxed">{countryBlurb}</p>
+          <p className="text-[12px] text-zinc-400 leading-relaxed">{contractorBlurb}</p>
         </div>
       )}
 
       <YearTrendChart yearTotals={yearTotals} />
 
-      {/* Category breakdown */}
       <div className="px-5 pt-4 pb-4 border-b border-zinc-800/60">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[9px] uppercase tracking-[0.12em] text-zinc-500 font-medium">By Category</span>
@@ -176,10 +176,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   <span className="text-[10px] font-mono text-zinc-500">{formatCost(data.cost)}</span>
                 </div>
                 <div className="h-[3px] bg-zinc-800 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full"
-                    style={{ background: color, width: `${pct}%` }}
-                  />
+                  <div className="h-full rounded-full" style={{ background: color, width: `${pct}%` }} />
                 </div>
               </button>
             )
@@ -187,41 +184,36 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
         </div>
       </div>
 
-      {/* Contractor breakdown */}
-      {contractorTotals.length > 0 && (
+      {countryTotals.length > 0 && (
         <div className="px-5 pt-4 pb-5">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[9px] uppercase tracking-[0.12em] text-zinc-500 font-medium">By Contractor</span>
+            <span className="text-[9px] uppercase tracking-[0.12em] text-zinc-500 font-medium">By Country</span>
           </div>
           <div className="space-y-3">
-            {contractorTotals.map(([name, data]) => {
-              const pct = (data.cost / maxContractorCost) * 100
-              const logoUrl = getContractorLogoUrl(name)
+            {countryTotals.map(([name, data]) => {
+              const pct = (data.cost / maxCountryCost) * 100
+              const flagUrl = getFlagUrl(name)
               return (
                 <button
                   key={name}
-                  onClick={() => onSelectContractor?.(name)}
+                  type="button"
+                  onClick={() => onSelectCountry(name)}
                   className="w-full text-left group"
                 >
                   <div className="flex items-center gap-2 mb-1.5">
-                    {logoUrl && (
+                    {flagUrl && (
                       <img
-                        src={logoUrl}
-                        alt={name}
-                        className={`w-3.5 h-3.5 object-contain flex-shrink-0 opacity-60 ${contractorLogoClassName(name)}`}
+                        src={flagUrl}
+                        alt=""
+                        className="w-4 h-3 object-cover flex-shrink-0 opacity-70"
                         decoding="async"
-                        loading="eager"
-                        onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                       />
                     )}
                     <span className="text-[10px] text-zinc-400 truncate flex-1 group-hover:text-zinc-200 transition-colors">{name}</span>
                     <span className="text-[10px] font-mono text-zinc-500 flex-shrink-0">{formatCost(data.cost)}</span>
                   </div>
                   <div className="h-[3px] bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-zinc-500"
-                      style={{ width: `${pct}%` }}
-                    />
+                    <div className="h-full bg-zinc-500" style={{ width: `${pct}%` }} />
                   </div>
                 </button>
               )
@@ -234,11 +226,8 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
 
   return (
     <div className="flex flex-col h-full overflow-hidden bg-[#0c0c0c]">
-
-      {/* Header */}
       <div className="flex-shrink-0 bg-[#0d0d0d] border-b border-zinc-800">
         <div className="px-5 md:px-8 py-4 md:py-5 flex items-center gap-4 md:gap-6">
-          {/* Back */}
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-zinc-600 hover:text-zinc-300 transition-colors flex-shrink-0 group"
@@ -251,26 +240,24 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
 
           <div className="w-px h-8 bg-zinc-800 flex-shrink-0" />
 
-          {/* Country identity */}
           <div className="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
-            {getFlagUrl(country) && (
+            {logoUrl && (
               <img
-                src={getFlagUrl(country)!}
-                alt={country}
-                className="h-6 md:h-7 w-auto flex-shrink-0 shadow-sm"
+                src={logoUrl}
+                alt=""
+                className={`h-6 md:h-7 w-auto flex-shrink-0 object-contain opacity-80 ${contractorLogoClassName(contractor)}`}
                 decoding="async"
-                fetchPriority="high"
+                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
               />
             )}
             <div className="min-w-0">
-              <h1 className="text-lg md:text-2xl font-light text-white tracking-tight leading-none">{country}</h1>
+              <h1 className="text-lg md:text-2xl font-light text-white tracking-tight leading-none truncate">{contractor}</h1>
               <p className="text-[9px] text-zinc-600 uppercase tracking-widest mt-1 hidden sm:block">
-                {formatDate(dateMin)} – {formatDate(dateMax)}
+                {dateMin && dateMax ? `${formatDate(dateMin)} – ${formatDate(dateMax)}` : 'Contractor'}
               </p>
             </div>
           </div>
 
-          {/* Key stats */}
           <div className="flex items-stretch gap-6 md:gap-10 flex-shrink-0">
             <div className="text-right">
               <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Total Value</div>
@@ -284,22 +271,19 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
           </div>
         </div>
 
-        {/* Mobile date + count */}
         <div className="flex items-center justify-between px-5 pb-3 sm:hidden">
-          <p className="text-[9px] text-zinc-600 uppercase tracking-widest">{formatDate(dateMin)} – {formatDate(dateMax)}</p>
+          <p className="text-[9px] text-zinc-600 uppercase tracking-widest">
+            {dateMin && dateMax ? `${formatDate(dateMin)} – ${formatDate(dateMax)}` : '—'}
+          </p>
           <p className="text-[9px] text-zinc-600 uppercase tracking-widest">{Math.round(animatedNotifCount).toLocaleString()} notifications</p>
         </div>
       </div>
 
-      {/* Body */}
       <div className="flex-1 flex overflow-hidden relative">
-
-        {/* Mobile backdrop */}
         {sidebarOpen && (
           <div className="fixed inset-0 bg-black/70 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />
         )}
 
-        {/* Sidebar */}
         <div className={`
           fixed inset-y-0 left-0 z-50 md:relative md:inset-auto
           w-96 flex-shrink-0 border-r border-zinc-800/60 overflow-y-auto bg-[#0d0d0d] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
@@ -315,12 +299,8 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
           {sidebarContent}
         </div>
 
-        {/* Main content */}
         <div className="flex-1 overflow-hidden flex flex-col min-w-0">
-
-          {/* Controls bar */}
           <div className="pl-3 pr-4 md:pl-4 md:pr-6 py-2.5 border-b border-zinc-800/60 flex-shrink-0 bg-[#0d0d0d] flex items-center gap-3">
-            {/* Mobile overview toggle */}
             <button
               onClick={() => setSidebarOpen(true)}
               className={`md:hidden flex items-center gap-1.5 text-[10px] uppercase tracking-widest border px-2.5 py-1.5 flex-shrink-0 transition-colors ${
@@ -335,7 +315,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
               {activeFilters > 0 ? `${activeFilters} filter${activeFilters > 1 ? 's' : ''}` : 'Overview'}
             </button>
 
-            {/* Search */}
             <div className="flex-1 relative">
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none" className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-700 pointer-events-none">
                 <circle cx="5" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.2"/>
@@ -345,7 +324,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search systems, transmittals…"
+                placeholder="Search systems, countries, transmittals…"
                 className="w-full bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-7 pr-8 py-1.5 text-xs outline-none placeholder:text-zinc-700 transition-colors"
               />
               {search && (
@@ -358,7 +337,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
               )}
             </div>
 
-            {/* Sort controls */}
             <div className="flex items-center gap-1 border border-zinc-800 p-0.5 flex-shrink-0">
               {(['date', 'cost'] as const).map(s => {
                 const isActive = sort === s
@@ -386,18 +364,15 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 )
               })}
             </div>
-
           </div>
 
-          {/* Table header */}
           <div className="hidden xl:grid px-6 py-2 border-b border-zinc-800/60 flex-shrink-0 bg-[#0a0a0a]"
                style={{ gridTemplateColumns: TABLE_GRID }}>
-            {['Date', 'Transmittal', 'System', 'Contractor/Source', 'Value'].map(h => (
+            {['Date', 'Transmittal', 'Country', 'System', 'Value'].map(h => (
               <div key={h} className={`min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium ${h === 'Value' ? 'text-right' : ''}`}>{h}</div>
             ))}
           </div>
 
-          {/* Rows */}
           <div className="flex-1 overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
             {filtered.length === 0 && (
               <div className="flex items-center justify-center h-32 text-xs text-zinc-700">
@@ -409,10 +384,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
               const color = CATEGORY_COLORS[cat]
               const isSelected = selectedSale === n
               const isNew = isNotificationNew(n)
-              const contractors = parseContractors(n.contractor, n.contractorLocation)
-              const source = supplySource(n.contractor)
-              const primaryContractor = contractors[0]?.name ?? null
-              const contractorLabel = contractors.map(c => c.name).join(' · ') || source || null
+              const flagUrl = n.country ? getFlagUrl(n.country) : null
 
               return (
                 <motion.div
@@ -422,7 +394,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.15, delay: Math.min(i * 0.025, 0.25) }}
                 >
-                  {/* Desktop row */}
                   <button
                     className="hidden xl:grid w-full text-left px-6 py-3.5 items-center gap-4"
                     style={{ gridTemplateColumns: TABLE_GRID }}
@@ -432,6 +403,12 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                     <div className="min-w-0 overflow-hidden flex items-center gap-2">
                       <div className="w-[3px] h-4 rounded-full flex-shrink-0" style={{ background: color }} />
                       <span className="text-[11px] font-mono text-zinc-500 truncate">{n.transmittal ?? '—'}</span>
+                    </div>
+                    <div className="min-w-0 overflow-hidden flex items-center gap-2">
+                      {flagUrl && (
+                        <img src={flagUrl} alt="" className="w-4 h-3 object-cover flex-shrink-0 opacity-70" />
+                      )}
+                      <span className="text-[11px] text-zinc-500 truncate">{n.country ?? '—'}</span>
                     </div>
                     <div className="min-w-0 overflow-hidden">
                       <div className="text-[12px] text-zinc-200 truncate leading-snug flex items-center gap-2">
@@ -446,44 +423,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                       </div>
                       <div className="text-[9px] uppercase tracking-wider mt-0.5 font-medium truncate" style={{ color }}>{cat}</div>
                     </div>
-                    <div className="min-w-0 overflow-hidden flex items-center gap-2">
-                      {contractorLabel ? (
-                        <>
-                          {primaryContractor && getContractorLogoUrl(primaryContractor) && (
-                            <img
-                              src={getContractorLogoUrl(primaryContractor)!}
-                              alt={primaryContractor}
-                              className={`w-3.5 h-3.5 object-contain flex-shrink-0 opacity-60 ${contractorLogoClassName(primaryContractor)}`}
-                              onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-                            />
-                          )}
-                          {primaryContractor && onSelectContractor ? (
-                            <span
-                              role="link"
-                              tabIndex={0}
-                              className="text-[11px] text-zinc-500 truncate hover:text-zinc-300 transition-colors"
-                              onClick={e => {
-                                e.stopPropagation()
-                                onSelectContractor(primaryContractor)
-                              }}
-                              onKeyDown={e => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                  e.preventDefault()
-                                  e.stopPropagation()
-                                  onSelectContractor(primaryContractor)
-                                }
-                              }}
-                            >
-                              {contractorLabel}
-                            </span>
-                          ) : (
-                            <span className="text-[11px] text-zinc-500 truncate">{contractorLabel}</span>
-                          )}
-                        </>
-                      ) : (
-                        <span className="text-zinc-800">—</span>
-                      )}
-                    </div>
                     <div className="min-w-0 overflow-hidden text-right">
                       <span className={`text-sm font-mono font-light ${n.costUSD ? 'text-amber-400' : 'text-zinc-800'}`}>
                         {n.costUSD ? formatCost(n.costUSD) : '—'}
@@ -491,7 +430,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                     </div>
                   </button>
 
-                  {/* Card row (mobile + compressed desktop) */}
                   <button
                     className="xl:hidden w-full text-left px-4 py-3.5"
                     onClick={() => openSale(isSelected ? null : n)}
@@ -514,7 +452,10 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                             <span className="text-sm font-mono font-light text-amber-400 flex-shrink-0">{formatCost(n.costUSD)}</span>
                           )}
                         </div>
-                        <div className="mt-1.5 text-[10px] font-mono text-zinc-600">{formatDate(n.date)}</div>
+                        <div className="mt-1.5 flex items-center gap-2 text-[10px] font-mono text-zinc-600">
+                          <span>{formatDate(n.date)}</span>
+                          {n.country && <span>· {n.country}</span>}
+                        </div>
                       </div>
                     </div>
                   </button>
@@ -527,9 +468,8 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
 
       <SaleDetailDrawer
         notification={selectedSale}
-        country={country}
+        country={selectedSale?.country ?? ''}
         onClose={() => openSale(null)}
-        onSelectContractor={onSelectContractor}
       />
     </div>
   )

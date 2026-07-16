@@ -10,6 +10,7 @@ import { getFlagUrl } from '../utils/countryFlags'
 interface Props {
   filtered: Notification[]
   onSelectCountry: (country: string) => void
+  onSelectContractor?: (contractor: string) => void
 }
 
 const VB_W = 1400
@@ -24,7 +25,7 @@ const MAX_CONTRACTORS = 14
 const MAX_COUNTRIES = 22
 const US_LABEL = 'United States of America'
 
-export function NetworkView({ filtered, onSelectCountry }: Props) {
+export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: Props) {
   const svgRef = useRef<SVGSVGElement>(null)
   const gRef = useRef<SVGGElement>(null)
   const [hovered, setHovered] = useState<{ type: 'contractor' | 'usg' | 'country'; name: string } | null>(null)
@@ -194,9 +195,10 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
             return (
               <g
                 key={c.name}
-                style={{ cursor: 'default' }}
+                style={{ cursor: onSelectContractor ? 'pointer' : 'default' }}
                 onMouseEnter={() => setHovered({ type: 'contractor', name: c.name })}
                 onMouseLeave={() => setHovered(null)}
+                onClick={() => onSelectContractor?.(c.name)}
               >
                 <motion.circle
                   cx={x} cy={y} r={4}
@@ -351,7 +353,7 @@ export function NetworkView({ filtered, onSelectCountry }: Props) {
         <span className="hidden md:inline">Scroll to zoom · Drag to pan</span>
         <span className="md:hidden">Pinch to zoom · Drag to pan</span>
         <span className="mx-1.5 opacity-40">·</span>
-        <span>Click a country to drill in</span>
+        <span>Click a country or contractor to drill in</span>
       </div>
     </div>
   )
