@@ -44,9 +44,7 @@ export function normalizeContractor(raw: string): string {
 
   // ── Major primes ────────────────────────────────────────────────────────────
   if (/lockheed[- ]martin/i.test(s)) return 'Lockheed Martin'
-  if (/\braytheon\b|rtx\s+(corp|missile|missile\s+defense|technologies|mdsc)/i.test(s)) return 'RTX'
-  if (/^rtx\s+corp/i.test(s)) return 'RTX'
-  if (/^rtx$/i.test(s)) return 'RTX'
+  if (/\braytheon\b|\brtx\b/i.test(s)) return 'RTX'
 
   if (/northrop\s+grumman/i.test(s)) return 'Northrop Grumman'
 

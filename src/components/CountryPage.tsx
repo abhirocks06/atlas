@@ -416,16 +416,20 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
 
           </div>
 
-          {/* Table header */}
-          <div className="hidden xl:grid px-6 py-2 border-b border-zinc-800/60 flex-shrink-0 bg-[#0a0a0a]"
-               style={{ gridTemplateColumns: TABLE_GRID }}>
-            {['Date', 'Transmittal', 'System', 'Contractor/Source', 'Value'].map(h => (
-              <div key={h} className={`min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium ${h === 'Value' ? 'text-right' : ''}`}>{h}</div>
-            ))}
-          </div>
-
           {/* Rows */}
           <div className="flex-1 overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
+            {/* Table header — sticky inside scroll so column widths match rows */}
+            <div
+              className="hidden xl:grid sticky top-0 z-10 px-6 py-2 border-b border-zinc-800/60 bg-[#0a0a0a] gap-4 items-center"
+              style={{ gridTemplateColumns: TABLE_GRID }}
+            >
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Date</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Transmittal</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">System</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Contractor/Source</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium text-right">Value</div>
+            </div>
+
             {filtered.length === 0 && (
               <div className="flex items-center justify-center h-32 text-xs text-zinc-700">
                 No notifications match current filters
@@ -475,38 +479,28 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                     </div>
                     <div className="min-w-0 overflow-hidden flex items-center gap-2">
                       {contractorLabel ? (
-                        <>
-                          {primaryContractor && getContractorLogoUrl(primaryContractor) && (
-                            <img
-                              src={getContractorLogoUrl(primaryContractor)!}
-                              alt={primaryContractor}
-                              className={`w-3.5 h-3.5 object-contain flex-shrink-0 opacity-60 ${contractorLogoClassName(primaryContractor)}`}
-                              onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-                            />
-                          )}
-                          {primaryContractor && onSelectContractor ? (
-                            <span
-                              role="link"
-                              tabIndex={0}
-                              className="text-[11px] text-zinc-500 truncate hover:text-zinc-300 transition-colors"
-                              onClick={e => {
+                        primaryContractor && onSelectContractor ? (
+                          <span
+                            role="link"
+                            tabIndex={0}
+                            className="text-[11px] text-zinc-500 truncate hover:text-zinc-300 transition-colors"
+                            onClick={e => {
+                              e.stopPropagation()
+                              onSelectContractor(primaryContractor)
+                            }}
+                            onKeyDown={e => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault()
                                 e.stopPropagation()
                                 onSelectContractor(primaryContractor)
-                              }}
-                              onKeyDown={e => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                  e.preventDefault()
-                                  e.stopPropagation()
-                                  onSelectContractor(primaryContractor)
-                                }
-                              }}
-                            >
-                              {contractorLabel}
-                            </span>
-                          ) : (
-                            <span className="text-[11px] text-zinc-500 truncate">{contractorLabel}</span>
-                          )}
-                        </>
+                              }
+                            }}
+                          >
+                            {contractorLabel}
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-zinc-500 truncate">{contractorLabel}</span>
+                        )
                       ) : (
                         <span className="text-zinc-800">—</span>
                       )}

@@ -20,7 +20,7 @@ interface Props {
   onBack: () => void
 }
 
-const TABLE_GRID = '7rem 6rem 8rem minmax(0, 1fr) 6.5rem'
+const TABLE_GRID = '7rem 6rem minmax(0, 1fr) minmax(0, 11rem) 6.5rem'
 
 function saleUrlKey(n: Notification): string {
   if (n.transmittal) return n.transmittal
@@ -366,14 +366,18 @@ export function ContractorPage({
             </div>
           </div>
 
-          <div className="hidden xl:grid px-6 py-2 border-b border-zinc-800/60 flex-shrink-0 bg-[#0a0a0a]"
-               style={{ gridTemplateColumns: TABLE_GRID }}>
-            {['Date', 'Transmittal', 'Country', 'System', 'Value'].map(h => (
-              <div key={h} className={`min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium ${h === 'Value' ? 'text-right' : ''}`}>{h}</div>
-            ))}
-          </div>
-
           <div className="flex-1 overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
+            <div
+              className="hidden xl:grid sticky top-0 z-10 px-6 py-2 border-b border-zinc-800/60 bg-[#0a0a0a] gap-4 items-center"
+              style={{ gridTemplateColumns: TABLE_GRID }}
+            >
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Date</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Transmittal</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">System</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Country</div>
+              <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium text-right">Value</div>
+            </div>
+
             {filtered.length === 0 && (
               <div className="flex items-center justify-center h-32 text-xs text-zinc-700">
                 No notifications match current filters
@@ -384,7 +388,6 @@ export function ContractorPage({
               const color = CATEGORY_COLORS[cat]
               const isSelected = selectedSale === n
               const isNew = isNotificationNew(n)
-              const flagUrl = n.country ? getFlagUrl(n.country) : null
 
               return (
                 <motion.div
@@ -404,12 +407,6 @@ export function ContractorPage({
                       <div className="w-[3px] h-4 rounded-full flex-shrink-0" style={{ background: color }} />
                       <span className="text-[11px] font-mono text-zinc-500 truncate">{n.transmittal ?? '—'}</span>
                     </div>
-                    <div className="min-w-0 overflow-hidden flex items-center gap-2">
-                      {flagUrl && (
-                        <img src={flagUrl} alt="" className="w-4 h-3 object-cover flex-shrink-0 opacity-70" />
-                      )}
-                      <span className="text-[11px] text-zinc-500 truncate">{n.country ?? '—'}</span>
-                    </div>
                     <div className="min-w-0 overflow-hidden">
                       <div className="text-[12px] text-zinc-200 truncate leading-snug flex items-center gap-2">
                         <span className="truncate">
@@ -422,6 +419,30 @@ export function ContractorPage({
                         )}
                       </div>
                       <div className="text-[9px] uppercase tracking-wider mt-0.5 font-medium truncate" style={{ color }}>{cat}</div>
+                    </div>
+                    <div className="min-w-0 overflow-hidden">
+                      {n.country ? (
+                        <span
+                          role="link"
+                          tabIndex={0}
+                          className="text-[11px] text-zinc-500 truncate block hover:text-zinc-300 transition-colors"
+                          onClick={e => {
+                            e.stopPropagation()
+                            onSelectCountry(n.country!)
+                          }}
+                          onKeyDown={e => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              onSelectCountry(n.country!)
+                            }
+                          }}
+                        >
+                          {n.country}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] text-zinc-800">—</span>
+                      )}
                     </div>
                     <div className="min-w-0 overflow-hidden text-right">
                       <span className={`text-sm font-mono font-light ${n.costUSD ? 'text-amber-400' : 'text-zinc-800'}`}>
