@@ -6,6 +6,7 @@ import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
 import { formatCost } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
+import { getContractorLogoUrl } from '../utils/contractorLogos'
 
 interface Props {
   filtered: Notification[]
@@ -147,7 +148,6 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
         className="w-full h-full touch-none"
       >
         <g ref={gRef}>
-          {/* Edges: contractor → USG → country */}
           {edges.map(e => {
             const ci = cIndex.get(e.contractor)
             const ki = kIndex.get(e.country)
@@ -159,7 +159,7 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
             const mx2 = (UX + x2) / 2
 
             const active = isEdgeActive(e)
-            const logW = (Math.log(e.value + 1) / Math.log(maxEdgeValue + 1))
+            const logW = Math.log(e.value + 1) / Math.log(maxEdgeValue + 1)
             const strokeW = 0.5 + logW * 3.5
             const key = `${e.contractor}::${e.country}`
 
@@ -187,10 +187,10 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
             )
           })}
 
-          {/* Contractor nodes */}
           {contractors.map((c, i) => {
             const x = CX, y = cY(i)
             const active = isContractorActive(c.name)
+            const logoUrl = getContractorLogoUrl(c.name)
 
             return (
               <g
@@ -206,8 +206,19 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
                   animate={{ opacity: active ? 1 : 0.2 }}
                   transition={{ duration: 0.15 }}
                 />
+                {logoUrl && (
+                  <image
+                    href={logoUrl}
+                    x={x - 34}
+                    y={y - 9}
+                    width={18}
+                    height={18}
+                    opacity={active ? 0.95 : 0.15}
+                    preserveAspectRatio="xMidYMid meet"
+                  />
+                )}
                 <motion.text
-                  x={x - 12}
+                  x={logoUrl ? x - 40 : x - 12}
                   y={y}
                   textAnchor="end"
                   dominantBaseline="middle"
@@ -219,7 +230,8 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
                   {c.name}
                 </motion.text>
                 <motion.text
-                  x={x - 12} y={y + 13}
+                  x={logoUrl ? x - 40 : x - 12}
+                  y={y + 13}
                   textAnchor="end"
                   dominantBaseline="middle"
                   fontSize={subFontSize}
@@ -233,7 +245,6 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
             )
           })}
 
-          {/* USG hub */}
           <g
             style={{ cursor: 'default' }}
             onMouseEnter={() => setHovered({ type: 'usg', name: US_LABEL })}
@@ -282,7 +293,6 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
             </motion.text>
           </g>
 
-          {/* Country nodes */}
           {countries.map((k, i) => {
             const x = KX, y = kY(i)
             const active = isNodeActive('country', k.name)
@@ -339,7 +349,6 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
             )
           })}
 
-          {/* Column labels */}
           <text x={CX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
             CONTRACTORS
           </text>

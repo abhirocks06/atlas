@@ -9,100 +9,6 @@ const selectStyle = {
   backgroundPosition: 'right 6px center',
 }
 
-interface YearMenuProps {
-  value: number
-  options: number[]
-  onChange: (year: number) => void
-  label: string
-  /** Align the menu to the right edge of the trigger (for the "to" year). */
-  align?: 'left' | 'right'
-}
-
-function YearMenu({ value, options, onChange, label, align = 'left' }: YearMenuProps) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    function handleClick(e: MouseEvent) {
-      if (!ref.current?.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [open])
-
-  useEffect(() => {
-    if (!open || !listRef.current) return
-    const active = listRef.current.querySelector('[data-active="true"]')
-    if (active instanceof HTMLElement) {
-      active.scrollIntoView({ block: 'nearest' })
-    }
-  }, [open, value])
-
-  return (
-    <div ref={ref} className="relative min-w-0">
-      <button
-        type="button"
-        aria-label={label}
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        onClick={() => setOpen(o => !o)}
-        className={`w-full flex items-center justify-between gap-2 bg-[#0a0a0a] border px-2.5 py-2 text-xs text-left outline-none transition-colors ${
-          open ? 'border-zinc-600 text-zinc-200' : 'border-zinc-800 text-zinc-300 hover:border-zinc-700'
-        }`}
-      >
-        <span className="font-mono tabular-nums">{value}</span>
-        <svg
-          width="10"
-          height="6"
-          viewBox="0 0 10 6"
-          fill="none"
-          className={`flex-shrink-0 text-zinc-600 transition-transform ${open ? 'rotate-180' : ''}`}
-          aria-hidden="true"
-        >
-          <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-        </svg>
-      </button>
-
-      {open && (
-        <div
-          ref={listRef}
-          role="listbox"
-          aria-label={label}
-          className={`absolute top-full mt-1 z-50 max-h-52 overflow-y-auto bg-[#111] border border-zinc-800 shadow-xl min-w-full w-max ${
-            align === 'right' ? 'right-0' : 'left-0'
-          }`}
-        >
-          {options.map(y => {
-            const active = y === value
-            return (
-              <button
-                key={y}
-                type="button"
-                role="option"
-                aria-selected={active}
-                data-active={active ? 'true' : undefined}
-                onClick={() => {
-                  onChange(y)
-                  setOpen(false)
-                }}
-                className={`w-full text-left px-3 py-2.5 text-xs font-mono tabular-nums transition-colors border-b border-zinc-800/60 last:border-0 ${
-                  active
-                    ? 'bg-zinc-800 text-white'
-                    : 'text-zinc-400 hover:bg-zinc-800/70 hover:text-zinc-200'
-                }`}
-              >
-                {y}
-              </button>
-            )
-          })}
-        </div>
-      )}
-    </div>
-  )
-}
-
 interface Props {
   dateRange: [string, string]
   onDateRangeChange: (range: [string, string]) => void
@@ -158,20 +64,29 @@ export function FilterBar({
       <div className="flex flex-col gap-2 sm:hidden">
         <div className="flex items-center gap-2">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1.5 flex-1 min-w-0">
-            <YearMenu
-              label="From year"
+            <select
+              aria-label="From year"
               value={fromYear}
-              options={years.filter(y => y <= toYear)}
-              onChange={y => onDateRangeChange([`${y}-01-01`, dateRange[1]])}
-            />
+              onChange={e => onDateRangeChange([`${e.target.value}-01-01`, dateRange[1]])}
+              className={`${selectClass} w-full py-2 text-base sm:text-xs text-zinc-300`}
+              style={selectStyle}
+            >
+              {years.filter(y => y <= toYear).map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
             <span className="text-[11px] text-zinc-600 px-0.5">–</span>
-            <YearMenu
-              label="To year"
+            <select
+              aria-label="To year"
               value={toYear}
-              options={years.filter(y => y >= fromYear)}
-              onChange={y => onDateRangeChange([dateRange[0], `${y}-12-31`])}
-              align="right"
-            />
+              onChange={e => onDateRangeChange([dateRange[0], `${e.target.value}-12-31`])}
+              className={`${selectClass} w-full py-2 text-base sm:text-xs text-zinc-300`}
+              style={selectStyle}
+            >
+              {years.filter(y => y >= fromYear).map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
           </div>
           <div className="flex items-center gap-0.5 border border-zinc-800 p-0.5 flex-shrink-0">
             {(['map', 'network'] as const).map(v => (
@@ -200,7 +115,7 @@ export function FilterBar({
             placeholder="Search country…"
             onChange={e => { setQuery(e.target.value); setOpen(true) }}
             onFocus={() => { if (query) setOpen(true) }}
-            className="w-full bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 py-2 text-xs outline-none transition-colors"
+            className="w-full bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 py-2 text-base sm:text-xs outline-none transition-colors"
           />
           {query && (
             <button
@@ -269,7 +184,7 @@ export function FilterBar({
               placeholder="Search…"
               onChange={e => { setQuery(e.target.value); setOpen(true) }}
               onFocus={() => { if (query) setOpen(true) }}
-              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors w-28 md:w-36"
+              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-base sm:text-[11px] md:text-xs outline-none transition-colors w-28 md:w-36"
             />
             {query && (
               <button

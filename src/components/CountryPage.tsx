@@ -373,7 +373,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search systems, transmittals…"
-                className="w-full bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-7 pr-8 py-1.5 text-xs outline-none placeholder:text-zinc-700 transition-colors"
+                className="w-full bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-7 pr-8 py-1.5 text-base sm:text-xs outline-none placeholder:text-zinc-700 transition-colors"
               />
               {search && (
                 <button

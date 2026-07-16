@@ -46,7 +46,7 @@ export function normalizeContractor(raw: string): string {
   if (/lockheed[- ]martin/i.test(s)) return 'Lockheed Martin'
   if (/\braytheon\b|\brtx\b/i.test(s)) return 'RTX'
 
-  if (/northrop\s+grumman/i.test(s)) return 'Northrop Grumman'
+  if (/northrop|northrup|northr\s*op/i.test(s)) return 'Northrop Grumman'
 
   // Boeing (must come after Bell Helicopter which mentions Boeing in JV)
   if (/boeing\s+helicopter\s+and\s+boeing|bell\s+helicopter\s+and\s+boeing/i.test(s)) return 'Bell Boeing'
@@ -87,6 +87,9 @@ export function normalizeContractor(raw: string): string {
   // Pratt & Whitney
   if (/pratt\s+(and|&)\s+whitney|pratt\s+whitney/i.test(s)) return 'Pratt & Whitney'
 
+  // American General → AM General
+  if (/american\s+general/i.test(s)) return 'AM General'
+
   // AM General
   if (/^am\s+general/i.test(s)) return 'AM General'
 
@@ -99,8 +102,9 @@ export function normalizeContractor(raw: string): string {
   // AeroVironment
   if (/aerovironment/i.test(s)) return 'AeroVironment'
 
-  // Aerojet / Aerojet Rocketdyne
+  // Aerojet / Aerojet Rocketdyne / ATK
   if (/aerojet/i.test(s)) return 'Aerojet Rocketdyne'
+  if (/\batk\b|alliant\s+techsystems|orbital\s+atk/i.test(s)) return 'Orbital ATK'
 
   // Leonardo / DRS (Leonardo subsidiary)
   if (/\bleonardo\b|drs\s+north\s+america/i.test(s)) return 'Leonardo DRS'

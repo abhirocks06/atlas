@@ -1179,8 +1179,8 @@
   {
     "date": "2010-09-24",
     "transmittal": "10-51",
-    "country": "Kuwait C",
-    "system": "17 GLOBEMASTER III Aircraft and Related Support",
+    "country": "Kuwait",
+    "system": "C-17 Globemaster III Aircraft and Related Support",
     "costUSD": 693000000,
     "contractor": "The Boeing Company in Chicago, Illinois",
     "contractorLocation": null,
@@ -2004,8 +2004,8 @@
   {
     "date": "2011-12-12",
     "transmittal": "11-46",
-    "country": "Iraq F",
-    "system": "16 Aircraft",
+    "country": "Iraq",
+    "system": "F-16 Aircraft",
     "costUSD": 2300000000,
     "contractor": "BAE Advanced Systems / Boeing Corporation / Northrop-Grumman Electronic Systems / General Electric Aircraft Engines / Goodrich ISR Systems / L3 Communications",
     "contractorLocation": "Greenlawn, New York / Seattle, Washington / Baltimore, Maryland / Cincinnati, Ohio / Danbury, Connecticut / Arlington, Texas",
@@ -2392,9 +2392,9 @@
     "country": "Saudi Arabia",
     "system": "Intelligence, Surveillance, and Reconnaissance (ISR) Suites and Support",
     "costUSD": 257000000,
-    "contractor": "L-3 Communications / Hawker B eechcraft in Wichita, Kansas / Raytheon in Aberdeen Proving Grounds, Maryland / Rockwell Collins in Cedar Rapids, Iowa / Harris in Rochester, New York / ATK in Ridgecrest, California / BAE Systems in Austin, Texas / VIASAT in Carlsbad, California",
-    "contractorLocation": "Mission Integration Division in Greenville, Texas",
-    "description": "a possible sale of ten Link-16 capable data link systems and Intelligence, Surveillance, and Reconnaissance (ISR) suites for four KSA-provided King Air 350ER aircraft and associated ground support, with an option to procure, via a Foreign Military Sales, an additional four King Air 350ER aircraft with enhanced PT6A-67A engines and spare parts equipped with the same ISR suites. The ISR suites include a Com-Nav Surveillance/Air Traffic Management cockpit, RF-7800M- MP High Frequency Radios with encryption, AN/ARC-210 Very High Frequency/Ultra High Frequency/Satellite Communication Transceiver Radios with Have Quick II and encryption, a High Speed Data Link, an AN/APX-114/119 Identification Friend or Foe Transponder, Embedded Global Positioning System/Inertial Navigations Systems (GPS/INS) with a Selective Availability Anti-spoofing Module (SAASM), AN/AAR-60 Infrared Missile Warning and AN/ALE-47 Countermeasures System, Electro-Optical Sensor, SIGINT System, Synthetic Aperture Radar. Also included are Ground Stations, Training Aids, C4I Integration, aircraft modifications, spare and repair parts, support equipment, publications and technical data, personnel training and training equipment, aircraft ferry, U.S. Government and contractor technical, engineering, and logistics support services, and other related elements of logistics support. The estimated cost is $257 million. This proposed sale of airborne ISR assets to KSA will contribute to the foreign policy and national security of the United States by helping to improve the security of a friendly country that has been, and continues to be, an important force for political stability and economic progress in the Middle East. The RSAF needs additional ISR capability to provide persistent, real-time route surveillance, facility, infrastructure and border security, counter-terrorism and smuggling interdiction, support for naval and coastal operations, internal defense and search and rescue operations. The King AIR 350ER-…",
+    "contractor": "L-3 Communications Mission Integration Division of Greenville, Texas / Hawker Beechcraft of Wichita, Kansas / Raytheon of Aberdeen Proving Grounds, Maryland / Rockwell Collins of Cedar Rapids, Iowa / Harris of Rochester, New York / ATK of Ridgecrest, California / BAE Systems of Austin, Texas / Viasat of Carlsbad, California",
+    "contractorLocation": null,
+    "description": "a possible sale of ten Link-16 capable data link systems and Intelligence, Surveillance, and Reconnaissance (ISR) suites for four KSA-provided King Air 350ER aircraft and associated ground support, with an option to procure, via a Foreign Military Sales, an additional four King Air 350ER aircraft with enhanced PT6A-67A engines and spare parts equipped with the same ISR suites. The ISR suites include a Com-Nav Surveillance/Air Traffic Management cockpit, RF-7800M-MP High Frequency Radios with encryption, AN/ARC-210 Very High Frequency/Ultra High Frequency/Satellite Communication Transceiver Radios with Have Quick II and encryption, a High Speed Data Link, an AN/APX-114/119 Identification Friend or Foe Transponder, Embedded Global Positioning System/Inertial Navigations Systems (GPS/INS) with a Selective Availability Anti-spoofing Module (SAASM), AN/AAR-60 Infrared Missile Warning and AN/ALE-47 Countermeasures System, Electro-Optical Sensor, SIGINT System, Synthetic Aperture Radar. Also included are Ground Stations, Training Aids, C4I Integration, aircraft modifications, spare and repair parts, support equipment, publications and technical data, personnel training and training equipment, aircraft ferry, U.S. Government and contractor technical, engineering, and logistics support services, and other related elements of logistics support. The estimated cost is $257 million.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606694/-1/-1/0/SAUDI_ARABIA_12-22_0.PDF"
   },
   {
@@ -2719,7 +2719,7 @@
   {
     "date": "2013-04-17",
     "transmittal": "13-06",
-    "country": "Nato",
+    "country": "NATO",
     "system": "C-17 Follow-On Support",
     "costUSD": 300000000,
     "contractor": "The Boeing Company in Huntington Beach, California",
@@ -4127,8 +4127,8 @@
   {
     "date": "2015-05-13",
     "transmittal": "15-31",
-    "country": "Norway Aim",
-    "system": "9X Block II Sidewinder Missiles",
+    "country": "Norway",
+    "system": "AIM-9X Block II Sidewinder Missiles",
     "costUSD": 345000000,
     "contractor": "Raytheon Missile Systems Company in Tucson",
     "contractorLocation": "Arizona",
@@ -4776,8 +4776,8 @@
   {
     "date": "2016-04-22",
     "transmittal": "16-07",
-    "country": "Qatar- Rim",
-    "system": "116C and RIM-116C-2 Rolling Airframe Missiles",
+    "country": "Qatar",
+    "system": "RIM-116C and RIM-116C-2 Rolling Airframe Missiles",
     "costUSD": 260000000,
     "contractor": "Raytheon Missile Systems in Tucson",
     "contractorLocation": "Arizona",
@@ -9297,7 +9297,7 @@
   {
     "date": "2023-04-17",
     "transmittal": "21-34",
-    "country": "Türkiye",
+    "country": "Turkey",
     "system": "F-16 Avionics Upgrade",
     "costUSD": 259000000,
     "contractor": "Lockheed Martin Aeronautics Company of Fort Worth",
@@ -10056,7 +10056,7 @@
   {
     "date": "2024-01-26",
     "transmittal": "23-07",
-    "country": "Türkiye",
+    "country": "Turkey",
     "system": "F-16 Aircraft Acquisition and Modernization",
     "costUSD": 23000000000,
     "contractor": "Lockheed Martin",
