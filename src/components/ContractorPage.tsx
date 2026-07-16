@@ -245,7 +245,7 @@ export function ContractorPage({
               <img
                 src={logoUrl}
                 alt=""
-                className={`h-6 md:h-7 w-auto flex-shrink-0 object-contain opacity-80 ${contractorLogoClassName(contractor)}`}
+                className={`h-9 md:h-11 w-auto flex-shrink-0 object-contain opacity-80 ${contractorLogoClassName(contractor)}`}
                 decoding="async"
                 onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
               />
