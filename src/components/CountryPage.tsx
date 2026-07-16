@@ -35,6 +35,7 @@ function findSale(notifications: Notification[], key: string | null | undefined)
 
 export function CountryPage({ country, notifications, initialSaleKey = null, onSaleKeyChange, onSelectContractor, onBack }: Props) {
   const [activeCategory, setActiveCategory] = useState<WeaponCategory | null>(null)
+  const [activeContractor, setActiveContractor] = useState<string | null>(null)
   const [sort, setSort] = useState<'date' | 'cost'>('date')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
   const [selectedSale, setSelectedSale] = useState<Notification | null>(() =>
@@ -47,6 +48,12 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
   useEffect(() => {
     setSelectedSale(findSale(notifications, initialSaleKey))
   }, [notifications, initialSaleKey])
+
+  useEffect(() => {
+    setActiveCategory(null)
+    setActiveContractor(null)
+    setSearch('')
+  }, [country])
 
   const openSale = (n: Notification | null) => {
     setSelectedSale(n)
@@ -108,6 +115,10 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
     return notifications
       .filter(n => {
         if (activeCategory && categorize(n.system) !== activeCategory) return false
+        if (activeContractor) {
+          const names = contractorNames(n.contractor, n.contractorLocation)
+          if (!names.includes(activeContractor)) return false
+        }
         if (search) {
           const q = search.toLowerCase()
           return (
@@ -126,9 +137,9 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
         const cmp = (a.costUSD ?? 0) - (b.costUSD ?? 0)
         return sortDir === 'desc' ? -cmp : cmp
       })
-  }, [notifications, activeCategory, sort, sortDir, search])
+  }, [notifications, activeCategory, activeContractor, sort, sortDir, search])
 
-  const activeFilters = activeCategory ? 1 : 0
+  const activeFilters = (activeCategory ? 1 : 0) + (activeContractor ? 1 : 0)
   const countryBlurb = getCountryBlurb(country)
 
   const sidebarContent = (
@@ -192,16 +203,30 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
         <div className="px-5 pt-4 pb-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[9px] uppercase tracking-[0.12em] text-zinc-500 font-medium">By Contractor</span>
+            {activeContractor && (
+              <button
+                onClick={() => setActiveContractor(null)}
+                className="text-[9px] uppercase tracking-wider text-amber-600 hover:text-amber-400 transition-colors"
+              >
+                Clear
+              </button>
+            )}
           </div>
           <div className="space-y-3">
             {contractorTotals.map(([name, data]) => {
               const pct = (data.cost / maxContractorCost) * 100
               const logoUrl = getContractorLogoUrl(name)
+              const isActive = activeContractor === name
+              const isDimmed = activeContractor && !isActive
               return (
                 <button
                   key={name}
-                  onClick={() => onSelectContractor?.(name)}
-                  className="w-full text-left group"
+                  type="button"
+                  onClick={() => {
+                    setActiveContractor(isActive ? null : name)
+                    setSidebarOpen(false)
+                  }}
+                  className={`w-full text-left group transition-opacity ${isDimmed ? 'opacity-25 hover:opacity-60' : ''}`}
                 >
                   <div className="flex items-center gap-2 mb-1.5">
                     {logoUrl && (
@@ -214,12 +239,14 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                         onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                       />
                     )}
-                    <span className="text-[10px] text-zinc-400 truncate flex-1 group-hover:text-zinc-200 transition-colors">{name}</span>
+                    <span className={`text-[10px] truncate flex-1 transition-colors ${
+                      isActive ? 'text-zinc-200' : 'text-zinc-400 group-hover:text-zinc-200'
+                    }`}>{name}</span>
                     <span className="text-[10px] font-mono text-zinc-500 flex-shrink-0">{formatCost(data.cost)}</span>
                   </div>
                   <div className="h-[3px] bg-zinc-800 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-zinc-500"
+                      className={`h-full ${isActive ? 'bg-amber-600' : 'bg-zinc-500'}`}
                       style={{ width: `${pct}%` }}
                     />
                   </div>

@@ -2829,8 +2829,8 @@
   {
     "date": "2013-06-20",
     "transmittal": "13-34",
-    "country": "Thailand- Uh",
-    "system": "72A Lakota Helicopters",
+    "country": "Thailand",
+    "system": "UH-72A Lakota Helicopters",
     "costUSD": 77000000,
     "contractor": "EADS North America",
     "contractorLocation": "in Herndon, Virginia",
@@ -4361,9 +4361,9 @@
     "country": "Thailand",
     "system": "Evolved Seasparrow Missiles (ESSM)",
     "costUSD": 26900000,
-    "contractor": "LV MK4 Combat Management System",
-    "contractorLocation": "Sweden Lockheed Martin Baltimore, MD",
-    "description": null,
+    "contractor": "Raytheon Missile Systems of Tucson, Arizona / BAE Systems of Aberdeen, South Dakota / SAAB of Sweden / Lockheed Martin of Baltimore, Maryland",
+    "contractorLocation": null,
+    "description": "a possible sale of Evolved Seasparrow Missiles (ESSM) and associated equipment, parts and logistical support for an estimated cost of $26.9 million. Major Defense Equipment includes: sixteen (16) Evolved Seasparrow Missiles (ESSM) (fourteen (14) tactical missiles and two (2) telemetry missiles); three (3) MK25 Quad Pack canisters; ten (10) MK783 shipping containers. Also included is additional equipment; training; and technical services. The total estimated value of MDE is $18,570,385. The total overall estimated value is $26,943,445.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003607914/-1/-1/0/THAILAND_15-61.PDF"
   },
   {

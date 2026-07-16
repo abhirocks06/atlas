@@ -248,7 +248,7 @@ export default function App() {
                   <span className="hidden sm:inline truncate">Atlas | U.S. Foreign Military Sales Congressional Notifications</span>
                 </div>
                 <div className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide hidden sm:block">
-                  Source: Defense Security Cooperation Agency &amp; Department of State Bureau of Political-Military Affairs
+                  Source: Defense Security Cooperation Agency &amp; Department of State
                 </div>
               </div>
             </div>

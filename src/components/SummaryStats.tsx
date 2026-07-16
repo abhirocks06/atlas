@@ -26,15 +26,13 @@ export function SummaryStats({ filtered }: Props) {
     <div className="flex items-center gap-4 md:gap-6 text-right">
       <div>
         <div className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">
-          <span className="sm:hidden">Value</span>
-          <span className="hidden sm:inline">Total Value</span>
+          Total Value
         </div>
         <div className="text-xs md:text-sm font-mono text-amber-400">{formatCost(animatedTotal)}</div>
       </div>
       <div>
         <div className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest mb-0.5">
-          <span className="sm:hidden">Notifs</span>
-          <span className="hidden sm:inline">Notifications</span>
+          Notifications
         </div>
         <div className="text-xs md:text-sm font-mono text-zinc-300">{Math.round(animatedNotifs).toLocaleString()}</div>
       </div>
