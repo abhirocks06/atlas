@@ -474,9 +474,20 @@ export function ContractorPage({
                             <span className="text-sm font-mono font-light text-amber-400 flex-shrink-0">{formatCost(n.costUSD)}</span>
                           )}
                         </div>
-                        <div className="mt-1.5 flex items-center gap-2 text-[10px] font-mono text-zinc-600">
-                          <span>{formatDate(n.date)}</span>
-                          {n.country && <span>· {n.country}</span>}
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-1.5 text-[10px] font-mono text-zinc-600 min-w-0">
+                          <span className="flex-shrink-0">{formatDate(n.date)}</span>
+                          {n.transmittal && (
+                            <>
+                              <span className="text-zinc-700 flex-shrink-0">·</span>
+                              <span className="flex-shrink-0">{n.transmittal}</span>
+                            </>
+                          )}
+                          {n.country && (
+                            <>
+                              <span className="text-zinc-700 flex-shrink-0">·</span>
+                              <span className="truncate">{n.country}</span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>

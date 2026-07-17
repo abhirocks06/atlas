@@ -536,7 +536,21 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                             <span className="text-sm font-mono font-light text-amber-400 flex-shrink-0">{formatCost(n.costUSD)}</span>
                           )}
                         </div>
-                        <div className="mt-1.5 text-[10px] font-mono text-zinc-600">{formatDate(n.date)}</div>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-1.5 text-[10px] font-mono text-zinc-600 min-w-0">
+                          <span className="flex-shrink-0">{formatDate(n.date)}</span>
+                          {n.transmittal && (
+                            <>
+                              <span className="text-zinc-700 flex-shrink-0">·</span>
+                              <span className="flex-shrink-0">{n.transmittal}</span>
+                            </>
+                          )}
+                          {primaryContractor && (
+                            <>
+                              <span className="text-zinc-700 flex-shrink-0">·</span>
+                              <span className="truncate">{primaryContractor}</span>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </button>
