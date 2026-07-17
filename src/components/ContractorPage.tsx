@@ -94,8 +94,9 @@ export function ContractorPage({
     }
     const years = [...map.keys()].sort()
     if (years.length === 0) return []
+    const endYear = Math.max(years[years.length - 1], new Date().getFullYear())
     const result = []
-    for (let y = years[0]; y <= years[years.length - 1]; y++) {
+    for (let y = years[0]; y <= endYear; y++) {
       result.push({ year: y, value: map.get(y) ?? 0 })
     }
     return result
