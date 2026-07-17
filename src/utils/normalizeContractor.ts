@@ -32,7 +32,7 @@ export function normalizeContractor(raw: string): string {
 
   // ── OCR garbled known company names ────────────────────────────────────────
   // e.g. "S iko rsk y Airc ra ft Co mpa ny in S tratford"
-  if (/s\s*iko\s*rsk\s*y/i.test(s)) return 'Sikorsky'
+  if (/s\s*iko\s*rsk\s*y/i.test(s)) return 'Sikorsky Aircraft'
   // e.g. "G eneral Electric Aircraft Company in Lynn"
   if (/g\s+eneral\s+electric|ge\s*nera\s+l\s+elec/i.test(s)) return 'GE Aerospace'
 
@@ -40,7 +40,7 @@ export function normalizeContractor(raw: string): string {
   if (/javelin\s+joint\s+venture|joint\s+javelin\s+venture/i.test(s)) return 'Javelin Joint Venture'
 
   // ── Sikorsky before Lockheed Martin (LM acquired Sikorsky but it stays Sikorsky) ──
-  if (/sikorsky/i.test(s)) return 'Sikorsky'
+  if (/sikorsky/i.test(s)) return 'Sikorsky Aircraft'
 
   // ── Major primes ────────────────────────────────────────────────────────────
   // Lockheed-Martin / Lockheed- Martin / Lockheed Corporation / …/MFC
@@ -48,13 +48,13 @@ export function normalizeContractor(raw: string): string {
     return 'Lockheed Martin'
   }
   if (/^mfc$/i.test(s)) return 'Lockheed Martin'
-  if (/\braytheon\b|\brtx\b/i.test(s)) return 'RTX'
+  if (/\braytheon\b|\brtx\b/i.test(s)) return 'RTX Corporation'
 
   if (/northrop|northrup|northr\s*op/i.test(s)) return 'Northrop Grumman'
 
   // Boeing (must come after Bell Helicopter which mentions Boeing in JV)
   if (/boeing\s+helicopter\s+and\s+boeing|bell\s+helicopter\s+and\s+boeing/i.test(s)) return 'Bell Boeing'
-  if (/\bboeing\b/i.test(s)) return 'Boeing'
+  if (/\bboeing\b/i.test(s)) return 'The Boeing Company'
 
   if (/huntington\s+ingalls|^hii$/i.test(s)) return 'Huntington Ingalls Industries'
 
@@ -63,6 +63,9 @@ export function normalizeContractor(raw: string): string {
 
   // General Dynamics (incl. GDLS / GDLS-Canada)
   if (/general\s+dynamics|\bgdls\b/i.test(s)) return 'General Dynamics'
+
+  // Ultra Maritime (naval systems / sensors)
+  if (/ultra\s+maritime/i.test(s)) return 'Ultra Maritime'
 
   // General Atomics
   if (/general\s+atom(ic|ics)/i.test(s)) return 'General Atomics'
@@ -82,13 +85,14 @@ export function normalizeContractor(raw: string): string {
   // Bell / Textron (incl. Bell-Textron hyphenation)
   if (/bell[-\s]+(helicopter|textron)/i.test(s)) return 'Bell Textron'
   if (/^bell(\s+(corp|corporation))?$/i.test(s)) return 'Bell Textron'
-  if (/textron\s+(aviation|defense|systems)/i.test(s)) return 'Textron'
+  if (/textron\s+(aviation|defense|systems)/i.test(s)) return 'Textron Inc.'
+  if (/^textron$/i.test(s)) return 'Textron Inc.'
 
   // Collins Aerospace (formerly Rockwell Collins / UTC Aerospace Systems)
   if (/collins\s+aerospace|rockwell\s+collins|utc\s+aerospace/i.test(s)) return 'Collins Aerospace'
 
   // Honeywell
-  if (/honeywell/i.test(s)) return 'Honeywell'
+  if (/honeywell/i.test(s)) return 'Honeywell International'
 
   // Rolls-Royce
   if (/rolls[- ]royce/i.test(s)) return 'Rolls-Royce'
@@ -103,10 +107,13 @@ export function normalizeContractor(raw: string): string {
   if (/^am\s+general/i.test(s)) return 'AM General'
 
   // CAE
-  if (/^cae(\s+usa)?$/i.test(s)) return 'CAE'
+  if (/^cae(\s+usa)?$/i.test(s) || /\bcae\b/i.test(s)) return 'CAE Inc.'
 
   // SRC
-  if (/^src(\s+(corp|corporation|inc))?$/i.test(s)) return 'SRC'
+  if (/\bsrc\b/i.test(s)) return 'SRC Inc.'
+
+  // Anduril Industries
+  if (/anduril/i.test(s)) return 'Anduril Industries'
 
   // Aero Vironment (State.gov often spaces it; brand is AeroVironment)
   if (/aero\s*vironment/i.test(s)) return 'Aero Vironment'
@@ -125,7 +132,7 @@ export function normalizeContractor(raw: string): string {
   if (/oshkosh/i.test(s)) return 'Oshkosh Defense'
 
   // Gulfstream
-  if (/gulfstream/i.test(s)) return 'Gulfstream'
+  if (/gulfstream/i.test(s)) return 'Gulfstream Aerospace'
 
   // FN America (FN Herstal / FN Enterprise / Fabrique Nationale)
   if (/\bfn\s+(america|enterprise|manufacturing)\b|fabrique\s+nationale|\bfn\s+herstal\b/i.test(s)) return 'FN America'
@@ -137,7 +144,7 @@ export function normalizeContractor(raw: string): string {
   if (/hawker\s+beechcraft|beechcraft/i.test(s)) return 'Beechcraft Defense'
 
   // ViaSat / Viasat
-  if (/viasat/i.test(s)) return 'Viasat'
+  if (/viasat/i.test(s)) return 'Viasat Inc.'
 
   // VSE Corporation (sometimes bare "VSE", or prose after the name)
   if (/\bvse\b/i.test(s)) return 'VSE Corporation'
@@ -146,7 +153,7 @@ export function normalizeContractor(raw: string): string {
   if (/kongsberg|konsberg/i.test(s)) return 'Kongsberg Defence & Aerospace'
 
   // Saab (often all-caps SAAB in older notices)
-  if (/\bsaab\b/i.test(s)) return 'Saab'
+  if (/\bsaab\b/i.test(s)) return 'Saab AB'
 
   // US Ordnance (sometimes listed with plant location, e.g. McCarran, NV)
   if (/us\s*ordnance/i.test(s)) return 'US Ordnance'
@@ -155,13 +162,13 @@ export function normalizeContractor(raw: string): string {
   if (/american\s+ordinan[cs]e/i.test(s)) return 'American Ordnance'
 
   // Goodrich (incl. CT Goodrich ISR Systems — later UTC/Collins lineage)
-  if (/goodrich/i.test(s)) return 'Goodrich'
+  if (/goodrich/i.test(s)) return 'Goodrich Corporation'
 
   // DynCorp International (notices often say DynCorps)
   if (/dyncorp/i.test(s)) return 'DynCorp International'
 
   // Colt
-  if (/\bcolt\b/i.test(s)) return 'Colt'
+  if (/\bcolt\b/i.test(s)) return "Colt's Manufacturing"
 
   // Dillon Aero
   if (/dillon/i.test(s)) return 'Dillon Aero'
@@ -170,7 +177,7 @@ export function normalizeContractor(raw: string): string {
   if (/\bkaman\b/i.test(s)) return 'Kaman'
 
   // Selex (Leonardo UK / Selex ES)
-  if (/selex/i.test(s)) return 'Selex'
+  if (/selex/i.test(s)) return 'Selex ES'
 
   // Seiler Instrument (OCR: "Seile r Instrument")
   if (/seile\s*r\s+instrument|seiler\s+instrument/i.test(s)) return 'Seiler Instrument'
@@ -206,6 +213,46 @@ export function normalizeContractor(raw: string): string {
 
   // Vinnell Arabia (notices sometimes spell Vinell)
   if (/vin+ell/i.test(s)) return 'Vinnell Arabia'
+
+  // Navistar
+  if (/navistar/i.test(s)) return 'Navistar Defense'
+
+  // FLIR
+  if (/\bflir\b/i.test(s)) return 'FLIR Systems'
+
+  // Maxar
+  if (/maxar/i.test(s)) return 'Maxar Technologies'
+
+  // Moog
+  if (/\bmoog\b/i.test(s)) return 'Moog Inc.'
+
+  // Draper
+  if (/draper/i.test(s)) return 'Draper Laboratory'
+
+  // KBR
+  if (/\bkbr\b/i.test(s)) return 'KBR Inc.'
+
+  // V2X / Vectrus
+  if (/\bv2x\b|vectrus/i.test(s)) return 'V2X Inc.'
+
+  // SAIC
+  if (/\bsaic\b/i.test(s)) return 'SAIC'
+
+  // Thales
+  if (/thales/i.test(s)) return 'Thales Group'
+
+  // Airbus
+  if (/airbus/i.test(s)) return 'Airbus'
+
+  // Elbit
+  if (/elbit/i.test(s)) return 'Elbit Systems'
+
+  // Zone 5 / CoAspire already tend to be full in data
+  if (/zone\s*5/i.test(s)) return 'Zone 5 Technologies'
+  if (/coaspire/i.test(s)) return 'CoAspire'
+
+  // Progeny Systems (GD Mission Systems business area)
+  if (/progeny/i.test(s)) return 'Progeny Systems'
 
   // ── Generic cleanup for everything else ─────────────────────────────────────
   // Remove parenthetical asides: "(GEAC)", "(United Technologies)", etc.

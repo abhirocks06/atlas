@@ -1,8 +1,6 @@
 // Local contractor logos in /public/contractor-logos (pulled via scripts/pull-contractor-logos.mjs)
 
 const CONTRACTOR_DOMAINS: [RegExp, string][] = [
-  [/boeing/i, 'boeing.com'],
-  [/lockheed/i, 'lockheedmartin.com'],
   [/rtx|raytheon/i, 'rtx.com'],
   [/booz\s*allen/i, 'boozallen.com'],
   [/^hii$/i, 'hii.com'],
@@ -38,7 +36,7 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/moog/i, 'moog.com'],
   [/aerojet/i, 'rocket.com'],
   [/navistar/i, 'navistar.com'],
-  [/colt\b/i, 'colt.com'],
+  [/colt/i, 'colt.com'],
   [/spartan college|spartan/i, 'spartan.edu'],
   [/kratos/i, 'kratosdefense.com'],
   [/anduril/i, 'anduril.com'],
@@ -48,6 +46,11 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/allison\s+transmission/i, 'allisontransmission.com'],
   [/marvin/i, 'marvingroup.com'],
   [/aero\s*vironment/i, 'avinc.com'],
+  [/\bsrc\b/i, 'srcinc.com'],
+  [/boeing/i, 'boeing.com'],
+  [/lockheed/i, 'lockheedmartin.com'],
+  [/gulfstream/i, 'gulfstream.com'],
+  [/viasat/i, 'viasat.com'],
 ]
 
 function domainToSlug(domain: string): string {

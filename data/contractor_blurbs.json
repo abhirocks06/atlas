@@ -4,12 +4,12 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Boeing": {
+  "The Boeing Company": {
     "blurb": "Boeing is a major U.S. aerospace and defense prime whose military portfolio includes fighters, airlift, tankers, rotorcraft, and munitions. Through FMS it remains one of the principal sources of U.S. combat aircraft and support fleets for partner nations.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "RTX": {
+  "RTX Corporation": {
     "blurb": "RTX (formerly Raytheon Technologies) is a leading U.S. missiles, sensors, and aerospace systems company. Its air-defense, air-to-air, and precision-strike products are among the most widely transferred U.S. capabilities under Foreign Military Sales.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -39,23 +39,23 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Sikorsky": {
-    "blurb": "Sikorsky, a Lockheed Martin company, builds military helicopters used for assault, utility, and maritime missions. Black Hawk–family and Seahawk aircraft are staples of U.S. rotary-wing Foreign Military Sales.",
+  "Sikorsky Aircraft": {
+    "blurb": "Sikorsky, a Lockheed Martin company, builds military helicopters used for assault, utility, and maritime missions. Black Hawk\u2013family and Seahawk aircraft are staples of U.S. rotary-wing Foreign Military Sales.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
   "Longbow LLC": {
-    "blurb": "Longbow LLC is a Lockheed Martin–Northrop Grumman joint venture that builds the AN/APG-78 Longbow fire-control radar for the AH-64 Apache. In Foreign Military Sales it appears almost exclusively on Apache packages that include the mast-mounted radar and related Hellfire Longbow components.",
+    "blurb": "Longbow LLC is a Lockheed Martin\u2013Northrop Grumman joint venture that builds the AN/APG-78 Longbow fire-control radar for the AH-64 Apache. In Foreign Military Sales it appears almost exclusively on Apache packages that include the mast-mounted radar and related Hellfire Longbow components.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
   "Hellfire Systems LLC": {
-    "blurb": "Hellfire Systems LLC is the Lockheed Martin–Boeing joint venture that produces AGM-114 Hellfire missiles. It is the recurring prime contractor on Hellfire Foreign Military Sales cases and related missile support packages.",
+    "blurb": "Hellfire Systems LLC is the Lockheed Martin\u2013Boeing joint venture that produces AGM-114 Hellfire missiles. It is the recurring prime contractor on Hellfire Foreign Military Sales cases and related missile support packages.",
     "source": "curated",
     "updatedAt": "2026-07-16"
   },
   "Javelin Joint Venture": {
-    "blurb": "The Javelin Joint Venture is a Lockheed Martin–RTX (Raytheon) consortium that builds the FGM-148 Javelin anti-armor missile. It is the standard prime on Javelin Foreign Military Sales cases, covering missiles, launch units, and related training and support.",
+    "blurb": "The Javelin Joint Venture is a Lockheed Martin\u2013RTX (Raytheon) consortium that builds the FGM-148 Javelin anti-armor missile. It is the standard prime on Javelin Foreign Military Sales cases, covering missiles, launch units, and related training and support.",
     "source": "curated",
     "updatedAt": "2026-07-16"
   },
@@ -79,12 +79,12 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Textron": {
+  "Textron Inc.": {
     "blurb": "Textron is a diversified U.S. industrial company whose defense brands include aviation, unmanned systems, and specialty vehicles. Through subsidiaries it supplies trainers, light aircraft, and other niche platforms into FMS cases.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Honeywell": {
+  "Honeywell International": {
     "blurb": "Honeywell supplies aerospace systems, engines, and avionics used across military aircraft fleets. In Foreign Military Sales it typically appears as a propulsion or systems provider tied to larger platform programs.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -114,22 +114,22 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Anduril": {
-    "blurb": "Anduril Industries is a newer U.S. defense technology company focused on autonomous systems, counter-UAS, and software-defined sensing. Its growing FMS footprint reflects partner demand for faster, networked unmanned and air-defense capabilities.",
+  "Anduril Industries": {
+    "blurb": "Anduril Industries develops autonomous systems, counter-UAS, and software-defined sensing for U.S. and allied forces. In Foreign Military Sales it appears as a supplier of networked unmanned and air-defense capabilities for partners modernizing tactical awareness and force protection.",
     "source": "curated",
-    "updatedAt": "2026-07-15"
+    "updatedAt": "2026-07-17"
   },
-  "Navistar": {
+  "Navistar Defense": {
     "blurb": "Navistar Defense supplies medium and heavy tactical trucks used for logistics and mobility. Its commercial-derived military vehicles and parts support appear in ground-force Foreign Military Sales packages.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "CAE": {
+  "CAE Inc.": {
     "blurb": "CAE is a Canadian simulation and training company with a large U.S. defense presence. It supplies flight simulators and training systems that often accompany aircraft Foreign Military Sales as aircrew and maintainer pipelines.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "FLIR": {
+  "FLIR Systems": {
     "blurb": "FLIR (now part of Teledyne) is known for infrared cameras and electro-optical sensors used in surveillance, targeting, and force protection. Those sensors frequently travel as components within larger U.S. FMS equipment packages.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -139,7 +139,7 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Thales": {
+  "Thales Group": {
     "blurb": "Thales is a European defense and aerospace electronics group with U.S. subsidiaries in communications, sensors, and avionics. In American FMS notifications it typically shows up as a systems or electronics teammate on multinational programs.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -149,12 +149,12 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "V2X": {
+  "V2X Inc.": {
     "blurb": "V2X (formerly Vectrus and related mission-support businesses) provides base operations, logistics, and training support for U.S. and partner forces. In FMS it appears as a services contractor rather than a weapons manufacturer.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "KBR": {
+  "KBR Inc.": {
     "blurb": "KBR is a U.S. engineering and government-services company with long-running defense logistics and base-support work. When it appears in FMS material, it is usually for sustainment, training, or program services around equipment sales.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -164,7 +164,7 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Moog": {
+  "Moog Inc.": {
     "blurb": "Moog supplies precision motion-control and actuation systems used in aircraft, missiles, and space vehicles. In Foreign Military Sales it usually appears as a critical components supplier within larger prime-contractor packages.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -179,32 +179,32 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Draper": {
+  "Draper Laboratory": {
     "blurb": "Draper is a U.S. nonprofit engineering lab known for guidance, navigation, and control systems. In defense transfers it typically contributes specialized guidance technology rather than complete weapon platforms.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Maxar": {
+  "Maxar Technologies": {
     "blurb": "Maxar is a U.S. space and geospatial intelligence company providing satellite imagery and related analytics. When it surfaces in security-cooperation contexts, it is usually for ISR data or space-based sensing support.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Colt": {
+  "Colt's Manufacturing": {
     "blurb": "Colt is a historic U.S. small-arms manufacturer whose rifles and related weapons have long equipped American and partner forces. In FMS it appears mainly in infantry-weapons and spare-parts cases.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "SRC": {
+  "SRC Inc.": {
     "blurb": "SRC is a U.S. nonprofit research and development company focused on radar, electronic warfare, and related sensors. It occasionally appears in FMS as a technology or systems provider for specialized electronic missions.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Gulfstream": {
+  "Gulfstream Aerospace": {
     "blurb": "Gulfstream builds business jets that are often converted into special-mission or VIP transport aircraft for partner governments. Those aircraft and related support packages occasionally move through U.S. Foreign Military Sales channels.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
-  "Viasat": {
+  "Viasat Inc.": {
     "blurb": "Viasat provides military satellite communications and networking equipment used to connect forces beyond line of sight. In FMS it typically appears as a communications or terminal supplier within larger C4ISR packages.",
     "source": "curated",
     "updatedAt": "2026-07-15"
@@ -255,7 +255,7 @@
     "updatedAt": "2026-07-15"
   },
   "Huntington Ingalls Industries": {
-    "blurb": "HII (Huntington Ingalls Industries) is America’s largest military shipbuilder, constructing aircraft carriers, amphibious ships, and surface combatants. In FMS it more often appears through ship systems, support, or specialized naval work than full hull transfers.",
+    "blurb": "HII (Huntington Ingalls Industries) is America\u2019s largest military shipbuilder, constructing aircraft carriers, amphibious ships, and surface combatants. In FMS it more often appears through ship systems, support, or specialized naval work than full hull transfers.",
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
@@ -268,5 +268,10 @@
     "blurb": "The Marvin Group is a Southern California aerospace and defense manufacturer whose flagship unit, Marvin Engineering, builds stores carriage and release gear and other alternate mission equipment for fighters, helicopters, and UAS. It commonly appears in FMS as a teammate supplying aircraft armament and auxiliary equipment alongside the primes.",
     "source": "curated",
     "updatedAt": "2026-07-16"
+  },
+  "Progeny Systems": {
+    "blurb": "Progeny Systems is a General Dynamics Mission Systems business focused on naval combat systems, acoustics, torpedo guidance and control, cybersecurity, and related electronics for U.S. and allied submarines and surface ships. In Foreign Military Sales it typically appears on undersea-warfare and naval combat-system packages alongside other U.S. naval primes.",
+    "source": "curated",
+    "updatedAt": "2026-07-17"
   }
 }

@@ -57,55 +57,58 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
             aria-modal="true"
             aria-label={n.system ?? 'Sale details'}
           >
-            {/* Hero — min height for image; long titles grow the block and push body down */}
-            <div className="relative flex-shrink-0 overflow-hidden min-h-52 md:min-h-56 flex flex-col justify-end">
-              <div className="absolute inset-0" style={{ background: visual.atmosphere }} />
+            {/* Hero: fixed image band; title overlays bottom and grows downward (never upward) */}
+            <div className="flex-shrink-0">
+              <div className="relative h-52 md:h-56 overflow-hidden">
+                <div className="absolute inset-0" style={{ background: visual.atmosphere }} />
 
-              {visual.imageUrl ? (
-                <img
-                  src={visual.imageUrl}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
-                  decoding="async"
-                  onError={e => {
-                    const img = e.currentTarget as HTMLImageElement
-                    img.style.display = 'none'
-                    const fallback = img.parentElement?.querySelector('[data-hero-fallback]')
-                    if (fallback instanceof HTMLElement) fallback.style.display = 'flex'
+                {visual.imageUrl ? (
+                  <img
+                    src={visual.imageUrl}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                    decoding="async"
+                    onError={e => {
+                      const img = e.currentTarget as HTMLImageElement
+                      img.style.display = 'none'
+                      const fallback = img.parentElement?.querySelector('[data-hero-fallback]')
+                      if (fallback instanceof HTMLElement) fallback.style.display = 'flex'
+                    }}
+                  />
+                ) : null}
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/55 to-transparent" />
+                <div
+                  className="absolute inset-0 opacity-40 mix-blend-overlay"
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.12) 1px, transparent 0)',
+                    backgroundSize: '18px 18px',
                   }}
                 />
-              ) : null}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/55 to-transparent" />
-              <div
-                className="absolute inset-0 opacity-40 mix-blend-overlay"
-                style={{
-                  backgroundImage:
-                    'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.12) 1px, transparent 0)',
-                  backgroundSize: '18px 18px',
-                }}
-              />
+                <div
+                  data-hero-fallback
+                  className="absolute inset-0 items-center justify-center opacity-30"
+                  style={{ display: visual.imageUrl ? 'none' : 'flex' }}
+                >
+                  <CategoryIcon category={visual.category} size={88} color={visual.color} />
+                </div>
 
-              <div
-                data-hero-fallback
-                className="absolute inset-0 items-center justify-center opacity-30"
-                style={{ display: visual.imageUrl ? 'none' : 'flex' }}
-              >
-                <CategoryIcon category={visual.category} size={88} color={visual.color} />
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/40 text-zinc-400 hover:text-zinc-100 hover:bg-black/60 transition-colors"
+                  aria-label="Close"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 3l8 8M11 3L3 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                  </svg>
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={onClose}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/40 text-zinc-400 hover:text-zinc-100 hover:bg-black/60 transition-colors"
-                aria-label="Close"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 3l8 8M11 3L3 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                </svg>
-              </button>
-
-              <div className="relative z-[1] p-5 md:p-6 pt-14">
+              {/* -mt pulls title onto the image; block grows down so line 1 stays put */}
+              <div className="relative z-[1] -mt-[5.5rem] px-5 md:px-6 pt-2 pb-5">
                 <div className="flex items-center gap-2 mb-2.5">
                   {flagUrl && (
                     <img src={flagUrl} alt="" className="w-5 h-3.5 object-cover rounded-sm shadow" draggable={false} />

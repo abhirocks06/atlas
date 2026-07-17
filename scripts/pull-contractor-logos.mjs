@@ -62,6 +62,7 @@ const DOMAINS = [
   'allisontransmission.com',
   'marvingroup.com',
   'avinc.com',
+  'srcinc.com',
 ]
 
 function slug(domain) {
@@ -114,6 +115,13 @@ async function fetchLogo(domain) {
               'https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/avinc.com',
               'https://icons.duckduckgo.com/ip3/avinc.com.ico',
               'https://www.google.com/s2/favicons?domain=avinc.com&sz=256',
+            ]
+        : domain === 'srcinc.com'
+          ? [
+              'https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/srcinc.com',
+              'https://icons.duckduckgo.com/ip3/srcinc.com.ico',
+              'https://www.google.com/s2/favicons?domain=srcinc.com&sz=256',
+              'https://www.srcinc.com/favicon.ico',
             ]
         : [
             `https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/${domain}`,
