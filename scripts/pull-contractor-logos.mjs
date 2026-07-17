@@ -61,6 +61,7 @@ const DOMAINS = [
   'coaspire.com',
   'allisontransmission.com',
   'marvingroup.com',
+  'avinc.com',
 ]
 
 function slug(domain) {
@@ -105,6 +106,14 @@ async function fetchLogo(domain) {
               // Official site wordmark (Clearbit often fails for this domain)
               'https://marvingroup.com/wp-content/uploads/2017/11/logo.png',
               'https://www.google.com/s2/favicons?domain=marvingroup.com&sz=128',
+            ]
+        : domain === 'avinc.com'
+          ? [
+              'https://www.avinc.com/images/logo.png',
+              'https://www.avinc.com/images/logo.svg',
+              'https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/avinc.com',
+              'https://icons.duckduckgo.com/ip3/avinc.com.ico',
+              'https://www.google.com/s2/favicons?domain=avinc.com&sz=256',
             ]
         : [
             `https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/${domain}`,

@@ -47,6 +47,7 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/coaspire/i, 'coaspire.com'],
   [/allison\s+transmission/i, 'allisontransmission.com'],
   [/marvin/i, 'marvingroup.com'],
+  [/aero\s*vironment/i, 'avinc.com'],
 ]
 
 function domainToSlug(domain: string): string {

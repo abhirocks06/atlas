@@ -32,4 +32,5 @@ const ALIASES: Record<string, string> = {
   'Konsberg Defense Systems': 'Kongsberg Defence & Aerospace',
   'Marvin Engineering': 'Marvin Group',
   'Marvin Industries': 'Marvin Group',
+  'AeroVironment': 'Aero Vironment',
 }

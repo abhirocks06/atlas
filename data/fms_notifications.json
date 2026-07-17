@@ -10499,7 +10499,7 @@
     "country": "Taiwan",
     "system": "Switchblade 300 Anti-Personnel and Anti-Armor Loitering Missile System",
     "costUSD": 60200000,
-    "contractor": "AeroVironment",
+    "contractor": "Aero Vironment",
     "contractorLocation": "Inc",
     "description": "seven hundred twenty (720) Switchblade 300 (SB300) All Up Rounds (AURs) (includes 35 fly-to-buy AURs) and one hundred one (101) SB300 fire control systems (FCS). The following non-Major Defense Equipment will also be included: first line spares packs; operator manuals; operator and maintenance training; logistics and fielding support; Lot Acceptance Testing (LAT); U.S. Government technical assistance, including engineering services, program management, site surveys, facilities, logistics, and maintenance evaluations; quality assurance and de-processing team; field service representative(s); transportation; and other related elements of logistics and program support.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/18/2003615482/-1/-1/0/PRESS%20RELEASE%20-%20TECRO%2024-47%20CN.PDF"
@@ -13009,5 +13009,16 @@
     "contractorLocation": "Arlington, Virginia",
     "addedAt": "2026-07-15",
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/07/kuwait-c-17-sustainment/"
+  },
+  {
+    "date": "2026-07-16",
+    "transmittal": "26-76",
+    "country": "Greece",
+    "system": "Switchblade 300 Block 20 Lethal Miniature Aerial Missile System",
+    "costUSD": 80100000,
+    "contractor": "Aero Vironment",
+    "contractorLocation": "Simi Valley, California",
+    "addedAt": "2026-07-16",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/07/greece-switchblade-300-block-20-lethal-miniature-aerial-missile-system/"
   }
 ]

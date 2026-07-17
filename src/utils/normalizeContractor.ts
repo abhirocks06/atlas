@@ -108,8 +108,8 @@ export function normalizeContractor(raw: string): string {
   // SRC
   if (/^src(\s+(corp|corporation|inc))?$/i.test(s)) return 'SRC'
 
-  // AeroVironment
-  if (/aerovironment/i.test(s)) return 'AeroVironment'
+  // Aero Vironment (State.gov often spaces it; brand is AeroVironment)
+  if (/aero\s*vironment/i.test(s)) return 'Aero Vironment'
 
   // Aerojet / Aerojet Rocketdyne / ATK
   if (/aerojet/i.test(s)) return 'Aerojet Rocketdyne'
