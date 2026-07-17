@@ -41,6 +41,7 @@ export function ContractorPage({
   onBack,
 }: Props) {
   const [activeCategory, setActiveCategory] = useState<WeaponCategory | null>(null)
+  const [activeCountry, setActiveCountry] = useState<string | null>(null)
   const [sort, setSort] = useState<'date' | 'cost'>('date')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
   const [selectedSale, setSelectedSale] = useState<Notification | null>(() =>
@@ -110,6 +111,7 @@ export function ContractorPage({
     return notifications
       .filter(n => {
         if (activeCategory && categorize(n.system) !== activeCategory) return false
+        if (activeCountry && n.country !== activeCountry) return false
         if (search) {
           const q = search.toLowerCase()
           return (
@@ -128,9 +130,9 @@ export function ContractorPage({
         const cmp = (a.costUSD ?? 0) - (b.costUSD ?? 0)
         return sortDir === 'desc' ? -cmp : cmp
       })
-  }, [notifications, activeCategory, sort, sortDir, search])
+  }, [notifications, activeCategory, activeCountry, sort, sortDir, search])
 
-  const activeFilters = activeCategory ? 1 : 0
+  const activeFilters = (activeCategory ? 1 : 0) + (activeCountry ? 1 : 0)
   const contractorBlurb = getContractorBlurb(contractor)
 
   const sidebarContent = (
@@ -189,17 +191,30 @@ export function ContractorPage({
         <div className="px-5 pt-4 pb-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[9px] uppercase tracking-[0.12em] text-zinc-500 font-medium">By Country</span>
+            {activeCountry && (
+              <button
+                onClick={() => setActiveCountry(null)}
+                className="text-[9px] uppercase tracking-wider text-amber-600 hover:text-amber-400 transition-colors"
+              >
+                Clear
+              </button>
+            )}
           </div>
           <div className="space-y-3">
             {countryTotals.map(([name, data]) => {
               const pct = (data.cost / maxCountryCost) * 100
               const flagUrl = getFlagUrl(name)
+              const isActive = activeCountry === name
+              const isDimmed = activeCountry && !isActive
               return (
                 <button
                   key={name}
                   type="button"
-                  onClick={() => onSelectCountry(name)}
-                  className="w-full text-left group"
+                  onClick={() => {
+                    setActiveCountry(isActive ? null : name)
+                    setSidebarOpen(false)
+                  }}
+                  className={`w-full text-left group transition-opacity ${isDimmed ? 'opacity-25 hover:opacity-60' : ''}`}
                 >
                   <div className="flex items-center gap-2 mb-1.5">
                     {flagUrl && (
