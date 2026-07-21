@@ -246,23 +246,23 @@ export default function App() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
         >
-          <header className="px-3 sm:px-4 md:px-5 border-b border-zinc-800 flex items-center justify-between flex-shrink-0 py-1.5 sm:min-h-14 sm:py-2 bg-[#0d0d0d]">
-            <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1 mr-2 sm:mr-3">
+          <header className="px-3 sm:px-4 md:px-5 border-b border-zinc-800 flex items-center gap-3 sm:gap-4 flex-shrink-0 py-1.5 sm:min-h-14 sm:py-2 bg-[#0d0d0d]">
+            <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1 overflow-hidden">
               <a href="https://maenad.vercel.app" target="_blank" rel="noopener noreferrer" className="shrink-0 opacity-80 hover:opacity-100 transition-opacity">
                 <img src="/icon-only.svg" alt="Maenad" width={22} height={22} className="select-none w-[22px] h-[22px]" draggable={false} />
               </a>
               <div className="w-px h-4 sm:h-5 bg-zinc-800 shrink-0" />
-              <div className="min-w-0">
-                <div className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 leading-tight">
-                  <span className="sm:hidden">Atlas</span>
-                  <span className="hidden sm:inline truncate">Atlas | U.S. Foreign Military Sales Congressional Notifications</span>
-                </div>
-                <div className="hidden sm:block text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
+              <div className="min-w-0 overflow-hidden">
+                <p className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 leading-tight truncate">
+                  <span className="lg:hidden">Atlas</span>
+                  <span className="hidden lg:inline">Atlas | U.S. Foreign Military Sales Congressional Notifications</span>
+                </p>
+                <p className="hidden lg:block text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug truncate">
                   Source: Defense Security Cooperation Agency &amp; Department of State Bureau of Political-Military Affairs
-                </div>
+                </p>
               </div>
             </div>
-            <div className="flex items-center flex-shrink-0">
+            <div className="shrink-0">
               <SummaryStats filtered={filtered} />
             </div>
           </header>

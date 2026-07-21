@@ -107,8 +107,8 @@ export function FilterBar({
 
   return (
     <div className="px-3 sm:px-4 md:px-5 py-1.5 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
-      {/* Mobile-only layout */}
-      <div className="flex flex-col gap-1 sm:hidden">
+      {/* Compact layout — phones & tablets */}
+      <div className="flex flex-col gap-1.5 lg:hidden">
         <div className="flex items-center gap-1.5">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1 flex-1 min-w-0">
             <select
@@ -141,7 +141,7 @@ export function FilterBar({
                 key={v}
                 onClick={() => onViewChange(v)}
                 aria-label={v}
-                className={`flex items-center justify-center px-2 h-full transition-colors ${
+                className={`flex items-center justify-center px-2.5 h-full transition-colors ${
                   view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
                 }`}
               >
@@ -177,10 +177,10 @@ export function FilterBar({
         </div>
       </div>
 
-      {/* Desktop — original layout */}
-      <div className="hidden sm:flex items-center flex-wrap gap-x-3 md:gap-x-4 gap-y-1.5">
-        <div className="flex items-center gap-2">
-          <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest">Year</span>
+      {/* Wide desktop — single uncrowded row */}
+      <div className="hidden lg:flex items-center gap-4">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-[10px] text-zinc-600 uppercase tracking-widest">Year</span>
           <select
             value={fromYear}
             onChange={e => onDateRangeChange([`${e.target.value}-01-01`, dateRange[1]])}
@@ -204,10 +204,10 @@ export function FilterBar({
           </select>
         </div>
 
-        <div className="w-px h-3.5 bg-zinc-800" />
+        <div className="w-px h-3.5 bg-zinc-800 shrink-0" />
 
-        <div ref={desktopSearchRef} className="relative flex items-center gap-2">
-          <span className="text-[9px] md:text-[10px] text-zinc-600 uppercase tracking-widest hidden sm:block">Search</span>
+        <div ref={desktopSearchRef} className="relative flex items-center gap-2 min-w-0">
+          <span className="text-[10px] text-zinc-600 uppercase tracking-widest shrink-0">Search</span>
           <div className="relative">
             <input
               type="text"
@@ -215,7 +215,7 @@ export function FilterBar({
               placeholder={desktopPlaceholder}
               onChange={e => { setQuery(e.target.value); setOpen(true) }}
               onFocus={() => { if (query) setOpen(true) }}
-              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors w-40 md:w-48"
+              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-1 text-xs outline-none transition-colors w-48"
             />
             {query && (
               <button
@@ -230,12 +230,12 @@ export function FilterBar({
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-1 border border-zinc-800 p-0.5">
+        <div className="ml-auto flex items-center gap-1 border border-zinc-800 p-0.5 shrink-0">
           {(['map', 'network'] as const).map(v => (
             <button
               key={v}
               onClick={() => onViewChange(v)}
-              className={`flex items-center gap-1.5 px-2 py-1 text-[10px] uppercase tracking-widest transition-colors ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 text-[10px] uppercase tracking-widest transition-colors ${
                 view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
               }`}
             >
@@ -244,7 +244,7 @@ export function FilterBar({
               ) : (
                 <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
               )}
-              <span className="hidden sm:inline">{v}</span>
+              <span>{v}</span>
             </button>
           ))}
         </div>
