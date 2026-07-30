@@ -90,8 +90,9 @@ const COUNTRY_CODES: Record<string, string> = {
 export function getFlagUrl(country: string, width: 40 | 80 | 160 | 320 = 80): string | null {
   const code = COUNTRY_CODES[country]
   if (!code) return null
-  // NATO is not on flagcdn — use a local asset
+  // Local SVGs stay crisp at any size
   if (code === 'nato') return '/flags/nato.svg'
+  if (code === 'us') return '/flags/us.svg'
   return `https://flagcdn.com/w${width}/${code}.png`
 }
 
