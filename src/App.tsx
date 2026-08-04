@@ -166,6 +166,25 @@ export default function App() {
     })
   }, [dateRange, categoryFilter])
 
+  const selectedSale = useMemo(() => {
+    if (!selectedSaleKey) return null
+    return allNotifications.find(n => saleUrlKey(n) === selectedSaleKey) ?? null
+  }, [selectedSaleKey])
+
+  useEffect(() => {
+    const viewLabel = view === 'map' ? 'Map' : view === 'network' ? 'Network' : 'Trends'
+    const detail =
+      selectedSale?.system
+        ? String(selectedSale.system).trim()
+        : selectedCountry
+          ? selectedCountry
+          : selectedContractor
+            ? selectedContractor
+            : viewLabel
+
+    document.title = `${detail.slice(0, 60)} | Atlas`
+  }, [view, selectedCountry, selectedContractor, selectedSale])
+
   const countryTotals = useMemo(() => {
     const map = new Map<string, { total: number; count: number }>()
     for (const n of filtered) {
