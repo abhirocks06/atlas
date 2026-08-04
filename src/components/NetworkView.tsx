@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { zoom, zoomIdentity } from 'd3-zoom'
+import { select } from 'd3-selection'
 import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
 import { formatCost } from '../utils/formatters'
@@ -26,7 +28,7 @@ const DEFAULT_ZOOM = 0.95
 /** Shift framing down so the graph starts below the floating top bar */
 const HEADER_CLEARANCE = 72
 
-/** Static framing baseline (desktop remains locked) */
+/** Static framing — desktop stays locked; mobile starts here then allows drag/zoom */
 const BASE_FRAME_TRANSFORM = `translate(${VB_W / 2}, ${VB_H / 2}) scale(${DEFAULT_ZOOM}) translate(${-VB_W / 2}, ${-VB_H / 2 + HEADER_CLEARANCE})`
 
 const MAX_CONTRACTORS = 14
@@ -34,11 +36,10 @@ const MAX_COUNTRIES = 22
 const US_LABEL = 'United States of America'
 
 export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: Props) {
+  const svgRef = useRef<SVGSVGElement>(null)
+  const gRef = useRef<SVGGElement>(null)
   const [hovered, setHovered] = useState<{ type: 'contractor' | 'usg' | 'country'; name: string } | null>(null)
   const [isMobile, setIsMobile] = useState(false)
-  const [zoom, setZoom] = useState(1)
-  const pinchStartDistRef = useRef<number | null>(null)
-  const pinchStartZoomRef = useRef(1)
 
   useEffect(() => {
     const mql = window.matchMedia('(max-width: 640px)')
@@ -47,7 +48,6 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
     if ('addEventListener' in mql) {
       mql.addEventListener('change', update)
     } else {
-      // Legacy Safari / older DOM APIs
       ;(mql as any).addListener?.(update)
     }
     return () => {
@@ -59,40 +59,37 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
     }
   }, [])
 
-  const frameTransform = useMemo(() => {
-    if (!isMobile) return BASE_FRAME_TRANSFORM
-    const z = Math.max(0.75, Math.min(1.55, zoom))
-    return `translate(${VB_W / 2}, ${VB_H / 2}) scale(${DEFAULT_ZOOM * z}) translate(${-VB_W / 2}, ${-VB_H / 2 + HEADER_CLEARANCE})`
-  }, [isMobile, zoom])
+  // Mobile only: restore full d3 drag-pan + pinch/scroll zoom (like pre-lock Network)
+  useEffect(() => {
+    const svgEl = svgRef.current
+    const gEl = gRef.current
+    if (!svgEl || !gEl) return
 
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isMobile) return
-    if (e.touches.length !== 2) return
-    const t1 = e.touches[0]
-    const t2 = e.touches[1]
-    const dx = t1.clientX - t2.clientX
-    const dy = t1.clientY - t2.clientY
-    pinchStartDistRef.current = Math.hypot(dx, dy)
-    pinchStartZoomRef.current = zoom
-  }
+    const svg = select(svgEl)
+    const g = select(gEl)
 
-  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isMobile) return
-    if (e.touches.length !== 2) return
-    e.preventDefault()
-    const t1 = e.touches[0]
-    const t2 = e.touches[1]
-    const dx = t1.clientX - t2.clientX
-    const dy = t1.clientY - t2.clientY
-    const dist = Math.hypot(dx, dy)
-    const startDist = pinchStartDistRef.current
-    if (!startDist || startDist <= 0) return
-    const ratio = dist / startDist
-    const next = pinchStartZoomRef.current * ratio
-    setZoom(Math.max(0.75, Math.min(1.55, next)))
-  }
+    if (!isMobile) {
+      g.attr('transform', BASE_FRAME_TRANSFORM)
+      svg.on('.zoom', null)
+      return
+    }
 
-  const resetZoom = () => setZoom(1)
+    const zoomBehavior = zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.45, 8])
+      .on('zoom', (event) => {
+        g.attr('transform', event.transform.toString())
+      })
+
+    const initial = zoomIdentity
+      .translate(VB_W / 2, VB_H / 2)
+      .scale(DEFAULT_ZOOM)
+      .translate(-VB_W / 2, -VB_H / 2 + HEADER_CLEARANCE)
+
+    svg.call(zoomBehavior)
+    svg.call(zoomBehavior.transform, initial)
+    return () => { svg.on('.zoom', null) }
+  }, [isMobile])
+
   const { contractors, countries, edges } = useMemo(() => {
     const cMap = new Map<string, number>()
     const kMap = new Map<string, number>()
@@ -184,18 +181,14 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
   const usFlagUrl = getFlagUrl(US_LABEL, 160)
 
   return (
-    <div
-      className="w-full h-full bg-[#0a0c10] relative overflow-hidden"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      style={{ touchAction: isMobile ? 'none' : undefined }}
-    >
+    <div className="w-full h-full bg-[#0a0c10] relative overflow-hidden">
       <svg
+        ref={svgRef}
         viewBox={`${-VB_PAD_X} ${-VB_PAD_Y} ${VB_W + VB_PAD_X * 2} ${VB_H + VB_PAD_Y * 2}`}
         preserveAspectRatio="xMidYMid meet"
-        className="w-full h-full"
+        className={`w-full h-full ${isMobile ? 'touch-none' : ''}`}
       >
-        <g transform={frameTransform}>
+        <g ref={gRef} transform={BASE_FRAME_TRANSFORM}>
           {edges.map(e => {
             const ci = cIndex.get(e.contractor)
             const ki = kIndex.get(e.country)
@@ -407,37 +400,10 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
       </svg>
 
       <div className="absolute bottom-3 md:bottom-5 right-3 md:right-5 text-[9px] md:text-[10px] text-[#252d3d] pointer-events-none">
-        {isMobile ? 'Pinch to zoom · Tap to drill in' : 'Hover to highlight · Click a country or contractor to drill in'}
+        {isMobile
+          ? 'Pinch to zoom · Drag to pan'
+          : 'Hover to highlight · Click a country or contractor to drill in'}
       </div>
-
-      {isMobile && (
-        <div className="absolute top-3 right-3 flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => setZoom(z => Math.max(0.75, z - 0.15))}
-            className="pointer-events-auto w-9 h-9 rounded-lg bg-black/30 border border-zinc-800/80 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors"
-            aria-label="Zoom out"
-          >
-            −
-          </button>
-          <button
-            type="button"
-            onClick={() => setZoom(z => Math.min(1.55, z + 0.15))}
-            className="pointer-events-auto w-9 h-9 rounded-lg bg-black/30 border border-zinc-800/80 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors"
-            aria-label="Zoom in"
-          >
-            +
-          </button>
-          <button
-            type="button"
-            onClick={resetZoom}
-            className="pointer-events-auto w-9 h-9 rounded-lg bg-black/30 border border-zinc-800/80 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors text-[12px]"
-            aria-label="Reset zoom"
-          >
-            ↺
-          </button>
-        </div>
-      )}
     </div>
   )
 }
