@@ -51,7 +51,17 @@ export function FilterBar({
     const q = query.trim().toLowerCase()
     if (!q) return []
     const pool = searchContractors ? contractors : countries
-    return pool.filter(c => c.toLowerCase().startsWith(q)).slice(0, 10)
+    return pool
+      .filter(c => c.toLowerCase().includes(q))
+      .sort((a, b) => {
+        const al = a.toLowerCase()
+        const bl = b.toLowerCase()
+        const aStarts = al.startsWith(q) ? 0 : 1
+        const bStarts = bl.startsWith(q) ? 0 : 1
+        if (aStarts !== bStarts) return aStarts - bStarts
+        return a.localeCompare(b)
+      })
+      .slice(0, 10)
   }, [query, countries, contractors, searchContractors])
 
   // Clear query when switching views so leftover country/contractor text doesn't confuse

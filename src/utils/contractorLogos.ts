@@ -59,8 +59,17 @@ function domainToSlug(domain: string): string {
 
 /** Local logo path, or null if we don't have a mapping. */
 export function getContractorLogoUrl(contractor: string): string | null {
-  // Service inventory draws (not commercial primes)
-  if (/navy\s+inventory/i.test(contractor)) return '/contractor-logos/us-navy.png'
+  // Service inventory / USG provider draws (not commercial primes)
+  if (/navy\s+inventory|U\.?S\.?\s+Navy\s*\(NAVAIR\)|naval\s+air\s+systems|\bnavair\b/i.test(contractor)) {
+    return '/contractor-logos/us-navy.png'
+  }
+  if (
+    /U\.?S\.?\s+Government/i.test(contractor) ||
+    /vendors TBD/i.test(contractor) ||
+    /(?:army|marine\s+corps|air\s+force)\s+inventory/i.test(contractor)
+  ) {
+    return '/contractor-logos/us-government.png'
+  }
 
   for (const [pattern, domain] of CONTRACTOR_DOMAINS) {
     if (pattern.test(contractor)) {

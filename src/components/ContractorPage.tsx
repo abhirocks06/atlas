@@ -6,6 +6,7 @@ import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from
 import { getFlagUrl } from '../utils/countryFlags'
 import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
 import { getContractorBlurb } from '../utils/contractorBlurbs'
+import { notificationMatchesQuery } from '../utils/notificationSearch'
 import { useCountUp } from '../utils/useCountUp'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getSystemVisual } from '../utils/systemVisuals'
@@ -122,12 +123,7 @@ export function ContractorPage({
         if (activeCategory && categorize(n.system) !== activeCategory) return false
         if (activeCountry && n.country !== activeCountry) return false
         if (search) {
-          const q = search.toLowerCase()
-          return (
-            n.system?.toLowerCase().includes(q) ||
-            n.country?.toLowerCase().includes(q) ||
-            n.transmittal?.toLowerCase().includes(q)
-          )
+          return notificationMatchesQuery(n, search, { includeCountry: true, includeContractor: false })
         }
         return true
       })
@@ -360,7 +356,7 @@ export function ContractorPage({
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search systems, countries, transmittals…"
+                placeholder="Search systems, months, countries…"
                 className="w-full h-9 rounded-lg bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-8 pr-8 text-xs outline-none placeholder:text-zinc-700 transition-colors"
               />
               {search && (
@@ -397,7 +393,7 @@ export function ContractorPage({
                   type="text"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  placeholder="Search systems, countries, transmittals…"
+                  placeholder="Search systems, months, countries…"
                   className="w-full h-9 rounded-lg bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-8 pr-8 text-xs outline-none placeholder:text-zinc-700 transition-colors"
                 />
                 {search && (

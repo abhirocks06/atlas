@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
-import { parseContractors, supplySource } from '../utils/parseContractors'
+import { parseContractors, supplyProvider } from '../utils/parseContractors'
 
 interface Props {
   country: string
@@ -195,23 +195,23 @@ export function SidePanel({ country, notifications, onClose }: Props) {
                   )}
 
                   {(() => {
-                    const source = supplySource(n.contractor)
+                    const provider = supplyProvider(n.contractor)
                     const contractors = parseContractors(n.contractor, n.contractorLocation)
-                    if (!source && contractors.length === 0) return null
+                    if (!provider && contractors.length === 0) return null
                     return (
                       <>
-                        {source && (
+                        {provider && (
                           <div>
                             <div className="text-[9px] uppercase tracking-widest text-[#2a3040] mb-1">
-                              Source
+                              Provider
                             </div>
-                            <div className="text-xs text-[#8b9bb4]">{source}</div>
+                            <div className="text-xs text-[#8b9bb4]">{provider}</div>
                           </div>
                         )}
                         {contractors.length > 0 && (
                           <div>
                             <div className="text-[9px] uppercase tracking-widest text-[#2a3040] mb-1">
-                              {contractors.length > 1 ? 'Principal Contractors' : 'Principal Contractor'}
+                              {contractors.length > 1 ? 'Principal contractors' : 'Principal contractor'}
                             </div>
                             <div className="space-y-1.5">
                               {contractors.map(c => (

@@ -3,9 +3,10 @@ import { motion } from 'framer-motion'
 import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
+import { notificationMatchesQuery } from '../utils/notificationSearch'
 import { getFlagUrl } from '../utils/countryFlags'
 import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
-import { parseContractors, contractorNames, supplySource } from '../utils/parseContractors'
+import { parseContractors, contractorNames, supplyProvider, isSupplyProviderLabel } from '../utils/parseContractors'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getCountryBlurb } from '../utils/countryBlurbs'
 import { useCountUp } from '../utils/useCountUp'
@@ -124,12 +125,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
           if (!names.includes(activeContractor)) return false
         }
         if (search) {
-          const q = search.toLowerCase()
-          return (
-            n.system?.toLowerCase().includes(q) ||
-            n.contractor?.toLowerCase().includes(q) ||
-            n.transmittal?.toLowerCase().includes(q)
-          )
+          return notificationMatchesQuery(n, search, { includeContractor: true })
         }
         return true
       })
@@ -380,7 +376,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search systems, transmittals…"
+                placeholder="Search systems, months, transmittals…"
                 className="w-full h-9 rounded-lg bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-8 pr-8 text-xs outline-none placeholder:text-zinc-700 transition-colors"
               />
               {search && (
@@ -419,7 +415,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   type="text"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  placeholder="Search systems, transmittals…"
+                  placeholder="Search systems, months, transmittals…"
                   className="w-full h-9 rounded-lg bg-[#0a0a0a] border border-zinc-800 focus:border-zinc-600 text-zinc-300 pl-8 pr-8 text-xs outline-none placeholder:text-zinc-700 transition-colors"
                 />
                 {search && (
@@ -508,7 +504,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">ID #</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">System</div>
                   <div aria-hidden className="min-w-0" />
-                  <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Contractor/Source</div>
+                  <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Contractor/Provider</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium text-right">Value</div>
                 </div>
                 {filtered.map((n, i) => {
@@ -517,9 +513,9 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   const isSelected = selectedSale === n
                   const isNew = isNotificationNew(n)
                   const contractors = parseContractors(n.contractor, n.contractorLocation)
-                  const source = supplySource(n.contractor)
+                  const provider = supplyProvider(n.contractor)
                   const primaryContractor = contractors[0]?.name ?? null
-                  const contractorLabel = contractors.map(c => c.name).join(' · ') || source || null
+                  const contractorLabel = contractors.map(c => c.name).join(' · ') || provider || null
 
                   return (
                     <motion.div
@@ -637,10 +633,10 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 const isSelected = selectedSale === n
                 const isNew = isNotificationNew(n)
                 const contractors = parseContractors(n.contractor, n.contractorLocation)
-                const source = supplySource(n.contractor)
+                const provider = supplyProvider(n.contractor)
                 const logoEntries = [
                   ...contractors.map(c => c.name),
-                  ...(source ? [source] : []),
+                  ...(provider ? [provider] : []),
                 ]
                   .map(name => ({ name, url: getContractorLogoUrl(name) }))
                   .filter((e): e is { name: string; url: string } => !!e.url)
@@ -720,7 +716,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                                 onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                               />
                             )
-                            if (!onSelectContractor || /inventory/i.test(name)) {
+                            if (!onSelectContractor || isSupplyProviderLabel(name)) {
                               return <span key={name} className="inline-flex" title={name}>{img}</span>
                             }
                             return (

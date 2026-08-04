@@ -23,6 +23,10 @@ export function normalizeContractor(raw: string): string {
   if (/navy/i.test(s) && /stock|inventory/i.test(s)) {
     return 'U.S. Navy inventory'
   }
+  // NAVAIR / Naval Air Systems Command — U.S. Navy as provider, not a firm
+  if (/\bnavair\b|naval\s+air\s+systems\s+command/i.test(s)) {
+    return 'U.S. Navy (NAVAIR)'
+  }
   if (/government/i.test(s) && /stock|inventory/i.test(s)) {
     return 'U.S. Government inventory'
   }

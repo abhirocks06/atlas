@@ -38,14 +38,14 @@ const STATE_EXPAND = {
   Conn: 'Connecticut', Mass: 'Massachusetts', Ga: 'Georgia', Fla: 'Florida',
   Calif: 'California', Ill: 'Illinois', Penn: 'Pennsylvania', Pa: 'Pennsylvania',
   Wash: 'Washington', Ore: 'Oregon', Okla: 'Oklahoma', Tenn: 'Tennessee',
-  Colo: 'Colorado', Ariz: 'Arizona',
+  Colo: 'Colorado', Ariz: 'Arizona', Ind: 'Indiana',
 }
 
 const CITY_STATE = {
   tucson: 'Arizona', stratford: 'Connecticut', orlando: 'Florida', mesa: 'Arizona',
   dallas: 'Texas', 'fort worth': 'Texas', 'grand prairie': 'Texas', chicago: 'Illinois',
   seattle: 'Washington', 'st. louis': 'Missouri', 'st louis': 'Missouri', warren: 'Michigan',
-  moorestown: 'New Jersey', marietta: 'Georgia', bethesda: 'Maryland',
+  moorestown: 'New Jersey', mooretown: 'New Jersey', marietta: 'Georgia', bethesda: 'Maryland',
   andover: 'Massachusetts', tewksbury: 'Massachusetts', mckinney: 'Texas',
   savannah: 'Georgia', wichita: 'Kansas', cincinnati: 'Ohio',
   'east hartford': 'Connecticut', hartford: 'Connecticut', 'auburn hills': 'Michigan',
@@ -54,12 +54,22 @@ const CITY_STATE = {
   lynn: 'Massachusetts', owego: 'New York', camden: 'Arkansas', greenville: 'Texas',
   wilmington: 'Massachusetts', 'sterling heights': 'Michigan', phoenix: 'Arizona',
   lubbock: 'Texas', 'ridley park': 'Pennsylvania', 'san diego': 'California',
+  indianapolis: 'Indiana', carson: 'California', waltham: 'Massachusetts',
+  'falls church': 'Virginia', sterling: 'Virginia', philadelphia: 'Pennsylvania',
+  'rancho bernardo': 'California', sealy: 'Texas', 'fort wayne': 'Indiana',
+  amarillo: 'Texas', huntsville: 'Alabama', london: 'Kentucky', whitehall: 'Michigan',
+  nashville: 'Tennessee', scottsdale: 'Arizona', elsegundo: 'California',
+  'el segundo': 'California', sunnyvale: 'California', baltimore: 'Maryland',
+  herndon: 'Virginia', reston: 'Virginia', alexandria: 'Virginia',
 }
+
+const STATE_NAME_RE =
+  'Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming|District of Columbia'
 
 const KNOWN_LOCS = [
   [/lockheed martin aeronautics/i, 'Fort Worth, Texas'],
   [/lockheed martin missile|lockheed martin.*fire control|lockheed martin millimeter/i, 'Orlando, Florida'],
-  [/maritime systems and sensors|moorestown/i, 'Moorestown, New Jersey'],
+  [/maritime systems and sensors|moorestown|mooretown/i, 'Moorestown, New Jersey'],
   [/lockheed martin.*marietta/i, 'Marietta, Georgia'],
   [/sikorsky/i, 'Stratford, Connecticut'],
   [/raytheon missile|raytheon.*tucson|electronic and missile systems.*tucson|(excalibur).*tucson/i, 'Tucson, Arizona'],
@@ -78,10 +88,12 @@ const KNOWN_LOCS = [
   [/anduril/i, 'Costa Mesa, California'],
   [/aerovironment|aero\s*vironment/i, 'Simi Valley, California'],
   [/longbow/i, 'Orlando, Florida'],
+  [/rolls[-\s]?royce/i, 'Indianapolis, Indiana'],
+  [/dowty/i, 'Sterling, Virginia'],
 ]
 
-const GARBAGE_LOC = /^(Inc|LLC|Corp|Ltd|Co|the|and|St)\.?$/i
-const MESSY_AND = /,\s*and\s+|\band\s+(?:[A-Z][A-Za-z .,&'-]{0,80}\s+)?(?:Inc|LLC|Corp|Company|Systems|International|Division|Manufacturing|Group|Industries|Business|Motors)\b/i
+const GARBAGE_LOC = /^(Inc|LLC|Corp|Ltd|Co|the|and)\.?$/i
+const MESSY_AND = /,\s*and\s+|\band\s+[A-Z][A-Za-z .,&'-]{0,60}\b(?:Inc|LLC|Corp\.?|Company|Corporation|International|Division|Manufacturing|Group|Industries|Business|Motors)\b/i
 const INVENTORY = /(?:army|navy|marine|air force|government)\s+(?:stock|inventory)/i
 
 function expandStateToken(tok) {
@@ -100,9 +112,24 @@ function expandLocAbbrevs(loc) {
   if (!loc) return null
   let s = loc.trim().replace(/^and\s+/i, '').replace(/\s+/g, ' ')
   if (GARBAGE_LOC.test(s)) return null
+  if (/^(not specified|united states|united kingdom|canada)$/i.test(s)) return s
+
+  // OCR typo
+  s = s.replace(/\bMooretown\b/gi, 'Moorestown')
 
   const bare = expandStateToken(s)
   if (bare) return bare
+
+  // "City StateName" / "City ST" without comma
+  const cityState = s.match(new RegExp(`^([A-Za-z .'-]+?)\\s+(${STATE_NAME_RE})$`, 'i'))
+  if (cityState && !/,/.test(s)) {
+    return `${cityState[1].trim().replace(/\bSt\b/i, 'St.')}, ${cityState[2]}`
+  }
+  const cityAbbr = s.match(/^([A-Za-z .'-]+?)\s+([A-Z]{2})$/)
+  if (cityAbbr && !/,/.test(s)) {
+    const full = expandStateToken(cityAbbr[2])
+    if (full) return `${cityAbbr[1].trim().replace(/\bSt\b/i, 'St.')}, ${full}`
+  }
 
   s = s.replace(/,\s*([A-Za-z]{2})$/i, (_, ab) => {
     const full = expandStateToken(ab)
@@ -112,15 +139,18 @@ function expandLocAbbrevs(loc) {
     const full = expandStateToken(ab)
     return full ? `, ${full}` : ` ${ab}`
   })
-  s = s.replace(/\b(Conn|Mass|Ga|Fla|Calif|Ill|Penn|Pa|Wash|Ore|Okla|Tenn|Colo|Ariz)\b/gi, (m) => {
+  s = s.replace(/\b(Conn|Mass|Ga|Fla|Calif|Ill|Penn|Pa|Wash|Ore|Okla|Tenn|Colo|Ariz|Ind)\b/gi, (m) => {
     const k = Object.keys(STATE_EXPAND).find(x => x.toLowerCase() === m.toLowerCase())
     return k ? STATE_EXPAND[k] : m
   })
+  // "Fort Wayne, Ind." style leftover after expand
+  s = s.replace(/,\s*(Connecticut|Massachusetts|Georgia|Florida|California|Illinois|Pennsylvania|Washington|Oregon|Oklahoma|Tennessee|Colorado|Arizona|Indiana)\.?$/i, (_, st) => `, ${st}`)
 
   const cityKey = s.toLowerCase().replace(/\./g, '')
   if (CITY_STATE[cityKey] && !/,/.test(s)) {
     const city = s.replace(/\bSt\b/i, 'St.')
-    return `${city}, ${CITY_STATE[cityKey]}`
+    const pretty = cityKey === 'mooretown' ? 'Moorestown' : city
+    return `${pretty}, ${CITY_STATE[cityKey]}`
   }
   return s
 }
@@ -136,6 +166,17 @@ function knownLoc(name) {
   return null
 }
 
+/** City token from "Company in City" — trust when location is already a bare state. */
+function isLikelyCityName(place) {
+  if (!place || place.length < 2 || place.length > 40) return false
+  if (MESSY_AND.test(place)) return false
+  if (/\b(Inc|LLC|Corp|Company|Systems|Corporation|International|Division|Manufacturing|Group|Industries|Technologies|Business|Enterprise|Motors|Aircraft|Missile|Electronics|Services|Solutions|Aerospace)\b/i.test(place)) {
+    return false
+  }
+  if (isCleanPlace(place)) return true
+  return /^[A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.']*){0,3}$/.test(place.trim())
+}
+
 function isCleanPlace(place) {
   if (!place || place.length < 2) return false
   if (MESSY_AND.test(place)) return false
@@ -147,7 +188,7 @@ function isCleanPlace(place) {
     /,/.test(place) ||
     Boolean(expandStateToken(place)) ||
     Object.keys(CITY_STATE).some(c => new RegExp(`\\b${c.replace(/\./g, '\\.')}\\b`, 'i').test(place)) ||
-    /\b(California|Arizona|Florida|Texas|Virginia|Massachusetts|Connecticut|Alabama|Maryland|Pennsylvania|Illinois|Georgia|Ohio|Indiana|Washington|Missouri|New York|New Jersey|Colorado|Oklahoma|Arkansas|North Carolina|Michigan|Belgium)\b/i.test(place)
+    new RegExp(`\\b(${STATE_NAME_RE}|Belgium)\\b`, 'i').test(place)
   )
 }
 
@@ -185,9 +226,10 @@ function healSegment(name, loc) {
   // "Company in City" + loc "State" / "StateAbbrev"
   if (l && (expandStateToken(l) || isBareStateName(l))) {
     const emb = n.match(/^(.+?)\s+(?:in|of)\s+([A-Za-z .'-]+)$/i)
-    if (emb && isCleanPlace(emb[2]) && !/,/.test(emb[2])) {
+    if (emb && isLikelyCityName(emb[2]) && !/,/.test(emb[2])) {
       const state = expandStateToken(l) || l
-      return { name: emb[1].trim(), location: `${emb[2].trim()}, ${state}` }
+      const city = emb[2].trim().replace(/\bMooretown\b/gi, 'Moorestown')
+      return { name: emb[1].trim(), location: `${city}, ${state}` }
     }
   }
 
@@ -209,16 +251,24 @@ function healSegment(name, loc) {
   }
 
   // City glued without "in": "Raytheon … Tucson"
-  if (!l) {
-    const cityGlue = n.match(/\b(Tucson|Moorestown|Stratford|Orlando|Mesa)\s*$/i)
+  if (!l || isBareStateName(l) || expandStateToken(l)) {
+    const cityGlue = n.match(new RegExp(`\\b(${Object.keys(CITY_STATE).map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\s*$`, 'i'))
     if (cityGlue) {
-      const city = cityGlue[1]
-      const state = CITY_STATE[city.toLowerCase()]
-      if (state) l = `${city}, ${state}`
+      const key = cityGlue[1].toLowerCase().replace(/\./g, '')
+      const state = CITY_STATE[key]
+      if (state) {
+        n = n.slice(0, cityGlue.index).trim().replace(/[,\s]+$/g, '')
+        if (!l || isBareStateName(l) || expandStateToken(l)) {
+          const pretty = key === 'mooretown' ? 'Moorestown' : cityGlue[1].replace(/\bSt\b/i, 'St.')
+          l = `${pretty}, ${state}`
+        }
+      }
     }
   }
 
   if (!l) l = knownLoc(n)
+  // Fix OCR Mooretown in final location strings
+  if (l) l = l.replace(/\bMooretown\b/gi, 'Moorestown')
   return { name: n.replace(/[,\s]+$/g, '').trim(), location: l }
 }
 

@@ -4,7 +4,7 @@ import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
 import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
-import { parseContractors, supplySource } from '../utils/parseContractors'
+import { parseContractors, supplyProvider } from '../utils/parseContractors'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getSystemVisual } from '../utils/systemVisuals'
 import { CategoryIcon } from './CategoryIcon'
@@ -39,7 +39,8 @@ export function SaleDetailDrawer({
   const n = notification
   const visual = n ? getSystemVisual(n.system) : null
   const contractors = n ? parseContractors(n.contractor, n.contractorLocation) : []
-  const source = n ? supplySource(n.contractor) : null
+  const provider = n ? supplyProvider(n.contractor) : null
+  const providerLogo = provider ? getContractorLogoUrl(provider) : null
   const flagUrl = getFlagUrl(country)
   const fromContractor = variant === 'contractor'
 
@@ -188,10 +189,22 @@ export function SaleDetailDrawer({
                 <p className="text-[13px] text-zinc-400 leading-relaxed">{visual.blurb}</p>
               </div>
 
-              {source && (
+              {provider && (
                 <div>
-                  <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-2">Source</div>
-                  <div className="text-[13px] text-zinc-300">{source}</div>
+                  <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-2">
+                    Provider
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {providerLogo && (
+                      <img
+                        src={providerLogo}
+                        alt=""
+                        className={`w-8 h-8 object-contain rounded-sm opacity-70 ${contractorLogoClassName(provider)}`}
+                        onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                      />
+                    )}
+                    <div className="text-[13px] text-zinc-300">{provider}</div>
+                  </div>
                 </div>
               )}
 
@@ -203,13 +216,14 @@ export function SaleDetailDrawer({
                   <div className="space-y-3">
                     {contractors.map(c => {
                       const logo = getContractorLogoUrl(c.name)
+                      const align = c.location ? 'items-start' : 'items-center'
                       const body = (
                         <>
                           {logo && (
                             <img
                               src={logo}
                               alt=""
-                              className={`w-8 h-8 object-contain rounded-sm opacity-70 mt-0.5 ${contractorLogoClassName(c.name)}`}
+                              className={`w-8 h-8 object-contain rounded-sm opacity-70 ${c.location ? 'mt-0.5' : ''} ${contractorLogoClassName(c.name)}`}
                               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                             />
                           )}
@@ -229,14 +243,14 @@ export function SaleDetailDrawer({
                             key={c.name}
                             type="button"
                             onClick={() => onSelectContractor(c.name)}
-                            className="flex items-start gap-3 w-full text-left group cursor-pointer"
+                            className={`flex ${align} gap-3 w-full text-left group cursor-pointer`}
                           >
                             {body}
                           </button>
                         )
                       }
                       return (
-                        <div key={c.name} className="flex items-start gap-3">
+                        <div key={c.name} className={`flex ${align} gap-3`}>
                           {body}
                         </div>
                       )

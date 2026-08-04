@@ -6,24 +6,89 @@ export interface ContractorEntry {
   location: string | null
 }
 
-/** Stock draws and similar — shown as Source, never as a commercial contractor. */
-export function isInventorySource(contractor: string | null | undefined): boolean {
-  if (!contractor?.trim()) return false
-  return /(?:army|marine\s+corps|navy|air\s+force|government)\s+(stock|inventory)|coming from US (?:Army|Marine|Navy|Government)|from U\.?S\.?\s+(?:Army|Marine|Navy|Government)|U\.?S\.?\s+Marine\s+Corps\s+(?:stock|inventory)|USMC\s+(?:stock|inventory)|U\.?S\.?\s+Government\s+(?:stock|inventory)/i.test(
-    contractor,
+const USG_VENDORS_TBD = 'U.S. Government / vendors TBD'
+const USG_LABEL = 'U.S. Government'
+const US_NAVY_NAVAIR = 'U.S. Navy (NAVAIR)'
+const US_NAVY_INVENTORY = 'U.S. Navy inventory'
+
+/** U.S. Navy command / NAVAIR acting as provider (not a commercial prime). */
+export function isNavyCommandSource(text: string | null | undefined): boolean {
+  if (!text?.trim()) return false
+  const s = text.trim()
+  if (s.includes(' / ')) return false
+  if (/navy\s+(stock|inventory)/i.test(s)) return false
+  return (
+    /\bnavair\b/i.test(s) ||
+    /naval\s+air\s+systems\s+command/i.test(s) ||
+    /^u\.?s\.?\s+navy[,']?\s+naval\s+air/i.test(s) ||
+    /^the\s+u\.?s\.?\s+navy,\s+naval\s+air/i.test(s) ||
+    /^u\.?s\.?\s+navy\s*\(navair\)$/i.test(s)
   )
 }
 
-/** Display label for non-contractor supply sources, or null. */
-export function supplySource(contractor: string | null | undefined): string | null {
-  if (!isInventorySource(contractor)) return null
-  const s = contractor!.trim()
+function isInventorySourcePart(s: string): boolean {
+  const t = s.trim()
+  if (!t) return false
+  // Canonical USG provider labels only (not “no prime / various contractors”)
+  if (/^U\.?S\.?\s+Government\s*\/\s*vendors TBD$/i.test(t)) return true
+  if (/^U\.?S\.?\s+Government$/i.test(t)) return true
+  if (isNavyCommandSource(t)) return true
+  return /(?:army|marine\s+corps|navy|air\s+force|government)\s+(stock|inventory)|coming from US (?:Army|Marine|Navy|Government)|from U\.?S\.?\s+(?:Army|Marine|Navy|Government)|U\.?S\.?\s+Marine\s+Corps\s+(?:stock|inventory)|USMC\s+(?:stock|inventory)|U\.?S\.?\s+Government\s+(?:stock|inventory)/i.test(
+    t,
+  )
+}
+
+/** Stock draws, no-prime USG work, etc. — Provider column, never a commercial contractor. */
+export function isInventorySource(contractor: string | null | undefined): boolean {
+  if (!contractor?.trim()) return false
+  const s = contractor.trim()
+  // Keep "U.S. Government / vendors TBD" atomic (slash is part of the label)
+  if (/^U\.?S\.?\s+Government\s*\/\s*vendors TBD$/i.test(s)) return true
+  // Only wholly-provider lists count; mixed commercial + NAVAIR stays parseable
+  if (s.includes(' / ')) {
+    const parts = s.split(/\s*\/\s*/).map(p => p.trim()).filter(Boolean)
+    return parts.length > 0 && parts.every(isInventorySourcePart)
+  }
+  return isInventorySourcePart(s)
+}
+
+/** True when this label must never open a contractor page / enter Network rankings. */
+export function isSupplyProviderLabel(label: string | null | undefined): boolean {
+  if (!label?.trim()) return false
+  if (isInventorySource(label)) return true
+  if (isNavyCommandSource(label)) return true
+  return /inventory|U\.?S\.?\s+Government|vendors TBD|U\.?S\.?\s+Navy\s*\(NAVAIR\)/i.test(label)
+}
+
+/** Display label for non-contractor supply providers, or null. */
+export function supplyProvider(contractor: string | null | undefined): string | null {
+  if (!contractor?.trim()) return null
+  const s = contractor.trim()
+
+  // Atomic label — must run before slash-splitting
+  if (/^U\.?S\.?\s+Government\s*\/\s*vendors TBD$/i.test(s)) return USG_VENDORS_TBD
+  if (/^U\.?S\.?\s+Government$/i.test(s)) return USG_LABEL
+  if (isNavyCommandSource(s)) return US_NAVY_NAVAIR
+
+  // Slash lists: surface NAVAIR / inventory even alongside commercial primes
+  if (s.includes(' / ')) {
+    for (const part of s.split(/\s*\/\s*/)) {
+      const label = supplyProvider(part)
+      if (label) return label
+    }
+  }
+
+  if (!isInventorySource(s)) return null
   if (/marine\s+corps|USMC/i.test(s)) return 'U.S. Marine Corps inventory'
-  if (/navy/i.test(s)) return 'U.S. Navy inventory'
+  if (/navy/i.test(s)) return US_NAVY_INVENTORY
   if (/air\s+force/i.test(s)) return 'U.S. Air Force inventory'
-  if (/government/i.test(s)) return 'U.S. Government inventory'
+  if (/government\s+(stock|inventory)/i.test(s)) return 'U.S. Government inventory'
+  if (/government/i.test(s) && /inventory|stock/i.test(s)) return 'U.S. Government inventory'
   return 'U.S. Army inventory'
 }
+
+export { USG_VENDORS_TBD, USG_LABEL, US_NAVY_NAVAIR }
+
 
 function cleanLocation(loc: string | null | undefined): string | null {
   if (!loc) return null
@@ -106,7 +171,7 @@ export function parseContractors(
   // Treat TBD / unknown scrape leftovers as missing (hide Principal contractor section)
   if (
     !rawContractor ||
-    /\b(not known|to be determined|determined from|approved vendors|no prime|will be part of a new contractor|unknown at this time|not associated with|competitive source selection|chosen after|to be announced|to be selected|selection process|competition among)\b/i.test(
+    /\b(not known|to be determined|determined from|approved vendors|no prime|no contractor specified|will be part of a new contractor|unknown at this time|not associated with|competitive source selection|chosen after|to be announced|to be selected|selection process|competition among)\b/i.test(
       rawContractor,
     )
   ) {
@@ -117,7 +182,12 @@ export function parseContractors(
   if (rawContractor?.includes(' / ') || rawLocation?.includes(' / ')) {
     const names = (rawContractor ?? '').split(/\s*\/\s*/).map(s => s.trim()).filter(Boolean)
     const locs = (rawLocation ?? '').split(/\s*\/\s*/).map(s => s.trim())
-    return dedupeEntries(names.map((n, i) => entry(n, cleanLocation(locs[i] || null))))
+    const entries = names
+      .map((n, i) => ({ raw: n, loc: cleanLocation(locs[i] || null) }))
+      // Drop USG command / inventory segments — they surface via supplyProvider
+      .filter(({ raw }) => !isInventorySource(raw) && !isNavyCommandSource(raw))
+      .map(({ raw, loc }) => entry(raw, loc))
+    return dedupeEntries(entries)
   }
 
   if (rawLocation) {
@@ -216,11 +286,27 @@ export function parseContractors(
 
 function dedupeEntries(entries: ContractorEntry[]): ContractorEntry[] {
   const out: ContractorEntry[] = []
-  const seen = new Set<string>()
+  const indexByName = new Map<string, number>()
   for (const e of entries) {
-    if (!e.name || isPlaceOnlyName(e.name) || isProseFragment(e.name) || seen.has(e.name)) continue
-    seen.add(e.name)
-    out.push(e)
+    if (!e.name || isPlaceOnlyName(e.name) || isProseFragment(e.name)) continue
+    const existing = indexByName.get(e.name)
+    if (existing === undefined) {
+      indexByName.set(e.name, out.length)
+      out.push({ ...e })
+      continue
+    }
+    // Same firm, another plant — keep both places on one row
+    const prev = out[existing]
+    if (e.location && e.location !== prev.location) {
+      const parts = new Set(
+        [prev.location, e.location]
+          .filter(Boolean)
+          .flatMap(s => String(s).split(/\s*;\s*/))
+          .map(s => s.trim())
+          .filter(Boolean),
+      )
+      prev.location = [...parts].join('; ') || prev.location
+    }
   }
   return out
 }
