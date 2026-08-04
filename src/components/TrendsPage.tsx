@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useLayoutEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import type { Notification } from '../types'
 import { formatCost } from '../utils/formatters'
@@ -71,11 +71,20 @@ export function TrendsPage({
   const [hoveredRegionYear, setHoveredRegionYear] = useState<number | null>(null)
   /** Grow bars only on first Trends open — not when switching year pills */
   const [barsIntroDone, setBarsIntroDone] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const id = window.setTimeout(() => setBarsIntroDone(true), 900)
     return () => window.clearTimeout(id)
   }, [])
+
+  // When the floating header remeasures taller, scroll anchoring can leave you
+  // visually "at top" with the first card still tucked under the bar. Snap back.
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el || !embedded) return
+    if (el.scrollTop <= 1) el.scrollTop = 0
+  }, [headerClearance, embedded])
 
   const yearStats = useMemo(() => {
     const map = new Map<number, { value: number; count: number }>()
@@ -310,11 +319,15 @@ export function TrendsPage({
     <div
       className="flex flex-col h-full overflow-hidden bg-[#0a0c10]"
     >
-      <div className="flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <div
+        ref={scrollRef}
+        className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        style={embedded ? { scrollPaddingTop: headerClearance ?? 180 } : undefined}
+      >
         {embedded && (
           <div
             aria-hidden="true"
-            className="shrink-0"
+            className="shrink-0 [overflow-anchor:none]"
             style={{ height: headerClearance ?? 180 }}
           />
         )}

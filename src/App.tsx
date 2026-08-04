@@ -80,15 +80,36 @@ export default function App() {
   useLayoutEffect(() => {
     const el = floatingHeaderRef.current
     if (!el) return
+    let cancelled = false
+
     const measure = () => {
-      // Header is absolute at top of the content pane — its height is the clearance.
-      setHeaderClearance(Math.ceil(el.offsetHeight + 8))
+      if (cancelled) return
+      const pane = el.parentElement
+      if (!pane) return
+      // Distance from pane top → bottom of the solid header chrome (+ gap).
+      const chrome = (el.firstElementChild as HTMLElement | null) ?? el
+      const paneTop = pane.getBoundingClientRect().top
+      const bottom = chrome.getBoundingClientRect().bottom
+      const next = Math.ceil(bottom - paneTop + 12)
+      setHeaderClearance(prev => (prev === next ? prev : next))
     }
+
     measure()
+    // Second pass after layout/fonts settle — avoids a too-short spacer that
+    // leaves the first Trends card clipped under the bar at scrollTop 0.
+    const raf = requestAnimationFrame(() => {
+      measure()
+      requestAnimationFrame(measure)
+    })
+    void document.fonts?.ready?.then(measure)
+
     const ro = new ResizeObserver(measure)
     ro.observe(el)
+    if (el.firstElementChild) ro.observe(el.firstElementChild)
     window.addEventListener('resize', measure)
     return () => {
+      cancelled = true
+      cancelAnimationFrame(raf)
       ro.disconnect()
       window.removeEventListener('resize', measure)
     }
