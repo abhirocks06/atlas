@@ -16,8 +16,8 @@ interface Props {
   maxDate: string
   categoryFilter: WeaponCategory | null
   onCategoryFilterChange: (cat: WeaponCategory | null) => void
-  view: 'map' | 'network'
-  onViewChange: (v: 'map' | 'network') => void
+  view: 'map' | 'network' | 'trends'
+  onViewChange: (v: 'map' | 'network' | 'trends') => void
   countries: string[]
   contractors: string[]
   onSelectCountry: (country: string) => void
@@ -44,7 +44,7 @@ export function FilterBar({
   const mobileSearchRef = useRef<HTMLDivElement>(null)
   const desktopSearchRef = useRef<HTMLDivElement>(null)
 
-  // Map → countries; network → contractors
+  // Network → contractors; map/trends → countries
   const searchContractors = view === 'network'
 
   const matches = useMemo(() => {
@@ -140,19 +140,21 @@ export function FilterBar({
             </select>
           </div>
           <div className="flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 flex-shrink-0 h-8">
-            {(['map', 'network'] as const).map(v => (
+            {(['map', 'network', 'trends'] as const).map(v => (
               <button
                 key={v}
                 onClick={() => onViewChange(v)}
                 aria-label={v}
-                className={`flex items-center justify-center px-2.5 h-full rounded-md transition-colors ${
+                className={`flex items-center justify-center px-2 h-full rounded-md transition-colors ${
                   view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
                 }`}
               >
                 {v === 'map' ? (
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
-                ) : (
+                ) : v === 'network' ? (
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1.5 10.5l2.5-3 2 2 3.5-4.5 2.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M1.5 12h11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                 )}
               </button>
             ))}
@@ -235,7 +237,7 @@ export function FilterBar({
         </div>
 
         <div className="ml-auto flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 shrink-0 h-8">
-          {(['map', 'network'] as const).map(v => (
+          {(['map', 'network', 'trends'] as const).map(v => (
             <button
               key={v}
               onClick={() => onViewChange(v)}
@@ -245,8 +247,10 @@ export function FilterBar({
             >
               {v === 'map' ? (
                 <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
-              ) : (
+              ) : v === 'network' ? (
                 <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
+              ) : (
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1.5 10.5l2.5-3 2 2 3.5-4.5 2.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M1.5 12h11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
               )}
               <span>{v}</span>
             </button>

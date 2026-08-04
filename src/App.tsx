@@ -1,9 +1,10 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef, useLayoutEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import rawData from '../data/fms_notifications.json'
 import type { Notification } from './types'
 import { WorldMap } from './components/WorldMap'
 import { NetworkView } from './components/NetworkView'
+import { TrendsPage } from './components/TrendsPage'
 import { CountryPage } from './components/CountryPage'
 import { ContractorPage } from './components/ContractorPage'
 import { FilterBar } from './components/FilterBar'
@@ -44,7 +45,8 @@ function NetworkIcon() {
 
 function getInitialState() {
   const params = new URLSearchParams(window.location.search)
-  const view = params.get('view') === 'network' ? 'network' : 'map'
+  const viewParam = params.get('view')
+  const view = viewParam === 'network' || viewParam === 'trends' ? viewParam : 'map'
   const country = params.get('country') || null
   const contractor = params.get('contractor') || null
   const sale = params.get('sale') || null
@@ -71,7 +73,26 @@ export default function App() {
   const [selectedSaleKey, setSelectedSaleKey] = useState<string | null>(initial.sale)
   const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
-  const [view, setView] = useState<'map' | 'network'>(initial.view as 'map' | 'network')
+  const [view, setView] = useState<'map' | 'network' | 'trends'>(initial.view as 'map' | 'network' | 'trends')
+  const floatingHeaderRef = useRef<HTMLDivElement>(null)
+  const [headerClearance, setHeaderClearance] = useState(180)
+
+  useLayoutEffect(() => {
+    const el = floatingHeaderRef.current
+    if (!el) return
+    const measure = () => {
+      // Header is absolute at top of the content pane — its height is the clearance.
+      setHeaderClearance(Math.ceil(el.offsetHeight + 8))
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    window.addEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [view, selectedCountry, selectedContractor])
 
   const openCountry = (country: string | null) => {
     setSelectedContractor(null)
@@ -83,6 +104,13 @@ export default function App() {
     setSelectedCountry(null)
     setSelectedContractor(contractor)
     setSelectedSaleKey(null)
+  }
+
+  const openNotificationSale = (n: Notification) => {
+    if (!n.country) return
+    setSelectedContractor(null)
+    setSelectedCountry(n.country)
+    setSelectedSaleKey(saleUrlKey(n))
   }
 
   // Sync state → URL
@@ -247,7 +275,10 @@ export default function App() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
         >
-          <div className="absolute top-0 left-0 right-0 z-20 px-4 md:px-6 pt-4 pb-3 pointer-events-none">
+          <div
+            ref={floatingHeaderRef}
+            className="absolute top-0 left-0 right-0 z-20 px-4 md:px-6 pt-4 pb-3 pointer-events-none"
+          >
             <div className="pointer-events-auto relative rounded-xl border border-zinc-800/80 bg-[#111111]/90 backdrop-blur-md shadow-lg shadow-black/40">
               <header className="px-4 md:px-6 py-3 sm:py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4 border-b border-zinc-800/60 rounded-t-xl overflow-hidden">
                 <div className="flex items-start gap-1.5 sm:gap-2 md:gap-3 min-w-0 sm:flex-1 sm:items-center overflow-hidden">
@@ -312,7 +343,7 @@ export default function App() {
                     onSelectCountry={openCountry}
                   />
                 </motion.div>
-              ) : (
+              ) : view === 'network' ? (
                 <motion.div
                   key="networkview"
                   className="absolute inset-0"
@@ -325,6 +356,23 @@ export default function App() {
                     filtered={filtered}
                     onSelectCountry={openCountry}
                     onSelectContractor={openContractor}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="trendsview"
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <TrendsPage
+                    notifications={filtered}
+                    embedded
+                    headerClearance={headerClearance}
+                    onOpenNotification={openNotificationSale}
+                    onSelectCountry={c => openCountry(c)}
                   />
                 </motion.div>
               )}

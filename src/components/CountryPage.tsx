@@ -113,8 +113,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
   const presentCategories = ALL_CATEGORIES
     .filter(cat => categoryTotals.has(cat))
     .sort((a, b) => categoryTotals.get(b)!.cost - categoryTotals.get(a)!.cost)
-  const maxCatCost = Math.max(...[...categoryTotals.values()].map(v => v.cost), 1)
-  const maxContractorCost = contractorTotals[0]?.[1].cost ?? 1
+  const barDenom = totalCost > 0 ? totalCost : 1
 
   const filtered = useMemo(() => {
     return notifications
@@ -177,7 +176,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
         <div className="space-y-2.5">
           {presentCategories.map(cat => {
             const data = categoryTotals.get(cat)!
-            const pct = (data.cost / maxCatCost) * 100
+            const pct = (data.cost / barDenom) * 100
             const isActive = activeCategory === cat
             const isDimmed = activeCategory && !isActive
             const color = CATEGORY_COLORS[cat]
@@ -187,12 +186,14 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 onClick={() => { setActiveCategory(isActive ? null : cat); setSidebarOpen(false) }}
                 className={`w-full text-left group transition-opacity ${isDimmed ? 'opacity-25 hover:opacity-60' : ''}`}
               >
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between mb-1.5 gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: color }} />
-                    <span className="text-[12px] text-zinc-400 group-hover:text-zinc-200 transition-colors">{cat}</span>
+                    <span className="text-[12px] text-zinc-400 group-hover:text-zinc-200 transition-colors truncate">{cat}</span>
                   </div>
-                  <span className="text-[12px] font-mono text-zinc-500">{formatCost(data.cost)}</span>
+                  <span className="text-[12px] font-mono text-zinc-500 flex-shrink-0 tabular-nums">
+                    {formatCost(data.cost)}
+                  </span>
                 </div>
                 <div className="h-[3px] bg-zinc-800/80 rounded-full overflow-hidden">
                   <div
@@ -221,7 +222,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
           </div>
           <div className="space-y-2.5">
             {contractorTotals.map(([name, data]) => {
-              const pct = (data.cost / maxContractorCost) * 100
+              const pct = (data.cost / barDenom) * 100
               const logoUrl = getContractorLogoUrl(name)
               const isActive = activeContractor === name
               const isDimmed = activeContractor && !isActive
@@ -235,7 +236,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   }}
                   className={`w-full text-left group transition-opacity ${isDimmed ? 'opacity-25 hover:opacity-60' : ''}`}
                 >
-                  <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center justify-between mb-1.5 gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       <span className="w-3.5 h-3.5 flex-shrink-0 flex items-center justify-center">
                         {logoUrl ? (
@@ -255,12 +256,14 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                         isActive ? 'text-zinc-200' : 'text-zinc-400 group-hover:text-zinc-200'
                       }`}>{name}</span>
                     </div>
-                    <span className="text-[12px] font-mono text-zinc-500 flex-shrink-0 ml-2">{formatCost(data.cost)}</span>
+                    <span className="text-[12px] font-mono text-zinc-500 flex-shrink-0 tabular-nums">
+                      {formatCost(data.cost)}
+                    </span>
                   </div>
                   <div className="h-[3px] bg-zinc-800/80 rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full ${isActive ? 'bg-amber-500' : 'bg-zinc-500'}`}
-                      style={{ width: `${pct}%` }}
+                      style={{ width: `${Math.min(pct, 100)}%` }}
                     />
                   </div>
                 </button>

@@ -1,7 +1,5 @@
-import { useMemo, useState, useRef, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { zoom, zoomIdentity } from 'd3-zoom'
-import { select } from 'd3-selection'
 import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
 import { formatCost } from '../utils/formatters'
@@ -28,39 +26,15 @@ const DEFAULT_ZOOM = 0.95
 /** Shift framing down so the graph starts below the floating top bar */
 const HEADER_CLEARANCE = 72
 
+/** Static framing — no scroll-zoom or drag-pan */
+const FRAME_TRANSFORM = `translate(${VB_W / 2}, ${VB_H / 2}) scale(${DEFAULT_ZOOM}) translate(${-VB_W / 2}, ${-VB_H / 2 + HEADER_CLEARANCE})`
+
 const MAX_CONTRACTORS = 14
 const MAX_COUNTRIES = 22
 const US_LABEL = 'United States of America'
 
 export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: Props) {
-  const svgRef = useRef<SVGSVGElement>(null)
-  const gRef = useRef<SVGGElement>(null)
   const [hovered, setHovered] = useState<{ type: 'contractor' | 'usg' | 'country'; name: string } | null>(null)
-
-  useEffect(() => {
-    const svgEl = svgRef.current
-    const gEl = gRef.current
-    if (!svgEl || !gEl) return
-
-    const svg = select(svgEl)
-    const g = select(gEl)
-
-    const zoomBehavior = zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.45, 8])
-      .on('zoom', (event) => {
-        g.attr('transform', event.transform.toString())
-      })
-
-    const initial = zoomIdentity
-      .translate(VB_W / 2, VB_H / 2)
-      .scale(DEFAULT_ZOOM)
-      .translate(-VB_W / 2, -VB_H / 2 + HEADER_CLEARANCE)
-
-    svg.call(zoomBehavior)
-    svg.call(zoomBehavior.transform, initial)
-    return () => { svg.on('.zoom', null) }
-  }, [])
-
   const { contractors, countries, edges } = useMemo(() => {
     const cMap = new Map<string, number>()
     const kMap = new Map<string, number>()
@@ -154,12 +128,11 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
   return (
     <div className="w-full h-full bg-[#0a0c10] relative overflow-hidden">
       <svg
-        ref={svgRef}
         viewBox={`${-VB_PAD_X} ${-VB_PAD_Y} ${VB_W + VB_PAD_X * 2} ${VB_H + VB_PAD_Y * 2}`}
         preserveAspectRatio="xMidYMid meet"
-        className="w-full h-full touch-none"
+        className="w-full h-full"
       >
-        <g ref={gRef}>
+        <g transform={FRAME_TRANSFORM}>
           {edges.map(e => {
             const ci = cIndex.get(e.contractor)
             const ki = kIndex.get(e.country)
@@ -361,20 +334,17 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
             )
           })}
 
-          <text x={CX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
+          <text x={CX - 12} y={18} textAnchor="end" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
             CONTRACTORS
           </text>
-          <text x={KX} y={18} textAnchor="middle" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
+          <text x={KX + 12} y={18} textAnchor="start" fontSize={9} fontFamily="monospace" fill="#3a3f4a" letterSpacing="2">
             COUNTRIES
           </text>
         </g>
       </svg>
 
       <div className="absolute bottom-3 md:bottom-5 right-3 md:right-5 text-[9px] md:text-[10px] text-[#252d3d] pointer-events-none">
-        <span className="hidden md:inline">Scroll to zoom · Drag to pan</span>
-        <span className="md:hidden">Pinch to zoom · Drag to pan</span>
-        <span className="mx-1.5 opacity-40">·</span>
-        <span>Click a country or contractor to drill in</span>
+        Hover to highlight · Click a country or contractor to drill in
       </div>
     </div>
   )

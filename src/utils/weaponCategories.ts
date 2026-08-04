@@ -19,12 +19,12 @@ export const CATEGORY_COLORS: Record<WeaponCategory, string> = {
 
 const RULES: Array<[WeaponCategory, RegExp]> = [
   // Naval before Aircraft so "F-100 Frigate" isn't treated as an F-series fighter
-  ['Naval Systems', /ship|vessel|frigate|destroyer|submarine|littoral|coast.*guard|patrol.*boat|naval|maritime|sonar|torpedo.*launch|anti-ship|aegis/i],
-  ['Aircraft', /helicopt|aircraft|F-\d+|AH-\d+|UH-\d+|CH-\d+|MH-\d+|P-\d+|C-\d+|KC-\d+|V-\d+|drone|UAV|UAS|fixed.wing|rotary|airframe|turbine|engine|propeller|simulator.*flight|flight.*sim/i],
-  ['Missiles & Munitions', /missile|munition|rocket|bomb|JDAM|AMRAAM|AIM-|AGM-|GBU-|CBU-|MK-\d+.*bomb|Javelin|Stinger|HIMARS|MLRS|APKWS|precision kill weapon|air.?strike|strike weapon|torpedo|warhead|guidance|fuze|propellant|ammunition|ammo|round|cartridge|grenade|mortar/i],
-  ['Ground Vehicles & Artillery', /tank|M1A|Abrams|vehicle|HMMWV|Humvee|truck|artillery|howitzer|cannon|M109|M777|armored|APC|Bradley|Stryker|JLTV|MRAP|gun system|launcher.*ground|ground.*launcher/i],
-  ['Electronics & Communications', /radar|sensor|radio|communication|satellite|command.*control|C2|C4I|electronic|cyber|network|software|data.*link|navigation|GPS|IFF|transponder|countermeasure|EW |electronic.*warfare|infrared.*system|targeting.*pod|surveillance|ISR|reconnaissance/i],
-  ['Sustainment & Support', /sustainment|support|spare|maintenance|training|logistics|overhaul|depot|service|upgrade|modification|technical.*assist|follow-on|replenishment|equipment.*support/i],
+  ['Naval Systems', /ship|vessel|frigate|destroyer|submarine|littoral|coast.*guard|patrol.*boat|patrol craft|naval|maritime|sonar|torpedo.*launch|anti-ship|aegis|phalanx|CIWS|cutter|surface combatant|vertical launching|VLS|Archangel|boat/i],
+  ['Aircraft', /helicopt|aircraft|F-\d+|AH-\d+|UH-\d+|CH-\d+|MH-\d+|P-\d+|C-\d+|KC-\d+|V-\d+|MQ-\d+|RQ-\d+|drone|UAV|UAS|UAS\b|Reaper|Predator|AWACS|Hornet|fixed.wing|rotary|airframe|turbine|engine|propeller|simulator.*flight|flight.*sim|aerostat|LAIRCM|ATFLIR/i],
+  ['Missiles & Munitions', /missile|munition|rocket|bomb|JDAM|AMRAAM|AIM-|AGM-|GBU-|CBU-|JSOW|MK-\d+.*bomb|Javelin|Stinger|HIMARS|MLRS|APKWS|THAAD|Patriot|Tomahawk|Harpoon|Excalibur|projectile|IBCS|Integrated Battle Command|air.?defense|fire.?control|precision kill weapon|air.?strike|strike weapon|torpedo|warhead|guidance|fuze|propellant|ammunition|ammo|round|cartridge|grenade|mortar|ordnance|Volcano|ALTIUS|loitering|counter.?UAS|counter.?unmanned|ITAS|target acquisition/i],
+  ['Ground Vehicles & Artillery', /tank|M1A|Abrams|vehicle|HMMWV|Humvee|truck|artillery|howitzer|cannon|M109|M777|armored|APC|Bradley|Stryker|JLTV|MRAP|gun system|launcher.*ground|ground.*launcher|bulldozer|Caterpillar/i],
+  ['Electronics & Communications', /radar|sensor|radio|communication|satellite|command.*control|C2|C4I|electronic|cyber|network|software|data.*link|LINK.?16|MIDS|Multifunctional Information Distribution|navigation|GPS|IFF|transponder|countermeasure|EW |electronic.*warfare|infrared.*system|targeting.*pod|surveillance|ISR|reconnaissance|recce|night.?vision|traffic.?control|landing.?system|terminal|oceanographic|repeater|border.?security|Mobile User Objective/i],
+  ['Sustainment & Support', /sustainment|support|spare|maintenance|training|logistics|overhaul|depot|service|upgrade|modification|technical.*assist|follow-on|replenishment|equipment.*support|FMSO|modernization program|headquarters|medical information/i],
 ]
 
 export function categorize(system: string | null): WeaponCategory {

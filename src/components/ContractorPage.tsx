@@ -114,8 +114,7 @@ export function ContractorPage({
   const presentCategories = ALL_CATEGORIES
     .filter(cat => categoryTotals.has(cat))
     .sort((a, b) => categoryTotals.get(b)!.cost - categoryTotals.get(a)!.cost)
-  const maxCatCost = Math.max(...[...categoryTotals.values()].map(v => v.cost), 1)
-  const maxCountryCost = countryTotals[0]?.[1].cost ?? 1
+  const barDenom = totalCost > 0 ? totalCost : 1
 
   const filtered = useMemo(() => {
     return notifications
@@ -175,7 +174,7 @@ export function ContractorPage({
         <div className="space-y-2.5">
           {presentCategories.map(cat => {
             const data = categoryTotals.get(cat)!
-            const pct = (data.cost / maxCatCost) * 100
+            const pct = (data.cost / barDenom) * 100
             const isActive = activeCategory === cat
             const isDimmed = activeCategory && !isActive
             const color = CATEGORY_COLORS[cat]
@@ -185,12 +184,14 @@ export function ContractorPage({
                 onClick={() => { setActiveCategory(isActive ? null : cat); setSidebarOpen(false) }}
                 className={`w-full text-left group transition-opacity ${isDimmed ? 'opacity-25 hover:opacity-60' : ''}`}
               >
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between mb-1.5 gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: color }} />
-                    <span className="text-[12px] text-zinc-400 group-hover:text-zinc-200 transition-colors">{cat}</span>
+                    <span className="text-[12px] text-zinc-400 group-hover:text-zinc-200 transition-colors truncate">{cat}</span>
                   </div>
-                  <span className="text-[12px] font-mono text-zinc-500">{formatCost(data.cost)}</span>
+                  <span className="text-[12px] font-mono text-zinc-500 flex-shrink-0 tabular-nums">
+                    {formatCost(data.cost)}
+                  </span>
                 </div>
                 <div className="h-[3px] bg-zinc-800/80 rounded-full overflow-hidden">
                   <div className="h-full rounded-full" style={{ background: color, width: `${pct}%` }} />
@@ -216,7 +217,7 @@ export function ContractorPage({
           </div>
           <div className="space-y-3">
             {countryTotals.map(([name, data]) => {
-              const pct = (data.cost / maxCountryCost) * 100
+              const pct = (data.cost / barDenom) * 100
               const flagUrl = getFlagUrl(name)
               const isActive = activeCountry === name
               const isDimmed = activeCountry && !isActive
@@ -242,7 +243,9 @@ export function ContractorPage({
                     <span className={`text-[12px] truncate flex-1 transition-colors ${
                       isActive ? 'text-zinc-200' : 'text-zinc-400 group-hover:text-zinc-200'
                     }`}>{name}</span>
-                    <span className="text-[12px] font-mono text-zinc-500 flex-shrink-0">{formatCost(data.cost)}</span>
+                    <span className="text-[12px] font-mono text-zinc-500 flex-shrink-0 tabular-nums">
+                      {formatCost(data.cost)}
+                    </span>
                   </div>
                   <div className="h-[3px] bg-zinc-800/80 rounded-full overflow-hidden">
                     <div

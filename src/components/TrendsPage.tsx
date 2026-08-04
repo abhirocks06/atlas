@@ -1,312 +1,713 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import type { Notification } from '../types'
 import { formatCost } from '../utils/formatters'
-import { categorize, CATEGORY_COLORS, ALL_CATEGORIES } from '../utils/weaponCategories'
+import { ALL_REGIONS, REGION_COLORS, regionForCountry, type Region } from '../utils/regions'
+import { getFlagUrl } from '../utils/countryFlags'
+import { YearTrendChart } from './YearTrendChart'
 
 interface Props {
   notifications: Notification[]
-  onBack: () => void
+  /** Extra top space when sitting under the floating header */
+  embedded?: boolean
+  /** Measured bottom of floating header (px) — keeps content below the bar */
+  headerClearance?: number
+  /** Open the sale detail drawer for a specific notification. */
+  onOpenNotification?: (n: Notification) => void
+  onSelectCountry?: (country: string) => void
 }
 
-const YEARS = [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026] as const
-type Year = (typeof YEARS)[number]
+type ChartMetric = 'value' | 'count'
 
-// Amber scale from dim to bright for choropleth-style bars
-const AMBER_SCALE = [
-  '#4a3010',
-  '#6b4518',
-  '#8c5a20',
-  '#a86e28',
-  '#c4873a',
-  '#d4974a',
-  '#e0aa60',
-  '#e8bc78',
-  '#f0cc90',
-  '#f8dca8',
-]
-
-function amberForPct(pct: number): string {
-  const idx = Math.max(0, Math.min(AMBER_SCALE.length - 1, Math.floor(pct * (AMBER_SCALE.length - 1))))
-  return AMBER_SCALE[idx]
-}
-
-function yoyBadge(prev: number, curr: number): { label: string; color: string } | null {
-  if (prev === 0) return null
-  const pct = ((curr - prev) / prev) * 100
-  if (pct >= 0) {
-    return { label: `↑ +${pct.toFixed(0)}%`, color: '#4ade80' }
+function totalsByCountry(notifications: Notification[]): Map<string, { value: number; count: number }> {
+  const map = new Map<string, { value: number; count: number }>()
+  for (const n of notifications) {
+    if (!n.country) continue
+    const prev = map.get(n.country) ?? { value: 0, count: 0 }
+    map.set(n.country, { value: prev.value + (n.costUSD ?? 0), count: prev.count + 1 })
   }
-  return { label: `↓ ${pct.toFixed(0)}%`, color: '#f87171' }
+  return map
 }
 
-export function TrendsPage({ notifications, onBack }: Props) {
-  const [recipientYear, setRecipientYear] = useState<Year | 'All'>('All')
+function yearOf(n: Notification): number {
+  return parseInt(n.date.slice(0, 4), 10)
+}
 
-  // Year totals
+function avgByCountry(
+  notifications: Notification[],
+  years: number[],
+): Map<string, number> {
+  const totals = totalsByCountry(notifications.filter(n => years.includes(yearOf(n))))
+  const map = new Map<string, number>()
+  const denom = Math.max(years.length, 1)
+  for (const [country, data] of totals) {
+    map.set(country, data.value / denom)
+  }
+  return map
+}
+
+export function TrendsPage({
+  notifications,
+  embedded = false,
+  headerClearance,
+  onOpenNotification,
+  onSelectCountry,
+}: Props) {
+  const years = useMemo(() => {
+    const set = new Set<number>()
+    for (const n of notifications) {
+      const y = yearOf(n)
+      if (Number.isFinite(y)) set.add(y)
+    }
+    return [...set].sort((a, b) => a - b)
+  }, [notifications])
+
+  const [metric, setMetric] = useState<ChartMetric>('value')
+  const [detailYear, setDetailYear] = useState<number | null>(null)
+  const [largestYear, setLargestYear] = useState<number | 'All'>('All')
+  const [recipientYear, setRecipientYear] = useState<number | 'All'>('All')
+  const [mutedRegions, setMutedRegions] = useState<Set<Region>>(() => new Set())
+  const [regionLogScale, setRegionLogScale] = useState(false)
+  const [hoveredRegionYear, setHoveredRegionYear] = useState<number | null>(null)
+  /** Grow bars only on first Trends open — not when switching year pills */
+  const [barsIntroDone, setBarsIntroDone] = useState(false)
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setBarsIntroDone(true), 900)
+    return () => window.clearTimeout(id)
+  }, [])
+
   const yearStats = useMemo(() => {
     const map = new Map<number, { value: number; count: number }>()
-    for (const year of YEARS) map.set(year, { value: 0, count: 0 })
+    for (const year of years) map.set(year, { value: 0, count: 0 })
     for (const n of notifications) {
-      const year = parseInt(n.date.slice(0, 4), 10)
-      if (!YEARS.includes(year as Year)) continue
+      const year = yearOf(n)
+      if (!map.has(year)) continue
       const prev = map.get(year)!
       map.set(year, { value: prev.value + (n.costUSD ?? 0), count: prev.count + 1 })
     }
     return map
-  }, [notifications])
+  }, [notifications, years])
 
-  const maxYearValue = Math.max(...YEARS.map(y => yearStats.get(y)!.value), 1)
+  const yearSeries = useMemo(
+    () =>
+      years.map(year => ({
+        year,
+        value: metric === 'value'
+          ? (yearStats.get(year)?.value ?? 0)
+          : (yearStats.get(year)?.count ?? 0),
+      })),
+    [years, yearStats, metric],
+  )
 
-  // Top recipients
+  const detailYearOptions = useMemo(() => years.slice(-6), [years])
+  const effectiveDetailYear = detailYear ?? detailYearOptions[detailYearOptions.length - 1] ?? null
+  const effectiveLargestYear = largestYear
+
+  const topMovers = useMemo(() => {
+    if (effectiveDetailYear == null) {
+      return { up: [] as const, down: [] as const }
+    }
+
+    const currYears = [effectiveDetailYear - 2, effectiveDetailYear - 1, effectiveDetailYear]
+      .filter(y => years.includes(y))
+    const prevYears = [effectiveDetailYear - 5, effectiveDetailYear - 4, effectiveDetailYear - 3]
+      .filter(y => years.includes(y))
+    if (currYears.length === 0 || prevYears.length === 0) {
+      return { up: [] as const, down: [] as const }
+    }
+
+    const currMap = avgByCountry(notifications, currYears)
+    const prevMap = avgByCountry(notifications, prevYears)
+
+    const countries = new Set([...currMap.keys(), ...prevMap.keys()])
+    const deltas: { country: string; curr: number; prev: number; delta: number }[] = []
+    for (const country of countries) {
+      const c = currMap.get(country) ?? 0
+      const p = prevMap.get(country) ?? 0
+      deltas.push({ country, curr: c, prev: p, delta: c - p })
+    }
+    const up = [...deltas].filter(d => d.delta > 0).sort((a, b) => b.delta - a.delta).slice(0, 10)
+    const down = [...deltas].filter(d => d.delta < 0).sort((a, b) => a.delta - b.delta).slice(0, 10)
+    return { up, down }
+  }, [notifications, effectiveDetailYear, years])
+
+  const largestNotifications = useMemo(() => {
+    const subset = effectiveLargestYear === 'All'
+      ? notifications
+      : notifications.filter(n => yearOf(n) === effectiveLargestYear)
+    return [...subset]
+      .filter(n => n.costUSD != null && n.costUSD > 0)
+      .sort((a, b) => (b.costUSD ?? 0) - (a.costUSD ?? 0))
+      .slice(0, 10)
+  }, [notifications, effectiveLargestYear])
+
+  const regionYearData = useMemo(() => {
+    const result = new Map<Region, Map<number, number>>()
+    for (const region of ALL_REGIONS) {
+      const yearMap = new Map<number, number>()
+      for (const year of years) yearMap.set(year, 0)
+      result.set(region, yearMap)
+    }
+    for (const n of notifications) {
+      const year = yearOf(n)
+      if (!years.includes(year)) continue
+      const region = regionForCountry(n.country)
+      const yearMap = result.get(region)!
+      yearMap.set(year, (yearMap.get(year) ?? 0) + (n.costUSD ?? 0))
+    }
+    return result
+  }, [notifications, years])
+
+  const activeRegions = useMemo(() => {
+    return ALL_REGIONS.filter(r => {
+      const yearMap = regionYearData.get(r)!
+      return [...yearMap.values()].some(v => v > 0)
+    })
+  }, [regionYearData])
+
+  const visibleRegions = useMemo(
+    () => activeRegions.filter(r => !mutedRegions.has(r)),
+    [activeRegions, mutedRegions],
+  )
+
+  const regionMax = useMemo(() => {
+    let max = 1
+    const regions = visibleRegions.length > 0 ? visibleRegions : activeRegions
+    for (const r of regions) {
+      for (const v of regionYearData.get(r)!.values()) max = Math.max(max, v)
+    }
+    return max
+  }, [visibleRegions, activeRegions, regionYearData])
+
+  const regionPaths = useMemo(() => {
+    const n = years.length
+    if (n < 2) return []
+    const logMax = Math.log1p(regionMax)
+    return activeRegions.map(region => {
+      const muted = mutedRegions.has(region)
+      const yearMap = regionYearData.get(region)!
+      const pts = years.map((year, i) => {
+        const v = yearMap.get(year) ?? 0
+        const norm = regionLogScale
+          ? (logMax > 0 ? Math.log1p(v) / logMax : 0)
+          : v / regionMax
+        return {
+          x: (i / (n - 1)) * 100,
+          y: 100 - norm * 88 - 6,
+        }
+      })
+      const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ')
+      return { region, line, color: REGION_COLORS[region], muted }
+    })
+  }, [years, activeRegions, regionYearData, regionMax, mutedRegions, regionLogScale])
+
+  const regionHoverPts = useMemo(() => {
+    if (hoveredRegionYear == null || years.length < 2) return []
+    const i = years.indexOf(hoveredRegionYear)
+    if (i < 0) return []
+    const x = (i / (years.length - 1)) * 100
+    const logMax = Math.log1p(regionMax)
+    return visibleRegions.map(region => {
+      const v = regionYearData.get(region)!.get(hoveredRegionYear) ?? 0
+      const norm = regionLogScale
+        ? (logMax > 0 ? Math.log1p(v) / logMax : 0)
+        : v / regionMax
+      return {
+        region,
+        value: v,
+        x,
+        y: 100 - norm * 88 - 6,
+        color: REGION_COLORS[region],
+      }
+    })
+  }, [hoveredRegionYear, years, visibleRegions, regionYearData, regionMax, regionLogScale])
+
+  const toggleRegion = (region: Region) => {
+    setMutedRegions(prev => {
+      const next = new Set(prev)
+      if (next.has(region)) next.delete(region)
+      else next.add(region)
+      const stillVisible = activeRegions.some(r => !next.has(r))
+      return stillVisible ? next : new Set()
+    })
+  }
+
+  const soloRegion = (region: Region) => {
+    setMutedRegions(new Set(activeRegions.filter(r => r !== region)))
+  }
+
   const topRecipients = useMemo(() => {
-    const map = new Map<string, { value: number; count: number }>()
     const subset = recipientYear === 'All'
       ? notifications
       : notifications.filter(n => n.date.startsWith(String(recipientYear)))
-    for (const n of subset) {
-      if (!n.country) continue
-      const prev = map.get(n.country) ?? { value: 0, count: 0 }
-      map.set(n.country, { value: prev.value + (n.costUSD ?? 0), count: prev.count + 1 })
-    }
-    return [...map.entries()]
+    return [...totalsByCountry(subset).entries()]
       .sort((a, b) => b[1].value - a[1].value)
       .slice(0, 10)
   }, [notifications, recipientYear])
 
   const maxRecipientValue = Math.max(...topRecipients.map(([, v]) => v.value), 1)
 
-  // Category trends: per-year totals for each category
-  const categoryYearData = useMemo(() => {
-    const result = new Map<string, Map<number, number>>()
-    for (const cat of ALL_CATEGORIES) {
-      const yearMap = new Map<number, number>()
-      for (const year of YEARS) yearMap.set(year, 0)
-      result.set(cat, yearMap)
-    }
-    for (const n of notifications) {
-      const year = parseInt(n.date.slice(0, 4), 10)
-      if (!YEARS.includes(year as Year)) continue
-      const cat = categorize(n.system)
-      const yearMap = result.get(cat)!
-      yearMap.set(year, (yearMap.get(year) ?? 0) + (n.costUSD ?? 0))
-    }
-    return result
-  }, [notifications])
+  const formatMetric = (v: number) =>
+    metric === 'value' ? formatCost(v) : v.toLocaleString()
 
-  const categoryTotals = useMemo(() => {
-    const map = new Map<string, number>()
-    for (const cat of ALL_CATEGORIES) {
-      const yearMap = categoryYearData.get(cat)!
-      map.set(cat, [...yearMap.values()].reduce((a, b) => a + b, 0))
-    }
-    return map
-  }, [categoryYearData])
+  const chartLabelYears = useMemo(() => {
+    if (years.length === 0) return [] as number[]
+    const step = Math.max(1, Math.ceil(years.length / 8))
+    return years.filter((_, i) => i === 0 || i === years.length - 1 || i % step === 0)
+  }, [years])
+
+  const yearAxisMarks = (heightClass = 'h-5') => (
+    <div className={`relative pt-1.5 mb-2 ${heightClass}`}>
+      {chartLabelYears.map(year => {
+        const i = years.indexOf(year)
+        if (i < 0 || years.length < 2) return null
+        const x = (i / (years.length - 1)) * 100
+        return (
+          <span
+            key={year}
+            className="absolute text-[8px] text-zinc-600 -translate-x-1/2"
+            style={{ left: `${x}%` }}
+          >
+            {year}
+          </span>
+        )
+      })}
+    </div>
+  )
+
+  const recipientYearOptions = years.filter(y => y !== 2004)
+
+  const yearSelectClass =
+    'sm:ml-auto rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 px-2.5 py-1 text-[11px] outline-none transition-colors cursor-pointer appearance-none pr-7 bg-no-repeat'
+
+  const yearSelectStyle = {
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2352525b' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+    backgroundPosition: 'right 8px center',
+  } as const
+
+  const renderBar = (pct: number, i: number) =>
+    barsIntroDone ? (
+      <div
+        className="h-full rounded-sm bg-[#c4873a]"
+        style={{ width: `${pct * 100}%`, opacity: 0.85 }}
+      />
+    ) : (
+      <motion.div
+        className="h-full rounded-sm bg-[#c4873a] origin-left"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{
+          duration: 0.7,
+          delay: 0.04 + i * 0.045,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        style={{ width: `${pct * 100}%`, opacity: 0.85 }}
+      />
+    )
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#0f0f0f]">
-
-      {/* ── Header ── */}
-      <div className="px-8 py-5 border-b border-zinc-800 flex items-center gap-5 flex-shrink-0 bg-[#0d0d0d]">
-        <button
-          onClick={onBack}
-          className="text-zinc-600 hover:text-zinc-300 text-[10px] uppercase tracking-widest flex items-center gap-2 transition-colors flex-shrink-0"
-        >
-          ← Map
-        </button>
-        <div className="w-px h-4 bg-zinc-800" />
-        <div className="flex-1 min-w-0">
-          <h1 className="text-xl font-normal text-white tracking-tight">Global Trends</h1>
-          <p className="text-[10px] text-zinc-600 mt-0.5 uppercase tracking-widest">
-            U.S. Arms Sales · 2026
-          </p>
-        </div>
-      </div>
-
-      {/* ── Scrollable content ── */}
-      <div className="flex-1 overflow-y-auto">
-
-        {/* ── Year Comparison ── */}
-        <div className="px-8 py-6 border-b border-white/[0.07]">
-          <div className="text-[9px] uppercase tracking-widest text-white/20 mb-4">Year-over-Year Comparison</div>
-          <div className="grid grid-cols-5 gap-4">
-            {YEARS.map((year, idx) => {
-              const stats = yearStats.get(year)!
-              const barPct = maxYearValue > 0 ? (stats.value / maxYearValue) * 100 : 0
-              const prevStats = idx > 0 ? yearStats.get(YEARS[idx - 1])! : null
-              const badge = idx > 0 && prevStats ? yoyBadge(prevStats.value, stats.value) : null
-              const isPartial = year === 2026
-              const isIncomplete = false
-
-              return (
-                <div
-                  key={year}
-                  className="bg-[#141414] border border-white/[0.07] rounded-sm p-4"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="text-[9px] uppercase tracking-widest text-white/30">{year}</div>
-                    {idx === 0 ? (
-                      <span className="text-[9px] text-white/20">—</span>
-                    ) : badge ? (
-                      <span
-                        className="text-[9px] font-semibold tabular-nums"
-                        style={{ color: badge.color }}
-                      >
-                        {badge.label}
-                      </span>
-                    ) : null}
+    <div
+      className="flex flex-col h-full overflow-hidden bg-[#0a0c10]"
+      style={embedded ? { paddingTop: headerClearance ?? 180 } : undefined}
+    >
+      <div className="flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="px-4 md:px-6 pt-5 pb-10 space-y-5">
+          {/* Top Recipients — full width */}
+          <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Top Recipients</div>
+              <select
+                aria-label="Top recipients year"
+                value={recipientYear === 'All' ? 'All' : String(recipientYear)}
+                onChange={e => {
+                  const v = e.target.value
+                  setRecipientYear(v === 'All' ? 'All' : parseInt(v, 10))
+                }}
+                className={yearSelectClass}
+                style={yearSelectStyle}
+              >
+                <option value="All">All years</option>
+                {recipientYearOptions.map(y => (
+                  <option key={y} value={y}>{y}</option>
+                ))}
+              </select>
+            </div>
+            <div className="space-y-2">
+              {topRecipients.map(([country, data], i) => {
+                const pct = maxRecipientValue > 0 ? data.value / maxRecipientValue : 0
+                const flagUrl = getFlagUrl(country, 40)
+                const row = (
+                  <>
+                    <div className="text-[9px] text-zinc-600 tabular-nums w-4 text-right shrink-0">{i + 1}</div>
+                    <div className="flex items-center gap-2 w-36 sm:w-48 shrink-0 min-w-0">
+                      {flagUrl ? (
+                        <img
+                          src={flagUrl}
+                          alt=""
+                          className="w-5 h-3.5 object-cover rounded-[1px] shrink-0 opacity-90"
+                          decoding="async"
+                        />
+                      ) : (
+                        <span className="w-5 h-3.5 rounded-[1px] bg-zinc-800 shrink-0" />
+                      )}
+                      <span className="text-[11px] text-zinc-300 truncate group-hover:text-zinc-100">{country}</span>
+                    </div>
+                    <div className="flex-1 h-3 bg-zinc-900/80 rounded-sm overflow-hidden min-w-0">
+                      {renderBar(pct, i)}
+                    </div>
+                    <div className="text-[11px] font-semibold text-[#c4873a] tabular-nums w-16 sm:w-20 text-right shrink-0">
+                      {formatCost(data.value)}
+                    </div>
+                  </>
+                )
+                return onSelectCountry ? (
+                  <button
+                    key={country}
+                    type="button"
+                    onClick={() => onSelectCountry(country)}
+                    className="group flex items-center gap-2 sm:gap-3 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
+                  >
+                    {row}
+                  </button>
+                ) : (
+                  <div key={country} className="flex items-center gap-2 sm:gap-3">
+                    {row}
                   </div>
-
-                  <div className="text-xl font-semibold text-[#c4873a] tabular-nums mb-0.5">
-                    {formatCost(stats.value)}
-                  </div>
-                  <div className="text-[10px] text-white/30 mb-3">
-                    {stats.count} deal{stats.count !== 1 ? 's' : ''}
-                    {isPartial && <span className="ml-1 text-white/20">(partial)</span>}
-                    {isIncomplete && <span className="ml-1 text-white/20">(incomplete)</span>}
-                  </div>
-
-                  {/* Proportional bar */}
-                  <div className="h-1 bg-white/[0.05] rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${barPct}%`,
-                        background: '#c4873a',
-                        opacity: (isPartial || isIncomplete) ? 0.5 : 0.8,
-                      }}
-                    />
-                  </div>
-                  {isPartial && (
-                    <div className="text-[8px] text-white/20 mt-1.5 uppercase tracking-widest">Jan–Jun only</div>
-                  )}
-                  {isIncomplete && (
-                    <div className="text-[8px] text-white/20 mt-1.5 uppercase tracking-widest">Partial dataset</div>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* ── Top Recipients ── */}
-        <div className="px-8 py-6 border-b border-white/[0.07]">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="text-[9px] uppercase tracking-widest text-white/20">Top Recipients</div>
-            <div className="flex items-center gap-1.5 ml-auto">
-              {(['All', ...YEARS] as const).map(y => (
-                <button
-                  key={y}
-                  onClick={() => setRecipientYear(y as Year | 'All')}
-                  className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-sm border transition-colors ${
-                    recipientYear === y
-                      ? 'border-white/20 text-white/60 bg-white/[0.05]'
-                      : 'border-transparent text-white/25 hover:text-white/45'
-                  }`}
-                >
-                  {y === 'All' ? 'All Years' : y}
-                  {y === 2026 && <span className="ml-0.5 text-white/15">*</span>}
-                </button>
-              ))}
+                )
+              })}
             </div>
           </div>
 
-          <div className="space-y-2">
-            {topRecipients.length === 0 && (
-              <div className="text-xs text-white/20 py-4">No data for this period.</div>
-            )}
-            {topRecipients.map(([country, data], i) => {
-              const pct = maxRecipientValue > 0 ? data.value / maxRecipientValue : 0
-              const barColor = amberForPct(pct)
-              return (
-                <div key={country} className="flex items-center gap-3">
-                  <div className="text-[9px] text-white/20 tabular-nums w-4 text-right">{i + 1}</div>
-                  <div className="w-32 text-[10px] text-white/50 truncate flex-shrink-0">{country}</div>
-                  <div className="flex-1 h-4 bg-white/[0.04] rounded-sm overflow-hidden relative">
-                    <div
-                      className="h-full rounded-sm"
-                      style={{ width: `${pct * 100}%`, background: barColor }}
-                    />
-                  </div>
-                  <div className="text-[9px] text-white/30 w-8 tabular-nums">{data.count}×</div>
-                  <div className="text-[10px] font-semibold text-[#c4873a] tabular-nums w-20 text-right">
-                    {formatCost(data.value)}
-                  </div>
+          {/* Value by Year + Value by Region */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col min-h-[220px]">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">
+                  {metric === 'value' ? 'Value by Year' : 'Count by Year'}
                 </div>
-              )
-            })}
-          </div>
-          {recipientYear === 2026 && (
-            <div className="text-[8px] text-white/20 mt-3 uppercase tracking-widest">* 2026 is partial year (Jan–Jun) · 2022 is incomplete dataset</div>
-          )}
-        </div>
-
-        {/* ── Category Trends ── */}
-        <div className="px-8 py-6">
-          <div className="text-[9px] uppercase tracking-widest text-white/20 mb-4">Category Trends · Relative Spend by Year</div>
-
-          {/* Year labels header */}
-          <div className="flex items-center gap-3 mb-3 pl-48">
-            {YEARS.map(y => (
-              <div key={y} className="flex-1 text-center text-[8px] text-white/20 uppercase tracking-widest">
-                {y}{(y === 2026 || y === 2022) && <span className="text-white/10">*</span>}
+                <div className="flex items-center gap-1 sm:ml-auto shrink-0">
+                  {(['value', 'count'] as const).map(m => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setMetric(m)}
+                      className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-md border transition-colors ${
+                        metric === m
+                          ? 'border-zinc-600 text-zinc-300 bg-zinc-800/60'
+                          : 'border-transparent text-zinc-600 hover:text-zinc-400'
+                      }`}
+                    >
+                      {m === 'value' ? 'Value' : 'Count'}
+                    </button>
+                  ))}
+                </div>
               </div>
-            ))}
-            <div className="w-20 text-right text-[8px] text-white/20 uppercase tracking-widest">Total</div>
-          </div>
+              {years.length < 2 ? (
+                <div className="text-xs text-zinc-600 py-4">Need at least two years in range.</div>
+              ) : (
+                <div className="flex-1 flex flex-col justify-end">
+                  <YearTrendChart
+                    yearTotals={yearSeries}
+                    embedded
+                    tall
+                    formatValue={formatMetric}
+                    stroke={metric === 'value' ? '#c4873a' : '#2e7d9b'}
+                    fill={metric === 'value' ? '#c4873a' : '#2e7d9b'}
+                  />
+                </div>
+              )}
+            </div>
 
-          <div className="space-y-2">
-            {ALL_CATEGORIES.map(cat => {
-              const color = CATEGORY_COLORS[cat]
-              const yearMap = categoryYearData.get(cat)!
-              const total = categoryTotals.get(cat)!
-              const yearValues = YEARS.map(y => yearMap.get(y) ?? 0)
-              const maxVal = Math.max(...yearValues, 1)
-
-              return (
-                <div key={cat} className="flex items-center gap-3 py-1">
-                  {/* Category name + dot */}
-                  <div className="flex items-center gap-2 w-44 flex-shrink-0">
-                    <div
-                      className="w-2 h-2 rounded-full flex-shrink-0"
-                      style={{ background: color }}
-                    />
-                    <span className="text-[10px] text-white/45 truncate">{cat}</span>
-                  </div>
-
-                  {/* Mini bars per year */}
-                  {YEARS.map(y => {
-                    const val = yearMap.get(y) ?? 0
-                    const pct = maxVal > 0 ? (val / maxVal) * 100 : 0
-                    return (
-                      <div key={y} className="flex-1 flex flex-col items-center gap-0.5">
-                        <div className="w-full h-6 bg-white/[0.03] rounded-sm overflow-hidden flex items-end">
-                          <div
-                            className="w-full rounded-sm"
-                            style={{
-                              height: `${Math.max(pct, pct > 0 ? 4 : 0)}%`,
-                              background: color,
-                              opacity: (y === 2026 || y === 2022) ? 0.5 : 0.7,
-                            }}
-                          />
-                        </div>
-                        {val > 0 && (
-                          <div className="text-[7px] text-white/20 tabular-nums">{formatCost(val)}</div>
-                        )}
+            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col min-h-[220px]">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Value by Region</div>
+                <div className="flex items-center gap-1 sm:ml-auto shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setRegionLogScale(v => !v)}
+                    className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-md border transition-colors ${
+                      regionLogScale
+                        ? 'border-zinc-600 text-zinc-300 bg-zinc-800/60'
+                        : 'border-transparent text-zinc-600 hover:text-zinc-400'
+                    }`}
+                    title="Log scale makes large spikes less dominant"
+                  >
+                    Log
+                  </button>
+                  {mutedRegions.size > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setMutedRegions(new Set())}
+                      className="text-[9px] uppercase tracking-widest px-2 py-1 rounded-md border border-transparent text-zinc-600 hover:text-zinc-400"
+                    >
+                      Show all
+                    </button>
+                  )}
+                </div>
+              </div>
+              {years.length < 2 ? (
+                <div className="text-xs text-zinc-600 py-2">Need more years.</div>
+              ) : (
+                <div className="flex-1 flex flex-col justify-end">
+                  <div className="flex items-baseline justify-start mb-3 min-h-[1.25rem]">
+                    {hoveredRegionYear != null ? (
+                      <div className="text-[12px] font-mono text-zinc-300 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                        <span className="text-zinc-500 tabular-nums">{hoveredRegionYear}</span>
+                        <span className="text-zinc-600">·</span>
+                        {regionHoverPts.map(p => (
+                          <span key={p.region} className="tabular-nums" style={{ color: p.color }}>
+                            {formatCost(p.value)}
+                          </span>
+                        ))}
                       </div>
-                    )
-                  })}
-
-                  {/* Total */}
-                  <div className="w-20 text-right text-[10px] font-semibold text-[#c4873a] tabular-nums flex-shrink-0">
-                    {total > 0 ? formatCost(total) : <span className="text-white/15">—</span>}
+                    ) : null}
+                  </div>
+                  <div className="relative w-full h-[100px] border-b border-zinc-800/60">
+                    <motion.svg
+                      key={`${regionLogScale}-${[...mutedRegions].join(',')}-${regionMax}`}
+                      className="absolute inset-0 w-full h-full overflow-visible origin-bottom"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                      initial={{ scaleY: 0, opacity: 0.35 }}
+                      animate={{ scaleY: 1, opacity: 1 }}
+                      transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {regionPaths.filter(p => !p.muted).map(({ region, line, color }) => (
+                        <path
+                          key={region}
+                          d={line}
+                          fill="none"
+                          stroke={color}
+                          strokeWidth={1.75}
+                          strokeLinejoin="round"
+                          strokeLinecap="round"
+                          vectorEffect="non-scaling-stroke"
+                          opacity={0.9}
+                        />
+                      ))}
+                    </motion.svg>
+                    {regionHoverPts.map(p => (
+                      <div
+                        key={p.region}
+                        className="absolute w-2 h-2 rounded-full border border-[#0d0d0d] pointer-events-none -translate-x-1/2 -translate-y-1/2 z-[1]"
+                        style={{ left: `${p.x}%`, top: `${p.y}%`, background: p.color }}
+                      />
+                    ))}
+                    <div className="absolute inset-0 flex">
+                      {years.map(year => (
+                        <div
+                          key={year}
+                          className="flex-1 h-full cursor-crosshair"
+                          onMouseEnter={() => setHoveredRegionYear(year)}
+                          onMouseLeave={() => setHoveredRegionYear(null)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  {yearAxisMarks()}
+                  <div className="flex flex-wrap gap-x-2 gap-y-1">
+                    {activeRegions.map(region => {
+                      const muted = mutedRegions.has(region)
+                      return (
+                        <button
+                          key={region}
+                          type="button"
+                          onClick={() => toggleRegion(region)}
+                          onDoubleClick={e => {
+                            e.preventDefault()
+                            soloRegion(region)
+                          }}
+                          title="Click to mute · Double-click to solo"
+                          className={`flex items-center gap-1 rounded px-1 py-0.5 transition-opacity ${
+                            muted ? 'opacity-35' : 'opacity-100 hover:bg-zinc-800/50'
+                          }`}
+                        >
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: REGION_COLORS[region] }}
+                          />
+                          <span className={`text-[8px] ${muted ? 'text-zinc-600 line-through' : 'text-zinc-500'}`}>
+                            {region}
+                          </span>
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
-              )
-            })}
+              )}
+            </div>
           </div>
-          <div className="text-[8px] text-white/15 mt-4 uppercase tracking-widest">* 2026 is partial year (Jan–Jun only) · 2022 is incomplete dataset</div>
-        </div>
 
+          {/* Movers + largest list — shared year filter */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5 items-stretch">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-5">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Top Movers (3Y avg)</div>
+                <select
+                  aria-label="Top movers end year"
+                  value={effectiveDetailYear ?? ''}
+                  onChange={e => setDetailYear(parseInt(e.target.value, 10))}
+                  className={yearSelectClass}
+                  style={yearSelectStyle}
+                >
+                  {detailYearOptions.map(y => (
+                    <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+              {topMovers.up.length === 0 && topMovers.down.length === 0 ? (
+                <div className="text-xs text-zinc-600 py-2">Need enough years for a 3-year window.</div>
+              ) : (
+                <div className="grid grid-cols-2 gap-5 flex-1">
+                  <div>
+                    <div className="text-[9px] uppercase tracking-widest text-emerald-500/80 mb-2.5">Rising</div>
+                    <div className="space-y-2">
+                      {topMovers.up.map((m, i) => {
+                        const flagUrl = getFlagUrl(m.country, 40)
+                        const row = (
+                          <>
+                            <div className="text-[9px] text-zinc-600 tabular-nums w-3 text-right shrink-0">{i + 1}</div>
+                            {flagUrl ? (
+                              <img src={flagUrl} alt="" className="w-4 h-3 object-cover rounded-[1px] shrink-0 opacity-90" decoding="async" />
+                            ) : (
+                              <span className="w-4 h-3 rounded-[1px] bg-zinc-800 shrink-0" />
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <div className="text-[11px] text-zinc-200 truncate group-hover:text-zinc-100">{m.country}</div>
+                              <div className="text-[9px] text-zinc-600 tabular-nums truncate">
+                                {formatCost(m.prev)} → {formatCost(m.curr)}
+                              </div>
+                            </div>
+                            <div className="text-[10px] font-mono text-emerald-400/90 tabular-nums shrink-0">
+                              +{formatCost(m.delta)}
+                            </div>
+                          </>
+                        )
+                        return onSelectCountry ? (
+                          <button
+                            key={m.country}
+                            type="button"
+                            onClick={() => onSelectCountry(m.country)}
+                            className="group flex items-center gap-2 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
+                          >
+                            {row}
+                          </button>
+                        ) : (
+                          <div key={m.country} className="flex items-center gap-2">
+                            {row}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[9px] uppercase tracking-widest text-red-400/80 mb-2.5">Falling</div>
+                    <div className="space-y-2">
+                      {topMovers.down.map((m, i) => {
+                        const flagUrl = getFlagUrl(m.country, 40)
+                        const row = (
+                          <>
+                            <div className="text-[9px] text-zinc-600 tabular-nums w-3 text-right shrink-0">{i + 1}</div>
+                            {flagUrl ? (
+                              <img src={flagUrl} alt="" className="w-4 h-3 object-cover rounded-[1px] shrink-0 opacity-90" decoding="async" />
+                            ) : (
+                              <span className="w-4 h-3 rounded-[1px] bg-zinc-800 shrink-0" />
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <div className="text-[11px] text-zinc-200 truncate group-hover:text-zinc-100">{m.country}</div>
+                              <div className="text-[9px] text-zinc-600 tabular-nums truncate">
+                                {formatCost(m.prev)} → {formatCost(m.curr)}
+                              </div>
+                            </div>
+                            <div className="text-[10px] font-mono text-red-400/90 tabular-nums shrink-0">
+                              −{formatCost(Math.abs(m.delta))}
+                            </div>
+                          </>
+                        )
+                        return onSelectCountry ? (
+                          <button
+                            key={m.country}
+                            type="button"
+                            onClick={() => onSelectCountry(m.country)}
+                            className="group flex items-center gap-2 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
+                          >
+                            {row}
+                          </button>
+                        ) : (
+                          <div key={m.country} className="flex items-center gap-2">
+                            {row}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-5">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">
+                  Largest Notifications
+                </div>
+                <select
+                  aria-label="Largest notifications year"
+                  value={effectiveLargestYear === 'All' ? 'All' : String(effectiveLargestYear)}
+                  onChange={e => {
+                    const v = e.target.value
+                    setLargestYear(v === 'All' ? 'All' : parseInt(v, 10))
+                  }}
+                  className={yearSelectClass}
+                  style={yearSelectStyle}
+                >
+                  <option value="All">All years</option>
+                  {detailYearOptions.map(y => (
+                    <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+              {largestNotifications.length === 0 ? (
+                <div className="text-xs text-zinc-600 py-2">No notifications for this year.</div>
+              ) : (
+                <div className="space-y-2 flex-1">
+                  {largestNotifications.map((n, i) => (
+                    <button
+                      key={`${n.transmittal ?? n.date}-${i}`}
+                      type="button"
+                      onClick={() => onOpenNotification?.(n)}
+                      className="flex items-start gap-2 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
+                    >
+                      <div className="text-[9px] text-zinc-600 tabular-nums w-3.5 text-right shrink-0 pt-0.5">
+                        {i + 1}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[11px] text-zinc-200 truncate">{n.system ?? 'Unknown system'}</div>
+                        <div className="text-[9px] text-zinc-600 truncate">
+                          {n.country ?? '—'} · {yearOf(n)}
+                        </div>
+                      </div>
+                      <div className="text-[11px] font-semibold text-[#c4873a] tabular-nums shrink-0">
+                        {formatCost(n.costUSD)}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <p className="text-[11px] text-zinc-600 leading-relaxed max-w-3xl pt-2">
+            <span className="text-red-500">*</span> These figures are U.S. Foreign Military Sales (FMS) congressional notifications, or
+            proposed transfers Congress is told about, not confirmed deliveries or signed contracts.
+            Some notifications never close; others do, but final dollar amounts, timelines, or
+            contractors can differ from what was notified. This also covers only
+            government-to-government FMS, not Direct Commercial Sales (DCS) or other arms-transfer
+            channels. Even so, the data still gives a useful rough picture of how the FMS
+            ecosystem is shaped and where demand has concentrated over time.
+          </p>
+        </div>
       </div>
     </div>
   )
