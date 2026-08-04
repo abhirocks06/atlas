@@ -309,9 +309,15 @@ export function TrendsPage({
   return (
     <div
       className="flex flex-col h-full overflow-hidden bg-[#0a0c10]"
-      style={embedded ? { paddingTop: headerClearance ?? 180 } : undefined}
     >
       <div className="flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {embedded && (
+          <div
+            aria-hidden="true"
+            className="shrink-0"
+            style={{ height: headerClearance ?? 180 }}
+          />
+        )}
         <div className="px-4 md:px-6 pt-5 pb-10 space-y-5">
           {/* Top Recipients — full width */}
           <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4">
