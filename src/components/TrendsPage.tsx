@@ -12,9 +12,6 @@ interface Props {
   embedded?: boolean
   /** Measured bottom of floating header (px) — keeps content below the bar */
   headerClearance?: number
-  /** Open the sale detail drawer for a specific notification. */
-  onOpenNotification?: (n: Notification) => void
-  onSelectCountry?: (country: string) => void
 }
 
 type ChartMetric = 'value' | 'count'
@@ -50,8 +47,6 @@ export function TrendsPage({
   notifications,
   embedded = false,
   headerClearance,
-  onOpenNotification,
-  onSelectCountry,
 }: Props) {
   const years = useMemo(() => {
     const set = new Set<number>()
@@ -78,12 +73,29 @@ export function TrendsPage({
     return () => window.clearTimeout(id)
   }, [])
 
-  // When the floating header remeasures taller, scroll anchoring can leave you
-  // visually "at top" with the first card still tucked under the bar. Snap back.
+  // Spacer remount/resize + scroll anchoring can nudge the first card under the
+  // floating header after back-nav from a country/contractor link. Snap out of
+  // that zone; leave intentional mid-page scroll alone.
   useLayoutEffect(() => {
+    if (!embedded) return
     const el = scrollRef.current
-    if (!el || !embedded) return
-    if (el.scrollTop <= 1) el.scrollTop = 0
+    if (!el) return
+
+    const clearance = headerClearance ?? 180
+    const fix = () => {
+      if (el.scrollTop < clearance + 32) el.scrollTop = 0
+    }
+
+    fix()
+    const raf = requestAnimationFrame(() => {
+      fix()
+      requestAnimationFrame(fix)
+    })
+    const t = window.setTimeout(fix, 80)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.clearTimeout(t)
+    }
   }, [headerClearance, embedded])
 
   const yearStats = useMemo(() => {
@@ -285,7 +297,7 @@ export function TrendsPage({
     </div>
   )
 
-  const recipientYearOptions = years.filter(y => y !== 2004)
+  const recipientYearOptions = years
 
   const yearSelectClass =
     'sm:ml-auto rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 px-2.5 py-1 text-[11px] outline-none transition-colors cursor-pointer appearance-none pr-7 bg-no-repeat'
@@ -321,7 +333,7 @@ export function TrendsPage({
     >
       <div
         ref={scrollRef}
-        className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 min-h-0 overflow-y-auto [overflow-anchor:none] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         style={embedded ? { scrollPaddingTop: headerClearance ?? 180 } : undefined}
       >
         {embedded && (
@@ -356,8 +368,8 @@ export function TrendsPage({
               {topRecipients.map(([country, data], i) => {
                 const pct = maxRecipientValue > 0 ? data.value / maxRecipientValue : 0
                 const flagUrl = getFlagUrl(country, 40)
-                const row = (
-                  <>
+                return (
+                  <div key={country} className="flex items-center gap-2 sm:gap-3">
                     <div className="text-[9px] text-zinc-600 tabular-nums w-4 text-right shrink-0">{i + 1}</div>
                     <div className="flex items-center gap-2 w-36 sm:w-48 shrink-0 min-w-0">
                       {flagUrl ? (
@@ -370,28 +382,14 @@ export function TrendsPage({
                       ) : (
                         <span className="w-5 h-3.5 rounded-[1px] bg-zinc-800 shrink-0" />
                       )}
-                      <span className="text-[11px] text-zinc-300 truncate group-hover:text-zinc-100">{country}</span>
+                      <span className="text-[11px] text-zinc-300 truncate">{country}</span>
                     </div>
-                    <div className="flex-1 h-3 bg-zinc-900/80 rounded-sm overflow-hidden min-w-0">
+                    <div className="flex-1 h-3 bg-zinc-900/80 rounded-sm overflow-hidden min-w-0 pointer-events-none">
                       {renderBar(pct, i)}
                     </div>
                     <div className="text-[11px] font-semibold text-[#c4873a] tabular-nums w-16 sm:w-20 text-right shrink-0">
                       {formatCost(data.value)}
                     </div>
-                  </>
-                )
-                return onSelectCountry ? (
-                  <button
-                    key={country}
-                    type="button"
-                    onClick={() => onSelectCountry(country)}
-                    className="group flex items-center gap-2 sm:gap-3 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
-                  >
-                    {row}
-                  </button>
-                ) : (
-                  <div key={country} className="flex items-center gap-2 sm:gap-3">
-                    {row}
                   </div>
                 )
               })}
@@ -585,8 +583,8 @@ export function TrendsPage({
                     <div className="space-y-2">
                       {topMovers.up.map((m, i) => {
                         const flagUrl = getFlagUrl(m.country, 40)
-                        const row = (
-                          <>
+                        return (
+                          <div key={m.country} className="flex items-center gap-2">
                             <div className="text-[9px] text-zinc-600 tabular-nums w-3 text-right shrink-0">{i + 1}</div>
                             {flagUrl ? (
                               <img src={flagUrl} alt="" className="w-4 h-3 object-cover rounded-[1px] shrink-0 opacity-90" decoding="async" />
@@ -594,7 +592,7 @@ export function TrendsPage({
                               <span className="w-4 h-3 rounded-[1px] bg-zinc-800 shrink-0" />
                             )}
                             <div className="min-w-0 flex-1">
-                              <div className="text-[11px] text-zinc-200 truncate group-hover:text-zinc-100">{m.country}</div>
+                              <div className="text-[11px] text-zinc-200 truncate">{m.country}</div>
                               <div className="text-[9px] text-zinc-600 tabular-nums truncate">
                                 {formatCost(m.prev)} → {formatCost(m.curr)}
                               </div>
@@ -602,20 +600,6 @@ export function TrendsPage({
                             <div className="text-[10px] font-mono text-emerald-400/90 tabular-nums shrink-0">
                               +{formatCost(m.delta)}
                             </div>
-                          </>
-                        )
-                        return onSelectCountry ? (
-                          <button
-                            key={m.country}
-                            type="button"
-                            onClick={() => onSelectCountry(m.country)}
-                            className="group flex items-center gap-2 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
-                          >
-                            {row}
-                          </button>
-                        ) : (
-                          <div key={m.country} className="flex items-center gap-2">
-                            {row}
                           </div>
                         )
                       })}
@@ -626,8 +610,8 @@ export function TrendsPage({
                     <div className="space-y-2">
                       {topMovers.down.map((m, i) => {
                         const flagUrl = getFlagUrl(m.country, 40)
-                        const row = (
-                          <>
+                        return (
+                          <div key={m.country} className="flex items-center gap-2">
                             <div className="text-[9px] text-zinc-600 tabular-nums w-3 text-right shrink-0">{i + 1}</div>
                             {flagUrl ? (
                               <img src={flagUrl} alt="" className="w-4 h-3 object-cover rounded-[1px] shrink-0 opacity-90" decoding="async" />
@@ -635,7 +619,7 @@ export function TrendsPage({
                               <span className="w-4 h-3 rounded-[1px] bg-zinc-800 shrink-0" />
                             )}
                             <div className="min-w-0 flex-1">
-                              <div className="text-[11px] text-zinc-200 truncate group-hover:text-zinc-100">{m.country}</div>
+                              <div className="text-[11px] text-zinc-200 truncate">{m.country}</div>
                               <div className="text-[9px] text-zinc-600 tabular-nums truncate">
                                 {formatCost(m.prev)} → {formatCost(m.curr)}
                               </div>
@@ -643,20 +627,6 @@ export function TrendsPage({
                             <div className="text-[10px] font-mono text-red-400/90 tabular-nums shrink-0">
                               −{formatCost(Math.abs(m.delta))}
                             </div>
-                          </>
-                        )
-                        return onSelectCountry ? (
-                          <button
-                            key={m.country}
-                            type="button"
-                            onClick={() => onSelectCountry(m.country)}
-                            className="group flex items-center gap-2 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
-                          >
-                            {row}
-                          </button>
-                        ) : (
-                          <div key={m.country} className="flex items-center gap-2">
-                            {row}
                           </div>
                         )
                       })}
@@ -692,11 +662,9 @@ export function TrendsPage({
               ) : (
                 <div className="space-y-2 flex-1">
                   {largestNotifications.map((n, i) => (
-                    <button
+                    <div
                       key={`${n.transmittal ?? n.date}-${i}`}
-                      type="button"
-                      onClick={() => onOpenNotification?.(n)}
-                      className="flex items-start gap-2 w-full text-left rounded-sm hover:bg-zinc-900/25 transition-colors"
+                      className="flex items-start gap-2"
                     >
                       <div className="text-[9px] text-zinc-600 tabular-nums w-3.5 text-right shrink-0 pt-0.5">
                         {i + 1}
@@ -710,7 +678,7 @@ export function TrendsPage({
                       <div className="text-[11px] font-semibold text-[#c4873a] tabular-nums shrink-0">
                         {formatCost(n.costUSD)}
                       </div>
-                    </button>
+                    </div>
                   ))}
                 </div>
               )}

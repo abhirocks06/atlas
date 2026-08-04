@@ -52,9 +52,11 @@ function getInitialState() {
   const sale = params.get('sale') || null
   const fromYear = params.get('from')
   const toYear = params.get('to')
+  const from = fromYear ? `${fromYear}-01-01` : DATA_MIN_DATE
+  const to = toYear ? `${toYear}-12-31` : DATA_MAX_DATE
   const dateRange: [string, string] = [
-    fromYear ? `${fromYear}-01-01` : DATA_MIN_DATE,
-    toYear ? `${toYear}-12-31` : DATA_MAX_DATE,
+    from < DATA_MIN_DATE ? DATA_MIN_DATE : from,
+    to > DATA_MAX_DATE ? DATA_MAX_DATE : to < DATA_MIN_DATE ? DATA_MAX_DATE : to,
   ]
   // Prefer contractor over country if both somehow present
   return { view, country: contractor ? null : country, contractor, sale, dateRange }
@@ -102,6 +104,8 @@ export default function App() {
       requestAnimationFrame(measure)
     })
     void document.fonts?.ready?.then(measure)
+    // Country/contractor back-nav remounts this chrome mid-animation; catch settled size.
+    const settled = window.setTimeout(measure, 220)
 
     const ro = new ResizeObserver(measure)
     ro.observe(el)
@@ -110,6 +114,7 @@ export default function App() {
     return () => {
       cancelled = true
       cancelAnimationFrame(raf)
+      window.clearTimeout(settled)
       ro.disconnect()
       window.removeEventListener('resize', measure)
     }
@@ -125,13 +130,6 @@ export default function App() {
     setSelectedCountry(null)
     setSelectedContractor(contractor)
     setSelectedSaleKey(null)
-  }
-
-  const openNotificationSale = (n: Notification) => {
-    if (!n.country) return
-    setSelectedContractor(null)
-    setSelectedCountry(n.country)
-    setSelectedSaleKey(saleUrlKey(n))
   }
 
   // Sync state → URL
@@ -411,8 +409,6 @@ export default function App() {
                     notifications={filtered}
                     embedded
                     headerClearance={headerClearance}
-                    onOpenNotification={openNotificationSale}
-                    onSelectCountry={c => openCountry(c)}
                   />
                 </motion.div>
               )}

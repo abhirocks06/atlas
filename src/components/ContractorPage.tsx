@@ -271,7 +271,7 @@ export function ContractorPage({
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
               <path d="M6.5 2L3.5 5l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="text-[10px] uppercase tracking-widest hidden sm:block">Map</span>
+            <span className="text-[10px] uppercase tracking-widest hidden sm:block">Back</span>
           </button>
 
           <div className="w-px h-8 bg-zinc-800 flex-shrink-0" />
