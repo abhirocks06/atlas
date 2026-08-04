@@ -48,7 +48,8 @@ function extractDominantColor(img: HTMLImageElement): string {
 
 export function useFlagColor(country: string): string {
   const [color, setColor] = useState<string>('#92400e') // amber default
-  const flagUrl = getFlagUrl(country)
+  // Raster PNG for canvas sampling (SVG can fail CORS/canvas taint)
+  const flagUrl = getFlagUrl(country, 80)
 
   useEffect(() => {
     if (!flagUrl) return

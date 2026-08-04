@@ -8,9 +8,11 @@ interface YearPoint {
 
 interface Props {
   yearTotals: YearPoint[]
+  /** When true, omit outer section borders (parent provides a card shell). */
+  embedded?: boolean
 }
 
-export function YearTrendChart({ yearTotals }: Props) {
+export function YearTrendChart({ yearTotals, embedded = false }: Props) {
   const [hoveredYear, setHoveredYear] = useState<number | null>(null)
   const maxYearValue = Math.max(...yearTotals.map(d => d.value), 1)
 
@@ -35,7 +37,7 @@ export function YearTrendChart({ yearTotals }: Props) {
     : null
 
   return (
-    <div className="px-5 pt-5 pb-4 border-b border-zinc-800/60">
+    <div className={embedded ? '' : 'px-5 pt-5 pb-4 border-b border-zinc-800/60'}>
       <div className="flex items-center justify-between mb-3">
         <div className="text-[10px] uppercase tracking-widest text-zinc-600">By Year</div>
         {hoveredYear !== null && (

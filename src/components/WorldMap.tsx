@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
 import { scaleLinear } from 'd3-scale'
-import { COUNTRY_NAME_TO_ISO3, NUMERIC_TO_ISO3 } from '../utils/countryMapping'
+import { COUNTRY_NAME_TO_ISO3, NUMERIC_TO_ISO3, geoDisplayName } from '../utils/countryMapping'
 import { formatCost } from '../utils/formatters'
 import { prefetchFlag } from '../utils/countryFlags'
 
@@ -50,7 +50,8 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
     .clamp(true)
 
   return (
-    <div className="w-full h-full relative bg-[#0b0e16]">
+    <div className="w-full h-full relative bg-[#0a0c10]">
+      <div className="absolute inset-0 translate-y-8 md:translate-y-10">
       <ComposableMap
         projection="geoNaturalEarth1"
         style={{ width: '100%', height: '100%' }}
@@ -70,11 +71,12 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                   NUMERIC_TO_ISO3[numericId] ??
                   (propName ? COUNTRY_NAME_TO_ISO3[propName] : null) ??
                   null
-                const countryName = iso3 ? ISO3_TO_COUNTRY[iso3] ?? propName : propName
+                const countryName = iso3 ? ISO3_TO_COUNTRY[iso3] ?? null : null
                 const data = iso3 ? iso3Data.get(iso3) ?? null : null
                 const isSelected = countryName !== null && countryName === selectedCountry
                 const hasSales = data !== null && data.count > 0
-                const label = countryName
+                // Prefer our canonical FMS name; otherwise expand Natural Earth abbreviations
+                const label = countryName ?? geoDisplayName(propName)
 
                 return (
                   <Geography
@@ -109,7 +111,7 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                           : hasSales
                           ? colorScale(data!.total)
                           : '#141824',
-                        stroke: '#0b0e16',
+                        stroke: '#0a0c10',
                         strokeWidth: 0.4,
                         outline: 'none',
                         cursor: hasSales ? 'pointer' : 'default',
@@ -121,7 +123,7 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                           ? colorScale(data!.total)
                           : '#1a1f2e',
                         filter: hasSales || isSelected ? 'brightness(1.35)' : undefined,
-                        stroke: '#0b0e16',
+                        stroke: '#0a0c10',
                         strokeWidth: 0.4,
                         outline: 'none',
                         cursor: hasSales ? 'pointer' : 'default',
@@ -133,7 +135,7 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
                           ? colorScale(data!.total)
                           : '#1a1f2e',
                         filter: hasSales || isSelected ? 'brightness(1.2)' : undefined,
-                        stroke: '#0b0e16',
+                        stroke: '#0a0c10',
                         strokeWidth: 0.4,
                         outline: 'none',
                       },
@@ -145,45 +147,46 @@ export function WorldMap({ countryTotals, selectedCountry, onSelectCountry }: Pr
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
+      </div>
 
       {/* Hover tooltip */}
       {tooltip && (
         <div
-          className="pointer-events-none fixed z-50 bg-[#1a1f2e] border border-[#2a3040] px-3 py-2 text-xs shadow-xl"
+          className="pointer-events-none fixed z-50 rounded-lg bg-[#111111] border border-zinc-800/80 px-3 py-2 text-xs shadow-xl"
           style={{
             left: Math.min(tooltip.x + 14, window.innerWidth - 160),
             top: Math.max(tooltip.y - 10, 10),
           }}
         >
-          <div className="font-semibold text-[#c9c3b8] mb-0.5">{tooltip.country}</div>
+          <div className="font-semibold text-zinc-200 mb-0.5">{tooltip.country}</div>
           {tooltip.total != null && tooltip.count != null ? (
             <>
-              <div className="text-[#c4873a] font-medium">{formatCost(tooltip.total)}</div>
-              <div className="text-[#4a5568] mt-0.5">{tooltip.count} notification{tooltip.count !== 1 ? 's' : ''}</div>
+              <div className="text-amber-400 font-medium">{formatCost(tooltip.total)}</div>
+              <div className="text-zinc-600 mt-0.5">{tooltip.count} notification{tooltip.count !== 1 ? 's' : ''}</div>
             </>
           ) : (
-            <div className="text-[#4a5568] mt-0.5">No sales data</div>
+            <div className="text-zinc-600 mt-0.5">No sales data</div>
           )}
         </div>
       )}
 
       {/* Legend */}
-      <div className="absolute bottom-3 md:bottom-5 left-3 md:left-5 bg-[#0b0e16]/90 border border-[#1e2535] px-2 md:px-3 py-1.5 md:py-2 text-[#4a5568] space-y-1 md:space-y-1.5">
-        <div className="text-[#5a6a7d] uppercase tracking-widest text-[8px] md:text-[9px] mb-1 md:mb-2">Total FMS Value</div>
+      <div className="absolute bottom-3 md:bottom-5 left-3 md:left-5 rounded-xl bg-[#111111]/95 border border-zinc-800/80 px-2.5 md:px-3 py-2 md:py-2.5 text-zinc-500 space-y-1 md:space-y-1.5 backdrop-blur-sm">
+        <div className="text-zinc-600 uppercase tracking-widest text-[8px] md:text-[9px] mb-1 md:mb-2">Total Value</div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-1.5 md:h-2" style={{ background: '#141824' }} />
+          <div className="w-3 h-1.5 md:h-2 rounded-sm" style={{ background: '#141824' }} />
           <span className="text-[9px] md:text-xs">No sales data</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-1.5 md:h-2" style={{ background: '#1e4a5c' }} />
+          <div className="w-3 h-1.5 md:h-2 rounded-sm" style={{ background: '#1e4a5c' }} />
           <span className="text-[9px] md:text-xs">&lt; $1B</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-1.5 md:h-2" style={{ background: '#2e7d9b' }} />
+          <div className="w-3 h-1.5 md:h-2 rounded-sm" style={{ background: '#2e7d9b' }} />
           <span className="text-[9px] md:text-xs">$1B – $10B</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-1.5 md:h-2" style={{ background: '#c4873a' }} />
+          <div className="w-3 h-1.5 md:h-2 rounded-sm" style={{ background: '#c4873a' }} />
           <span className="text-[9px] md:text-xs">&gt; $10B</span>
         </div>
       </div>

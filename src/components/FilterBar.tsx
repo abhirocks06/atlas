@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from 'react'
 import type { WeaponCategory } from '../utils/weaponCategories'
 
 const selectClass =
-  'bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-400 px-2 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors cursor-pointer appearance-none pr-5 bg-no-repeat'
+  'rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-400 px-2.5 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors cursor-pointer appearance-none pr-5 bg-no-repeat'
 
 const selectStyle = {
   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2352525b' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
@@ -22,6 +22,8 @@ interface Props {
   contractors: string[]
   onSelectCountry: (country: string) => void
   onSelectContractor: (contractor: string) => void
+  /** Nest inside a rounded panel — no outer bar chrome */
+  embedded?: boolean
 }
 
 export function FilterBar({
@@ -35,6 +37,7 @@ export function FilterBar({
   contractors,
   onSelectCountry,
   onSelectContractor,
+  embedded = false,
 }: Props) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
@@ -87,7 +90,7 @@ export function FilterBar({
   const resultsList = (wide: boolean) =>
     open && matches.length > 0 ? (
       <div
-        className={`absolute top-full mt-1 bg-[#111] border border-zinc-800 shadow-xl z-50 max-h-56 overflow-y-auto ${
+        className={`absolute top-full mt-1.5 rounded-lg bg-[#111111] border border-zinc-800/80 shadow-xl z-[100] max-h-56 overflow-y-auto ${
           wide ? 'left-0 right-0' : 'left-0 w-56'
         }`}
       >
@@ -95,7 +98,7 @@ export function FilterBar({
           <button
             key={name}
             onMouseDown={() => selectHit(name)}
-            className={`w-full text-left px-3 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors border-b border-zinc-800/60 last:border-0 truncate ${
+            className={`w-full text-left px-3 text-zinc-300 hover:bg-zinc-800/80 hover:text-white transition-colors border-b border-zinc-800/50 last:border-0 truncate ${
               wide ? 'py-2 text-xs' : 'py-1.5 text-[11px]'
             }`}
           >
@@ -106,7 +109,8 @@ export function FilterBar({
     ) : null
 
   return (
-    <div className="px-3 sm:px-4 md:px-5 py-1.5 md:py-2.5 border-b border-zinc-800 flex-shrink-0 bg-[#0d0d0d]">
+    <div className={`flex-shrink-0 ${embedded ? '' : 'px-3 sm:px-4 md:px-5 py-1.5 md:py-2.5 border-b border-zinc-800/80 bg-[#0d0d0d]'}`}>
+      <div className={embedded ? 'px-3 sm:px-4 py-2 md:py-2.5' : undefined}>
       {/* Compact layout — phones & tablets */}
       <div className="flex flex-col gap-1.5 lg:hidden">
         <div className="flex items-center gap-1.5">
@@ -135,13 +139,13 @@ export function FilterBar({
               ))}
             </select>
           </div>
-          <div className="flex items-center gap-0.5 border border-zinc-800 p-0.5 flex-shrink-0 h-8">
+          <div className="flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 flex-shrink-0 h-8">
             {(['map', 'network'] as const).map(v => (
               <button
                 key={v}
                 onClick={() => onViewChange(v)}
                 aria-label={v}
-                className={`flex items-center justify-center px-2.5 h-full transition-colors ${
+                className={`flex items-center justify-center px-2.5 h-full rounded-md transition-colors ${
                   view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
                 }`}
               >
@@ -162,7 +166,7 @@ export function FilterBar({
             placeholder={placeholder}
             onChange={e => { setQuery(e.target.value); setOpen(true) }}
             onFocus={() => { if (query) setOpen(true) }}
-            className="w-full h-8 bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 text-xs outline-none transition-colors"
+            className="w-full h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 text-xs outline-none transition-colors"
           />
           {query && (
             <button
@@ -215,7 +219,7 @@ export function FilterBar({
               placeholder={desktopPlaceholder}
               onChange={e => { setQuery(e.target.value); setOpen(true) }}
               onFocus={() => { if (query) setOpen(true) }}
-              className="bg-[#0a0a0a] border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2 py-1 text-xs outline-none transition-colors w-48"
+              className="h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2.5 text-xs outline-none transition-colors w-48"
             />
             {query && (
               <button
@@ -230,12 +234,12 @@ export function FilterBar({
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-1 border border-zinc-800 p-0.5 shrink-0">
+        <div className="ml-auto flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 shrink-0 h-8">
           {(['map', 'network'] as const).map(v => (
             <button
               key={v}
               onClick={() => onViewChange(v)}
-              className={`flex items-center gap-1.5 px-2.5 py-1 text-[10px] uppercase tracking-widest transition-colors ${
+              className={`flex items-center gap-1.5 px-2.5 h-full rounded-md text-[10px] uppercase tracking-widest transition-colors ${
                 view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
               }`}
             >
@@ -248,6 +252,7 @@ export function FilterBar({
             </button>
           ))}
         </div>
+      </div>
       </div>
     </div>
   )

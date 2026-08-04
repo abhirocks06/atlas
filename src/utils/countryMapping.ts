@@ -121,3 +121,50 @@ export function getISO3(countryName: string | null): string | null {
   if (!countryName) return null
   return COUNTRY_NAME_TO_ISO3[countryName] ?? null
 }
+
+/** Expand Natural Earth / world-atlas abbreviated names for map tooltips. */
+export const GEO_DISPLAY_NAMES: Record<string, string> = {
+  'Eq. Guinea': 'Equatorial Guinea',
+  'S. Sudan': 'South Sudan',
+  'Dem. Rep. Congo': 'Democratic Republic of the Congo',
+  'Dominican Rep.': 'Dominican Republic',
+  'Central African Rep.': 'Central African Republic',
+  'Bosnia and Herz.': 'Bosnia and Herzegovina',
+  'Antigua and Barb.': 'Antigua and Barbuda',
+  'St. Vin. and Gren.': 'Saint Vincent and the Grenadines',
+  'St. Kitts and Nevis': 'Saint Kitts and Nevis',
+  'St. Pierre and Miquelon': 'Saint Pierre and Miquelon',
+  'Solomon Is.': 'Solomon Islands',
+  'Marshall Is.': 'Marshall Islands',
+  'Falkland Is.': 'Falkland Islands',
+  'Cayman Is.': 'Cayman Islands',
+  'British Virgin Is.': 'British Virgin Islands',
+  'Turks and Caicos Is.': 'Turks and Caicos Islands',
+  'Cook Is.': 'Cook Islands',
+  'Faeroe Is.': 'Faroe Islands',
+  'N. Mariana Is.': 'Northern Mariana Islands',
+  'U.S. Virgin Is.': 'U.S. Virgin Islands',
+  'Wallis and Futuna Is.': 'Wallis and Futuna',
+  'Pitcairn Is.': 'Pitcairn Islands',
+  'Heard I. and McDonald Is.': 'Heard Island and McDonald Islands',
+  'Ashmore and Cartier Is.': 'Ashmore and Cartier Islands',
+  'S. Geo. and the Is.': 'South Georgia and the South Sandwich Islands',
+  'Br. Indian Ocean Ter.': 'British Indian Ocean Territory',
+  'Indian Ocean Ter.': 'Indian Ocean Territory',
+  'Fr. Polynesia': 'French Polynesia',
+  'Fr. S. Antarctic Lands': 'French Southern and Antarctic Lands',
+  'W. Sahara': 'Western Sahara',
+  'N. Cyprus': 'Northern Cyprus',
+  'Macedonia': 'North Macedonia',
+  'Czechia': 'Czech Republic',
+  'South Korea': 'South Korea',
+  'North Korea': 'North Korea',
+  'United States of America': 'United States',
+  "Côte d'Ivoire": "Côte d'Ivoire",
+  'São Tomé and Principe': 'São Tomé and Príncipe',
+}
+
+export function geoDisplayName(name: string | null | undefined): string | null {
+  if (!name) return null
+  return GEO_DISPLAY_NAMES[name] ?? name
+}

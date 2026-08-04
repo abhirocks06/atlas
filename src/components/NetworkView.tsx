@@ -1,6 +1,6 @@
 import { useMemo, useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { zoom } from 'd3-zoom'
+import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
@@ -16,11 +16,17 @@ interface Props {
 
 const VB_W = 1400
 const VB_H = 760
-const CX = 180   // contractor column x
+const CX = 200   // contractor column x
 const UX = 700   // USG hub x
-const KX = 1220  // country column x
+const KX = 1200  // country column x
 const UY = VB_H / 2
-const PAD_Y = 50
+const PAD_Y = 56
+/** Modest margin so edge labels aren’t clipped */
+const VB_PAD_X = 48
+const VB_PAD_Y = 28
+const DEFAULT_ZOOM = 0.95
+/** Shift framing down so the graph starts below the floating top bar */
+const HEADER_CLEARANCE = 72
 
 const MAX_CONTRACTORS = 14
 const MAX_COUNTRIES = 22
@@ -40,12 +46,18 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
     const g = select(gEl)
 
     const zoomBehavior = zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.8, 8])
+      .scaleExtent([0.45, 8])
       .on('zoom', (event) => {
         g.attr('transform', event.transform.toString())
       })
 
+    const initial = zoomIdentity
+      .translate(VB_W / 2, VB_H / 2)
+      .scale(DEFAULT_ZOOM)
+      .translate(-VB_W / 2, -VB_H / 2 + HEADER_CLEARANCE)
+
     svg.call(zoomBehavior)
+    svg.call(zoomBehavior.transform, initial)
     return () => { svg.on('.zoom', null) }
   }, [])
 
@@ -140,10 +152,10 @@ export function NetworkView({ filtered, onSelectCountry, onSelectContractor }: P
   const usFlagUrl = getFlagUrl(US_LABEL, 160)
 
   return (
-    <div className="w-full h-full bg-[#0b0e16] relative overflow-hidden">
+    <div className="w-full h-full bg-[#0a0c10] relative overflow-hidden">
       <svg
         ref={svgRef}
-        viewBox={`0 0 ${VB_W} ${VB_H}`}
+        viewBox={`${-VB_PAD_X} ${-VB_PAD_Y} ${VB_W + VB_PAD_X * 2} ${VB_H + VB_PAD_Y * 2}`}
         preserveAspectRatio="xMidYMid meet"
         className="w-full h-full touch-none"
       >

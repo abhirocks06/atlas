@@ -11,9 +11,11 @@ export function CategoryIcon({ category, size = 13, color = 'currentColor' }: Pr
     case 'Aircraft':
       return (
         <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
-          <path d="M2 9.5L8 6l6 3.5-1.5.5L8 8l-4.5 2L2 9.5Z" fill={color} opacity="0.9"/>
-          <path d="M6 6l.5-3.5L8 4l1.5-1.5L10 6" fill={color} opacity="0.7"/>
-          <path d="M5.5 9.5l.5 2.5H8l.5-2.5" fill={color} opacity="0.6"/>
+          <path
+            d="M8 1.5L8.55 5.2L14 7.5L8.55 6.85V10.2L11.4 12.8H8.7L8 14.5L7.3 12.8H4.6L7.45 10.2V6.85L2 7.5L7.45 5.2L8 1.5Z"
+            fill={color}
+            fillOpacity="0.92"
+          />
         </svg>
       )
     case 'Missiles & Munitions':

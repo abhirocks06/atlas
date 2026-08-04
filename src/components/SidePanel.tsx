@@ -59,7 +59,10 @@ export function SidePanel({ country, notifications, onClose }: Props) {
       <div className="px-5 py-3 border-b border-[#1e2535]">
         <div className="text-[9px] uppercase tracking-widest text-[#3a4050] mb-2.5">By weapon category · click to filter</div>
         <div className="space-y-2">
-          {ALL_CATEGORIES.filter(cat => categoryTotals.has(cat)).map(cat => {
+          {ALL_CATEGORIES
+            .filter(cat => categoryTotals.has(cat))
+            .sort((a, b) => categoryTotals.get(b)!.cost - categoryTotals.get(a)!.cost)
+            .map(cat => {
             const data = categoryTotals.get(cat)!
             const pct = (data.cost / maxCat) * 100
             const isActive = activeCategory === cat

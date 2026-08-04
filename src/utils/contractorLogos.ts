@@ -59,6 +59,9 @@ function domainToSlug(domain: string): string {
 
 /** Local logo path, or null if we don't have a mapping. */
 export function getContractorLogoUrl(contractor: string): string | null {
+  // Service inventory draws (not commercial primes)
+  if (/navy\s+inventory/i.test(contractor)) return '/contractor-logos/us-navy.png'
+
   for (const [pattern, domain] of CONTRACTOR_DOMAINS) {
     if (pattern.test(contractor)) {
       return `/contractor-logos/${domainToSlug(domain)}.png`

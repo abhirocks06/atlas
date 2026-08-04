@@ -196,7 +196,7 @@ export default function App() {
   )
 
   return (
-    <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#0f0f0f]">
+    <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#080808]">
     <NewNotificationBanner
       notifications={newNotifications}
       onSelect={openCountry}
@@ -205,7 +205,7 @@ export default function App() {
       {selectedContractor ? (
         <motion.div
           key={`contractor-${selectedContractor}`}
-          className="flex-1 min-h-0 overflow-hidden bg-[#0f0f0f]"
+          className="flex-1 min-h-0 overflow-hidden bg-[#080808]"
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 24 }}
@@ -223,7 +223,7 @@ export default function App() {
       ) : selectedCountry ? (
         <motion.div
           key={`country-${selectedCountry}`}
-          className="flex-1 min-h-0 overflow-hidden bg-[#0f0f0f]"
+          className="flex-1 min-h-0 overflow-hidden bg-[#080808]"
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 24 }}
@@ -241,61 +241,66 @@ export default function App() {
       ) : (
         <motion.div
           key="map"
-          className="flex flex-col flex-1 min-h-0 overflow-hidden"
+          className="relative flex-1 min-h-0 overflow-hidden bg-[#0a0c10]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
         >
-          <header className="px-3 sm:px-4 md:px-5 border-b border-zinc-800 flex items-center gap-3 sm:gap-4 flex-shrink-0 py-1.5 sm:min-h-14 sm:py-2 bg-[#0d0d0d]">
-            <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1 overflow-hidden">
-              {getFlagUrl('United States') && (
-                <img
-                  src={getFlagUrl('United States')!}
-                  alt="United States"
-                  title="United States"
-                  className="block h-6 sm:h-7 w-auto shrink-0 border-[0.5px] border-white/10"
-                  decoding="async"
-                  draggable={false}
-                />
-              )}
-              <div className="w-px h-4 sm:h-5 bg-zinc-800 shrink-0" />
-              <div className="min-w-0 overflow-hidden">
-                <p className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 leading-tight truncate">
-                  <span className="lg:hidden">Atlas</span>
-                  <span className="hidden lg:inline">Atlas | U.S. Foreign Military Sales Congressional Notifications</span>
-                </p>
-                <p className="hidden lg:block text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug truncate">
-                  Source: Defense Security Cooperation Agency &amp; Department of State Bureau of Political-Military Affairs
-                </p>
-              </div>
+          <div className="absolute top-0 left-0 right-0 z-20 px-4 md:px-6 pt-4 pb-3 pointer-events-none">
+            <div className="pointer-events-auto relative rounded-xl border border-zinc-800/80 bg-[#111111]/90 backdrop-blur-md shadow-lg shadow-black/40">
+              <header className="px-4 md:px-6 py-3 sm:py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4 border-b border-zinc-800/60 rounded-t-xl overflow-hidden">
+                <div className="flex items-start gap-1.5 sm:gap-2 md:gap-3 min-w-0 sm:flex-1 sm:items-center overflow-hidden">
+                  {getFlagUrl('United States') && (
+                    <img
+                      src={getFlagUrl('United States')!}
+                      alt="United States"
+                      title="United States"
+                      className="block h-6 sm:h-7 w-auto shrink-0 mt-0.5 sm:mt-0"
+                      decoding="async"
+                      draggable={false}
+                    />
+                  )}
+                  <div className="w-px h-4 sm:h-5 bg-zinc-700 shrink-0 mt-1 sm:mt-0 self-start sm:self-center" />
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 leading-snug">
+                      <span className="sm:hidden">U.S. FMS Congressional Notifications</span>
+                      <span className="hidden sm:inline">U.S. Foreign Military Sales Congressional Notifications</span>
+                    </p>
+                    <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
+                      <span className="sm:hidden">Source: DSCA &amp; State Department</span>
+                      <span className="hidden sm:inline">Source: Defense Security Cooperation Agency &amp; State Department Bureau of Political-Military Affairs</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="w-full sm:w-auto sm:shrink-0">
+                  <SummaryStats filtered={filtered} />
+                </div>
+              </header>
+              <FilterBar
+                embedded
+                dateRange={dateRange}
+                onDateRangeChange={setDateRange}
+                minDate={DATA_MIN_DATE}
+                maxDate={DATA_MAX_DATE}
+                categoryFilter={categoryFilter}
+                onCategoryFilterChange={setCategoryFilter}
+                view={view}
+                onViewChange={setView}
+                countries={Array.from(countryTotals.keys()).sort()}
+                contractors={contractorOptions}
+                onSelectCountry={openCountry}
+                onSelectContractor={openContractor}
+              />
             </div>
-            <div className="shrink-0">
-              <SummaryStats filtered={filtered} />
-            </div>
-          </header>
+          </div>
 
-          <FilterBar
-            dateRange={dateRange}
-            onDateRangeChange={setDateRange}
-            minDate={DATA_MIN_DATE}
-            maxDate={DATA_MAX_DATE}
-            categoryFilter={categoryFilter}
-            onCategoryFilterChange={setCategoryFilter}
-            view={view}
-            onViewChange={setView}
-            countries={Array.from(countryTotals.keys()).sort()}
-            contractors={contractorOptions}
-            onSelectCountry={openCountry}
-            onSelectContractor={openContractor}
-          />
-
-          <div className="flex-1 relative overflow-hidden">
+          <div className="absolute inset-0">
             <AnimatePresence mode="wait">
               {view === 'map' ? (
                 <motion.div
                   key="mapview"
-                  className="w-full h-full"
+                  className="absolute inset-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -310,7 +315,7 @@ export default function App() {
               ) : (
                 <motion.div
                   key="networkview"
-                  className="w-full h-full"
+                  className="absolute inset-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

@@ -12,11 +12,21 @@ import { CategoryIcon } from './CategoryIcon'
 interface Props {
   notification: Notification | null
   country: string
+  /** country = hide buyer chrome; contractor = hide builder chrome */
+  variant?: 'country' | 'contractor'
   onClose: () => void
   onSelectContractor?: (contractor: string) => void
+  onSelectCountry?: (country: string) => void
 }
 
-export function SaleDetailDrawer({ notification, country, onClose, onSelectContractor }: Props) {
+export function SaleDetailDrawer({
+  notification,
+  country,
+  variant = 'country',
+  onClose,
+  onSelectContractor,
+  onSelectCountry,
+}: Props) {
   useEffect(() => {
     if (!notification) return
     const onKey = (e: KeyboardEvent) => {
@@ -28,9 +38,10 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
 
   const n = notification
   const visual = n ? getSystemVisual(n.system) : null
-  const flagUrl = getFlagUrl(country)
   const contractors = n ? parseContractors(n.contractor, n.contractorLocation) : []
   const source = n ? supplySource(n.contractor) : null
+  const flagUrl = getFlagUrl(country)
+  const fromContractor = variant === 'contractor'
 
   return (
     <AnimatePresence>
@@ -109,13 +120,16 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
 
               {/* -mt pulls title onto the image; block grows down so line 1 stays put */}
               <div className="relative z-[1] -mt-[5.5rem] px-5 md:px-6 pt-2 pb-5">
-                <div className="flex items-center gap-2 mb-2.5">
-                  {flagUrl && (
-                    <img src={flagUrl} alt="" className="w-5 h-3.5 object-cover rounded-sm shadow" draggable={false} />
-                  )}
-                  <span className="text-[10px] uppercase tracking-widest text-zinc-400">{country}</span>
+                <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+                  <span
+                    className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-medium"
+                    style={{ color: visual.color }}
+                  >
+                    <CategoryIcon category={visual.category} size={12} color={visual.color} />
+                    {visual.category}
+                  </span>
                   {isNotificationNew(n) && (
-                    <span className="px-1.5 py-px rounded text-[8px] font-semibold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
+                    <span className="px-1.5 py-px rounded-md text-[8px] font-medium uppercase tracking-widest border border-emerald-500/25 bg-emerald-500/15 text-emerald-400">
                       New
                     </span>
                   )}
@@ -123,20 +137,11 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
                 <h2 className="text-xl md:text-[22px] font-light text-white leading-snug tracking-tight">
                   {n.system ?? 'Unspecified system'}
                 </h2>
-                <div className="flex items-center gap-2 mt-2">
-                  <span
-                    className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium"
-                    style={{ color: visual.color }}
-                  >
-                    <CategoryIcon category={visual.category} size={12} color={visual.color} />
-                    {visual.category}
-                  </span>
-                </div>
               </div>
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto px-5 md:px-6 py-5 space-y-6">
+            <div className="flex-1 min-h-0 overflow-y-auto px-5 md:px-6 py-5 space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Estimated value</div>
@@ -152,10 +157,30 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
                   <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Transmittal</div>
                   <div className="text-sm font-mono text-zinc-300">{n.transmittal ?? '—'}</div>
                 </div>
-                <div>
-                  <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Recipient</div>
-                  <div className="text-sm text-zinc-300">{country}</div>
-                </div>
+                {fromContractor && (
+                  <div>
+                    <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Recipient</div>
+                    {onSelectCountry && country ? (
+                      <button
+                        type="button"
+                        onClick={() => onSelectCountry(country)}
+                        className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-white transition-colors"
+                      >
+                        {flagUrl && (
+                          <img src={flagUrl} alt="" className="w-4 h-3 object-cover rounded-sm" draggable={false} />
+                        )}
+                        {country}
+                      </button>
+                    ) : (
+                      <div className="inline-flex items-center gap-2 text-sm text-zinc-300">
+                        {flagUrl && (
+                          <img src={flagUrl} alt="" className="w-4 h-3 object-cover rounded-sm" draggable={false} />
+                        )}
+                        {country}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -170,7 +195,7 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
                 </div>
               )}
 
-              {contractors.length > 0 && (
+              {!fromContractor && contractors.length > 0 && (
                 <div>
                   <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-2">
                     {contractors.length > 1 ? 'Principal contractors' : 'Principal contractor'}
@@ -184,7 +209,7 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
                             <img
                               src={logo}
                               alt=""
-                              className={`w-8 h-8 object-contain opacity-70 mt-0.5 ${contractorLogoClassName(c.name)}`}
+                              className={`w-8 h-8 object-contain rounded-sm opacity-70 mt-0.5 ${contractorLogoClassName(c.name)}`}
                               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                             />
                           )}
@@ -227,12 +252,12 @@ export function SaleDetailDrawer({ notification, country, onClose, onSelectContr
 
             {/* Footer */}
             {n.sourceUrl && (
-              <div className="flex-shrink-0 px-5 md:px-6 py-4 border-t border-zinc-800/80">
+              <div className="flex-shrink-0 px-5 md:px-6 pb-5 pt-1">
                 <a
                   href={n.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-2.5 text-[11px] uppercase tracking-widest text-zinc-300 hover:text-white border border-zinc-700 hover:border-zinc-500 transition-colors"
+                  className="flex items-center justify-center gap-2 w-full h-10 rounded-lg text-[11px] uppercase tracking-widest text-zinc-300 hover:text-white bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-600 transition-colors"
                 >
                   View source notification
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">

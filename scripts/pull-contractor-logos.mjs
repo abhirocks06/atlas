@@ -90,6 +90,13 @@ async function fetchLogo(domain) {
           'https://icons.duckduckgo.com/ip3/rtx.com.ico',
           'https://www.google.com/s2/favicons?domain=rtx.com&sz=256',
         ]
+      : domain === 'boozallen.com'
+        ? [
+            // Current teal "Booz Allen." mark (Clearbit/Wayback often serve older navy variant)
+            'https://img.logo.dev/boozallen.com?token=pk_X-1ZO13GSgeOoUrIuJ6GMQ&size=256&format=png',
+            'https://www.google.com/s2/favicons?domain=boozallen.com&sz=256',
+            'https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/boozallen.com',
+          ]
       : domain === 'amgeneral.com'
         ? [
             'https://icons.duckduckgo.com/ip3/amgeneral.com.ico',

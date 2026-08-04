@@ -41,7 +41,7 @@ function protectAbbrevs(text) {
   return text
     .replace(/\bU\.S\./g, 'US')
     .replace(/\bD\.C\./g, 'DC')
-    .replace(/\bSt\./g, 'St')
+    .replace(/\bSt\.\s*Louis\b/gi, 'St Louis')
     .replace(/\bFt\./g, 'Ft')
     .replace(/\bMt\./g, 'Mt')
     .replace(/\bInc\./g, 'Inc')

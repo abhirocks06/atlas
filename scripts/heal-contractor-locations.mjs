@@ -170,6 +170,11 @@ function healSegment(name, loc) {
   // Skip messy multi-company segments
   if (MESSY_AND.test(n)) return { name: n, location: l ? expandLocAbbrevs(l) : l, skipped: true }
 
+  // Truncated "St." from "St. Louis, MO" (period eaten by sentence split / protectAbbrevs)
+  if (/^St\.?$/i.test(l || '')) {
+    l = 'St. Louis, Missouri'
+  }
+
   // OCR St. Louis
   if (/(?:in|of)\s+St\.?\s*$/i.test(n) && (!l || /^(St\.?|Louis|Louis,.+)$/i.test(l))) {
     n = n.replace(/\s+(?:in|of)\s+St\.?\s*$/i, '').trim()
