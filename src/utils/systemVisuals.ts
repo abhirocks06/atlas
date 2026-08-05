@@ -58,8 +58,10 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /iadws|integrated air defense weapon|integrated air defense system/i,
     blurb: 'Layered air-defense package that combines sensors and interceptors to defeat aircraft, drones, and cruise missiles.',
     url: '/system-images/iadws.png',
+  },
+  {
+    match: /ibcs|integrated battle command/i,
     blurb: 'Networked air-and-missile-defense command system that links sensors and shooters across the battlespace.',
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Patriot_missile_radar_-_LTAMDS_-_Lower_Tier_Air_and_Missile_Defense_Sensor_%282%29.webp/960px-Patriot_missile_radar_-_LTAMDS_-_Lower_Tier_Air_and_Missile_Defense_Sensor_%282%29.webp.png',
   },
   {
     match: /ltamds|lower tier air and missile defense sensor/i,
