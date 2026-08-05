@@ -352,26 +352,26 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610671/-1/-1/0/AUSTRALIA_09-17.PDF"
   },
   {
-    "date": "2009-05-01",
-    "transmittal": null,
+    "date": "2009-05-26",
+    "transmittal": "09-23",
     "country": "Republic of Korea",
     "system": "F-16 Block 32 Aircraft upgrades",
     "costUSD": 250000000,
     "contractor": "Lockheed Martin Aeronautics Company",
     "contractorLocation": "Fort Worth, Texas",
     "description": "i) Joint Direct Attack Munitions ii) Advanced Medium Range Air-to-Air Missiles iii) Improved Data Modem iv) Secure Voice capabilities v) Test and support equipment vi) Spare and repair parts vii) Personnel training viii) Training equipment ix) Publications and technical data x) U.S. Government and contractor technical assistance xi) Other related logistics support\n\nQuantities: i) F-16 Block 32 Aircraft: 35 ii) Joint Direct Attack Munitions: Not specified iii) Advanced Medium Range Air-to-Air Missiles: Not specified iv) Improved Data Modem: Not specified v) Secure Voice capabilities: Not specified vi) Test and support equipment: Not specified vii) Spare and repair parts: Not specified viii) Personnel training: Not specified ix) Training equipment: Not specified x) Publications and technical data: Not specified xi) U.S. Government and contractor technical assistance: Not specified xii) Temporary travel for U.S. Government or contractor representatives: Not specified",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20110527065144id_/http://www.dsca.mil/PressReleases/36-b/2009/ROK_09-23.pdf"
   },
   {
-    "date": "2009-05-01",
-    "transmittal": null,
+    "date": "2009-05-26",
+    "transmittal": "09-22",
     "country": "Republic of Korea",
     "system": "SM-2 Standard Missiles",
     "costUSD": 170000000,
     "contractor": "Raytheon Electronic Systems Company",
     "contractorLocation": "Tucson, Arizona",
     "description": "i) SM-2 missile containers ii) missile modifications iii) test and support equipment iv) spare and repair parts v) personnel training vi) training equipment vii) publications and technical data viii) U.S. Government and contractor technical assistance ix) other related logistics support x) temporary travel for U.S. Government or contractor representatives for in-country training\n\nQuantities: i) SM-2 Block IIA Tactical STANDARD missiles: 46 ii) SM-2 Block HIB Tactical STANDARD missiles: 35 iii) SM-2 Block IIIB Telemetry Missiles: 3 iv) SM-2 missile containers: 84 v) missile modifications: Not specified vi) test and support equipment: Not specified vii) spare and repair parts: Not specified viii) training: Not specified ix) training equipment: Not specified x) publications: Not specified xi) logistical support: Not specified xii) personnel training: Not specified xiii) technical data: Not specified xiv) U.S. Government and contractor technical assistance: Not specified xv) other related logistics support: Not specified",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20110527065207id_/http://www.dsca.mil/PressReleases/36-b/2009/ROK_09-22.pdf"
   },
   {
     "date": "2009-05-18",
@@ -495,7 +495,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606545/-1/-1/0/BAHRAIN_09-14.PDF"
   },
   {
-    "date": "2009-08-01",
+    "date": "2009-08-06",
     "transmittal": "09-52",
     "country": "Republic of Korea",
     "system": "AIM-9X SIDEWINDER Missiles",
@@ -605,15 +605,15 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003607919/-1/-1/0/THAILAND_09-49.PDF"
   },
   {
-    "date": "2009-09-01",
-    "transmittal": null,
+    "date": "2009-09-09",
+    "transmittal": "09-32",
     "country": "Jordan",
     "system": "M142 High-Mobility Artillery Rocket Systems (HIMARS) Launchers and related missile systems (GMLRS, AFATDS, SINCGARS) with support and integration services.",
     "costUSD": 220000000,
     "contractor": "Lockheed Martin Missile and Fire Control / BAE Systems / ITT / Raytheon",
     "contractorLocation": "Dallas, Texas / Sealy, Texas / Fort Wayne, Indiana / Fort Wayne, Indiana",
     "description": "i) M142 High-Mobility Artillery Rocket Systems (HIMARS) Launchers ii) M31 Unitary Guided Multiple Launch Rocket Systems (GMLRS) Rocket Pods iii) Multiple Launcher Rocket Systems (MLRS) Practice Rocket Pods iv) M1084A1P2 Family of Medium Tactical Vehicle Trucks (FMTV) v) Advanced Field Artillery Tactical Data System (AFATDS) vi) M108A1P2 Wreckers vii) M1151A1 High-Mobility Multipurpose Wheeled Vehicles (HMMWVs) viii) AN/VRC-92E Single Channel Ground and Airborne Radio Systems (SINCGARS) ix) AN/VRC-90E SINCGARS x) Support equipment xi) Communications equipment xii) Spare and repair parts xiii) Test sets xiv) Batteries xv) Laptop computers xvi) Publications and technical data xvii) Facility design xviii) Personnel training and equipment xix) Systems integration support xx) U.S. Government and contractor engineering and logistics personnel services xxi) Other related elements of logistics support xxii) Contractor representatives assistance in delivery and deployment of HIMARS\n\nQuantities: i) M142 High-Mobility Artillery Rocket Systems (HIMARS) Launchers: 12 ii) M31 Unitary Guided Multiple Launch Rocket Systems (GMLRS) Rocket Pods: 72 iii) Multiple Launcher Rocket Systems (MLRS) Practice Rocket Pods: 36 iv) M1084A1P2 Family of Medium Tactical Vehicle Trucks (FMTV): 12 v) Advanced Field Artillery Tactical Data System (AFATDS): 1 vi) M108A1P2 Wreckers: 3 vii) M1151A1 High-Mobility Multipurpose Wheeled Vehicles (HMMWVs): 3 viii) AN/VRC-92E Single Channel Ground and Airborne Radio Systems (SINCGARS): 27 ix) AN/VRC-90E SINCGARS: 18 x) Contractor representatives for delivery and deployment assistance: 5 xi) Contractor representative assistance duration (days): 14",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20111201152243id_/http://www.dsca.mil/PressReleases/36-b/2009/Jordon_09-32.pdf"
   },
   {
     "date": "2009-09-09",
@@ -693,7 +693,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003602643/-1/-1/0/MOROCCO_09-53_0.PDF"
   },
   {
-    "date": "2009-11-01",
+    "date": "2009-11-23",
     "transmittal": "09-65",
     "country": "Peru",
     "system": "Refurbishment of two NEWPORT Class Landing Ship Tanks",
@@ -935,7 +935,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/18/2003615394/-1/-1/0/UAE_09-67_0.PDF"
   },
   {
-    "date": "2010-01-01",
+    "date": "2010-01-29",
     "transmittal": "09-37",
     "country": "Taiwan",
     "system": "Multifunctional Information Distribution Systems (MIDS) including Low Volume Terminals (MIDS/LVT-1) and MIDS On Ships Terminals with repair and return, software and hardware updates, and support services.",
@@ -946,7 +946,7 @@
     "sourceUrl": "https://web.archive.org/web/20111201151544id_/http://www.dsca.mil/PressReleases/36-b/2010/Taiwan_09-37.pdf"
   },
   {
-    "date": "2010-01-01",
+    "date": "2010-01-29",
     "transmittal": "09-39",
     "country": "Taiwan",
     "system": "OSPREY Class Mine Hunting Ships including refurbishment and upgrade",
@@ -957,7 +957,7 @@
     "sourceUrl": "https://web.archive.org/web/20100214233616id_/http://www.dsca.mil:80/PressReleases/36-b/2010/Taiwan_09-39.pdf"
   },
   {
-    "date": "2010-01-01",
+    "date": "2010-01-29",
     "transmittal": "09-75",
     "country": "Taiwan",
     "system": "PATRIOT Advanced Capability-3 (PAC-3) missiles and related equipment and services",
@@ -968,7 +968,7 @@
     "sourceUrl": "https://web.archive.org/web/20111201151248id_/http://www.dsca.mil/PressReleases/36-b/2010/Taiwan_09-75.pdf"
   },
   {
-    "date": "2010-01-01",
+    "date": "2010-01-29",
     "transmittal": "09-57",
     "country": "Taiwan",
     "system": "RTM-84L and ATM-84L HARPOON Block II Telemetry missiles",
@@ -979,7 +979,7 @@
     "sourceUrl": "https://web.archive.org/web/20110908024344id_/http://www.dsca.mil/PressReleases/36-b/2010/Taiwan_09-57.pdf"
   },
   {
-    "date": "2010-01-01",
+    "date": "2010-01-29",
     "transmittal": "09-03",
     "country": "Taiwan",
     "system": "UH-60M BLACK HAWK helicopters",
@@ -1100,51 +1100,40 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/18/2003615389/-1/-1/0/UAE_10-06_0.PDF"
   },
   {
-    "date": "2010-07-01",
-    "transmittal": null,
+    "date": "2010-07-02",
+    "transmittal": "10-21",
     "country": "Egypt",
     "system": "Oliver Hazard Perry and Knox Class Frigates refurbishment and technical support",
     "costUSD": 210000000,
     "contractor": "VSE Global",
     "contractorLocation": "Alexandria, Virginia",
     "description": "i) refurbishment and upgrading facilities ii) tools and test equipment iii) software upgrades iv) engine component improvement v) spare and repair parts vi) support equipment vii) publications and technical documentation viii) personnel training and training equipment ix) U.S. government and contractor technical and logistical support services x) other related program requirements\n\nQuantities: i) OLIVER HAZARD PERRY Frigates: 4 ii) KNOX CLASS Frigates: 2 iii) Technical services: Not specified iv) Refurbishment and upgrading facilities: Not specified v) Engineering change proposals: Not specified vi) Tools and test equipment: Not specified vii) Software upgrades: Not specified viii) Engine component improvement: Not specified ix) Spare and repair parts: Not specified x) Support equipment: Not specified xi) Publications and technical documentation: Not specified xii) Personnel training: Not specified xiii) Training equipment: Not specified xiv) U.S. government and contractor technical and logistical support services: Not specified",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20111201160820id_/http://www.dsca.mil/PressReleases/36-b/2010/EG_10-21.pdf"
   },
   {
-    "date": "2010-07-01",
-    "transmittal": null,
+    "date": "2010-07-02",
+    "transmittal": "10-18",
     "country": "Egypt",
     "system": "Skyguard AMOUN Solid-State Transmitters to support the upgrade of the Skyguard-SPARROW Launcher/Illuminator System",
     "costUSD": 77000000,
     "contractor": "Raytheon Integrated Defense Systems",
     "contractorLocation": "Tewksbury, Massachusetts",
     "description": "i) Skyguard AMOUN Solid-State Transmitters ii) Spare and repair parts iii) Support equipment iv) Personnel training v) Training equipment vi) Publications and technical documents vii) U.S. Government and contractor technical and logistics support services viii) Onsite Contractor Engineering Technical Assistant support for one year for training and equipment checkout\n\nQuantities: i) Skyguard AMOUN Solid-State Transmitters: 40 ii) Spare and repair parts: Not specified iii) Support equipment: Not specified iv) Personnel training: Not specified v) Training equipment: Not specified vi) Publications and technical documents: Not specified vii) U.S. Government and contractor technical and logistics support services: Not specified viii) Contractor Engineering Technical Assistant support: 1 year",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20110206050527id_/http://www.dsca.mil/PressReleases/36-b/2010/EG_10-18.pdf"
   },
   {
-    "date": "2010-07-01",
-    "transmittal": null,
-    "country": "Oman",
-    "system": "Logistics support and training for C-130J-30 aircraft",
-    "costUSD": 54000000,
-    "contractor": "No contractor specified",
-    "contractorLocation": null,
-    "description": "i) AN/AAR-47 Missile Approach Warning Systems ii) AN/ALE-47 Countermeasure Dispenser Sets iii) AN/ALR-56M Radar Warning Receivers iv) Communication equipment v) Software support vi) Repair and return vii) Installation viii) Aircraft ferry and refueling support ix) Spare and repair parts x) Support and test equipment xi) Publications and technical documentation xii) Personnel training and training equipment xiii) U.S. Government and contractor engineering, technical, and logistics support services xiv) Related elements of logistical and program support\n\nQuantities: i) C-130J-30 aircraft: 2 ii) AN/AAR-47 Missile Approach Warning Systems: 2 iii) AN/ALE-47 Countermeasure Dispenser Sets: 2 iv) AN/ALR-56M Radar Warning Receivers: 2 v) Communication equipment: Not specified vi) Software support: Not specified vii) Repair and return: Not specified viii) Installation: Not specified ix) Aircraft ferry and refueling support: Not specified x) Spare and repair parts: Not specified xi) Support and test equipment: Not specified xii) Publications and technical documentation: Not specified xiii) Personnel training: Not specified xiv) Training equipment: Not specified xv) U.S. Government and contractor engineering, technical, and logistics support services: Not specified xvi) Annual trips to Oman for technical reviews/support and program management: Up to 10 U.S. Government and 10 contractor representatives for approximately six years",
-    "sourceUrl": null
-  },
-  {
-    "date": "2010-07-01",
-    "transmittal": null,
+    "date": "2010-07-02",
+    "transmittal": "10-11",
     "country": "Tunisia",
     "system": "Refurbishment of SH-60F Multi-Mission Utility Helicopters",
     "costUSD": 282000000,
     "contractor": "General Electric",
     "contractorLocation": "Lynn, Massachusetts",
     "description": "i) SH-60F Multi-Mission Utility Helicopters ii) T700-GE-401C engines iii) Inspections iv) Spare and repair parts v) Support equipment vi) Personnel training vii) Training equipment viii) Publications and technical data ix) U.S. Government and contractor engineering, technical and logistics support services x) Contractor representatives for familiarization training xi) Program management and program and technical reviews xii) Training and maintenance support\n\nQuantities: i) SH-60F Multi-Mission Utility Helicopters: 12 ii) T700-GE-401C engines: 29 iii) Contractor representatives for familiarization training: 2 iv) Duration of familiarization training: 2 years v) Program management, technical reviews, training, and maintenance support visits: Semi-annually for 3 years, one week intervals",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20100714071906id_/http://www.dsca.mil/PressReleases/36-b/2010/TU_10-11.pdf"
   },
   {
-    "date": "2010-07-01",
+    "date": "2010-07-02",
     "transmittal": "10-29",
     "country": "United Kingdom",
     "system": "Boeing C-17A Globemaster III cargo aircraft sustainment and support",
@@ -1661,7 +1650,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606366/-1/-1/0/IRAQ_10-78_0.PDF"
   },
   {
-    "date": "2011-04-01",
+    "date": "2011-04-29",
     "transmittal": "11-12",
     "country": "United Kingdom",
     "system": "MK 15 PHALANX Close-In Weapon System (CIWS) Block 1B Baseline 2 upgrades and conversion",
@@ -1732,8 +1721,8 @@
     "country": "Saudi Arabia",
     "system": "Night Vision Equipment",
     "costUSD": 330000000,
-    "contractor": "FLIR Inc",
-    "contractorLocation": null,
+    "contractor": "FLIR Inc / Laser Devices, Inc.",
+    "contractorLocation": "Boston, Massachusetts / Monterey, California",
     "description": "a possible sale of 200 High-performance In- Line Sniper Sight (HISS) Thermal Weapon Sights - 1500 meter, 200 MilCAM Recon III LocatIR Long Range, Light Weight Thermal Binoculars with Geo Location, 7,000 Dual Beam Aiming Lasers (DBAL A2), 6000 AN/PVS-21 Low Profile Night Vision Goggles (LPNVG), spare and repair parts, support equipment, technical documentation and publications, translation services, training, U. S. government and contractor technical and logistics support services, and other related elements of logistical and program support. The estimated cost is $330 million.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606705/-1/-1/0/SAUDI_ARABIA_10-75_0.PDF"
   },
@@ -1760,7 +1749,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/18/2003615382/-1/-1/0/UAE_11-02_0.PDF"
   },
   {
-    "date": "2011-06-01",
+    "date": "2011-06-30",
     "transmittal": "11-25",
     "country": "United Kingdom",
     "system": "Ship’s Signal Exploitation Equipment (SSEE) Increment F including installation, testing, training, and support services",
@@ -1768,7 +1757,7 @@
     "contractor": "Argon ST",
     "contractorLocation": "Fairfax, Virginia",
     "description": "i) Selective Availability Anti-Spoofing Modules (SAASM) GPS Receivers ii) System Signal and Direction Finding Stimulator packages iii) Spare and repair parts iv) Personnel training and training equipment v) Support equipment vi) U.S. Government and contractor engineering vii) Logistics and technical support services viii) Testing ix) Publications and technical documentation x) Fleet Information Operation Center upgrades xi) Installation xii) Life cycle support xiii) Other related elements of logistics support\n\nQuantities: i) Ship’s Signal Exploitation Equipment (SSEE) Increment F: 7 ii) Selective Availability Anti-Spoofing Modules (SAASM) GPS Receivers: 7 iii) System Signal and Direction Finding Stimulator packages: 7 iv) Spare and repair parts: Not specified v) Personnel training: Not specified vi) Training equipment: Not specified vii) Support equipment: Not specified viii) U.S. Government and contractor engineering: Not specified ix) Logistics and technical support services: Not specified x) Testing: Not specified xi) Publications and technical documentation: Not specified xii) Fleet Information Operation Center upgrades: Not specified xiii) Installation: Not specified xiv) Life cycle support: Not specified xv) Other related elements of logistics support: Not specified xvi) Temporary assignment of U.S. Government representatives: 3 xvii) Temporary assignment of contractor representatives: 7",
-    "sourceUrl": "https://www.federalregister.gov/documents/2011/07/11/2011-17240/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20111201151637if_/http://www.dsca.mil/PressReleases/36-b/2011/UK_11-25.pdf"
   },
   {
     "date": "2011-06-02",
@@ -1892,7 +1881,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604068/-1/-1/0/POLAND_11-32_0.PDF"
   },
   {
-    "date": "2011-08-01",
+    "date": "2011-08-25",
     "transmittal": "11-14",
     "country": "Peru",
     "system": "MK57 MOD 10 NATO SEASPARROW Surface Missile Systems",
@@ -1900,7 +1889,7 @@
     "contractor": "Raytheon Technical Service Company / Raytheon Integrated Defense Systems",
     "contractorLocation": "Norfolk, Virginia / Portsmouth, Rhode Island",
     "description": "i) MK57 Installation and Check Out (INCO) Kits ii) Spare and repair parts iii) Support and test equipment iv) Publications and technical documentation v) Personnel training vi) U.S. Government (USG) and contractor engineering, technical and logistics support services vii) Other related elements of logistical and program support\n\nQuantities: i) MK57 MOD 10 NATO SEASPARROW Surface Missile Systems: 4 ii) MK57 Installation and Check Out (INCO) Kits: Not specified iii) Spare and repair parts: Not specified iv) Support and test equipment: Not specified v) Publications and technical documentation: Not specified vi) Personnel training: Not specified vii) U.S. Government and contractor engineering, technical and logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2011/09/12/2011-23181/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20110928215441if_/http://www.dsca.mil:80/PressReleases/36-b/2011/Peru_11-14.pdf"
   },
   {
     "date": "2011-08-31",
@@ -2120,7 +2109,7 @@
     "contractor": "No contractor specified",
     "contractorLocation": null,
     "description": "i) Aircraft ferry ii) Spare and repair parts iii) Support equipment iv) Personnel training v) Training equipment vi) Publications and technical data vii) U.S. Government and contractor engineering and logistics support services viii) Other related elements of logistics support\n\nQuantities: i) C-130E aircraft: 2 ii) aircraft ferry: Not specified iii) spare parts: Not specified iv) repair parts: Not specified v) support equipment: Not specified vi) personnel training: Not specified vii) training equipment: Not specified viii) publications and technical data: Not specified ix) U.S. Government engineering support services: Not specified x) contractor engineering support services: Not specified xi) logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2011/11/22/2011-30093/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20111110023145if_/http://www.dsca.mil:80/PressReleases/36-b/2011/Peru_11-40.pdf"
   },
   {
     "date": "2011-11-01",
@@ -2131,7 +2120,7 @@
     "contractor": "General Atomics",
     "contractorLocation": "Rancho Bernardo, California",
     "description": "i) Energy Storage System ii) Power Conditioning System iii) Launch Control System iv) Power Conditioning (AAG) v) Energy Absorption Subsystems vi) Shock Absorbers vii) Drive Fairleads viii) Aircraft Launch and Recovery Equipment ix) Spare and repair parts x) Support equipment xi) Personnel training xii) Training equipment xiii) Publications and technical documentation xiv) Software support xv) U.S. Government and contractor engineering, technical, and logistics support services\n\nQuantities: i) Long lead sub-assemblies for EMALS/AAG: 1 ii) Energy Storage System: Not specified iii) Power Conditioning System: Not specified iv) Launch Control System: Not specified v) Power Conditioning (AAG): Not specified vi) Energy Absorption Subsystems: Not specified vii) Shock Absorbers: Not specified viii) Drive Fairleads: Not specified ix) Aircraft Launch and Recovery Equipment: Not specified x) Spare and repair parts: Not specified xi) Support equipment: Not specified xii) Personnel training: Not specified xiii) Training equipment: Not specified xiv) Publications and technical documentation: Not specified xv) Software support: Not specified xvi) U.S. Government and contractor engineering, technical, and logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2011/11/25/2011-30368/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20111218160055if_/http://www.dsca.mil:80/PressReleases/36-b/2011/UK_11-47.pdf"
   },
   {
     "date": "2011-11-08",
@@ -2277,7 +2266,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606478/-1/-1/0/KUWAIT_11-53_0.PDF"
   },
   {
-    "date": "2012-03-01",
+    "date": "2012-03-07",
     "transmittal": "12-14",
     "country": "United Kingdom",
     "system": "F-117-PW-100 engines and associated sustainment support for Boeing C-17A GLOBEMASTER III aircraft",
@@ -2285,7 +2274,7 @@
     "contractor": "The Boeing Company",
     "contractorLocation": "Long Beach, California",
     "description": "i) F-117-PW-100 engines ii) Engine exchange kits iii) Support equipment iv) Global Positioning Systems v) Communications equipment vi) Spare and repair parts vii) Personnel training viii) Training equipment ix) Publications and technical documentation x) U.S. Government and contractor engineering, technical, and logistics support services\n\nQuantities: i) F-117-PW-100 engines: 20 ii) engine exchange kits: Not specified iii) support equipment: Not specified iv) Global Positioning Systems: Not specified v) communications equipment: Not specified vi) spare and repair parts: Not specified vii) personnel training: Not specified viii) training equipment: Not specified ix) publications and technical documentation: Not specified x) U.S. Government and contractor engineering, technical, and logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2012/03/13/2012-6041/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20120417111041if_/http://www.dsca.mil:80/pressreleases/36-b/2012/UK_12-14.pdf"
   },
   {
     "date": "2012-05-01",
@@ -2882,7 +2871,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606574/-1/-1/0/QATAR_12-62_0.PDF"
   },
   {
-    "date": "2013-04-01",
+    "date": "2013-04-17",
     "transmittal": "13-16",
     "country": "United Kingdom",
     "system": "AGM-114-N4/P4 HELLFIRE missiles",
@@ -2890,10 +2879,10 @@
     "contractor": "Lockheed Martin Corporation",
     "contractorLocation": "Orlando, Florida",
     "description": "i) AGM-114-N4/P4 HELLFIRE missiles ii) Not specified\n\nQuantities: i) AGM-114-N4/P4 HELLFIRE missiles: 500 ii) Support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2013/05/06/2013-10633/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20130429182258if_/http://www.dsca.mil/PressReleases/36-b/2013/UK_13-16.pdf"
   },
   {
-    "date": "2013-04-01",
+    "date": "2013-04-17",
     "transmittal": "13-09",
     "country": "United Kingdom",
     "system": "Follow-on support for the Tomahawk Weapon System (TWS) including missile modifications, maintenance, spare and repair parts, system and test equipment, engineering support, communications equipment, technical assistance, and personnel training/equipment.",
@@ -2901,7 +2890,7 @@
     "contractor": "Raytheon Missile Systems Company / Lockheed Martin / Lockheed Martin / Lockheed Martin / The Boeing Company / BAE North America / COMGLOBAL / SAIC / SAIC",
     "contractorLocation": "Tucson, Arizona / Manassas, Virginia / Valley Forge, Pennsylvania / Marlton, New Jersey / St. Louis, Missouri / San Diego, California / San Jose, California / Springfield, Virginia / Patuxent River, Maryland",
     "description": "i) missile modifications ii) maintenance iii) spare and repair parts iv) system and test equipment v) engineering support vi) communications equipment vii) technical assistance viii) personnel training/equipment ix) other related elements of logistics support\n\nQuantities: i) missile modifications: Not specified ii) maintenance: Not specified iii) spare and repair parts: Not specified iv) system and test equipment: Not specified v) engineering support: Not specified vi) communications equipment: Not specified vii) technical assistance: Not specified viii) personnel training/equipment: Not specified ix) assignment of U.S. Government representatives: 1 x) assignment of contractor representatives: 2",
-    "sourceUrl": "https://www.federalregister.gov/documents/2013/05/06/2013-10631/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20130515023506if_/http://www.dsca.mil:80/PressReleases/36-b/2013/UK_13-09.pdf"
   },
   {
     "date": "2013-04-03",
@@ -3740,7 +3729,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003607948/-1/-1/0/INDIA_14-21.PDF"
   },
   {
-    "date": "2014-07-01",
+    "date": "2014-07-03",
     "transmittal": "14-29",
     "country": "United Kingdom",
     "system": "Boeing C-17A Globemaster III cargo aircraft sustainment (maintenance and support)",
@@ -3748,7 +3737,7 @@
     "contractor": "The Boeing Company",
     "contractorLocation": "Long Beach, California",
     "description": "i) Support equipment ii) Spare and repair parts iii) Contractor technical and logistics personnel services iv) Training v) Logistical support\n\nQuantities: i) Boeing C-17A Globemaster III cargo aircraft: 8 ii) Contractor technical and logistics personnel services: Not specified iii) Support equipment: Not specified iv) Spare and repair parts: Not specified v) Training: Not specified vi) Logistical support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2014/07/14/2014-16352/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20150714175218if_/http://www.dsca.mil/sites/default/files/mas/uk_14-29.pdf"
   },
   {
     "date": "2014-07-01",
@@ -3759,7 +3748,7 @@
     "contractor": "Raytheon Missile Systems Company",
     "contractorLocation": "Tucson, Arizona",
     "description": "i) Containers ii) Engineering support iii) Test equipment iv) Operational flight test support v) Communications equipment vi) Technical assistance vii) Personnel training/equipment viii) Spare and repair parts ix) Other related elements of logistics support\n\nQuantities: i) Tomahawk Block IV Torpedo Launched Land-Attack Missiles: 65 ii) Containers: Not specified iii) Engineering support: Not specified iv) Test equipment: Not specified v) Operational flight test support: Not specified vi) Communications equipment: Not specified vii) Technical assistance: Not specified viii) Personnel training/equipment: Not specified ix) Spare and repair parts: Not specified x) Other related elements of logistics support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2014/07/14/2014-16353/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20140716130217if_/http://www.dsca.mil/sites/default/files/mas/uk_14-30.pdf"
   },
   {
     "date": "2014-07-03",
@@ -5005,7 +4994,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606523/-1/-1/0/JORDAN_15-75.PDF"
   },
   {
-    "date": "2016-03-01",
+    "date": "2016-03-24",
     "transmittal": "16-26",
     "country": "United Kingdom",
     "system": "P-8A Aircraft and associated support",
@@ -5013,7 +5002,7 @@
     "contractor": "The Boeing Company / ViaSat / GC Micro / Rockwell Collins / Spirit Aero / Raytheon / Telephonics / Pole Zero / Northrop Grumman Corp / Exelis / Terma / Symmetrics / Arnprior Aerospace / General Electric / Martin Baker",
     "contractorLocation": "Seattle, Washington / Carlsbad, California / Petaluma, California / Cedar Rapids, Iowa / Wichita, Kansas / Waltham, Massachusetts / Farmingdale, New York / Cincinnati, Ohio / Falls Church, Virginia / McLean, Virginia / Arlington, Virginia / Canada / Canada / UK / UK",
     "description": "i) P-8A Patrol Aircraft ii) Associated major defense equipment iii) Associated training iv) Support\n\nQuantities: i) P-8A Patrol Aircraft: 9 ii) Personnel hired by Boeing to support the program: 64 iii) Associated major defense equipment: Not specified iv) Associated training: Not specified v) Support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2016/03/31/2016-07267/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20160327210645if_/http://www.dsca.mil:80/sites/default/files/mas/uk_16-26.pdf"
   },
   {
     "date": "2016-03-10",
@@ -5346,7 +5335,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/18/2003615362/-1/-1/0/UAE_16-45.PDF"
   },
   {
-    "date": "2016-11-01",
+    "date": "2016-11-16",
     "transmittal": "16-53",
     "country": "United Kingdom",
     "system": "Certifiable Predator B Remotely Piloted Aircraft",
@@ -5354,7 +5343,7 @@
     "contractor": "General Atomics Aeronautical Systems, Inc.",
     "contractorLocation": "San Diego, California",
     "description": "i) Certifiable Predator B Remotely Piloted Aircraft ii) Advanced Ground Control Stations (GCSs) iii) New Launch and Recovery Element GCSs iv) Upgrades to existing Blk 15 Launch and Recovery Element GCSs v) Multi-spectral Targeting Systems vi) AN/APY-8 Lynx Ile Block 20A Synthetic Aperture Radar and Ground Moving Target Indicators (SAR/GMTI) vii) Embedded Global Positioning System/Inertial Guidance Units (EGIs) viii) Communications equipment ix) Identification Friend or Foe (IFF) equipment x) Weapons installation kits xi) TPE331-10YGD engines xii) Unique and common spares package xiii) Support equipment xiv) U.S. Air Force technical orders xv) Country specific technical orders xvi) Contractor Logistics Support for two (optional three) years xvii) Contractor provided aircraft components, spares, and accessories xviii) Personnel training xix) Other related elements of logistical and program support\n\nQuantities: i) Certifiable Predator B Remotely Piloted Aircraft: 26 (16 with option for additional 10) ii) Advanced Ground Control Stations (GCSs): 12 (8 with option for additional 4) iii) New Launch and Recovery Element GCSs: 4 iv) Upgrades to existing Blk 15 Launch and Recovery Element GCSs: 4 (2 with option for additional 2) v) Multi-spectral Targeting Systems: 25 (12 + 2 spares, with option for additional 10 + 1 spare) vi) AN/APY-8 Lynx Ile Block 20A Synthetic Aperture Radar and Ground Moving Target Indicators (SAR/GMTI): 25 (12 + 2 spares, with option for additional 10 + 1 spare) vii) Embedded Global Positioning System/Inertial Guidance Units (EGIs): 86 (48 + 5 spares, with option for additional 30 + 3 spares) viii) Communications equipment: Not specified ix) Identification Friend or Foe (IFF) equipment: Not specified x) Weapons installation kits: Not specified xi) TPE331-10YGD engines: Not specified xii) Unique and common spares package: Not specified xiii) Support equipment: Not specified xiv) U.S. Air Force technical orders: Not specified xv) Country specific technical orders: Not specified xvi) Contractor Logistics Support: 2 years (optional 3 years) xvii) Contractor provided aircraft components, spares, and accessories: Not specified xviii) Personnel training: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2016/12/08/2016-29393/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20161129222940if_/http://dsca.mil/sites/default/files/mas/uk_16-53.pdf"
   },
   {
     "date": "2016-11-16",
@@ -5401,7 +5390,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604064/-1/-1/0/POLAND_16-72.PDF"
   },
   {
-    "date": "2016-12-01",
+    "date": "2016-12-02",
     "transmittal": "16-76",
     "country": "Peru",
     "system": "Reconditioned Stryker Infantry Carrier Vehicles",
@@ -5409,7 +5398,7 @@
     "contractor": "General Dynamics Land Systems",
     "contractorLocation": "Not specified",
     "description": "i) Reconditioned Stryker Infantry Carrier Vehicles ii) M2 Flex .50 Cal Machine Guns iii) Remote Weapon Stations (RWS) iv) Driver’s vision enhancers v) Global Positioning System (GPS) navigation capability vi) Sets of special tools testing equipment vii) Associated M2 Flex spare parts and tripods viii) M6 Smoke Grenade launchers and associated spares ix) VIC-3 systems x) Operators New Equipment Training (OPNET) xi) Field Level Maintenance Training (FLMNET) xii) Publications xiii) Training manuals xiv) Contractor Field Service Representative support xv) Contractor and concurrent spare parts xvi) Project office technical support xvii) U.S. Government technical assistance xviii) Packaging, crating, and handling xix) De-processing services for shipment xx) Associated transportation\n\nQuantities: i) Reconditioned Stryker Infantry Carrier Vehicles: 178 ii) M2 Flex .50 Cal Machine Guns: 178 iii) Remote Weapon Stations (RWS): 178 iv) Driver’s vision enhancers: Not specified v) Global Positioning System (GPS) navigation capability: Not specified vi) Sets of special tools testing equipment: Not specified vii) Associated M2 Flex spare parts and tripods: Not specified viii) M6 Smoke Grenade launchers and associated spares: Not specified ix) VIC-3 systems: Not specified x) Operators New Equipment Training (OPNET): Not specified xi) Field Level Maintenance Training (FLMNET): Not specified xii) Publications: Not specified xiii) Training manuals: Not specified xiv) Contractor Field Service Representative support: Not specified xv) Contractor and concurrent spare parts: Not specified xvi) Project office technical support: Not specified xvii) U.S. Government technical assistance: Not specified xviii) Packaging, crating, and handling: Not specified xix) De-processing services for shipment: Not specified xx) Associated transportation: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2016/12/14/2016-29970/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20161211174747if_/http://dsca.mil/sites/default/files/mas/peru_16-76.pdf"
   },
   {
     "date": "2016-12-05",
@@ -5533,7 +5522,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606466/-1/-1/0/KUWAIT_16-40.PDF"
   },
   {
-    "date": "2017-01-01",
+    "date": "2017-01-19",
     "transmittal": "16-79",
     "country": "Kenya",
     "system": "Air Tractor aircraft with weapons and related support",
@@ -5541,7 +5530,7 @@
     "contractor": "L-3 Communications, Platform Integration Division",
     "contractorLocation": "Waco, Texas",
     "description": "i) Air Tractor AT-802L ii) AT-504 trainer aircraft iii) Weapons package iv) Technical support v) Program management vi) Assignment of at least five contractor representatives in Kenya\n\nQuantities: i) Air Tractor AT-802L aircraft: 12 ii) AT-504 trainer aircraft: 2 iii) Weapons package: Not specified iv) Technical support: Not specified v) Program management: Not specified vi) Contractor representatives in Kenya: 5",
-    "sourceUrl": "https://www.federalregister.gov/documents/2017/02/10/2017-02728/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20170211041143if_/http://dsca.mil/sites/default/files/mas/kenya_16-79.pdf"
   },
   {
     "date": "2017-01-01",
@@ -5549,10 +5538,10 @@
     "country": "United Kingdom",
     "system": "C-17 aircraft logistics support services and equipment including maintenance and upgrades",
     "costUSD": 400000000,
-    "contractor": "Boeing Corporation / United Kingdom",
-    "contractorLocation": "Chicago, Illinois / United Kingdom",
+    "contractor": "Boeing Corporation",
+    "contractorLocation": "Chicago, Illinois",
     "description": "i) Fixed installation satellite antenna ii) Mode 5+ installation and sustainment iii) Automatic Dependent Surveillance-Broadcast Out iv) Communications Modernization (CNS/ATM) Phase II v) Replacement Heads-Up Display vi) Three special operations loading ramps vii) Contract labor for sustainment engineering viii) On-site COMSEC support ix) Quality Assurance x) Support equipment repair xi) Supply chain management xii) Spares replenishment xiii) Maintenance xiv) Back shop support xv) Centralized maintenance support/associated services xvi) Additional spare and repair parts xvii) Publications and technical documentation\n\nQuantities: i) C-17 aircraft: 8 ii) contract labor for sustainment engineering: Not specified iii) on-site COMSEC support: Not specified iv) Quality Assurance: Not specified v) support equipment repair: Not specified vi) supply chain management: Not specified vii) spares replenishment: Not specified viii) maintenance: Not specified ix) back shop support: Not specified x) centralized maintenance support/associated services: Not specified xi) additional spare and repair parts: Not specified xii) publications and technical documentation: Not specified xiii) fixed installation satellite antenna: Not specified xiv) Mode 5+ installation and sustainment: Not specified xv) Automatic Dependent Surveillance-Broadcast Out: Not specified xvi) Communications Modernization (CNS/ATM) Phase II: Not specified xvii) Replacement Heads-Up Display: Not specified xviii) special operations loading ramps: 3 xix) U.S. Government representatives assigned: approximately 3 xx) contractor representatives assigned: approximately 55",
-    "sourceUrl": "https://www.federalregister.gov/documents/2017/01/30/2017-01965/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20170211041050if_/http://dsca.mil/sites/default/files/mas/uk_16-82.pdf"
   },
   {
     "date": "2017-01-23",
@@ -5618,7 +5607,7 @@
     "contractor": "No contractor specified",
     "contractorLocation": null,
     "description": "i) AGM-114-R1/R2 Hellfire II Semi-Active Laser (SAL) missiles ii) logistics support services iii) other related program support\n\nQuantities: i) AGM-114-R1/R2 Hellfire II Semi-Active Laser (SAL) missiles: 1,000 ii) logistics support services: Not specified iii) other related program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2017/03/22/2017-05646/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20170427101515if_/http://www.dsca.mil/sites/default/files/mas/uk_17-02.pdf"
   },
   {
     "date": "2017-03-14",
@@ -5753,7 +5742,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604078/-1/-1/0/SLOVAKIA_17-14.PDF"
   },
   {
-    "date": "2017-05-01",
+    "date": "2017-05-02",
     "transmittal": "17-07",
     "country": "Kenya",
     "system": "MD 530F weaponized aircraft",
@@ -5761,7 +5750,7 @@
     "contractor": "MD Helicopters",
     "contractorLocation": "Mesa, Arizona",
     "description": "i) Heavy Machine Gun Pod (HMP) 400 systems ii) M260 rocket launchers iii) M151 rockets iv) 2.75-inch M274 smoke signature warhead rockets v) .50 caliber ammunition vi) Communications and navigation equipment vii) Contractor logistics support viii) Training ix) U.S. Government technical assistance x) Airframe and weapon system spare parts support xi) Contractor Field Service Representative (CFSR) support xii) Special Assigned Airlift Mission (SAAM) flight delivery support\n\nQuantities: i) MD 530F weaponized aircraft: 12 ii) Heavy Machine Gun Pod (HMP) 400 systems: 24 iii) M260 rocket launchers: 24 iv) M151 rockets: 4,032 v) 2.75-inch M274 smoke signature warhead rockets: 1,536 vi) .50 caliber ammunition rounds: 400,000 vii) communications and navigation equipment: Not specified viii) contractor logistics support: Not specified ix) training: Not specified x) U.S. Government technical assistance: Not specified xi) airframe and weapon system spare parts support: Not specified xii) Contractor Field Service Representative (CFSR) support: Not specified xiii) Special Assigned Airlift Mission (SAAM) flight delivery support: Not specified xiv) additional contractor representatives in country: 12",
-    "sourceUrl": "https://www.federalregister.gov/documents/2017/05/26/2017-09640/36b1-arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20170517080916if_/https://www.dsca.mil/sites/default/files/mas/kenya_17-07.pdf"
   },
   {
     "date": "2017-05-11",
@@ -5926,7 +5915,7 @@
     "contractor": "Oshkosh Defense, LLC",
     "contractorLocation": "Oshkosh, Wisconsin",
     "description": "i) baseline integration kits ii) basic issue item kits iii) B-kit armor iv) engine arctic kits v) fording kits vi) run-flat kits vii) spare tire kits viii) silent watch kits ix) power expansion kits x) cargo cover kits xi) maintainer and operator training xii) U.S. government technical assistance xiii) logistics support services xiv) other related elements of logistics and program support\n\nQuantities: i) Joint Light Tactical Vehicles (JLTV): 2,747 ii) Baseline integration kits: Not specified iii) Basic issue item kits: Not specified iv) B-kit armor: Not specified v) Engine arctic kits: Not specified vi) Fording kits: Not specified vii) Run-flat kits: Not specified viii) Spare tire kits: Not specified ix) Silent watch kits: Not specified x) Power expansion kits: Not specified xi) Cargo cover kits: Not specified xii) Maintainer and operator training: Not specified xiii) U.S. government technical assistance: Not specified xiv) Logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2017/08/07/2017-16595/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20181125152545if_/http://www.dsca.mil/sites/default/files/mas/uk_17-23.pdf"
   },
   {
     "date": "2017-07-10",
@@ -6776,7 +6765,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604091/-1/-1/0/LATVIA_18-33.PDF"
   },
   {
-    "date": "2018-09-01",
+    "date": "2018-09-20",
     "transmittal": "18-37",
     "country": "United Kingdom",
     "system": "MK 15 Phalanx Close-in Weapon System (CIWS) Block IB Baseline 2 Radar Upgrade Kits",
@@ -6784,10 +6773,10 @@
     "contractor": "Raytheon Missile Systems",
     "contractorLocation": "Tucson, Arizona",
     "description": "i) MK 15 Phalanx Close-in Weapon System (CIWS) Block IB Baseline 2 Upgrade Kits ii) Support equipment iii) Test equipment iv) Initial spare parts v) Technical documentation vi) Training vii) Engineering technical assistance viii) Other related elements of logistics and program support\n\nQuantities: i) MK 15 Phalanx Close-in Weapon System (CIWS) Block IB Baseline 2 Upgrade Kits: 50 ii) Support equipment: Not specified iii) Test equipment: Not specified iv) Initial spare parts: Not specified v) Technical documentation: Not specified vi) Training: Not specified vii) Engineering technical assistance: Not specified viii) Other related elements of logistics and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2018/11/08/2018-24417/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20181008100623if_/http://www.dsca.mil:80/sites/default/files/mas/uk_18-37.pdf"
   },
   {
-    "date": "2018-09-01",
+    "date": "2018-09-20",
     "transmittal": "18-36",
     "country": "United Kingdom",
     "system": "SEAL Delivery Vehicle (SDV) MK 11 Shallow Water Combat Submersibles (SWCS)",
@@ -6795,7 +6784,7 @@
     "contractor": "Teledyne Brown Engineering, Inc.",
     "contractorLocation": "Huntsville, Alabama",
     "description": "i) SEAL Delivery Vehicles (SDV) MK 11 Shallow Water Combat Submersibles (SWCS) ii) Spares iii) Handling equipment iv) Test equipment v) Operator manuals and technical documentation vi) U.S. Government and contractor engineering services vii) Training services viii) Technical support services ix) Logistical support services x) Other related elements of logistics and program support\n\nQuantities: i) SEAL Delivery Vehicles (SDV) MK 11 Shallow Water Combat Submersibles (SWCS): 3 ii) spares: Not specified iii) handling equipment: Not specified iv) test equipment: Not specified v) operator manuals and technical documentation: Not specified vi) U.S. Government and contractor engineering, training, technical, and logistical support services: Not specified vii) other related elements of logistics and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2018/11/08/2018-24416/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210326220335if_/https://www.dsca.mil/sites/default/files/mas/uk_18-36_0.pdf"
   },
   {
     "date": "2018-09-05",
@@ -6875,7 +6864,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606544/-1/-1/0/BAHRAIN_18-22.PDF"
   },
   {
-    "date": "2018-10-01",
+    "date": "2018-10-19",
     "transmittal": "18-40",
     "country": "United Kingdom",
     "system": "H-47 Chinook (Extended Range) helicopters",
@@ -6883,7 +6872,7 @@
     "contractor": "Boeing Defense and Space",
     "contractorLocation": "Ridley Park, Pennsylvania",
     "description": "i) H-47 Chinook (Extended Range) helicopters ii) T-55-GA-714A engines iii) embedded GPS inertial navigation units iv) common missile warning systems v) radio-frequency countermeasures vi) multi-mode radars vii) electro-optical sensor systems viii) M-134D-T mini-guns, plus mounts and tools ix) M240H machine guns, plus mounts and tools x) communications equipment xi) navigation equipment xii) aircraft survivability equipment xiii) initial training equipment and services xiv) synthetic training equipment xv) support package including spares and repair parts xvi) special tools and test equipment xvii) aviation ground support equipment xviii) safety and air worthiness certification xix) technical support xx) maintenance support xxi) technical and aircrew publications xxii) mission planning system equipment and support xxiii) project management and governance xxiv) U.S. Government and contractor engineering and logistics support services xxv) other related elements of logistic and program support\n\nQuantities: i) H-47 Chinook (Extended Range) helicopters: 16 ii) T-55-GA-714A engines: 36 (32 installed, 4 spares) iii) Embedded GPS inertial navigation units: 48 (32 installed, 16 spares) iv) Common missile warning systems: 20 (16 installed, 4 spares) v) Radio-frequency countermeasures: 22 (16 installed, 6 spares) vi) Multi-mode radars: 19 (16 installed, 3 spares) vii) Electro-optical sensor systems: 19 (16 installed, 3 spares) viii) M-134D-T mini-guns, plus mounts and tools: 40 (32 installed, 8 spares) ix) M240H machine guns, plus mounts and tools: 40 (32 installed, 8 spares) x) Communications equipment: Not specified xi) Navigation equipment: Not specified xii) Aircraft survivability equipment: Not specified xiii) Initial training equipment and services: Not specified xiv) Synthetic training equipment: Not specified xv) Support package including spares and repair parts: Not specified xvi) Special tools and test equipment: Not specified xvii) Aviation ground support equipment: Not specified xviii) Safety and air worthiness certification: Not specified xix) Technical support: Not specified xx) Maintenance support: Not specified xxi) Technical and aircrew publications: Not specified xxii) Mission planning system equipment and support: Not specified xxiii) Project management and governance: Not specified xxiv) U.S. Government and contractor engineering and logistics support services: Not specified xxv) Other related elements of logistic and program support: Not specified xxvi) U.S. Government personnel assigned to the UK: Approximately 29-32 xxvii) Contractors assigned to the UK: 26 xxviii) Equivalent man years TDY to support fielding and initial sustainment: 3",
-    "sourceUrl": "https://www.federalregister.gov/documents/2018/11/08/2018-24418/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210315144211if_/https://www.dsca.mil/sites/default/files/mas/uk_18-40.pdf"
   },
   {
     "date": "2018-10-04",
@@ -6908,7 +6897,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606536/-1/-1/0/BAHRAIN_18-41.PDF"
   },
   {
-    "date": "2018-11-01",
+    "date": "2018-11-16",
     "transmittal": "18-39",
     "country": "NATO",
     "system": "Precision guided munitions kits including KMU-556 F/B Joint Direct Attack Munition (JDAM) Kits, KMU-557 F/B JDAM Kits, KMU-572 F/B JDAM Kits, Munitions Adapter Unit (MAU)-210 F/B Enhanced Computer Control Groups (ECCGs), MAU-209 C/B or MAU-169 L/B CCGs, MXU-650K/B AFGs, Joint Programmable Fuze FMU-152 A/B, Detector Sensing Unit (DSU)-38A/B Laser kits, DSU-33D/B proximity sensors, Wireless Paveway Avionics Kit (WIPAK) interfaces, and associated repair and return services.",
@@ -6916,7 +6905,7 @@
     "contractor": "Boeing Corporation / Raytheon Missile Systems",
     "contractorLocation": "St Louis, Missouri / Tucson, Arizona",
     "description": "i) KMU-556 F/B Joint Direct Attack Munition (JDAM) Kits for GBU-31 2000-lbs ii) KMU-557 F/B JDAM Kits for GBU-31 2000-Ibs iii) KMU-572 F/B JDAM Kits for GBU-38 500-lbs iv) Munitions Adapter Unit (MAU)-210 F/B Enhanced Computer Control Groups (ECCGs) for GBU-48 1,000-lb EPII v) MAU-210 F/B ECCGs for GBU-49 500-lbs EPII vi) MXU-650K/B AFGs for GBU-49 500-lbs EPII vii) MAU-209 C/B or MAU-169 L/B CCGs for GBU-12 500 Ibs Paveway II viii) MXU-650 K/B AFGs for GBU-12 500 Ibs Paveway II ix) Joint Programmable Fuze, FMU-152 A/B for all GBU types x) Detector Sensing Unit (DSU)-38A/B Laser kits xi) DSU-33D/B proximity sensors xii) Wireless Paveway Avionics Kit (WIPAK) interfaces for Enhanced Paveway II bombs xiii) Repair and return services xiv) Transportation xv) Engineering services xvi) Other support services\n\nQuantities: i) KMU-556 F/B Joint Direct Attack Munition (JDAM) Kits for GBU-31 2000-lbs: 500 ii) KMU-557 F/B JDAM Kits for GBU-31 2000-lbs: 40 iii) KMU-572 F/B JDAM Kits for GBU-38 500-lbs: 1,500 iv) Munitions Adapter Unit (MAU)-210 F/B Enhanced Computer Control Groups (ECCGs) for GBU-48 1,000-lb EPII: 1,000 v) MAU-210 F/B ECCGs for GBU-49 500-lbs EPII: 300 vi) MXU-650K/B AFGs for GBU-49 500-lbs EPII: 300 vii) MAU-209 C/B or MAU-169 L/B CCGs for GBU-12 500 lbs Paveway II: 1,025 viii) MXU-650 K/B AFGs for GBU-12 500 lbs Paveway II: 1,025 ix) Joint Programmable Fuze, FMU-152 A/B for all GBU types: 4,365 x) Detector Sensing Unit (DSU)-38A/B Laser kits: Not specified xi) DSU-33D/B proximity sensors: Not specified xii) Wireless Paveway Avionics Kit (WIPAK) interfaces for Enhanced Paveway II bombs: Not specified xiii) Repair and return services: Not specified xiv) Transportation services: Not specified xv) Engineering services: Not specified xvi) Other support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2019/12/31/2019-28214/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20181126100838if_/http://dsca.mil:80/sites/default/files/mas/nspa_18-39.pdf"
   },
   {
     "date": "2018-11-19",
@@ -7040,7 +7029,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606413/-1/-1/0/ISRAEL_19-05.PDF"
   },
   {
-    "date": "2019-03-01",
+    "date": "2019-03-25",
     "transmittal": "19-10",
     "country": "Morocco",
     "system": "F-16 aircraft upgrade to F-16V configuration",
@@ -7048,10 +7037,10 @@
     "contractor": "Lockheed Corporation",
     "contractorLocation": "Bethesda, Maryland",
     "description": "i) APG-83 Active Electronically Scanned Array (AESA) Radars ii) Modular Mission Computers iii) Link-16 Multifunctional Information Distribution System — JTRS (MIDS-JTRS) with TACAN and ESHI Terminals iv) LN260 Embedded Global Navigation Systems (EGI) v) Joint Helmet Mounted Cueing Systems II vi) Improved Programmable Display Generators (iPDG) vii) LAU-129 Multi-Purpose Launchers viii) AN/AAQ-33 Sniper Pods ix) AN/ALQ-213 EW Management Systems x) Advanced Identification Friend/Foe xi) Joint Mission Planning System xii) AN/ALQ-211 AIDEWS xiii) DB-110 Advanced Reconnaissance Systems xiv) Secure communications xv) Cryptographic precision navigation equipment xvi) Spares and repair parts xvii) Support equipment xviii) Personnel training and training equipment xix) Publications and technical documentation xx) Support and test equipment xxi) Simulators xxii) Integration and test xxiii) U.S. Government and contractor engineering, technical and logistical support services xxiv) Other related elements of logistics and program support\n\nQuantities: i) F-16 aircraft: 23 ii) APG-83 Active Electronically Scanned Array (AESA) Radars: 26 iii) Modular Mission Computers: 26 iv) Link-16 Multifunctional Information Distribution System — JTRS (MIDS-JTRS) with TACAN and ESHI Terminals: 26 v) LN260 Embedded Global Navigation Systems (EGI): 26 vi) Joint Helmet Mounted Cueing Systems II: 26 vii) Improved Programmable Display Generators (iPDG): 26 viii) LAU-129 Multi-Purpose Launchers: 50 ix) AN/AAQ-33 Sniper Pods: 26 x) AN/ALQ-213 EW Management Systems: 26 xi) Advanced Identification Friend/Foe: 26 xii) Joint Mission Planning System: 26 xiii) AN/ALQ-211 AIDEWS: 26 xiv) DB-110 Advanced Reconnaissance Systems: 6 xv) Secure communications: Not specified xvi) Cryptographic precision navigation equipment: Not specified xvii) Spares and repair parts: Not specified xviii) Support equipment: Not specified xix) Personnel training and training equipment: Not specified xx) Publications and technical documentation: Not specified xxi) Support and test equipment: Not specified xxii) Simulators: Not specified xxiii) Integration and test: Not specified xxiv) U.S. Government and contractor engineering, technical and logistical support services: Not specified xxv) Other related elements of logistics and program support: Not specified xxvi) Additional U.S. Government representatives assigned to Morocco: 10 xxvii) Contract representatives assigned to Morocco: Approximately 75",
-    "sourceUrl": "https://www.federalregister.gov/documents/2019/06/13/2019-12445/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20190326094233if_/https://www.dsca.mil/sites/default/files/mas/morocco_19-10b.pdf"
   },
   {
-    "date": "2019-03-01",
+    "date": "2019-03-25",
     "transmittal": "19-09",
     "country": "Morocco",
     "system": "F-16C/D Block 72 aircraft",
@@ -7059,7 +7048,7 @@
     "contractor": "Lockheed Corporation",
     "contractorLocation": "Bethesda, Maryland",
     "description": "i) F-16C/D Block 72 aircraft ii) Pratt & Whitney F100-229 engines iii) APG-83 Active Electronically Scanned Array (AESA) radars iv) Modular Mission Computers v) Link-16 Multifunctional Information Distribution Systems — JTRS (MIDS-JTRS) with TACAN and ESHI Terminals vi) LN260 Embedded Global Navigation Systems (EGI) vii) Joint Helmet Mounted Cueing Systems (JHMCS) viii) Improved Programmable Display Generators (iPDG) ix) M61 Al Vulcan 20mm Guns x) LAU-129 Multi-Purpose Launchers xi) AIM-120C-7 Advanced Medium Range Air-to-Air Missiles (AMRAAM) xii) AIM-120C-7 Guidance Sections xiii) GBU-38/54 JDAM Tail Kits xiv) MXU-650 Air Foil Group, GBU-49 xv) MAU-210 Enhanced Computer Control Group (CCG), GBU-49,-50 xvi) FMU-139 D/B Fuzes xvii) FMU-139 D/B (D-l) Inert Fuzes xviii) GBU-39 (T-1) GTVs xix) GBU-39/B Small Diameter Bombs (SDB J) xx) MAU-169L/B Computer Control Group, GBU-10,-12,-16 xxi) MXU-650C/B Air Foil Group, GBU-12 xxii) MK82 Bombs, Filled Inert xxiii) BLU-109 Practice Bombs xxiv) MAU-169 CCG (D-2) xxv) AN/AAQ-33 Sniper Pods xxvi) AN/ALQ-213 EW Management Systems xxvii) Advanced Identification Friend/Foe xxviii) Secure Communications, Cryptographic Precision Navigation Equipment xxix) Joint Mission Planning System xxx) AN/ALQ-211 AIDEWS xxxi) DB-110 Advanced Reconnaissance Systems xxxii) Communications equipment xxxiii) Spares and repair parts xxxiv) Support equipment xxxv) Personnel training and training equipment xxxvi) Publications and technical documentation xxxvii) Support and test equipment xxxviii) Simulators xxxix) Integration and test xl) U.S. Government and contractor engineering, technical and logistical support services xli) Other related elements of logistics and program support\n\nQuantities: i) F-16C/D Block 72 aircraft: 25 ii) Pratt & Whitney F100-229 engines: 29 iii) APG-83 Active Electronically Scanned Array (AESA) radars: 26 iv) Modular Mission Computers: 26 v) Link-16 Multifunctional Information Distribution Systems — JTRS (MIDS-JTRS) with TACAN and ESHI Terminals: 26 vi) LN260 Embedded Global Navigation Systems (EGI): 26 vii) Joint Helmet Mounted Cueing Systems (JHMCS): 40 viii) Improved Programmable Display Generators (iPDG): 26 ix) M61 Al Vulcan 20mm Guns: 30 x) LAU-129 Multi-Purpose Launchers: 50 xi) AIM-120C-7 Advanced Medium Range Air-to-Air Missiles (AMRAAM): 40 xii) AIM-120C-7 Guidance Sections: 40 xiii) GBU-38/54 JDAM Tail Kits: 3 xiv) MXU-650 Air Foil Group, GBU-49: 50 xv) MAU-210 Enhanced Computer Control Group (CCG), GBU-49,-50: 50 xvi) FMU-139 D/B Fuzes: 36 xvii) FMU-139 D/B (D-l) Inert Fuzes: 6 xviii) GBU-39 (T-1) GTVs: 2 xix) GBU-39/B Small Diameter Bombs (SDB J): 60 xx) MAU-169L/B Computer Control Group, GBU-10,-12,-16: 10 xxi) MXU-650C/B Air Foil Group, GBU-12: 10 xxii) MK82 Bombs, Filled Inert: 12 xxiii) BLU-109 Practice Bombs: 4 xxiv) MAU-169 CCG (D-2): 10 xxv) AN/AAQ-33 Sniper Pods: 26 xxvi) AN/ALQ-213 EW Management Systems: 26 xxvii) Advanced Identification Friend/Foe; Secure Communications, Cryptographic Precision Navigation Equipment: 26 xxviii) Joint Mission Planning System: 1 xxix) AN/ALQ-211 AIDEWS: 26 xxx) DB-110 Advanced Reconnaissance Systems: 6 xxxi) Communications equipment: Not specified xxxii) Spares and repair parts: Not specified xxxiii) Support equipment: Not specified xxxiv) Personnel training and training equipment: Not specified xxxv) Publications and technical documentation: Not specified xxxvi) Support and test equipment, simulators: Not specified xxxvii) Integration and test: Not specified xxxviii) U.S. Government and contractor engineering, technical and logistical support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2019/06/13/2019-12443/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20190326094214if_/https://www.dsca.mil/sites/default/files/mas/morocco_19-09b.pdf"
   },
   {
     "date": "2019-03-13",
@@ -7304,7 +7293,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/18/2003615369/-1/-1/0/UAE_17-39.PDF"
   },
   {
-    "date": "2019-06-01",
+    "date": "2019-06-28",
     "transmittal": "19-24",
     "country": "Germany",
     "system": "AGM-88E Advanced Anti-Radiation Guided Missile (AARGM) Tactical Missiles and Captive Air Training Missiles (CATM) with upgrade from AGM-88B missiles",
@@ -7312,7 +7301,7 @@
     "contractor": "NATO Support and Procurement Agency (NSPA) / NGIS (Northrop Grumman Innovation Systems) / Tornado Management Agency (NETMA) / Northrop Grumman Innovation Systems (formerly Orbital ATK)",
     "contractorLocation": "Germany / Ridgecrest, CA, USA / Germany / USA",
     "description": "i) Telemetry/flight termination systems ii) Flight Data Recorders (FDR) iii) U.S. Government engineering support services iv) Contractor engineering support services v) Technical support services vi) Logistics support services vii) Miscellaneous support equipment viii) Program management reviews\n\nQuantities: i) AGM-88E Advanced Anti-Radiation Guided Missile (AARGM) Tactical Missiles: 91 ii) AGM-88E AARGM Captive Air Training Missiles (CATM): 8 iii) Telemetry/flight termination systems: 6 iv) Flight Data Recorders (FDR): Not specified v) U.S. Government engineering support services: Not specified vi) Contractor engineering support services: Not specified vii) Technical support services: Not specified viii) Logistics support services: Not specified ix) Miscellaneous support equipment: Not specified x) Program Management Reviews visits: 10 (2 visits per year over 5 years) xi) U.S. government personnel for Program Management Reviews travel: 5 xii) Contractor representatives for Program Management Reviews travel: 3",
-    "sourceUrl": "https://www.federalregister.gov/documents/2019/07/25/2019-15839/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20190701110237if_/https://www.dsca.mil/sites/default/files/mas/nspa_19-24.pdf"
   },
   {
     "date": "2019-06-03",
@@ -7524,7 +7513,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610846/-1/-1/0/KOREA_19-28.PDF"
   },
   {
-    "date": "2019-09-01",
+    "date": "2019-09-12",
     "transmittal": "19-38",
     "country": "Morocco",
     "system": "F-16 ammunition",
@@ -7532,7 +7521,7 @@
     "contractor": "Raytheon / Orbital ATK / General Dynamics / Kilgore Cheming Groupe / Cheming Groupe / Kaman Precision Products",
     "contractorLocation": "USA / USA / USA / USA / USA / USA",
     "description": "i) MK82-1 Bombs (Tritonal) ii) MK 84-4 Bombs (Tritonal) iii) Joint Direct Attack Munitions (JDAM) KMU-572F/B Tail Kits iv) MXU-651B/B Air Foil Groups (AFG), GBU-10 v) MXU-650C/B Air Foil Groups (AFG), GBU-12 vi) MAU-169L/B Computer Control Groups (CCG), GBU-10,-12,-16 vii) FMU-152 Fuzes viii) Flares M-206 ix) Flares MJU-7A/B x) Impulse Cartridges BBU-36 xi) Impulse Cartridges BBU-35/B xii) Bomb Sensor DSU-33C/B xiii) Chaff xiv) Bomb components xv) Spares xvi) Repair parts xvii) Support equipment xviii) Publications and technical documentation xix) Engineering technical and support services xx) Other related elements of logistics, transportation, and program support\n\nQuantities: i) MK82-1 Bombs (Tritonal): 5,810 ii) MK 84-4 Bombs (Tritonal): 300 iii) Joint Direct Attack Munitions (JDAM) KMU-572F/B Tail Kits: 105 iv) MXU-651B/B Air Foil Groups (AFG), GBU-10: 180 v) MXU-650C/B AFGs, GBU-12: 4,125 vi) MAU-169L/B Computer Control Groups (CCG), GBU-10,-12,-16: 4,305 vii) FMU-152 Fuzes: 5,178 viii) Flares M-206: Not specified ix) Flares MJU-7A/B: Not specified x) Impulse Cartridges BBU-36: Not specified xi) Impulse Cartridges BBU-35/B: Not specified xii) Bomb Sensor DSU-33C/B: Not specified xiii) Chaff: Not specified xiv) Bomb components: Not specified xv) Spares: Not specified xvi) Repair parts: Not specified xvii) Support equipment: Not specified xviii) Publications and technical documentation: Not specified xix) Engineering technical and support services: Not specified xx) Other related elements of logistics, transportation, and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2019/12/20/2019-27480/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20190913120822if_/https://www.dsca.mil/sites/default/files/mas/morocco_19-38.pdf"
   },
   {
     "date": "2019-09-11",
@@ -7810,7 +7799,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003602665/-1/-1/0/TUNISIA_19-71.PDF"
   },
   {
-    "date": "2020-03-01",
+    "date": "2020-03-03",
     "transmittal": "20-03",
     "country": "Morocco",
     "system": "M88A2 Heavy Equipment Recovery Combat Utility Lift and Evacuation System (HERCULES) vehicles and/or M88A1 long supply HERCULES refurbished vehicles",
@@ -7818,7 +7807,7 @@
     "contractor": "BAE",
     "contractorLocation": "York, Pennsylvania",
     "description": "i) M2 .50 caliber machine guns ii) Single Channel Ground and Airborne Radio System (SINCGARS) iii) AN/PSN-13A Defense Advanced Global Positioning System (GPS) Receiver (DAGR) with Selective-Availability/Anti-Spoofing Module (SAASM) iv) AN/VAS-S5B Driver Vision Enhancer (DVE) kits v) M239 or M250 smoke grenade launchers vi) M76 (G826) or L8A1/L8A3 (G815) smoke grenade rounds vii) Spare parts viii) Support equipment ix) Depot level support x) Government-Furnished Equipment (GFE) xi) Repair parts xii) Communication support equipment xiii) Communication equipment integration xiv) Tools and test equipment xv) Training xvi) Training simulators xvii) Repair and return program xviii) U.S. Government and contractor engineering, technical, and logistics support services xix) Technical Assistance Field Team (TAFT) xx) Other related elements of logistics and program support xxi) Other technical assistance and support equipment xxii) Equipment de-processing/fielding xxiii) System checkout xxiv) New equipment training\n\nQuantities: i) M88A2 Heavy Equipment Recovery Combat Utility Lift and Evacuation System (HERCULES) vehicles and/or M88A1 long supply HERCULES refurbished vehicles: 25 ii) M2 .50 caliber machine guns: 25 iii) Single Channel Ground and Airborne Radio System (SINCGARS): 25 iv) AN/PSN-13A Defense Advanced Global Positioning System (GPS) Receiver (DAGR) with Selective-Availability/Anti-Spoofing Module (SAASM): 25 v) AN/VAS-S5B Driver Vision Enhancer (DVE) kits: 30 vi) M239 or M250 smoke grenade launchers: 25 vii) M76 (G826) or L8A1/L8A3 (G815) smoke grenade rounds: 1800 viii) A576 cartridges, .50 caliber linked 4 API/API-T F/M2: 25000 ix) G815 - grenade, smoke screening L8A1/A3: 300 x) A541 - 50 armor piercing incendiary, tracer M20 F/M2: 2500 xi) A557 - cartridge, .50 caliber 4 ball/1 tracer linked M33 F/M2: 91800 xii) A598 - cartridge, .50 caliber blank F/M2: 54000 xiii) Spare parts: Not specified xiv) Support equipment: Not specified xv) Depot level support: Not specified xvi) Government-Furnished Equipment (GFE): Not specified xvii) Repair parts: Not specified xviii) Communication support equipment: Not specified xix) Communication equipment integration: Not specified xx) Tools and test equipment: Not specified xxi) Training: Not specified xxii) Training simulators: Not specified xxiii) Repair and return program: Not specified xxiv) U.S. Government and contractor engineering, technical, and logistics support services: Not specified xxv) Technical Assistance Field Team (TAFT): Not specified xxvi) Other related elements of logistics and program support: Not specified xxvii) Assignment of U.S. Government or contractor representatives for equipment de-processing/fielding, system checkout and new equipment training: Approximately 30",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/03/17/2020-05468/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20200427072000if_/https://dsca.mil/sites/default/files/mas/morocco_20-03.pdf"
   },
   {
     "date": "2020-03-03",
@@ -7942,7 +7931,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610502/-1/-1/0/PHILIPPINES_20-05.PDF"
   },
   {
-    "date": "2020-05-01",
+    "date": "2020-05-20",
     "transmittal": "20-07",
     "country": "Taiwan",
     "system": "MK 48 Mod 6 Advanced Technology (AT) Heavy Weight Torpedo (HWT)",
@@ -7950,7 +7939,7 @@
     "contractor": "No contractor specified",
     "contractorLocation": null,
     "description": "i) MK-48 Mod6 Advanced Technology (AT) Heavy Weight Torpedoes (HWT) ii) Spare parts iii) Support and test equipment iv) Shipping and shipping containers v) Operator manuals vi) Technical documentation vii) Training viii) U.S. Government and contractor engineering, technical and logistics support services ix) Other related elements of logistics support\n\nQuantities: i) MK-48 Mod6 Advanced Technology (AT) Heavy Weight Torpedoes (HWT): 18 ii) Spare parts: Not specified iii) Support and test equipment: Not specified iv) Shipping and shipping containers: Not specified v) Operator manuals: Not specified vi) Technical documentation: Not specified vii) Training: Not specified viii) U.S. Government and contractor engineering, technical and logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/07/17/2020-15497/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20200524025850if_/https://www.dsca.mil/sites/default/files/mas/taiwan_20-07_0.pdf"
   },
   {
     "date": "2020-05-07",
@@ -8041,7 +8030,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604107/-1/-1/0/UKRAINE_20-39.PDF"
   },
   {
-    "date": "2020-07-01",
+    "date": "2020-07-09",
     "transmittal": "20-24",
     "country": "Taiwan",
     "system": "Recertification and repair of Patriot Advanced Capability-3 (PAC-3) missiles",
@@ -8049,7 +8038,7 @@
     "contractor": "Lockheed Martin",
     "contractorLocation": "Camden, Arizona",
     "description": "i) Recertification of Patriot Advanced Capability-3 (PAC-3) missiles ii) Replacement of expiring Limited Life Components (LLCs) iii) Test and repair of PAC-3 missiles, including Stockpile Reliability Testing (SRT) and Field Returns iv) Repair and Return (R&R) of classified and unclassified PAC-3 missile items v) Ground Support Equipment (GSE) component level parts vi) Replenishment of classified and unclassified missile spares vii) GSE spares viii) Seeker spares pool ix) Air transportation services for missile processing x) U.S. Government and contractor technical and logistics support xi) Other related elements of logistics support\n\nQuantities: i) Recertification of Patriot Advanced Capability-3 (PAC-3) missiles: Not specified ii) Replacement of expiring Limited Life Components (LLCs): Not specified iii) Certification testing: Not specified iv) Test and repair of PAC-3 missiles: Not specified v) Stockpile Reliability Testing (SRT): Not specified vi) Repair and Return (R&R) of classified and unclassified PAC-3 missile items: Not specified vii) Ground Support Equipment (GSE) component level parts: Not specified viii) Replenishment of classified and unclassified missile spares: Not specified ix) GSE spares: Not specified x) Seeker spares pool: Not specified xi) Air transportation services for missile processing: Not specified xii) U.S. Government and contractor technical and logistics support: Not specified xiii) Other related elements of logistics support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/08/26/2020-18784/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20200716090640if_/https://dsca.mil/sites/default/files/mas/taiwan_20-24.pdf"
   },
   {
     "date": "2020-07-06",
@@ -8206,7 +8195,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610526/-1/-1/0/JAPAN_20-54.PDF"
   },
   {
-    "date": "2020-09-01",
+    "date": "2020-09-24",
     "transmittal": "20-76",
     "country": "United Kingdom",
     "system": "C-17 aircraft Contractor Logistics Support (CLS)",
@@ -8214,7 +8203,7 @@
     "contractor": "The Boeing Company",
     "contractorLocation": "Chicago, Illinois",
     "description": "i) Aircraft component spare and repair parts ii) Accessories iii) Publications and technical documentation iv) Software and software support v) U.S. Government and contractor engineering, technical and logistical support services vi) Other related elements of logistical and program support\n\nQuantities: i) C-17 aircraft Contractor Logistics Support (CLS): Not specified ii) aircraft component spare and repair parts: Not specified iii) accessories: Not specified iv) publications and technical documentation: Not specified v) software and software support: Not specified vi) U.S. Government and contractor engineering, technical and logistical support services: Not specified vii) other related elements of logistical and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/02/2020-26542/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210327062218if_/https://www.dsca.mil/sites/default/files/mas/UK_20-76.pdf"
   },
   {
     "date": "2020-09-02",
@@ -8327,7 +8316,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610843/-1/-1/0/KOREA_20-60.PDF"
   },
   {
-    "date": "2020-10-01",
+    "date": "2020-10-21",
     "transmittal": "20-69",
     "country": "Taiwan",
     "system": "AGM-84H Standoff Land Attack Missile-Expanded Response (SLAM-ER) Missiles",
@@ -8335,10 +8324,10 @@
     "contractor": "The Boeing Company / Taipei Economic and Cultural Representative Office in the United States (TECRO)",
     "contractorLocation": "St. Louis, Missouri / United States",
     "description": "i) AGM-84H Standoff Land Attack Missile Expanded Response (SLAM-ER) Missiles ii) ATM-84H SLAM-ER Telemetry Missiles iii) CATM-84H Captive Air Training Missiles (CATM) iv) Containers v) Spare and repair parts vi) Support and test equipment vii) Publications and technical documentation viii) Personnel training and training equipment ix) U.S. Government and contractor representatives’ technical assistance x) Engineering and logistics support services xi) Other related elements of logistics support\n\nQuantities: i) AGM-84H Standoff Land Attack Missile Expanded Response (SLAM-ER) Missiles: 135 ii) ATM-84H SLAM-ER Telemetry Missiles: 4 iii) CATM-84H Captive Air Training Missiles (CATM): 12 iv) Containers: 151 v) Personnel training: Not specified vi) Training equipment: Not specified vii) U.S. Government and contractor representatives’ technical assistance: Not specified viii) Engineering and logistics support services: Not specified ix) U.S. contractor representatives: 2 (for a duration of 8 years)",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/11/2020-27298/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201027065806if_/https://www.dsca.mil/sites/default/files/mas/Taiwan_20-69.pdf"
   },
   {
-    "date": "2020-10-01",
+    "date": "2020-10-26",
     "transmittal": "20-68",
     "country": "Taiwan",
     "system": "Harpoon Coastal Defense Systems (HCDS) including RGM-84L-4 Harpoon Block II Surface Launched Missiles",
@@ -8346,10 +8335,10 @@
     "contractor": "The Boeing Company",
     "contractorLocation": "St. Louis, Missouri",
     "description": "i) Harpoon Coastal Defense Systems (HCDS) ii) RGM-84L-4 Harpoon Block II Surface Launched Missiles iii) RTM-84L-4 Harpoon Block II Exercise Missiles iv) Containers v) Harpoon Coastal Defense System Launcher Transporter Units vi) Radar trucks vii) Spare and repair parts viii) Support and test equipment ix) Publications and technical documentation x) Personnel training and training equipment xi) U.S. Government and contractor representatives’ technical assistance xii) Engineering and logistics support services xiii) Other related elements of logistics support\n\nQuantities: i) Harpoon Coastal Defense Systems (HCDS): 100 ii) RGM-84L-4 Harpoon Block II Surface Launched Missiles: 400 iii) RTM-84L-4 Harpoon Block II Exercise Missiles: 4 iv) Containers: 411 v) Harpoon Coastal Defense System Launcher Transporter Units: 100 vi) Radar trucks: 25 vii) Personnel training: Not specified viii) Training equipment: Not specified ix) U.S. Government and contractor representatives’ technical assistance: Not specified x) Engineering and logistics support services: Not specified xi) U.S. contractor representatives: 2 xii) Duration of contractor representatives' support: 8 years",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/11/2020-27292/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201101042304if_/https://www.dsca.mil/sites/default/files/mas/Taiwan_20-68.pdf"
   },
   {
-    "date": "2020-10-01",
+    "date": "2020-10-21",
     "transmittal": "20-77",
     "country": "Taiwan",
     "system": "High Mobility Artillery Rocket Systems (HIMARS) M142 Launchers and related support and equipment",
@@ -8357,10 +8346,10 @@
     "contractor": "Lockheed Martin Missile and Fire Control",
     "contractorLocation": "Grand Prairie, Texas",
     "description": "i) M1152A1 High Mobility Multipurpose Wheeled Vehicles (HMMWVs) ii) M240B Machine Guns, 7.62MM iii) International Field Artillery Tactical Data Systems (IFATDS) iv) M28A2 Low Cost Reduced Range Practice Rocket Pods (LCRRPR) v) M2A1 machine guns, .50 caliber vi) AN/NRC-92E dual radio systems vii) AN/NRC-92E dual radio ground stations viii) AN/VRC-90E single radio systems ix) M1084A2 cargo Family of Medium Tactical Vehicles (FMTV) Resupply Vehicles (RSV) x) M1089A2 cargo wrecker FMTV RSV xi) M1095 trailer cargo FMTV, 5-ton xii) Support equipment xiii) Communications equipment xiv) Spare and repair parts xv) Test sets xvi) Laptop computers xvii) Training and training equipment xviii) Publications xix) Systems integration support xx) Technical data xxi) Stockpile Reliability Program (SRP) xxii) Quality Assurance and Technical Assistance Teams xxiii) U.S. Government and contractor technical, engineering, and logistics support services xxiv) Other related elements of logistical and program support\n\nQuantities: i) High Mobility Artillery Rocket Systems (HIMARS) M142 Launchers: 11 ii) Army Tactical Missile Systems (ATACMS) M57 Unitary Missiles: 64 iii) M1152A1 High Mobility Multipurpose Wheeled Vehicles (HMMWVs): 7 iv) M240B Machine Guns, 7.62MM: 11 v) International Field Artillery Tactical Data Systems (IFATDS): 17 vi) M28A2 Low Cost Reduced Range Practice Rocket Pods (LCRRPR): 54 vii) M2A1 machine guns, .50 caliber: 11 viii) AN/NRC-92E dual radio systems: 22 ix) AN/NRC-92E dual radio ground stations: 7 x) AN/VRC-90E single radio systems: 15 xi) M1084A2 cargo Family of Medium Tactical Vehicles (FMTV) Resupply Vehicles (RSV): 11 xii) M1089A2 cargo wrecker FMTV RSV: 2 xiii) M1095 trailer cargo FMTV, 5-ton: 11 xiv) Support equipment: Not specified xv) Communications equipment: Not specified xvi) Spare and repair parts: Not specified xvii) Test sets: Not specified xviii) Laptop computers: Not specified xix) Training and training equipment: Not specified xx) Publication: Not specified xxi) Systems integration support: Not specified xxii) Technical data: Not specified xxiii) Stockpile Reliability Program (SRP): Not specified xxiv) Quality Assurance and Technical Assistance Teams: Not specified xxv) U.S. Government and contractor technical, engineering, and logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/17/2020-27716/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201101124456if_/https://www.dsca.mil/sites/default/files/mas/Taiwan_20-77.pdf"
   },
   {
-    "date": "2020-10-01",
+    "date": "2020-10-21",
     "transmittal": "20-75",
     "country": "Taiwan",
     "system": "MS-110 Recce Pod System",
@@ -8368,7 +8357,7 @@
     "contractor": "Collins Aerospace",
     "contractorLocation": "Westford, Massachusetts",
     "description": "i) MS-110 Recce Pods ii) Transportable Ground Stations iii) Fixed Ground station iv) Spare and repair parts v) Repair and return vi) Site surveys vii) Integration and test equipment viii) System support and equipment ix) Personnel training and training equipment x) Publications and technical documentation xi) U.S. Government and contractor engineering, technical, and logistical support services xii) Other related elements of logistical and program support\n\nQuantities: i) MS-110 Recce Pods: 6 ii) Transportable Ground Stations: 3 iii) Fixed Ground station: 1 iv) Spare and repair parts: Not specified v) Repair and return: Not specified vi) Site surveys: Not specified vii) Integration and test equipment: Not specified viii) System support and equipment: Not specified ix) Personnel training and training equipment: Not specified x) Publications and technical documentation: Not specified xi) U.S. Government and contractor engineering, technical, and logistical support services: Not specified xii) Other related elements of logistical and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/17/2020-27732/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201027112904if_/https://www.dsca.mil/sites/default/files/mas/Taiwan_20-75.pdf"
   },
   {
     "date": "2020-10-09",
@@ -8426,7 +8415,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604361/-1/-1/0/GUYANA_20-25.PDF"
   },
   {
-    "date": "2020-11-01",
+    "date": "2020-11-03",
     "transmittal": "20-74",
     "country": "Taiwan",
     "system": "Weapons-Ready MQ-9B Remotely Piloted Aircraft",
@@ -8434,7 +8423,7 @@
     "contractor": "General Atomic Aeronautical System, Inc.",
     "contractorLocation": "San Diego, California",
     "description": "i) Weapons-Ready MQ-9B Remotely Piloted Aircraft ii) Fixed Ground Control Stations iii) Mobile Ground Control Stations iv) Embedded Global Positioning System/Inertial Navigations Systems (EGI) with Selective Availability Anti-Spoofing Module (SAASM) v) MX-20 Multi-Spectral Targeting Systems and spares vi) SeaVue Maritime Multi-Role Patrol Radars vii) SAGE 750 Electronic Surveillance Measures (ESM) Systems viii) C-Band Line-of-Sight (LOS) Ground Data Terminals ix) Ku-Band SATCOM GA-ASI Transportable Earth Stations (GATES) x) AN/DPX-7 IFF Transponders xi) Honeywell TPE-331-10GD Turboprop Engines xii) M6000 UHF/VHF Radios xiii) KIV-77 Mode 5 IFF cryptographic appliques xiv) AN/PYQ-10C Simple Key Loaders xv) Secure communications, cryptographic and Identification Friend or Foe (IFF) equipment xvi) Initial spare and repair parts xvii) Hard points, power, and data connections for weapons integration xviii) Support and test equipment xix) Publications and technical documentation xx) Personnel training and training equipment xxi) U.S. Government and contractor engineering, technical, and logistics support services xxii) Other related elements of logistical and program support\n\nQuantities: i) Weapons-Ready MQ-9B Remotely Piloted Aircraft: 4 ii) Fixed Ground Control Stations: 2 iii) Mobile Ground Control Stations: 2 iv) Embedded Global Positioning System/Inertial Navigations Systems (EGI) with Selective Availability Anti-Spoofing Module (SAASM): 14 (12 installed, 2 spares) v) MX-20 Multi-Spectral Targeting Systems: Not specified vi) SeaVue Maritime Multi-Role Patrol Radars: Not specified vii) SAGE 750 Electronic Surveillance Measures (ESM) Systems: Not specified viii) C-Band Line-of-Sight (LOS) Ground Data Terminals: Not specified ix) Ku-Band SATCOM GA-ASI Transportable Earth Stations (GATES): Not specified x) AN/DPX-7 IFF Transponders: Not specified xi) Honeywell TPE-331-10GD Turboprop Engines: Not specified xii) M6000 UHF/VHF Radios: Not specified xiii) KIV-77 Mode 5 IFF cryptographic appliques: Not specified xiv) AN/PYQ-10C Simple Key Loaders: Not specified xv) Secure communications, cryptographic and Identification Friend or Foe (IFF) equipment: Not specified xvi) Initial spare and repair parts: Not specified xvii) Hard points, power, and data connections for weapons integration: Not specified xviii) Support and test equipment: Not specified xix) Publications and technical documentation: Not specified xx) Personnel training and training equipment: Not specified xxi) U.S. Government and contractor engineering, technical, and logistics support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/17/2020-27709/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201103231823if_/https://www.dsca.mil/sites/default/files/mas/taiwan_20-74_cn.pdf"
   },
   {
     "date": "2020-11-03",
@@ -8514,7 +8503,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604170/-1/-1/0/PRESS%20RELEASE%20-%20CROATIA%2020-84%20CN.PDF"
   },
   {
-    "date": "2020-12-01",
+    "date": "2020-12-29",
     "transmittal": "20-65",
     "country": "Egypt",
     "system": "AN/AAQ-33 Sniper Advanced Targeting Pods (ATPs)",
@@ -8522,10 +8511,10 @@
     "contractor": "Lockheed Martin Aeronautics Company",
     "contractorLocation": "Fort Worth, Texas",
     "description": "i) AN/AAQ-33 Sniper Advanced Targeting Pods (ATPs) ii) pylons iii) shipping containers iv) spare and repair/return parts v) ground handling equipment vi) publications and technical documentation vii) software and software support viii) personnel training ix) U.S. Government and contractor engineering, technical, and logistical support services x) other related elements of program and logistical support\n\nQuantities: i) AN/AAQ-33 Sniper ATPs: 20 ii) pylons: Not specified iii) shipping containers: Not specified iv) spare and repair/return parts: Not specified v) ground handling equipment: Not specified vi) publications and technical documentation: Not specified vii) software and software support: Not specified viii) personnel training: Not specified ix) U.S. Government and contractor engineering, technical, and logistical support services: Not specified x) other related elements of program and logistical support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/01/14/2021-00630/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210301072535if_/https://www.dsca.mil/sites/default/files/mas/press_release-egypt-20-65_cn.pdf"
   },
   {
-    "date": "2020-12-01",
+    "date": "2020-12-29",
     "transmittal": "20-55",
     "country": "Egypt",
     "system": "Large Aircraft Infrared Countermeasures (LAIRCM) System for Head-of-State Aircraft",
@@ -8533,10 +8522,10 @@
     "contractor": "Northrup Grumman",
     "contractorLocation": "Rolling Meadows, Illinois",
     "description": "i) Guardian Laser Turret Assemblies (GLTA) ii) LAIRCM System Processor Replacements (LSPR) iii) Missile Warning Sensors (MWS) iv) Control Indicator Unit Replacements (CIUR) v) Smart Card Assemblies (SCA) vi) High Capacity Cards (HCC) / User Data Memory (UDM) cards vii) Simple key loaders viii) Initial spares ix) Consumables x) Repair/return support xi) Support and test equipment xii) Integration and test support xiii) Personnel training xiv) Publications and technical documentation xv) U.S. Government and contractor engineering, technical and logistics support services xvi) Other related elements of logistical and program support xvii) Assignment of one U.S. contractor representative in an advisory role for one base year with two option years to support operator/maintenance system orientation and original equipment manufacturer factory support\n\nQuantities: i) AN/AAQ-24(V)N Large Aircraft Infrared Countermeasures (LAIRCM) system: 1 ii) Guardian Laser Turret Assemblies (GLTA): 6 iii) LAIRCM System Processor Replacements (LSPR): 4 iv) Missile Warning Sensors (MWS): 10 v) Control Indicator Unit Replacements (CIUR): Not specified vi) Smart Card Assemblies (SCA): Not specified vii) High Capacity Cards (HCC/User Data Memory (UDM) cards): Not specified viii) Simple key loaders: Not specified ix) Initial spares: Not specified x) Consumables: Not specified xi) Repair/return support: Not specified xii) Support and test equipment: Not specified xiii) Integration and test support: Not specified xiv) Personnel training: Not specified xv) Publications and technical documentation: Not specified xvi) U.S. Government and contractor engineering, technical and logistics support services: Not specified xvii) U.S. contractor representative advisory support: 1 (one base year with two option years)",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/01/14/2021-00631/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201230211253if_/https://www.dsca.mil/sites/default/files/mas/press_release-egypt_20-55_cn.pdf"
   },
   {
-    "date": "2020-12-01",
+    "date": "2020-12-23",
     "transmittal": "21-09",
     "country": "Kazakhstan",
     "system": "King Air B300ER Scorpion Aircraft with Intelligence, Surveillance, Reconnaissance (ISR) Mission Systems",
@@ -8544,10 +8533,10 @@
     "contractor": "Sierra Nevada Corporation",
     "contractorLocation": "Hagerstown, Maryland",
     "description": "i) Raytheon AST TITAN Communications Intelligence (COMINT) Sensor Suites ii) King Air B300ER Scorpion aircraft iii) Leonardo Osprey 30 Active Electronically Scanned Array (AESA) radars iv) WESCAM MX-15HDi Elector Optical Infrared Turret Electro Optical Infrared Sensors v) Sierra Nevada Small SWAP Auto Electronic Intelligence (ELINT) Systems vi) Secure communications vii) Fixed and transportable ground control station viii) Ground support equipment ix) Aircraft integration and test support x) Publications and technical documentation xi) Personnel training and training equipment xii) Spare, component and repair parts xiii) Software and software support xiv) US Government and contractor engineering, technical, and logistical support services\n\nQuantities: i) Raytheon AST TITAN Communications Intelligence (COMINT) Sensor Suites: 3 ii) King Air B300ER Scorpion aircraft: 2 iii) Leonardo Osprey 30 Active Electronically Scanned Array (AESA) radars: 3 iv) WESCAM MX-15HDi Elector Optical Infrared Turret Electro Optical Infrared Sensors: 3 v) Sierra Nevada Small SWAP Auto Electronic Intelligence (ELINT) Systems: 3 vi) Secure communications: Not specified vii) Fixed and transportable ground control station: Not specified viii) Ground support equipment: Not specified ix) Aircraft integration and test support: Not specified x) Publications and technical documentation: Not specified xi) Personnel training and training equipment: Not specified xii) Spare, component and repair parts: Not specified xiii) Software and software support: Not specified xiv) US Government and contractor engineering, technical, and logistical support services: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/01/14/2021-00634/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210301070435if_/https://www.dsca.mil/sites/default/files/mas/Press_Release-Kazakhstan_21-09_CN.pdf"
   },
   {
-    "date": "2020-12-01",
+    "date": "2020-12-29",
     "transmittal": "20-19",
     "country": "Kuwait",
     "system": "AH-64E Apache Helicopters including remanufacture of AH-64D Apache Longbow Attack Helicopters to AH-64E configuration",
@@ -8555,7 +8544,7 @@
     "contractor": "The Boeing Company / Lockheed Martin Corporation / General Electric / Lockheed Martin Mission Systems and Sensors / Longbow Limited Liability Corporation / Raytheon Corporation",
     "contractorLocation": "Mesa, Arizona / Orlando, Florida / Cincinnati, Ohio / Owego, New York / Orlando, Florida / Tucson, Arizona",
     "description": "i) AH-64E Apache Longbow Attack Helicopters ii) T700-GE 701D engines iii) AN/AAR-57 Counter Missile Warning Systems (CMWS) iv) Embedded Global Position Systems with Inertial Navigation (EGI) with Multi-Mode Receiver (MMR) v) AN/ASQ-170(V) Modernized Target Acquisition and Designation Sight/AN/AAQ-11 Pilot Night Vision Sensor (MTADS/PNVS) vi) AN/APG-78 Longbow Fire Control Radars (FCR) with Radar Electronics Units (REU) vii) APR-48B Modernized Radar Frequency Interferometers (M-RFI) viii) M299 AGM-114 Hellfire Missile Launchers ix) Hydra 70 (70mm) 2.75 Inch Rocket M260 Rocket Launchers x) M230El 30mm Chain Gun M139 Area Weapons System (AWS) Guns xi) Longbow Crew Trainers (LCT) xii) AN/ARC-201 non-COMSEC Very-High Frequency/Frequency Modulation (VHF/FM) radios xiii) Ultra-High Frequency (UHF) radios (AN/ARC-231 or MXF 4027) xiv) Identify Friend or Foe Transponders (APX 123 or APX 119) xv) IDM 401 (Improved Data Modem) xvi) Link 16 Datalinks xvii) AN/APR-39D (V)2 Radar Warning Receivers xviii) AN/AVR-2 Laser Warning Receivers xix) Infrared Countermeasures Dispensers (2 flares, 1 chaff) xx) ASN-157 Doppler Radar Velocity Sensors xxi) AN/ARN-149 (V)3 Automatic Direction Finders (ADF) xxii) AN/APN-209 Radar Altimeters xxiii) AN/ARN-153 Tactical Airborne Navigation (TACAN) systems xxiv) Manned-Unmanned Teaming International (MUM-Ti) (UPR) Air to Air to Ground Data Link Systems xxv) MUM-Ti (Ground) Air to Air to Ground Data Link Systems xxvi) 100 gallon Internal Auxiliary Fuel Systems (IAFS) xxvii) 125 gallon Reduced Capacity Crashworthy External Fuel Systems (RCEFS) xxviii) IAFS Spares xxix) IAFS Publications xxx) IAFS Ground Support Equipment (GSE) Apache Magazine and Auxiliary Tank Transfer Systems (AMATTS) xxxi) IDM Software Loader Verifiers (SLV) xxxii) Training devices xxxiii) Helmets xxxiv) Simulators xxxv) Generators xxxvi) Transportation xxxvii) Wheeled vehicles and organizational equipment xxxviii) Spare and repair parts xxxix) Support equipment xl) Tools and test equipment xli) Technical data and publications xlii) Personnel training and training equipment xliii) U.S. government and contractor engineering, technical, and logistics support services xliv) Other related elements of logistics support xlv) Technical Assistance Fielding Team (TAFT) services including in-country pilot and maintenance training",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/01/14/2021-00624/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201230211250if_/https://www.dsca.mil/sites/default/files/mas/press_release-kuwait_20-19_cn.pdf"
   },
   {
     "date": "2020-12-01",
@@ -8580,7 +8569,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/12/2003610837/-1/-1/0/PRESS%20RELEASE%20-%20KOREA%2020-86%20CN.PDF"
   },
   {
-    "date": "2020-12-01",
+    "date": "2020-12-29",
     "transmittal": "20-13",
     "country": "Saudi Arabia",
     "system": "GBU-39 Small Diameter Bomb I (SDB I) Munitions",
@@ -8588,7 +8577,7 @@
     "contractor": "Boeing",
     "contractorLocation": "St. Louis, Missouri",
     "description": "i) GBU-39 Small Diameter Bomb I (SDB I) munitions ii) Containers iii) Weapon support and support equipment iv) Spare and repair parts v) U.S. Government and contractor engineering, technical and logistical support services vi) Other related elements of logistical and program support\n\nQuantities: i) GBU-39 Small Diameter Bomb I (SDB I) munitions: 3,000 ii) Containers: Not specified iii) Weapon support and support equipment: Not specified iv) Spare and repair parts: Not specified v) U.S. Government and contractor engineering, technical and logistical support services: Not specified vi) Other related elements of logistical and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/01/14/2021-00625/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20201230022302if_/https://www.dsca.mil/sites/default/files/mas/press_release-saudi_arabia-20-13_cn.pdf"
   },
   {
     "date": "2020-12-01",
@@ -8602,7 +8591,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606712/-1/-1/0/SAUDI%20ARABIA_20-58.PDF"
   },
   {
-    "date": "2020-12-01",
+    "date": "2020-12-07",
     "transmittal": "20-87",
     "country": "Taiwan",
     "system": "Field Information Communications System (FICS)",
@@ -8610,7 +8599,7 @@
     "contractor": "No contractor specified",
     "contractorLocation": null,
     "description": "i) Communications Nodes (CN) with S-788 Type III shelter ii) Communication Relays with S-788 Type III shelter iii) Network Management Systems (NMS) with S-788 Type III shelter iv) Basic Issue Items (BID) v) Spare and repair parts vi) Communication support equipment vii) Communication equipment integration viii) Tools and test equipment ix) Training equipment x) Program management support xi) Verification testing xii) System technical support xiii) Transportation xiv) Personnel training xv) Initial repair and return program xvi) Additional Authorized List (AAL) xvii) Technical manuals xviii) Quality Assurance Team (QAT) xix) U.S. Government and contractor engineering xx) Technical and logistics support services xxi) Contractor provided training xxii) Field Service Representatives (FSR) xxiii) Other related elements of logistics and program support\n\nQuantities: i) Communications Nodes (CN) with S-788 Type III shelter: 154 ii) Communication Relays with S-788 Type III shelter: 24 iii) Network Management Systems (NMS) with S-788 Type III shelter: 8 iv) Basic Issue Items (BID): Not specified v) Program management support: Not specified vi) Verification testing: Not specified vii) System technical support: Not specified viii) Transportation: Not specified ix) Spare and repair parts: Not specified x) Communication support equipment: Not specified xi) Communication equipment integration: Not specified xii) Tools and test equipment: Not specified xiii) Personnel training and training equipment: Not specified xiv) Initial repair and return program: Not specified xv) Additional Authorized List (AAL): Not specified xvi) Technical manuals: Not specified xvii) Quality Assurance Team (QAT): Not specified xviii) U.S. Government and contractor engineering: Not specified xix) Technical and logistics support services: Not specified xx) Contractor provided training: Not specified xxi) Field Service Representatives (FSR): Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2020/12/22/2020-28201/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210125200315if_/https://www.dsca.mil/sites/default/files/mas/Taiwan_20-87.pdf"
   },
   {
     "date": "2020-12-15",
@@ -8624,7 +8613,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604220/-1/-1/0/ITALY_21-07.PDF"
   },
   {
-    "date": "2021-02-01",
+    "date": "2021-02-05",
     "transmittal": "21-08",
     "country": "Chile",
     "system": "Standard Missile-2 (SM-2) Block IIA missiles",
@@ -8632,7 +8621,7 @@
     "contractor": "Raytheon Missiles and Defense",
     "contractorLocation": "Tucson, Arizona",
     "description": "i) Standard Missile-2 (SM-2) Block IIA missiles ii) MK 89 Mod 0 Guidance Sections iii) Target Detection Device Kit (including shroud), MK 45 Mod 14 iv) Intermediate Level Maintenance Facility v) Spare parts and associated containers vi) Personnel training and training equipment vii) Publications and technical data viii) U.S. Government and contractor technical assistance ix) Ordnance handling equipment x) Other related logistics and program support\n\nQuantities: i) Standard Missile-2 (SM-2) Block IIA missiles: 16 ii) Standard Missile-2 (SM-2) Block IIA missiles with manufacturer installed telemeter: 2 iii) MK 89 Mod 0 Guidance Sections: 2 iv) Target Detection Device Kit (including shroud), MK 45 Mod 14: 1 v) Intermediate Level Maintenance Facility: Not specified vi) Spare parts and associated containers: Not specified vii) Personnel training and training equipment: Not specified viii) Publications and technical data: Not specified ix) U.S. Government and contractor technical assistance: Not specified x) Ordnance handling equipment: Not specified xi) Other related elements of logistics and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/03/01/2021-04126/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210223114742if_/https://www.dsca.mil/sites/default/files/mas/press_release-Chile_21-08_CN.pdf"
   },
   {
     "date": "2021-02-01",
@@ -8646,7 +8635,7 @@
     "sourceUrl": "https://www.federalregister.gov/documents/2024/05/20/2024-11037/arms-sales-notification"
   },
   {
-    "date": "2021-02-01",
+    "date": "2021-02-17",
     "transmittal": "21-16",
     "country": "Finland",
     "system": "Extended Range Guided Multiple Launch Rocket Systems (ER GMLRS) purchase including modernization support services",
@@ -8654,10 +8643,10 @@
     "contractor": "Lockheed Martin Corporation",
     "contractorLocation": "Grand Prairie, Texas",
     "description": "i) M30A2 Extended Range Guided Multiple Launch Rocket Systems — Alternative Warhead (ER GMLRS-AW) Pods ii) M31A2 Extended Range Guided Multiple Launch Rocket Systems — Unitary (ER GMLRS-U) Pods iii) ER GMLRS Materiel Release Package iv) Stockpile Reliability Program (SRP) support v) Quality Assurance Testing (QAT) services vi) Technical publications vii) U.S. Government and contractor technical and logistics support services viii) Other related element of program and logistics support\n\nQuantities: i) M30A2 Extended Range Guided Multiple Launch Rocket Systems — Alternative Warhead (ER GMLRS-AW) Pods: 25 ii) M31A2 Extended Range Guided Multiple Launch Rocket Systems — Unitary (ER GMLRS-U) Pods: 10 iii) ER GMLRS Materiel Release Package: Not specified iv) Stockpile Reliability Program (SRP) support: Not specified v) Quality Assurance Testing (QAT) services: Not specified vi) Technical publications: Not specified vii) U.S. Government and contractor technical and logistics support services: Not specified viii) Other related element of program and logistics support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/03/01/2021-04125/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210321012817if_/https://www.dsca.mil/sites/default/files/mas/Press_Release-Finland_21-16_CN.pdf"
   },
   {
-    "date": "2021-02-01",
+    "date": "2021-02-09",
     "transmittal": "20-48",
     "country": "NATO",
     "system": "AN/PRC-158 Manpack UHF SATCOM radio systems",
@@ -8665,7 +8654,7 @@
     "contractor": "NATO Communications and Information Agency (NCIA) / Defense Security Cooperation Agency",
     "contractorLocation": "Not specified / Washington, D.C.",
     "description": "i) AN/PRC-158 Manpack UHF SATCOM radio systems ii) Crypto fill devices iii) Man-portable ancillaries iv) Vehicular ancillaries v) Deployed Headquarter ancillaries vi) Power support vii) Operator and maintenance training viii) Program, technical and logistics support ix) Contractor representatives travel for Operator and Maintenance OCONUS\n\nQuantities: i) AN/PRC-158 Manpack UHF SATCOM radio systems: 517 ii) Crypto fill devices: Not specified iii) Man-portable ancillaries: Not specified iv) Vehicular ancillaries: Not specified v) Deployed Headquarter ancillaries: Not specified vi) Power support: Not specified vii) Operator and maintenance training: Not specified viii) Contractor representatives for Operator and Maintenance OCONUS travel: 1 or 2 ix) Duration of Operator and Maintenance OCONUS travel: 2 months",
-    "sourceUrl": "https://www.federalregister.gov/documents/2021/03/01/2021-04122/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20210320062134if_/https://www.dsca.mil/sites/default/files/mas/CORRECTED_Press_Release-NCIA_20-48_CN.pdf"
   },
   {
     "date": "2021-02-11",
@@ -10010,7 +9999,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606440/-1/-1/0/PRESS%20RELEASE%20-%20KUWAIT%2023-04%20CN.PDF"
   },
   {
-    "date": "2023-04-01",
+    "date": "2023-04-11",
     "transmittal": "21-27",
     "country": "Morocco",
     "system": "High Mobility Artillery Rocket Systems (HIMARS)",
@@ -10018,7 +10007,7 @@
     "contractor": "Lockheed Martin Missiles and Fire Control / L3 Harris Communications, Inc. / Raytheon / COBHAM Aerospace Connectivity / Oshkosh Defense, LLC / AAR Corporation AAR Manufacturing, Inc. / AM General LLC",
     "contractorLocation": "Camden, Alaska / Rochester, New York / Waltham, Massachusetts / Buckinghamshire, UK / Oshkosh, Wisconsin / Cadillac, Michigan / South Bend, Indiana",
     "description": "i) M142 High Mobility Artillery Rocket System (HIMARS) launchers ii) M57 Army Tactical Missile Systems (ATACMS) iii) M31A2 Guided Multiple Launch Rocket Systems (GMLRS) Unitary iv) M30A2 Guided Multiple Launch Rocket Systems (GMLRS) Alternative Warhead v) M1152A1 High Mobility Multipurpose Wheeled Vehicles (HMMWV) vi) International Field Artillery Tactical Data Systems (IFATDS) vii) M28A2 Low Cost Reduced Range Practice Rocket Pods (LCRRPR) viii) Radios with similar “SINCGARS” capability ix) Vehicular Dual Long-Range Radio Systems w/GPS x) Single Radio, Long Range Vehicular System w/GPS xi) M1084A2 cargo truck, Family of Medium Tactical Vehicles (FMTV) Resupply Vehicles (RSV) xii) M1089A2 wrecker truck, FMTV, RSV xiii) M1095 5-ton trailer, FMTV xiv) Simple Key Loader (SKL), AN/PYQ-10 xv) Defense Advanced Global Positioning System Receivers (DAGR) xvi) Camouflage screen and support systems xvii) Support equipment xviii) Communications equipment xix) Spare and repair parts xx) Test sets xxi) Laptop computers xxii) Training and training equipment xxiii) Publications xxiv) Systems integration support xxv) Technical data xxvi) Stockpile Reliability, Quality Assurance and Technical Assistance teams xxvii) U.S. Government and contractor technical, engineering, and logistics support services xxviii) Other related elements of logistical and program support\n\nQuantities: i) M142 High Mobility Artillery Rocket System (HIMARS) launchers: 18 ii) M57 Army Tactical Missile Systems (ATACMS): 40 iii) M31A2 Guided Multiple Launch Rocket Systems (GMLRS) Unitary: 36 iv) M30A2 Guided Multiple Launch Rocket Systems (GMLRS) Alternative Warhead: 36 v) M1152A1 High Mobility Multipurpose Wheeled Vehicles (HMMWV): 9 vi) International Field Artillery Tactical Data Systems (IFATDS): 18 vii) M28A2 Low Cost Reduced Range Practice Rocket Pods (LCRRPR): 40 viii) Radios with similar “SINCGARS” capability: Not specified ix) Vehicular Dual Long-Range Radio Systems w/GPS: 35 x) Single Radio, Long Range Vehicular System w/GPS: 24 xi) M1084A2 cargo truck, Family of Medium Tactical Vehicles (FMTV) Resupply Vehicles (RSV): 18 xii) M1089A2 wrecker truck, FMTV, RSV: 3 xiii) M1095 5-ton trailer, FMTV: 18 xiv) Simple Key Loader (SKL), AN/PYQ-10: 23 xv) Defense Advanced Global Positioning System Receivers (DAGR): 50 xvi) Camouflage screen and support systems: Not specified xvii) Support equipment: Not specified xviii) Communications equipment: Not specified xix) Spare and repair parts: Not specified xx) Test sets: Not specified xxi) Laptop computers: Not specified xxii) Training and training equipment: Not specified xxiii) Publications: Not specified xxiv) Systems integration support: Not specified xxv) Technical data: Not specified xxvi) Stockpile Reliability, Quality Assurance and Technical Assistance teams: Not specified xxvii) U.S. Government and contractor technical, engineering, and logistics support services: Not specified xxviii) Contractor Field Service Representative (HIMARS): 1 xxix) U.S. Government personnel: 2 xxx) U.S. contractor representatives (13M HIMARS Crewmember Training): 7 xxxi) Contractor Field Service Representative (IFATDS): 1 xxxii) Contractor Field Service Representative (FMTV): 1 xxxiii) Contractor Field Service Representative (HMMWV): 1",
-    "sourceUrl": "https://www.federalregister.gov/documents/2024/09/17/2024-21053/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20230412073459if_/https://www.dsca.mil/sites/default/files/mas/Press%20Release%20-%20Morocco%2021-27%20CN.pdf"
   },
   {
     "date": "2023-04-11",
@@ -10153,7 +10142,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/09/2003604102/-1/-1/0/PRESS%20RELEASE%20-%20UKRAINE%2023-35%20CN.PDF"
   },
   {
-    "date": "2023-06-01",
+    "date": "2023-06-16",
     "transmittal": "23-45",
     "country": "Netherlands",
     "system": "MQ-9A Block 5 aircraft and related equipment including maintenance and support services",
@@ -10161,7 +10150,7 @@
     "contractor": "General Atomics-Aeronautical Systems",
     "contractorLocation": "Poway, California",
     "description": "i) UAV MQ-9 Mobile Ground Control Systems (MGCS) ii) Embedded Global Positioning Systems/Internal Navigation Systems (EGI) devices, Airborne, with Selective Availability Anti-Spoofing Module (SAASM) or M-Code iii) AN/DAS-4 Multi-Spectral Targeting Systems iv) Lynx AN/APY-8 Synthetic Aperture Radars v) Reaper Engines vi) Selex Seaspray Synthetic Aperture Radars vii) SeaVue Maritime Radars viii) M299 Hellfire Longbow missile launchers ix) AN/ARC-210 radios x) Line-of-Site (LOS) Ground Data Terminals xi) Ruggedized Aircraft Maintenance Test Stations (RAMTS) xii) AN/APX-119 and other Identification Friend or Foe transponders xiii) KIV-77 Cryptographic Appliques xiv) KY-100M narrowband/wideband terminals xv) AN/PYQ-10 Simple Key Loaders xvi) Satellite communications earth terminal subsystems (SETSS) xvii) Spare parts, consumables, and accessories xviii) Secure communication equipment and cryptographic devices xix) Munitions support and support equipment xx) Unclassified software delivery and support xxi) Unclassified publications and technical documentation xxii) Studies and surveys xxiii) U.S. Government and contractor engineering, technical and logistics support services xxiv) Major/minor modifications, maintenance, and maintenance support xxv) Transportation support xxvi) Repair and return support\n\nQuantities: i) MQ-9A Block 5 aircraft: 4 ii) UAV MQ-9 Mobile Ground Control Systems (MGCS): 3 iii) Embedded Global Positioning Systems/Internal Navigation Systems (EGI) devices: 30 iv) AN/DAS-4 Multi-Spectral Targeting Systems: 8 v) Lynx AN/APY-8 Synthetic Aperture Radars: 20 vi) Reaper Engines: Not specified vii) Selex Seaspray Synthetic Aperture Radars: Not specified viii) SeaVue Maritime Radars: Not specified ix) M299 Hellfire Longbow missile launchers: Not specified x) AN/ARC-210 radios: Not specified xi) Line-of-Site (LOS) Ground Data Terminals: Not specified xii) Ruggedized Aircraft Maintenance Test Stations (RAMTS): Not specified xiii) AN/APX-119 and other Identification Friend or Foe transponders: Not specified xiv) KIV-77 Cryptographic Appliques: Not specified xv) KY-100M narrowband/wideband terminals: Not specified xvi) AN/PYQ-10 Simple Key Loaders: Not specified xvii) Satellite communications earth terminal subsystems (SETSS): Not specified xviii) Spare parts, consumables, and accessories and repair and return support: Not specified xix) Secure communication equipment and cryptographic devices: Not specified xx) Major/minor modifications, maintenance, and maintenance support: Not specified xxi) Munitions support and support equipment: Not specified xxii) Unclassified software delivery and support: Not specified xxiii) Transportation support: Not specified xxiv) Unclassified publications and technical documentation: Not specified xxv) Studies and surveys: Not specified xxvi) U.S. Government and contractor engineering, technical and logistics support services: Not specified xxvii) Other related elements of logistic and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2024/10/08/2024-23193/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20230617195524if_/https://www.dsca.mil/sites/default/files/mas/Press%20Release%20-%20Netherlands%2023-45%20CN.pdf"
   },
   {
     "date": "2023-06-02",
@@ -10615,7 +10604,7 @@
     "sourceUrl": "https://www.federalregister.gov/documents/2026/01/12/2026-00360/arms-sales-notification"
   },
   {
-    "date": "2023-12-01",
+    "date": "2023-12-22",
     "transmittal": "23-77",
     "country": "NATO",
     "system": "FIM-92K Stinger Block I Missiles",
@@ -10623,7 +10612,7 @@
     "contractor": "Raytheon / Lockheed Martin",
     "contractorLocation": "Tucson, Arizona / Syracuse, New York",
     "description": "i) Battery Coolant Units (BCU) ii) Metal containers iii) U.S. Government and contractor production assistance iv) U.S. Government and contractor technical assistance v) U.S. Government and contractor engineering assistance vi) Other related elements of logistics and program support\n\nQuantities: i) FIM-92K Stinger Block I Missiles: 940 ii) Battery Coolant Units (BCU): Not specified iii) Metal containers: Not specified iv) U.S. Government and contractor production, technical, and engineering assistance: Not specified v) Other related elements of logistics and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2024/12/26/2024-30632/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20240220211034if_/https://www.dsca.mil/sites/default/files/mas/Press%20Release%20-%20NSPA%2023-77%20CN%20-%20V2.pdf"
   },
   {
     "date": "2023-12-01",
@@ -10868,7 +10857,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003607961/-1/-1/0/PRESS%20RELEASE%20-%20INDIA%2024-07%20CN%20V3.PDF"
   },
   {
-    "date": "2024-02-01",
+    "date": "2024-02-02",
     "transmittal": "23-73",
     "country": "Netherlands",
     "system": "Hellfire Air-to-Ground Missiles, AGM-114R2",
@@ -10876,7 +10865,7 @@
     "contractor": "Lockheed Martin Corporation",
     "contractorLocation": "Orlando, Florida",
     "description": "i) Hellfire Air-to-Ground Missiles, AGM-114R2 ii) Non-standard books, publications, and other Hellfire publications iii) U.S. Army Aviation and Missile Command (AMCOM) Security Assistance Management Directorate (SAMD) technical assistance iv) Tactical Aviation and Ground Munitions (TAGM) Project Office technical assistance v) Integration support vi) Other related elements of logistics and program support\n\nQuantities: i) Hellfire Air-to-Ground Missiles, AGM-114R2: 386 ii) U.S. Army Aviation and Missile Command (AMCOM) Security Assistance Management Directorate (SAMD) technical assistance: Not specified iii) Tactical Aviation and Ground Munitions (TAGM) Project Office technical assistance: Not specified iv) Non-standard books, publications, and other Hellfire publications: Not specified v) Integration support: Not specified vi) Other related elements of logistics and program support: Not specified vii) U.S. Government or contractor representatives travel for program management reviews: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2025/01/06/2024-31698/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20240205010414if_/https://www.dsca.mil/sites/default/files/mas/Press%20Release%20-%20Netherlands%2023-73%20CN.pdf"
   },
   {
     "date": "2024-02-05",
@@ -11132,7 +11121,7 @@
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606716/-1/-1/0/KINGDOM%20OF%20SAUDI%20ARABIA%2024-12%20CN.PDF"
   },
   {
-    "date": "2024-05-01",
+    "date": "2024-05-16",
     "transmittal": null,
     "country": "NATO",
     "system": "Alliance Ground Surveillance Program Equipment and Support including radar equipment spares, repair and return support, and related logistics and program support services",
@@ -11140,7 +11129,7 @@
     "contractor": "Northrop Grumman",
     "contractorLocation": "Mojave, California",
     "description": "i) AN/APG-68 radar processors ii) Global Hawk engine controllers iii) Communications equipment spares iv) Classified and unclassified spare components and parts v) Consumables and accessories vi) Repair and return support vii) Facilities support including storage viii) Classified and unclassified publications and technical documentation ix) Classified and unclassified software delivery and support x) Transportation support xi) U.S. Government and contractor engineering, technical, and logistics support services xii) Studies and surveys xiii) Other related elements of logistics and program support\n\nQuantities: i) AN/APG-68 radar processors: Not specified ii) Global Hawk engine controllers: Not specified iii) Communications equipment spares: Not specified iv) Classified and unclassified spare components and parts: Not specified v) Consumables and accessories: Not specified vi) Repair and return support: Not specified vii) Facilities support including storage: Not specified viii) Classified and unclassified publications and technical documentation: Not specified ix) Classified and unclassified software delivery and support: Not specified x) Transportation support: Not specified xi) U.S. Government and contractor engineering, technical, and logistics support services: Not specified xii) Studies and surveys: Not specified xiii) Other related elements of logistics and program support: Not specified",
-    "sourceUrl": null
+    "sourceUrl": "https://web.archive.org/web/20240517131055id_/https://www.dsca.mil/press-media/major-arms-sales/nato-support-and-procurement-agency-alliance-ground-surveillance"
   },
   {
     "date": "2024-05-06",
@@ -12243,7 +12232,7 @@
     "sourceUrl": "https://media.defense.gov/2025/Jan/31/2003636217/-1/-1/0/PRESS%20RELEASE%20-%20JAPAN%2025-06%20CN%20-%20V2.PDF"
   },
   {
-    "date": "2025-02-01",
+    "date": "2025-02-07",
     "transmittal": "24-104",
     "country": "Israel",
     "system": "AGM-114 Hellfire Missiles",
@@ -12251,10 +12240,10 @@
     "contractor": "Lockheed Martin Corporation",
     "contractorLocation": "Troy, Alabama",
     "description": "i) Support and test equipment ii) Integration and test support iii) Spare and repair parts iv) Software delivery and support v) Publications and technical documentation vi) Personnel training and training equipment vii) U.S. Government and contractor engineering viii) Technical and logistics support services ix) Storage x) Other related elements of logistics and program support xi) Technical Assistance Field Team visits during training phases\n\nQuantities: i) AGM-114 Hellfire Missiles: 3,000 ii) Support and test equipment: Not specified iii) Integration and test support: Not specified iv) Spare and repair parts: Not specified v) Software delivery and support: Not specified vi) Publications and technical documentation: Not specified vii) Personnel training and training equipment: Not specified viii) U.S. Government and contractor engineering: Not specified ix) Technical and logistics support services: Not specified x) Storage: Not specified xi) Technical Assistance Field Team visits: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2026/01/16/2026-00767/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20250209211741if_/https://www.dsca.mil/sites/default/files/mas/Press%20Release%20-%20Israel%2024-104%20CN.pdf"
   },
   {
-    "date": "2025-02-01",
+    "date": "2025-02-28",
     "transmittal": "24-38",
     "country": "Israel",
     "system": "Caterpillar D9 Bulldozers",
@@ -12262,7 +12251,7 @@
     "contractor": "Caterpillar Inc.",
     "contractorLocation": "Irving, Texas",
     "description": "i) D9R Caterpillar bulldozers ii) D9T Caterpillar bulldozers iii) Spare and repair parts iv) Corrosion protection v) Publications and technical documentation vi) Pre-delivery inspections vii) U.S. Government and contractor support viii) Technical and logistics support services ix) Storage x) Other related elements of logistics and program support\n\nQuantities: i) Caterpillar D9 Bulldozers: Not specified ii) D9R Caterpillar bulldozers: Not specified iii) D9T Caterpillar bulldozers: Not specified iv) Spare and repair parts: Not specified v) Corrosion protection: Not specified vi) Publications and technical documentation: Not specified vii) Pre-delivery inspections: Not specified viii) U.S. Government and contractor support: Not specified ix) Technical and logistics support services: Not specified x) Storage: Not specified xi) Other related elements of logistics and program support: Not specified",
-    "sourceUrl": "https://www.federalregister.gov/documents/2026/02/02/2026-02063/arms-sales-notification"
+    "sourceUrl": "https://web.archive.org/web/20250301004419if_/https://www.dsca.mil/sites/default/files/mas/Press%20Release%20-%20Israel%2024-38%20CN.pdf"
   },
   {
     "date": "2025-02-01",
@@ -13076,7 +13065,7 @@
     "contractor": "The Boeing Company / RTX Corporation",
     "contractorLocation": "Arlington, Virginia / Arlington, Virginia",
     "description": "i) GBU-53 Small Diameter Bombs-Increment II (SDB-II) all-up-rounds (AURs) ii) GBU-39 Small Diameter Bombs-Increment I (SDB-I) iii) KMU-556 Joint Direct Attack Munition (JDAM) tail kits for GBU-31 iv) KMU-559 JDAM tail kits for GBU-32 v) KMU-572 JDAM tail kits for GBU-38 vi) MK-82 500 lb general purpose (GP) bombs vii) MK-84 2,000 lb GP bombs viii) BLU-110 1,000 lb GP bombs ix) FMU-139 joint programmable fuzes x) DSU-38 laser sensors xi) Practice bombs and bomb components xii) Weapons and weapon support equipment xiii) Major modifications and maintenance support xiv) Training aids, devices, and spare parts xv) Spare and repair parts, consumables, accessories, and repair and return support xvi) Classified software delivery and support xvii) Classified publications and technical documentation xviii) Transportation support xix) Studies and surveys xx) U.S. Government and contractor engineering, technical, and logistics support services xxi) Other related elements of logistics and program support\n\nQuantities: i) GBU-39 Small Diameter Bombs-Increment I (SDB-I): 120 ii) GBU-53 Small Diameter Bombs-Increment II (SDB-II) all-up-rounds (AURs): 28 iii) KMU-556 Joint Direct Attack Munition (JDAM) tail kits for GBU-31: 30 iv) KMU-559 JDAM tail kits for GBU-32: 20 v) KMU-572 JDAM tail kits for GBU-38: 24 vi) MK-82 500 lb general purpose (GP) bombs: 24 vii) MK-84 2,000 lb GP bombs: 30 viii) BLU-110 1,000 lb GP bombs: 21 ix) FMU-139 joint programmable fuzes: Not specified x) DSU-38 laser sensors: Not specified xi) Practice bombs and bomb components: Not specified xii) Weapons and weapon support equipment: Not specified xiii) Major modifications and maintenance support: Not specified xiv) Training aids, devices, and spare parts: Not specified xv) Spare and repair parts, consumables, accessories, and repair and return support: Not specified xvi) Classified software delivery and support: Not specified xvii) Classified publications and technical documentation: Not specified xviii) Transportation support: Not specified xix) Studies and surveys: Not specified xx) U.S. Government and contractor engineering, technical, and logistics support services: Not specified xxi) Other related elements of logistics and program support: Not specified",
-    "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2026-01-29/html/2026-01721.htm"
+    "sourceUrl": "https://www.federalregister.gov/documents/2026/01/29/2026-01721/arms-sales-notification"
   },
   {
     "date": "2025-11-12",
@@ -13745,7 +13734,7 @@
   },
   {
     "date": "2026-04-27",
-    "transmittal": null,
+    "transmittal": "26-16",
     "country": "Tunisia",
     "system": "Border Security Project Phase III",
     "costUSD": 95000000,

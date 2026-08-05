@@ -273,5 +273,15 @@
     "blurb": "Progeny Systems is a General Dynamics Mission Systems business focused on naval combat systems, acoustics, torpedo guidance and control, cybersecurity, and related electronics for U.S. and allied submarines and surface ships. In Foreign Military Sales it typically appears on undersea-warfare and naval combat-system packages alongside other U.S. naval primes.",
     "source": "curated",
     "updatedAt": "2026-07-17"
+  },
+  "Toyota": {
+    "blurb": "Toyota Motor North America (Plano, Texas) appears in State Department Foreign Military Sales notices as a commercial vehicle supplier. Its cases typically cover trucks and related ground mobility for partner security and border programs rather than traditional combat platforms.",
+    "source": "curated",
+    "updatedAt": "2026-08-04"
+  },
+  "AAR Corporation": {
+    "blurb": "AAR Corporation is a U.S. aerospace and defense logistics company that supplies aircraft maintenance, mobility systems, and specialty manufacturing. In Foreign Military Sales it often appears through its AAR Manufacturing unit (Cadillac, MI) on vehicle chassis and related ground-support packages.",
+    "source": "curated",
+    "updatedAt": "2026-08-04"
   }
 }

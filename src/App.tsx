@@ -15,6 +15,7 @@ import { NewNotificationBanner } from './components/NewNotificationBanner'
 import { getFlagUrl, prefetchFlags } from './utils/countryFlags'
 import { prefetchContractorLogos } from './utils/contractorLogos'
 import { contractorNames } from './utils/parseContractors'
+import { normalizeContractor } from './utils/normalizeContractor'
 
 const allNotifications = rawData as Notification[]
 
@@ -48,7 +49,8 @@ function getInitialState() {
   const viewParam = params.get('view')
   const view = viewParam === 'network' || viewParam === 'trends' ? viewParam : 'map'
   const country = params.get('country') || null
-  const contractor = params.get('contractor') || null
+  const contractorRaw = params.get('contractor') || null
+  const contractor = contractorRaw ? normalizeContractor(contractorRaw) : null
   const sale = params.get('sale') || null
   const fromYear = params.get('from')
   const toYear = params.get('to')
@@ -59,7 +61,10 @@ function getInitialState() {
     to > DATA_MAX_DATE ? DATA_MAX_DATE : to < DATA_MIN_DATE ? DATA_MAX_DATE : to,
   ]
   // Prefer contractor over country if both somehow present
-  return { view, country: contractor ? null : country, contractor, sale, dateRange }
+  if (contractor) {
+    return { view, country: null, contractor, sale, dateRange }
+  }
+  return { view, country, contractor: null, sale, dateRange }
 }
 
 /** Stable URL key for a notification (transmittal preferred). */

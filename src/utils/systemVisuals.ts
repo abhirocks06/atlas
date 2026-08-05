@@ -75,6 +75,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: '/system-images/mk45-gun-system.png',
   },
   {
+    match: /76\s*mm\s*naval\s*gun|oto\s*melara\s*76/i,
+    blurb: 'Medium-caliber naval gun for anti-surface, anti-air, and shore bombardment from warships and patrol craft.',
+    url: '/system-images/76mm-naval-gun.png',
+  },
+  {
     match: /hellfire|agm-114/i,
     blurb: 'Laser- or radar-guided air-to-ground missile for precision strikes from helicopters, aircraft, and drones.',
   },
@@ -91,14 +96,24 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     blurb: 'Shoulder-fired infrared-homing missile for short-range defense against aircraft and drones.',
   },
   {
+    match: /aim-120c-8|120c-8/i,
+    blurb: 'Latest AMRAAM variant with improved range and seeker performance for beyond-visual-range air combat.',
+    url: '/system-images/aim-120c-8.png',
+  },
+  {
     match: /amraam|aim-120|advanced medium[- ]?range air-to-air/i,
     blurb: 'Beyond-visual-range air-to-air missile that lets fighters engage airborne threats before closing in.',
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/AIM-120C5_AMRAAM_rear_view.svg/960px-AIM-120C5_AMRAAM_rear_view.svg.png',
+    url: '/system-images/aim-120c-8.png',
   },
   {
     match: /\bjagm\b|joint air-to-ground missile/i,
     blurb: 'Air-launched precision missile that replaces Hellfire for attacking armor and hardened targets.',
     url: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/AGM-179_JAGM.png',
+  },
+  {
+    match: /aim-9x|sidewinder.*9x|9x.*sidewinder/i,
+    blurb: 'Fifth-generation short-range infrared air-to-air missile with high off-boresight targeting and thrust-vector control.',
+    url: '/system-images/aim-9x-sidewinder.png',
   },
   {
     match: /sidewinder|aim-9/i,
@@ -241,6 +256,16 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     blurb: 'Carrier-capable airborne early-warning aircraft that detects and tracks aerial threats for the fleet.',
   },
   {
+    match: /\bisr\b|intelligence,\s*surveillance,\s*and\s*reconnaissance/i,
+    blurb: 'Sensor and mission systems that collect, process, and disseminate intelligence from air, ground, or maritime platforms.',
+    url: '/system-images/isr.jpg',
+  },
+  {
+    match: /re-3a|tactical air(?:borne)? surveillance system|\btass\b/i,
+    blurb: 'SIGINT/ELINT surveillance aircraft that collects and relays electronic intelligence from high altitude.',
+    url: '/system-images/re-3a-tass.jpg',
+  },
+  {
     match: /e-3|awacs|sentry/i,
     blurb: 'Airborne early-warning aircraft that detects and tracks aerial threats for the wider force.',
   },
@@ -270,6 +295,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /c-130|hercules/i,
     blurb: 'Tactical airlifter for troop transport, airdrop, medevac, and special-operations support.',
     url: '/system-images/c-130.jpg',
+  },
+  {
+    match: /mc-55a|peregrine/i,
+    blurb: 'G550-based SIGINT/ELINT aircraft that collects and relays electronic intelligence from high altitude.',
+    url: '/system-images/mc-55a.png',
   },
   {
     match: /gulfstream|g-?550|\bg550\b/i,
@@ -304,6 +334,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /uh-1|iroquois|huey/i,
     blurb: 'Light utility helicopter for transport, training, and general support.',
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Colombian_Air_Force_Sikorsky_UH-60L_Arp%C3%ADa_III_%28S-70A-41%29_Ram%C3%ADrez-1.jpg/960px-Colombian_Air_Force_Sikorsky_UH-60L_Arp%C3%ADa_III_%28S-70A-41%29_Ram%C3%ADrez-1.jpg',
+  },
+  {
+    match: /sh-60f|excess sh-60/i,
+    blurb: 'Navy SH-60F Seahawk helicopter for anti-submarine warfare, search-and-rescue, and utility missions.',
+    url: '/system-images/sh-60f-seahawk.jpg',
   },
   {
     match: /mh-60|seahawk|sh-60/i,
@@ -348,6 +383,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /abrams|m1a/i,
     blurb: 'Main battle tank combining heavy armor, a 120 mm gun, and networked fire control.',
     url: '/system-images/abrams.jpg',
+  },
+  {
+    match: /eitan|8v199te21/i,
+    blurb: 'Powerpack engines for the Israeli Eitan 8x8 wheeled armored personnel carrier.',
+    url: '/system-images/eitan.jpg',
   },
   {
     match: /stryker/i,
@@ -475,6 +515,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Abrams-transparent.png/960px-Abrams-transparent.png',
   },
   {
+    match: /mids[-/ ]?lvt|multifunctional information distribution system|mids on ships/i,
+    blurb: 'Link 16 tactical data-link terminal that shares air and surface tracks across the battlespace.',
+    url: '/system-images/mids-lvt.png',
+  },
+  {
     match: /radio equipment|\bc4i\b|tactical mission network|communication.*equipment|various radios/i,
     blurb: 'Radios and command networks that connect forces across the battlespace.',
     url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/ELEC_AN-MPQ-64_Sentinel_Radar_lg.jpg',
@@ -510,8 +555,18 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: '/system-images/blanket-order-training.jpg',
   },
   {
+    match: /system logistics and sustainment support/i,
+    blurb: 'Program-level logistics and sustainment services that keep fielded systems operational.',
+    url: '/system-images/blanket-order-training.jpg',
+  },
+  {
     match: /sustainment|follow-on support|logistics support|support services|fmso|follow-on technical|follow-on support/i,
     blurb: 'Spare parts, maintenance, and program services that keep platforms operational over time.',
+    url: '/system-images/blanket-order-training.jpg',
+  },
+  {
+    match: /ammunition for artillery|artillery systems, machine guns, and tanks/i,
+    blurb: 'Mixed ordnance package covering artillery, machine-gun, and tank ammunition stocks.',
     url: '/system-images/blanket-order-training.jpg',
   },
   {

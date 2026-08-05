@@ -49,6 +49,8 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/\bsrc\b/i, 'srcinc.com'],
   [/boeing/i, 'boeing.com'],
   [/lockheed/i, 'lockheedmartin.com'],
+  [/toyota/i, 'toyota.com'],
+  [/\baar\b/i, 'aarcorp.com'],
   [/gulfstream/i, 'gulfstream.com'],
   [/viasat/i, 'viasat.com'],
 ]

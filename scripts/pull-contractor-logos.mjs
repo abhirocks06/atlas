@@ -63,6 +63,8 @@ const DOMAINS = [
   'marvingroup.com',
   'avinc.com',
   'srcinc.com',
+  'toyota.com',
+  'aarcorp.com',
 ]
 
 function slug(domain) {

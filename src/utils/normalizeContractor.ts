@@ -110,6 +110,9 @@ export function normalizeContractor(raw: string): string {
   // AM General
   if (/^am\s+general/i.test(s)) return 'AM General'
 
+  // AAR Corporation (notices also say bare "AAR" or "AAR Manufacturing")
+  if (/\baar\b/i.test(s)) return 'AAR Corporation'
+
   // CAE
   if (/^cae(\s+usa)?$/i.test(s) || /\bcae\b/i.test(s)) return 'CAE Inc.'
 
@@ -254,6 +257,9 @@ export function normalizeContractor(raw: string): string {
   // Zone 5 / CoAspire already tend to be full in data
   if (/zone\s*5/i.test(s)) return 'Zone 5 Technologies'
   if (/coaspire/i.test(s)) return 'CoAspire'
+
+  // Toyota (State notices list “Toyota, Plano, Texas” for commercial vehicles)
+  if (/^toyota\b/i.test(s)) return 'Toyota'
 
   // Progeny Systems (GD Mission Systems business area)
   if (/progeny/i.test(s)) return 'Progeny Systems'

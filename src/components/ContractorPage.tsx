@@ -558,8 +558,8 @@ export function ContractorPage({
                             <div className="flex items-start justify-between gap-3">
                               <div className="text-[12px] text-zinc-200 leading-snug line-clamp-2 flex-1 min-w-0 flex items-start gap-2">
                                 <span className="line-clamp-2">
-                                  {n.system ?? <span className="text-zinc-600 italic">Not specified</span>}
-                                </span>
+                              {n.system ?? <span className="text-zinc-600 italic">Not specified</span>}
+                            </span>
                                 {isNew && (
                                   <span className="shrink-0 px-1.5 py-px rounded-md text-[8px] font-medium uppercase tracking-widest border border-emerald-500/25 bg-emerald-500/15 text-emerald-400">
                                     New

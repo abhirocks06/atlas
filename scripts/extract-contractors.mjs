@@ -1,7 +1,7 @@
 /** Shared DSCA press-release contractor extraction. */
 
 const TBD_CLAUSE =
-  /\b(determined|identified|negotiated|selected|award|various|no prime|approved vendors|defined in negotiations|provided by|not known|unknown at this time|new contractor competition|not associated with)\b/i
+  /\b(determined|identified|negotiated|selected|award|various|no prime|approved vendors|defined in negotiations|provided by|not known|unknown at this time|new contractor competition|not associated with|chosen after|competitive source selection|will be chosen)\b/i
 
 const JUNK_NAME =
   /\b(adverse impact|defense readiness|offset agreement|negotiations between|purchaser and the contractor|provided by u|not yet been|have not been|to be selected|to be determined|not known|competitive award|open competition|approved vendors|various contractors|no prime|original equipment manufacturer|this sale will be part|not associated with|involved in|involved with|associated with|proposed sale)\b/i
@@ -117,6 +117,51 @@ export function parseContractorClause(raw) {
 
   text = text.replace(/\s*;?\s*and\s+another\b.+$/i, '').trim()
   if (!text || TBD_CLAUSE.test(text)) return null
+
+  // "FLIR Inc. in Boston, Massachusetts and Laser Devices, Inc. in Monterey, California"
+  const stateTail = `(?:${US_STATES}|[A-Z]{2}\\b)`
+  const inCityCompany =
+    '(?:The\\s+)?(?:[A-Z][A-Za-z0-9 &\'./-]+(?:,\\s*(?:Inc|LLC|Corp|Corporation|Company))?\\.?|[A-Z][A-Za-z0-9 &\'./-]*?(?:Inc|LLC|Corp|Corporation|Company|Systems|Industries)\\.?)'
+  const inCityOneRe = new RegExp(
+    `^\\s*(?:and\\s+)?(${inCityCompany})\\s+in\\s+([A-Z][A-Za-z .'-]+,\\s*${stateTail})`,
+    'i',
+  )
+  if (/\bin\s+[A-Z]/i.test(text) && /\sand\s/i.test(text)) {
+    const chunks = text.split(/\s+and\s+/i)
+    const names = [], locs = []
+    for (const chunk of chunks) {
+      const m = chunk.match(inCityOneRe)
+      if (!m) continue
+      const name = m[1].trim()
+      const location = m[2].trim()
+      if (looksLikeCompany(name) && looksLikeLocation(location)) {
+        names.push(name)
+        locs.push(location)
+      }
+    }
+    if (names.length >= 2) {
+      return { name: names.join(' / '), location: locs.join(' / ') }
+    }
+  }
+  const inCityPairRe = new RegExp(
+    `(${inCityCompany})\\s+in\\s+([A-Z][A-Za-z .'-]+,\\s*${stateTail})`,
+    'gi',
+  )
+  const inCityPairs = [...text.matchAll(inCityPairRe)]
+  if (inCityPairs.length >= 1) {
+    const names = [], locs = []
+    for (const m of inCityPairs) {
+      const name = m[1].trim()
+      const location = m[2].trim()
+      if (looksLikeCompany(name) && looksLikeLocation(location)) {
+        names.push(name)
+        locs.push(location)
+      }
+    }
+    if (names.length) {
+      return { name: names.join(' / '), location: locs.join(' / ') }
+    }
+  }
 
   // "Viasat, Incorporated, headquartered in Carlsbad, CA, and Data Link Solutions, headquartered in Cedar Rapids, IA"
   // Also: "Boeing Company, based in Arlington, VA; Raytheon…, located in Forest, MS; and BAE…, situated in Falls Church, VA"

@@ -1,4 +1,5 @@
 import { normalizeContractor } from './normalizeContractor'
+import { COUNTRY_NAME_TO_ISO3 } from './countryMapping'
 
 export interface ContractorEntry {
   /** Normalized display name */
@@ -104,10 +105,31 @@ function cleanLocation(loc: string | null | undefined): string | null {
 const US_STATE_NAME =
   /^(Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming|District of Columbia|D\.?C\.?)$/i
 
+/** Country / recipient names that sometimes leak into slash-separated contractor lists
+ *  (e.g. “Boeing / United Kingdom” from “contractor representatives to the UK”). */
+const COUNTRY_AS_CONTRACTOR = new Set(
+  [
+    ...Object.keys(COUNTRY_NAME_TO_ISO3),
+    'UK',
+    'U.K.',
+    'UAE',
+    'U.A.E.',
+    'USA',
+    'U.S.',
+    'U.S.A.',
+    'South Korea',
+    'Republic of Korea',
+    'Taiwan',
+    'ROC',
+    'R.O.C.',
+  ].map(c => c.toLowerCase()),
+)
+
 function isPlaceOnlyName(name: string): boolean {
   const s = name.trim()
   if (!s) return true
   if (US_STATE_NAME.test(s)) return true
+  if (COUNTRY_AS_CONTRACTOR.has(s.toLowerCase())) return true
   // Bare city names that leaked from plant-location lists
   if (/^(Tucson|Huntsville|Anniston|London|Mesa|Lynn|Orlando|Bethesda|Camden)$/i.test(s)) return true
   // Bare "City, ST" or "City, State" leftovers

@@ -13,7 +13,7 @@
   },
   {
     "pattern": "amraam|aim-120|advanced medium[- ]?range air-to-air",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/AIM-120C5_AMRAAM_rear_view.svg/960px-AIM-120C5_AMRAAM_rear_view.svg.png",
+    "url": "/system-images/aim-120c-8.png",
     "title": "File:AIM-120C5 AMRAAM rear view.svg",
     "query": "AMRAAM"
   },
@@ -469,7 +469,7 @@
   },
   {
     "pattern": "amraam|aim-120|advanced medium[- ]?range air-to-air",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/AIM-120C5_AMRAAM_rear_view.svg/960px-AIM-120C5_AMRAAM_rear_view.svg.png",
+    "url": "/system-images/aim-120c-8.png",
     "title": "File:AIM-120C5 AMRAAM rear view.svg",
     "query": "AIM-120 AMRAAM"
   },
