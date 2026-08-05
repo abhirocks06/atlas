@@ -123,10 +123,9 @@ export function SaleDetailDrawer({
               <div className="relative z-[1] -mt-[5.5rem] px-5 md:px-6 pt-2 pb-5">
                 <div className="flex items-center gap-2 mb-2.5 flex-wrap">
                   <span
-                    className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-medium"
+                    className="inline-flex items-center text-[10px] uppercase tracking-widest font-medium"
                     style={{ color: visual.color }}
                   >
-                    <CategoryIcon category={visual.category} size={12} color={visual.color} />
                     {visual.category}
                   </span>
                   {isNotificationNew(n) && (
@@ -158,10 +157,10 @@ export function SaleDetailDrawer({
                   <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Transmittal</div>
                   <div className="text-sm font-mono text-zinc-300">{n.transmittal ?? '—'}</div>
                 </div>
-                {fromContractor && (
-                  <div>
-                    <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Recipient</div>
-                    {onSelectCountry && country ? (
+                <div>
+                  <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-1">Recipient</div>
+                  {country ? (
+                    onSelectCountry ? (
                       <button
                         type="button"
                         onClick={() => onSelectCountry(country)}
@@ -179,9 +178,11 @@ export function SaleDetailDrawer({
                         )}
                         {country}
                       </div>
-                    )}
-                  </div>
-                )}
+                    )
+                  ) : (
+                    <div className="text-sm text-zinc-700">—</div>
+                  )}
+                </div>
               </div>
 
               <div>

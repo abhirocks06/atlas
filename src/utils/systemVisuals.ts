@@ -57,10 +57,7 @@ const SYSTEM_PROFILES: SystemProfile[] = [
   {
     match: /iadws|integrated air defense weapon|integrated air defense system/i,
     blurb: 'Layered air-defense package that combines sensors and interceptors to defeat aircraft, drones, and cruise missiles.',
-    url: '/system-images/patriot-launch.jpg',
-  },
-  {
-    match: /ibcs|battle command system|integrated battle command/i,
+    url: '/system-images/iadws.png',
     blurb: 'Networked air-and-missile-defense command system that links sensors and shooters across the battlespace.',
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Patriot_missile_radar_-_LTAMDS_-_Lower_Tier_Air_and_Missile_Defense_Sensor_%282%29.webp/960px-Patriot_missile_radar_-_LTAMDS_-_Lower_Tier_Air_and_Missile_Defense_Sensor_%282%29.webp.png',
   },
@@ -86,6 +83,7 @@ const SYSTEM_PROFILES: SystemProfile[] = [
   {
     match: /apkws|precision kill weapon/i,
     blurb: 'Guidance kit that turns unguided Hydra-70 rockets into laser-guided precision munitions.',
+    url: '/system-images/apkws.jpg',
   },
   {
     match: /javelin|fgm-148/i,
@@ -179,8 +177,18 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     credit: 'Mr.Z-man / Wikimedia Commons',
   },
   {
-    match: /gbu-?39|small diameter bomb|\bsdb\b|gbu-?53|storm.?breaker|sdb-?ii/i,
+    match: /gbu-?39|small diameter bomb[- ]?i\b|\bsdb[- ]?i\b(?!i)/i,
+    blurb: 'Compact precision glide bomb that lets fighters hit multiple targets from standoff range.',
+    url: '/system-images/gbu-39b.jpg',
+  },
+  {
+    match: /gbu-?53|storm.?breaker|sdb-?ii|small diameter bomb[- ]?ii/i,
+    blurb: 'Networked precision glide bomb with multi-mode seeker for moving and fixed targets.',
+  },
+  {
+    match: /small diameter bomb|\bsdb\b/i,
     blurb: 'Compact precision glide bombs that let fighters hit multiple targets from standoff range.',
+    url: '/system-images/gbu-39b.jpg',
   },
   {
     match: /excalibur|m982/i,
@@ -193,6 +201,7 @@ const SYSTEM_PROFILES: SystemProfile[] = [
   {
     match: /harpoon|agm-84|ugm-84/i,
     blurb: 'Anti-ship cruise missile for engaging surface vessels from aircraft, ships, or submarines.',
+    url: '/system-images/ugm-84l-harpoon.png',
   },
   {
     match: /tomahawk|bgm-109|tlam/i,
@@ -222,6 +231,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
   {
     match: /mk.?54|lightweight torpedo/i,
     blurb: 'Lightweight anti-submarine torpedo dropped from aircraft or fired from surface ships.',
+  },
+  {
+    match: /sonobuoy|ssq-36|ssq-53|ssq-62|anti-submarine warfare sonobuoy/i,
+    blurb: 'Expendable acoustic sensors dropped from aircraft or ships to detect and track submarines.',
+    url: '/system-images/sonobuoy.jpg',
   },
   {
     match: /mk.?48/i,
@@ -274,9 +288,14 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     blurb: 'Maritime patrol jet for anti-submarine warfare, anti-surface warfare, and broad-area surveillance.',
   },
   {
-    match: /\bp-3\b|orion/i,
+    match: /persuader|c-?295|cn-?235|casa\s*type\s*cn/i,
+    blurb: 'Twin-turboprop maritime patrol aircraft for coastal surveillance, search-and-rescue, and anti-surface missions.',
+    url: '/system-images/persuader-c295.jpg',
+  },
+  {
+    match: /\bp-3[a-z]?\b|orion/i,
     blurb: 'Maritime patrol aircraft for anti-submarine warfare and ocean surveillance.',
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/20190206_P-8_Poseidon_Kadena_AB-12.jpg/960px-20190206_P-8_Poseidon_Kadena_AB-12.jpg',
+    url: '/system-images/p-3c.png',
   },
   {
     match: /c-17|globemaster/i,
@@ -339,6 +358,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /sh-60f|excess sh-60/i,
     blurb: 'Navy SH-60F Seahawk helicopter for anti-submarine warfare, search-and-rescue, and utility missions.',
     url: '/system-images/sh-60f-seahawk.jpg',
+  },
+  {
+    match: /mh-60r/i,
+    blurb: 'Shipborne multi-mission Seahawk for anti-submarine warfare, surface attack, and maritime surveillance.',
+    url: '/system-images/mh-60r.jpg',
   },
   {
     match: /mh-60|seahawk|sh-60/i,
@@ -440,7 +464,7 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     blurb: 'Shipboard close-in weapon system that engages incoming missiles and aircraft at short range.',
   },
   {
-    match: /aegis|arleigh burke|ddg|integrated combat system/i,
+    match: /aegis|arleigh burke|\bddg\b/i,
     blurb: 'Integrated naval combat system for tracking and engaging air, surface, and ballistic threats.',
     url: '/system-images/aegis.jpg',
   },
@@ -477,9 +501,19 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: '/system-images/switchblade-300.jpg',
   },
   {
-    match: /counter-?unmanned|counter-?uas|\bc-uas\b|fs-lids|fixed site-low|altius/i,
+    match: /counter-?unmanned|counter-?uas|\bc-uas\b|fs-lids|fixed site-low/i,
     blurb: 'Sensors and effectors that detect and defeat small unmanned aircraft.',
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/FIM-92_Stinger_USMC.JPG/960px-FIM-92_Stinger_USMC.JPG',
+    url: '/system-images/cuas-anduril.jpg',
+  },
+  {
+    match: /altius/i,
+    blurb: 'Air-launched loitering munition used for reconnaissance and precision strike.',
+    url: '/system-images/altius.png',
+  },
+  {
+    match: /archangel|safe\s*boats?|65[’']?\s*safe/i,
+    blurb: 'High-speed aluminum patrol craft for maritime security, interdiction, and coastal operations.',
+    url: '/system-images/safe-archangel.jpg',
   },
   {
     match: /patrol boat|patrol craft|mark v|fast missile craft|missile craft/i,
@@ -500,6 +534,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/F-16_Demo_Team_2722.jpg/960px-F-16_Demo_Team_2722.jpg',
   },
   {
+    match: /air operations center|\baoc\b/i,
+    blurb: 'Command-and-control facility that plans, directs, and monitors air operations across the battlespace.',
+    url: '/system-images/qatar-aoc.jpg',
+  },
+  {
     match: /air traffic control|landing system|cns\/atm|navigation surveillance/i,
     blurb: 'Air-traffic control and navigation systems that manage military airfield and airspace operations.',
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/E-3_Sentry_Airborne_Warning_and_Control_System_%28AWACS%29_conducts_a_mission.jpg/960px-E-3_Sentry_Airborne_Warning_and_Control_System_%28AWACS%29_conducts_a_mission.jpg',
@@ -518,6 +557,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /mids[-/ ]?lvt|multifunctional information distribution system|mids on ships/i,
     blurb: 'Link 16 tactical data-link terminal that shares air and surface tracks across the battlespace.',
     url: '/system-images/mids-lvt.png',
+  },
+  {
+    match: /arc[- ]?210|rt-2036|an\/arc-210/i,
+    blurb: 'Software-defined airborne radio for secure VHF/UHF voice and data, including SATCOM and HAVE QUICK waveforms.',
+    url: '/system-images/arc-210.png',
   },
   {
     match: /radio equipment|\bc4i\b|tactical mission network|communication.*equipment|various radios/i,
