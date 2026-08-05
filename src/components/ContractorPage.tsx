@@ -6,6 +6,7 @@ import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from
 import { getFlagUrl } from '../utils/countryFlags'
 import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
 import { getContractorBlurb } from '../utils/contractorBlurbs'
+import { parseContractors, supplyProvider, isSupplyProviderLabel } from '../utils/parseContractors'
 import { notificationMatchesQuery } from '../utils/notificationSearch'
 import { useCountUp } from '../utils/useCountUp'
 import { isNotificationNew } from '../utils/newNotifications'
@@ -19,6 +20,7 @@ interface Props {
   initialSaleKey?: string | null
   onSaleKeyChange?: (key: string | null) => void
   onSelectCountry: (country: string) => void
+  onSelectContractor?: (contractor: string) => void
   onBack: () => void
 }
 
@@ -40,6 +42,7 @@ export function ContractorPage({
   initialSaleKey = null,
   onSaleKeyChange,
   onSelectCountry,
+  onSelectContractor,
   onBack,
 }: Props) {
   const [activeCategory, setActiveCategory] = useState<WeaponCategory | null>(null)
@@ -478,7 +481,7 @@ export function ContractorPage({
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Date</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">ID #</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">System</div>
-                  <div aria-hidden className="min-w-0" />
+                  <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Contractor/Provider</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Country</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium text-right">Value</div>
                 </div>
@@ -487,6 +490,10 @@ export function ContractorPage({
                   const color = CATEGORY_COLORS[cat]
                   const isSelected = selectedSale === n
                   const isNew = isNotificationNew(n)
+                  const contractors = parseContractors(n.contractor, n.contractorLocation)
+                  const provider = supplyProvider(n.contractor)
+                  const primaryContractor = contractors[0]?.name ?? null
+                  const contractorLabel = contractors.map(c => c.name).join(' · ') || provider || null
 
                   return (
                     <motion.div
@@ -517,7 +524,35 @@ export function ContractorPage({
                           </div>
                           <div className="text-[9px] uppercase tracking-wider mt-0.5 font-medium truncate" style={{ color }}>{cat}</div>
                         </div>
-                        <div aria-hidden className="min-w-0" />
+                        <div className="min-w-0 overflow-hidden flex items-center gap-2">
+                          {contractorLabel ? (
+                            primaryContractor && onSelectContractor ? (
+                              <span
+                                role="link"
+                                tabIndex={0}
+                                title={contractorLabel}
+                                className="text-[11px] text-zinc-500 truncate hover:text-zinc-300 transition-colors"
+                                onClick={e => {
+                                  e.stopPropagation()
+                                  onSelectContractor(primaryContractor)
+                                }}
+                                onKeyDown={e => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    onSelectContractor(primaryContractor)
+                                  }
+                                }}
+                              >
+                                {contractorLabel}
+                              </span>
+                            ) : (
+                              <span title={contractorLabel ?? undefined} className="text-[11px] text-zinc-500 truncate">{contractorLabel}</span>
+                            )
+                          ) : (
+                            <span className="text-zinc-800">—</span>
+                          )}
+                        </div>
                         <div className="min-w-0 overflow-hidden">
                           {n.country ? (
                             <span
@@ -598,6 +633,15 @@ export function ContractorPage({
                 const color = CATEGORY_COLORS[cat]
                 const isSelected = selectedSale === n
                 const isNew = isNotificationNew(n)
+                const contractors = parseContractors(n.contractor, n.contractorLocation)
+                const provider = supplyProvider(n.contractor)
+                const logoEntries = [
+                  ...contractors.map(c => c.name),
+                  ...(provider ? [provider] : []),
+                ]
+                  .map(name => ({ name, url: getContractorLogoUrl(name) }))
+                  .filter((e): e is { name: string; url: string } => !!e.url)
+                  .filter((e, i, arr) => arr.findIndex(x => x.url === e.url) === i)
                 const visual = getSystemVisual(n.system)
                 const flagUrl = n.country ? getFlagUrl(n.country) : null
 
@@ -660,9 +704,46 @@ export function ContractorPage({
                       </div>
 
                       <div className="mt-auto flex items-center justify-between gap-2 pt-3">
-                        <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap min-w-0">
+                          {logoEntries.map(({ name, url }) => {
+                            const img = (
+                              <img
+                                src={url}
+                                alt={name}
+                                title={name}
+                                className={`w-4 h-4 object-contain rounded-sm opacity-70 ${contractorLogoClassName(name)}`}
+                                decoding="async"
+                                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                              />
+                            )
+                            if (!onSelectContractor || isSupplyProviderLabel(name)) {
+                              return <span key={name} className="inline-flex" title={name}>{img}</span>
+                            }
+                            return (
+                              <span
+                                key={name}
+                                role="link"
+                                tabIndex={0}
+                                className="inline-flex hover:opacity-100 opacity-90 transition-opacity"
+                                title={name}
+                                onClick={e => {
+                                  e.stopPropagation()
+                                  onSelectContractor(name)
+                                }}
+                                onKeyDown={e => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    onSelectContractor(name)
+                                  }
+                                }}
+                              >
+                                {img}
+                              </span>
+                            )
+                          })}
                           {n.country && (
-                            <>
+                            <span className="inline-flex items-center gap-1.5 min-w-0">
                               {flagUrl && (
                                 <img
                                   src={flagUrl}
@@ -689,7 +770,7 @@ export function ContractorPage({
                               >
                                 {n.country}
                               </span>
-                            </>
+                            </span>
                           )}
                         </div>
                         <span
@@ -715,6 +796,7 @@ export function ContractorPage({
         variant="contractor"
         onClose={() => openSale(null)}
         onSelectCountry={onSelectCountry}
+        onSelectContractor={onSelectContractor}
       />
     </div>
   )

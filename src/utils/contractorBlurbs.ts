@@ -58,4 +58,9 @@ const ALIASES: Record<string, string> = {
   'Saab': 'Saab AB',
   'Goodrich': 'Goodrich Corporation',
   'Selex': 'Selex ES',
+  'Cobham': 'Cobham Defense Electronics',
+  'Cobham Aerospace Connectivity': 'Cobham Defense Electronics',
+  'COBHAM Aerospace Connectivity': 'Cobham Defense Electronics',
+  'AgustaWestland Philadelphia Corporation': 'AgustaWestland',
+  'AgustaWestland Helicopter Company': 'AgustaWestland',
 }

@@ -126,8 +126,8 @@ export function parseContractorClause(raw) {
     `^\\s*(?:and\\s+)?(${inCityCompany})\\s+in\\s+([A-Z][A-Za-z .'-]+,\\s*${stateTail})`,
     'i',
   )
-  if (/\bin\s+[A-Z]/i.test(text) && /\sand\s/i.test(text)) {
-    const chunks = text.split(/\s+and\s+/i)
+  if (/\bin\s+[A-Z]/i.test(text) && (/\sand\s/i.test(text) || /;/.test(text))) {
+    const chunks = text.split(/\s*;\s*(?:and\s+)?|\s+and\s+/i)
     const names = [], locs = []
     for (const chunk of chunks) {
       const m = chunk.match(inCityOneRe)
@@ -282,17 +282,24 @@ export function extractContractors(fullText) {
 
   function absorb(clause) {
     let cleaned = clause.trim().replace(/^(?:will be|are|is)\s+/i, '')
+    // Normalize "City, ST, Company in ..." OCR comma → treat as list break before next company-in
+    cleaned = cleaned.replace(
+      /(,\s*(?:[A-Z]{2}|Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming))\s*,\s+(?=[A-Z][A-Za-z].{0,40}?\s+in\s+)/g,
+      '$1; ',
+    )
     const parsed = parseContractorClause(cleaned)
     if (!parsed?.name) return
-    for (const name of parsed.name.split(/\s*\/\s*/)) {
-      const n = name.trim().replace(/^(?:will be|are|is|for)\s+/i, '')
+    const partNames = parsed.name.split(/\s*\/\s*/).map(s => s.trim()).filter(Boolean)
+    const partLocs = parsed.location
+      ? parsed.location.split(/\s*\/\s*/).map(s => s.trim())
+      : []
+    for (let i = 0; i < partNames.length; i++) {
+      const n = partNames[i].replace(/^(?:will be|are|is|for)\s+/i, '')
       if (/^(?:for|is|will be)\b/i.test(n)) continue
-      if (looksLikeCompany(n) && !names.includes(n)) names.push(n)
-    }
-    if (parsed.location) {
-      for (const loc of parsed.location.split(/\s*\/\s*/)) {
-        if (loc && looksLikeLocation(loc) && !locs.includes(loc)) locs.push(loc)
-      }
+      if (!looksLikeCompany(n)) continue
+      // Keep parallel slots even when names repeat (e.g. two Raytheon plants)
+      names.push(n)
+      locs.push(partLocs[i] && looksLikeLocation(partLocs[i]) ? partLocs[i] : null)
     }
   }
 

@@ -288,6 +288,7 @@ export default function App() {
             initialSaleKey={selectedSaleKey}
             onSaleKeyChange={setSelectedSaleKey}
             onSelectCountry={openCountry}
+            onSelectContractor={openContractor}
             onBack={() => openContractor(null)}
           />
         </motion.div>

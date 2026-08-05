@@ -283,5 +283,15 @@
     "blurb": "AAR Corporation is a U.S. aerospace and defense logistics company that supplies aircraft maintenance, mobility systems, and specialty manufacturing. In Foreign Military Sales it often appears through its AAR Manufacturing unit (Cadillac, MI) on vehicle chassis and related ground-support packages.",
     "source": "curated",
     "updatedAt": "2026-08-04"
+  },
+  "Cobham Defense Electronics": {
+    "blurb": "Cobham Defense Electronics is a UK-origin aerospace and defense electronics company whose U.S. businesses supply airborne connectivity, radios, and related mission electronics. In Foreign Military Sales it appears as a specialty electronics prime or teammate on communications and aircraft-systems packages.",
+    "source": "curated",
+    "updatedAt": "2026-08-05"
+  },
+  "AgustaWestland": {
+    "blurb": "AgustaWestland (Leonardo Helicopters) builds commercial and military rotorcraft, including the AW119 family. Through its Philadelphia operations it is a recurring FMS supplier of light utility helicopters and related support for partner nations.",
+    "source": "curated",
+    "updatedAt": "2026-08-05"
   }
 }

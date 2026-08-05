@@ -129,6 +129,12 @@ export function normalizeContractor(raw: string): string {
   if (/aerojet/i.test(s)) return 'Aerojet Rocketdyne'
   if (/\batk\b|alliant\s+techsystems|orbital\s+atk/i.test(s)) return 'Orbital ATK'
 
+  // AgustaWestland before Leonardo (notices often say “… (Leonardo)”)
+  if (/agustawestland|agusta\s*westland/i.test(s)) return 'AgustaWestland'
+
+  // Cobham (Aerospace Connectivity notices → Defense Electronics page)
+  if (/\bcobham\b/i.test(s)) return 'Cobham Defense Electronics'
+
   // Leonardo / DRS (Leonardo subsidiary; historically DRS Technologies)
   if (/\bleonardo\b|\bdrs\b/i.test(s)) return 'Leonardo DRS'
 
@@ -191,9 +197,6 @@ export function normalizeContractor(raw: string): string {
 
   // ARINC
   if (/\barinc\b/i.test(s)) return 'ARINC'
-
-  // AgustaWestland
-  if (/agustawestland|agusta\s*westland/i.test(s)) return 'AgustaWestland'
 
   // Repkon
   if (/repkon/i.test(s)) return 'Repkon USA'

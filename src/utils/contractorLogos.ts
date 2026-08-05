@@ -47,6 +47,7 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/marvin/i, 'marvingroup.com'],
   [/aero\s*vironment/i, 'avinc.com'],
   [/\bsrc\b/i, 'srcinc.com'],
+  [/agustawestland|agusta\s*westland/i, 'leonardodrs.com'],
   [/boeing/i, 'boeing.com'],
   [/lockheed/i, 'lockheedmartin.com'],
   [/toyota/i, 'toyota.com'],

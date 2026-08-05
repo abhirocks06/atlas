@@ -12,7 +12,9 @@ let homeStatsIntroDone = false
 
 export function SummaryStats({ filtered }: Props) {
   const total = filtered.reduce((sum, n) => sum + (n.costUSD ?? 0), 0)
-  const countries = new Set(filtered.map(n => n.country).filter(Boolean)).size
+  const countries = new Set(
+    filtered.map(n => n.country).filter((c): c is string => Boolean(c) && c !== 'NATO'),
+  ).size
   const skipIntro = homeStatsIntroDone
   const animatedTotal = useCountUp(total, 1200, { skipIntro })
   const animatedNotifs = useCountUp(filtered.length, 1200, { skipIntro })

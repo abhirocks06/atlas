@@ -7,12 +7,11 @@ import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contract
 import { parseContractors, supplyProvider } from '../utils/parseContractors'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getSystemVisual } from '../utils/systemVisuals'
-import { CategoryIcon } from './CategoryIcon'
 
 interface Props {
   notification: Notification | null
   country: string
-  /** country = hide buyer chrome; contractor = hide builder chrome */
+  /** Retained for callers; drawer now shows both recipient and contractors on every variant */
   variant?: 'country' | 'contractor'
   onClose: () => void
   onSelectContractor?: (contractor: string) => void
@@ -22,7 +21,6 @@ interface Props {
 export function SaleDetailDrawer({
   notification,
   country,
-  variant = 'country',
   onClose,
   onSelectContractor,
   onSelectCountry,
@@ -42,7 +40,6 @@ export function SaleDetailDrawer({
   const provider = n ? supplyProvider(n.contractor) : null
   const providerLogo = provider ? getContractorLogoUrl(provider) : null
   const flagUrl = getFlagUrl(country)
-  const fromContractor = variant === 'contractor'
 
   return (
     <AnimatePresence>
@@ -81,10 +78,7 @@ export function SaleDetailDrawer({
                     className="absolute inset-0 w-full h-full object-cover"
                     decoding="async"
                     onError={e => {
-                      const img = e.currentTarget as HTMLImageElement
-                      img.style.display = 'none'
-                      const fallback = img.parentElement?.querySelector('[data-hero-fallback]')
-                      if (fallback instanceof HTMLElement) fallback.style.display = 'flex'
+                      ;(e.currentTarget as HTMLImageElement).style.display = 'none'
                     }}
                   />
                 ) : null}
@@ -98,14 +92,6 @@ export function SaleDetailDrawer({
                     backgroundSize: '18px 18px',
                   }}
                 />
-
-                <div
-                  data-hero-fallback
-                  className="absolute inset-0 items-center justify-center opacity-30"
-                  style={{ display: visual.imageUrl ? 'none' : 'flex' }}
-                >
-                  <CategoryIcon category={visual.category} size={88} color={visual.color} />
-                </div>
 
                 <button
                   type="button"
@@ -209,7 +195,7 @@ export function SaleDetailDrawer({
                 </div>
               )}
 
-              {!fromContractor && contractors.length > 0 && (
+              {contractors.length > 0 && (
                 <div>
                   <div className="text-[9px] uppercase tracking-widest text-zinc-600 mb-2">
                     {contractors.length > 1 ? 'Principal contractors' : 'Principal contractor'}
