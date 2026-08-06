@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState, useEffect, useRef, type TouchEvent } from 'react'
 import { motion } from 'framer-motion'
 import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
@@ -105,6 +105,20 @@ function valueFloorLabel(usd: number) {
   return `≥ $${Number.isInteger(b) ? b : b.toFixed(1)}B`
 }
 
+function hoverKey(h: Hover): string | null {
+  if (!h) return null
+  if (h.type === 'contractor') return `c:${h.name}`
+  if (h.type === 'system') return `s:${h.id}`
+  if (h.type === 'country') return `k:${h.name}`
+  return 'usg'
+}
+
+function touchDistance(a: { clientX: number; clientY: number }, b: { clientX: number; clientY: number }) {
+  const dx = a.clientX - b.clientX
+  const dy = a.clientY - b.clientY
+  return Math.hypot(dx, dy)
+}
+
 export function NetworkView({
   filtered,
   onSelectCountry,
@@ -113,6 +127,28 @@ export function NetworkView({
 }: Props) {
   const [hovered, setHovered] = useState<Hover>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  const stageRef = useRef<HTMLDivElement>(null)
+  const transformRef = useRef({ x: 0, y: 0, scale: 1 })
+  const pinchRef = useRef<{
+    dist: number
+    scale: number
+    x: number
+    y: number
+    cx: number
+    cy: number
+  } | null>(null)
+  const panRef = useRef<{ x: number; y: number; tx: number; ty: number; moved: boolean } | null>(null)
+  const suppressClickRef = useRef(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px), (pointer: coarse)')
+    const syncMobile = () => setIsMobile(mq.matches)
+    syncMobile()
+    mq.addEventListener('change', syncMobile)
+    return () => mq.removeEventListener('change', syncMobile)
+  }, [])
 
   useEffect(() => {
     const sync = () => {
@@ -132,6 +168,118 @@ export function NetworkView({
       window.removeEventListener('resize', sync)
     }
   }, [])
+
+  const applyTransform = () => {
+    const el = stageRef.current
+    if (!el) return
+    const { x, y, scale } = transformRef.current
+    el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+  }
+
+  const resetTransform = () => {
+    transformRef.current = { x: 0, y: 0, scale: 1 }
+    applyTransform()
+  }
+
+  useEffect(() => {
+    if (!isMobile) resetTransform()
+  }, [isMobile])
+
+  const onTouchStart = (e: TouchEvent) => {
+    if (!isMobile) return
+    suppressClickRef.current = false
+    if (e.touches.length === 2) {
+      const a = e.touches[0]!
+      const b = e.touches[1]!
+      const t = transformRef.current
+      pinchRef.current = {
+        dist: touchDistance(a, b),
+        scale: t.scale,
+        x: t.x,
+        y: t.y,
+        cx: (a.clientX + b.clientX) / 2,
+        cy: (a.clientY + b.clientY) / 2,
+      }
+      panRef.current = null
+      return
+    }
+    if (e.touches.length === 1) {
+      const t = e.touches[0]!
+      const cur = transformRef.current
+      panRef.current = { x: t.clientX, y: t.clientY, tx: cur.x, ty: cur.y, moved: false }
+      pinchRef.current = null
+    }
+  }
+
+  const onTouchMove = (e: TouchEvent) => {
+    if (!isMobile) return
+    if (e.touches.length === 2 && pinchRef.current) {
+      e.preventDefault()
+      const a = e.touches[0]!
+      const b = e.touches[1]!
+      const dist = touchDistance(a, b)
+      const pinch = pinchRef.current
+      const nextScale = Math.min(4, Math.max(1, pinch.scale * (dist / Math.max(pinch.dist, 1))))
+      const cx = (a.clientX + b.clientX) / 2
+      const cy = (a.clientY + b.clientY) / 2
+      const ratio = nextScale / pinch.scale
+      transformRef.current = {
+        scale: nextScale,
+        x: pinch.x + (cx - pinch.cx) + (pinch.cx - pinch.x) * (1 - ratio),
+        y: pinch.y + (cy - pinch.cy) + (pinch.cy - pinch.y) * (1 - ratio),
+      }
+      suppressClickRef.current = true
+      applyTransform()
+      return
+    }
+    if (e.touches.length === 1 && panRef.current && transformRef.current.scale > 1) {
+      const t = e.touches[0]!
+      const pan = panRef.current
+      const dx = t.clientX - pan.x
+      const dy = t.clientY - pan.y
+      if (Math.hypot(dx, dy) > 8) {
+        pan.moved = true
+        suppressClickRef.current = true
+      }
+      if (pan.moved) {
+        e.preventDefault()
+        transformRef.current = { ...transformRef.current, x: pan.tx + dx, y: pan.ty + dy }
+        applyTransform()
+      }
+    }
+  }
+
+  const onTouchEnd = (e: TouchEvent) => {
+    if (!isMobile) return
+    if (e.touches.length < 2) pinchRef.current = null
+    if (e.touches.length === 0) {
+      if (transformRef.current.scale <= 1.02) resetTransform()
+      panRef.current = null
+    }
+  }
+
+  const clearHover = () => setHovered(null)
+
+  const selectHover = (next: Exclude<Hover, null>) => {
+    setHovered(next)
+  }
+
+  /** Desktop: open immediately. Mobile: first tap highlights, second tap opens. */
+  const handleOpenableTap = (
+    next: Extract<Hover, { type: 'contractor' } | { type: 'country' }>,
+    open: () => void,
+  ) => {
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false
+      return
+    }
+    if (!isMobile) {
+      open()
+      return
+    }
+    if (hoverKey(hovered) === hoverKey(next)) open()
+    else selectHover(next)
+  }
 
   const graph = useMemo(() => {
     const cValue = new Map<string, number>()
@@ -383,13 +531,34 @@ export function NetworkView({
         className="shrink-0"
         style={{ height: headerClearance + (isFullscreen ? 28 : 0) }}
       />
-      <div className="flex-1 min-h-0 relative">
+      <div
+        className={`flex-1 min-h-0 relative ${isMobile ? 'touch-none overflow-hidden' : ''}`}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
+      >
+        <div
+          ref={stageRef}
+          className="w-full h-full origin-center will-change-transform"
+        >
         <svg
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           preserveAspectRatio="xMidYMin meet"
           className="w-full h-full"
         >
           <g>
+            {/* Tap empty canvas to clear mobile selection */}
+            <rect
+              x={0}
+              y={0}
+              width={VB_W}
+              height={VB_H}
+              fill="transparent"
+              onClick={() => {
+                if (isMobile) clearHover()
+              }}
+            />
             {/* Contractor → USG */}
             {contractors.map((c, i) => {
               const active = nodeOn(activeContractors, c.id)
@@ -507,10 +676,22 @@ export function NetworkView({
                 <g
                   key={c.id}
                   style={{ cursor: clickable ? 'pointer' : 'default' }}
-                  onMouseEnter={() => setHovered({ type: 'contractor', name: c.id })}
-                  onMouseLeave={() => setHovered(null)}
-                  onClick={() => {
-                    if (clickable) onSelectContractor?.(c.label)
+                  onMouseEnter={() => {
+                    if (!isMobile) setHovered({ type: 'contractor', name: c.id })
+                  }}
+                  onMouseLeave={() => {
+                    if (!isMobile) setHovered(null)
+                  }}
+                  onClick={e => {
+                    e.stopPropagation()
+                    if (suppressClickRef.current) {
+                      suppressClickRef.current = false
+                      return
+                    }
+                    handleOpenableTap(
+                      { type: 'contractor', name: c.id },
+                      () => { if (clickable) onSelectContractor?.(c.label) },
+                    )
                   }}
                 >
                   <motion.rect
@@ -554,8 +735,20 @@ export function NetworkView({
 
             <g
               style={{ cursor: 'default' }}
-              onMouseEnter={() => setHovered({ type: 'usg' })}
-              onMouseLeave={() => setHovered(null)}
+              onMouseEnter={() => {
+                if (!isMobile) setHovered({ type: 'usg' })
+              }}
+              onMouseLeave={() => {
+                if (!isMobile) setHovered(null)
+              }}
+              onClick={e => {
+                e.stopPropagation()
+                if (suppressClickRef.current) {
+                  suppressClickRef.current = false
+                  return
+                }
+                if (isMobile) selectHover({ type: 'usg' })
+              }}
             >
               <motion.rect
                 x={U_X} y={U_Y} width={U_W} height={U_H} rx={10}
@@ -603,9 +796,24 @@ export function NetworkView({
               return (
                 <g
                   key={s.id}
-                  style={{ cursor: 'default' }}
-                  onMouseEnter={() => setHovered({ type: 'system', id: s.id })}
-                  onMouseLeave={() => setHovered(null)}
+                  style={{ cursor: isMobile ? 'pointer' : 'default' }}
+                  onMouseEnter={() => {
+                    if (!isMobile) setHovered({ type: 'system', id: s.id })
+                  }}
+                  onMouseLeave={() => {
+                    if (!isMobile) setHovered(null)
+                  }}
+                  onClick={e => {
+                    e.stopPropagation()
+                    if (suppressClickRef.current) {
+                      suppressClickRef.current = false
+                      return
+                    }
+                    if (isMobile) {
+                      if (hoverKey(hovered) === `s:${s.id}`) clearHover()
+                      else selectHover({ type: 'system', id: s.id })
+                    }
+                  }}
                 >
                   <motion.rect
                     x={S_X} y={y} width={S_W} height={S_H} rx={compactS ? 4 : 6}
@@ -653,9 +861,23 @@ export function NetworkView({
                 <g
                   key={k.id}
                   style={{ cursor: 'pointer' }}
-                  onMouseEnter={() => setHovered({ type: 'country', name: k.id })}
-                  onMouseLeave={() => setHovered(null)}
-                  onClick={() => onSelectCountry(k.label)}
+                  onMouseEnter={() => {
+                    if (!isMobile) setHovered({ type: 'country', name: k.id })
+                  }}
+                  onMouseLeave={() => {
+                    if (!isMobile) setHovered(null)
+                  }}
+                  onClick={e => {
+                    e.stopPropagation()
+                    if (suppressClickRef.current) {
+                      suppressClickRef.current = false
+                      return
+                    }
+                    handleOpenableTap(
+                      { type: 'country', name: k.id },
+                      () => onSelectCountry(k.label),
+                    )
+                  }}
                 >
                   <motion.rect
                     x={K_X} y={y} width={K_W} height={K_H} rx={compactK ? 4 : 6}
@@ -697,6 +919,7 @@ export function NetworkView({
             })}
           </g>
         </svg>
+        </div>
       </div>
     </div>
   )

@@ -20,6 +20,28 @@ interface Props {
 
 type ChartMetric = 'value' | 'count'
 
+/** Mobile-only shorter labels for cramped Top Recipients / Top Contractors rows. */
+const MOBILE_SHORT_LABELS: Record<string, string> = {
+  'United Arab Emirates': 'UAE',
+  'The Boeing Company': 'Boeing',
+  'Republic of Korea': 'Korea',
+  'L3Harris Technologies': 'L3 Harris',
+  'RTX Corporation': 'RTX',
+}
+
+function LabelWithMobileShort({ name }: { name: string }) {
+  const short = MOBILE_SHORT_LABELS[name]
+  if (!short) {
+    return <span className="text-[11px] text-zinc-300 truncate">{name}</span>
+  }
+  return (
+    <span className="text-[11px] text-zinc-300 truncate">
+      <span className="md:hidden">{short}</span>
+      <span className="hidden md:inline">{name}</span>
+    </span>
+  )
+}
+
 function totalsByCountry(notifications: Notification[]): Map<string, { value: number; count: number }> {
   const map = new Map<string, { value: number; count: number }>()
   for (const n of notifications) {
@@ -485,7 +507,7 @@ export function AnalyticsPage({
                         ) : (
                           <span className="w-5 h-3.5 rounded-[1px] bg-zinc-800 shrink-0" />
                         )}
-                        <span className="text-[11px] text-zinc-300 truncate">{country}</span>
+                        <LabelWithMobileShort name={country} />
                       </div>
                       <div className="flex-1 h-3 bg-zinc-900/80 rounded-sm overflow-hidden min-w-0 pointer-events-none">
                         {renderBar(pct, i)}
@@ -539,7 +561,7 @@ export function AnalyticsPage({
                           ) : (
                             <span className="w-4 h-4 rounded-sm bg-zinc-800 shrink-0" />
                           )}
-                          <span className="text-[11px] text-zinc-300 truncate">{name}</span>
+                          <LabelWithMobileShort name={name} />
                         </div>
                         <div className="flex-1 h-3 bg-zinc-900/80 rounded-sm overflow-hidden min-w-0 pointer-events-none">
                           {renderBar(pct, i)}
