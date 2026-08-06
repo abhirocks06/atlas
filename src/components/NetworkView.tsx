@@ -490,7 +490,7 @@ export function NetworkView({
             {contractors.map((c, i) => {
               const active = nodeOn(activeContractors, c.id)
               const value = cuValues.get(c.id) ?? 0
-              const w = 1.2 + (Math.log(value + 1) / Math.log(maxCu + 1)) * 4
+              const w = 1.0 + (Math.log(value + 1) / Math.log(maxCu + 1)) * 3.2
               const y = cYs[i]! + C_H / 2
               return (
                 <motion.path
@@ -511,7 +511,7 @@ export function NetworkView({
             {systems.map((s, i) => {
               const active = nodeOn(activeSystems, s.id)
               const value = usValues.get(s.id) ?? 0
-              const w = 1.2 + (Math.log(value + 1) / Math.log(maxUs + 1)) * 4
+              const w = 1.0 + (Math.log(value + 1) / Math.log(maxUs + 1)) * 3.2
               const y = sYs[i]! + S_H / 2
               return (
                 <motion.path
@@ -535,7 +535,7 @@ export function NetworkView({
               if (si === undefined || ki === undefined) return null
               const active =
                 nodeOn(activeSystems, e.systemId) && nodeOn(activeCountries, e.country)
-              const w = 0.8 + (Math.log(e.value + 1) / Math.log(maxSk + 1)) * 3.2
+              const w = 0.65 + (Math.log(e.value + 1) / Math.log(maxSk + 1)) * 2.6
               const y1 = sYs[si]! + S_H / 2
               const y2 = kYs[ki]! + K_H / 2
               return (
