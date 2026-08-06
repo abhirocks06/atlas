@@ -2425,7 +2425,7 @@
     "country": "Kuwait",
     "system": "Joint Helmet Mounted Cueing Systems (JHMCS)",
     "costUSD": 51000000,
-    "contractor": "Boeing Aerospace",
+    "contractor": "The Boeing Company",
     "contractorLocation": "St. Louis, Missouri",
     "description": "a possible sale of 43 Joint Helmet Mounted Cueing System Cockpit Units, Single Seat Electronic Units, Helmet Display Units, spare and repair parts, support equipment, tool and test equipment, personnel training and training equipment, publications and technical data, U.S. Government and contractor technical and logistics personnel services and other related elements of program and logistics support. The estimated cost is $51 million.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/11/2003606480/-1/-1/0/KUWAIT_12-18_0.PDF"
@@ -12171,7 +12171,7 @@
     "country": "Taiwan",
     "system": "MK 75 76 mm Gun Mounts",
     "costUSD": 30000000,
-    "contractor": "U.S. Army inventory",
+    "contractor": "U.S. Coast Guard inventory",
     "contractorLocation": null,
     "description": "sixteen (16) MK 75 76 mm gun mounts. The following non-MDE items will be included: shipping containers; technical assistance to overhaul guns to be ready for use; and other related elements of logistics and program support.",
     "sourceUrl": "https://media.defense.gov/2024/Dec/30/2003619580/-1/-1/0/PRESS%20RELEASE%20-%20TECRO%2025-01%20CN.PDF"
@@ -14109,5 +14109,17 @@
     "contractorLocation": "Simi Valley, California",
     "addedAt": "2026-07-16",
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/07/greece-switchblade-300-block-20-lethal-miniature-aerial-missile-system/"
+  },
+  {
+    "date": "2026-08-05",
+    "transmittal": "26-82",
+    "country": "Norway",
+    "system": "155mm High Explosive (HE) M795 Projectile",
+    "costUSD": 270000000,
+    "contractor": "American Ordnance / General Dynamics",
+    "contractorLocation": "Middletown, Iowa / Camden, Arkansas",
+    "description": "additional 155mm High Explosive (HE) M795 Projectiles; technical assistance; technical documentation; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support that will be added to a previously implemented case whose value was under the congressional notification threshold. The original Foreign Military Sales (FMS) case, valued at $99.99 million ($0 in major defense equipment (MDE)), included 155mm HE M795 Projectiles. This notification is for a combined total of the following non-MDE items: 155mm HE M795 Projectiles; technical assistance; technical documentation; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support.",
+    "addedAt": "2026-08-06",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/norway-155mm-high-explosive-he-m795-projectile/"
   }
 ]

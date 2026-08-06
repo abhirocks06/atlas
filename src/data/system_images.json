@@ -336,6 +336,12 @@
     "query": "MQ-1C Gray Eagle"
   },
   {
+    "pattern": "m795",
+    "url": "/system-images/m795.png",
+    "title": "M795 155mm HE projectile",
+    "query": "M795"
+  },
+  {
     "pattern": "excalibur",
     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/XM982_Excalibur_inert.jpg",
     "title": "File:XM982 Excalibur inert.jpg",

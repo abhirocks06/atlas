@@ -264,6 +264,9 @@ export function normalizeContractor(raw: string): string {
   // Toyota (State notices list “Toyota, Plano, Texas” for commercial vehicles)
   if (/^toyota\b/i.test(s)) return 'Toyota'
 
+  // Caterpillar (combat engineering / D9 packages)
+  if (/caterpillar/i.test(s)) return 'Caterpillar'
+
   // Progeny Systems (GD Mission Systems business area)
   if (/progeny/i.test(s)) return 'Progeny Systems'
 

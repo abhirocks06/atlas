@@ -293,5 +293,20 @@
     "blurb": "AgustaWestland (Leonardo Helicopters) builds commercial and military rotorcraft, including the AW119 family. Through its Philadelphia operations it is a recurring FMS supplier of light utility helicopters and related support for partner nations.",
     "source": "curated",
     "updatedAt": "2026-08-05"
+  },
+  "Caterpillar": {
+    "blurb": "Caterpillar is a U.S. heavy-equipment manufacturer whose defense-relevant products include armored combat bulldozers and related earthmoving systems. In Foreign Military Sales it appears as the prime on D9 and similar engineering-vehicle packages for partner ground forces.",
+    "source": "curated",
+    "updatedAt": "2026-08-05"
+  },
+  "American Ordnance": {
+    "blurb": "American Ordnance is a U.S. munitions manufacturer and Day & Zimmermann company that operates the Iowa Army Ammunition Plant. It load-assembles medium- and large-caliber ammunition and appears in FMS as a prime on artillery-projectile and related ordnance packages.",
+    "source": "curated",
+    "updatedAt": "2026-08-06"
+  },
+  "Orbital ATK": {
+    "blurb": "Orbital ATK was a U.S. aerospace and defense company formed from Orbital Sciences and Alliant Techsystems, known for munitions, missile components, and precision-guidance kits. It appears in FMS chiefly on ammunition and weapons packages; Northrop Grumman acquired it in 2018.",
+    "source": "curated",
+    "updatedAt": "2026-08-06"
   }
 }

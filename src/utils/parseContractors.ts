@@ -34,7 +34,7 @@ function isInventorySourcePart(s: string): boolean {
   if (/^U\.?S\.?\s+Government\s*\/\s*vendors TBD$/i.test(t)) return true
   if (/^U\.?S\.?\s+Government$/i.test(t)) return true
   if (isNavyCommandSource(t)) return true
-  return /(?:army|marine\s+corps|navy|air\s+force|government)\s+(stock|inventory)|coming from US (?:Army|Marine|Navy|Government)|from U\.?S\.?\s+(?:Army|Marine|Navy|Government)|U\.?S\.?\s+Marine\s+Corps\s+(?:stock|inventory)|USMC\s+(?:stock|inventory)|U\.?S\.?\s+Government\s+(?:stock|inventory)/i.test(
+  return /(?:army|marine\s+corps|navy|air\s+force|coast\s+guard|government)\s+(stock|inventory)|coming from US (?:Army|Marine|Navy|Government|Coast\s+Guard)|from U\.?S\.?\s+(?:Army|Marine|Navy|Government|Coast\s+Guard)|U\.?S\.?\s+Marine\s+Corps\s+(?:stock|inventory)|USMC\s+(?:stock|inventory)|U\.?S\.?\s+Government\s+(?:stock|inventory)|U\.?S\.?\s+Coast\s+Guard\s+(?:stock|inventory)/i.test(
     t,
   )
 }
@@ -53,7 +53,7 @@ export function isInventorySource(contractor: string | null | undefined): boolea
   return isInventorySourcePart(s)
 }
 
-/** True when this label must never open a contractor page / enter Network rankings. */
+/** True when this label must never open a contractor page / enter contractor rankings. */
 export function isSupplyProviderLabel(label: string | null | undefined): boolean {
   if (!label?.trim()) return false
   if (isInventorySource(label)) return true
@@ -81,6 +81,7 @@ export function supplyProvider(contractor: string | null | undefined): string | 
 
   if (!isInventorySource(s)) return null
   if (/marine\s+corps|USMC/i.test(s)) return 'U.S. Marine Corps inventory'
+  if (/coast\s+guard/i.test(s)) return 'U.S. Coast Guard inventory'
   if (/navy/i.test(s)) return US_NAVY_INVENTORY
   if (/air\s+force/i.test(s)) return 'U.S. Air Force inventory'
   if (/government\s+(stock|inventory)/i.test(s)) return 'U.S. Government inventory'

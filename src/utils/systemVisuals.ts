@@ -74,9 +74,21 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: '/system-images/mk45-gun-system.png',
   },
   {
-    match: /76\s*mm\s*naval\s*gun|oto\s*melara\s*76/i,
+    match: /mk[-\s]?75|76\s*mm\s*(naval\s*)?gun|oto\s*melara\s*76/i,
     blurb: 'Medium-caliber naval gun for anti-surface, anti-air, and shore bombardment from warships and patrol craft.',
     url: '/system-images/76mm-naval-gun.png',
+  },
+  {
+    match: /high\s*gain\s*measurement|\bhgms\b/i,
+    blurb: 'Deployable acoustic measurement array used to characterize underwater signatures and sensor performance.',
+  },
+  {
+    match: /m1156|precision\s*guided\s*kit|\bpgk\b/i,
+    blurb: 'GPS guidance fuze kit that turns 155 mm artillery shells into precision-guided munitions.',
+  },
+  {
+    match: /joint\s*helmet\s*mounted\s*cueing|\bjhmcs\b/i,
+    blurb: 'Helmet-mounted display that cues weapons and sensors wherever the pilot looks.',
   },
   {
     match: /hellfire|agm-114/i,
@@ -191,6 +203,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /small diameter bomb|\bsdb\b/i,
     blurb: 'Compact precision glide bombs that let fighters hit multiple targets from standoff range.',
     url: '/system-images/gbu-39b.jpg',
+  },
+  {
+    match: /m795/i,
+    blurb: '155 mm high-explosive artillery projectile for conventional fire support against ground targets.',
+    url: '/system-images/m795.png',
   },
   {
     match: /excalibur|m982/i,
@@ -411,6 +428,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     url: '/system-images/abrams.jpg',
   },
   {
+    match: /caterpillar\s*d9|d9\s*bulldozer|d9t?\b.*(?:dozer|bulldozer)|bulldozer.*d9/i,
+    blurb: 'Heavy track-type tractor with blade and ripper for combat-engineering earthmoving and obstacle clearance.',
+    url: '/system-images/caterpillar-d9.jpg',
+  },
+  {
     match: /eitan|8v199te21/i,
     blurb: 'Powerpack engines for the Israeli Eitan 8x8 wheeled armored personnel carrier.',
     url: '/system-images/eitan.jpg',
@@ -539,6 +561,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     match: /air operations center|\baoc\b/i,
     blurb: 'Command-and-control facility that plans, directs, and monitors air operations across the battlespace.',
     url: '/system-images/qatar-aoc.jpg',
+  },
+  {
+    match: /mobile\s+ground\s+control\s+approach|\bgca[- ]?2000\b|\bmgca\b|ground\s+controlled?\s+approach/i,
+    blurb: 'Mobile radar suite that guides aircraft for precision approaches and landings in low-visibility conditions.',
+    url: '/system-images/mgca.png',
   },
   {
     match: /air traffic control|landing system|cns\/atm|navigation surveillance/i,

@@ -11,7 +11,7 @@ interface Props {
   yearTotals: YearPoint[]
   /** When true, omit outer section borders (parent provides a card shell). */
   embedded?: boolean
-  /** Larger chart for the Trends headline */
+  /** Larger chart for the Analytics headline */
   tall?: boolean
   /** How to format the metric in hover / peak labels */
   formatValue?: (value: number) => string

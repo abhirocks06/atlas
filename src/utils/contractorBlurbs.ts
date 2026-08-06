@@ -36,6 +36,8 @@ const ALIASES: Record<string, string> = {
   'Anduril': 'Anduril Industries',
   'AAR': 'AAR Corporation',
   'AAR Manufacturing': 'AAR Corporation',
+  'ATK': 'Orbital ATK',
+  'Alliant Techsystems': 'Orbital ATK',
   'SRC': 'SRC Inc.',
   'RTX': 'RTX Corporation',
   'Boeing': 'The Boeing Company',
@@ -63,4 +65,5 @@ const ALIASES: Record<string, string> = {
   'COBHAM Aerospace Connectivity': 'Cobham Defense Electronics',
   'AgustaWestland Philadelphia Corporation': 'AgustaWestland',
   'AgustaWestland Helicopter Company': 'AgustaWestland',
+  'Caterpillar Inc.': 'Caterpillar',
 }

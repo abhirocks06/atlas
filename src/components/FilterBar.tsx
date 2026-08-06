@@ -9,6 +9,8 @@ const selectStyle = {
   backgroundPosition: 'right 6px center',
 }
 
+export type AppView = 'map' | 'network' | 'analytics'
+
 interface Props {
   dateRange: [string, string]
   onDateRangeChange: (range: [string, string]) => void
@@ -16,8 +18,8 @@ interface Props {
   maxDate: string
   categoryFilter: WeaponCategory | null
   onCategoryFilterChange: (cat: WeaponCategory | null) => void
-  view: 'map' | 'network' | 'trends'
-  onViewChange: (v: 'map' | 'network' | 'trends') => void
+  view: AppView
+  onViewChange: (v: AppView) => void
   countries: string[]
   contractors: string[]
   onSelectCountry: (country: string) => void
@@ -25,6 +27,8 @@ interface Props {
   /** Nest inside a rounded panel — no outer bar chrome */
   embedded?: boolean
 }
+
+type SearchHit = { name: string; kind: 'country' | 'contractor' }
 
 export function FilterBar({
   dateRange,
@@ -44,25 +48,57 @@ export function FilterBar({
   const mobileSearchRef = useRef<HTMLDivElement>(null)
   const desktopSearchRef = useRef<HTMLDivElement>(null)
 
-  // Network → contractors; map/trends → countries
-  const searchContractors = view === 'network'
-
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return []
-    const pool = searchContractors ? contractors : countries
-    return pool
+    if (!q) return [] as SearchHit[]
+
+    const rank = (name: string) => {
+      const al = name.toLowerCase()
+      const starts = al.startsWith(q) ? 0 : 1
+      return starts
+    }
+
+    if (view === 'map') {
+      return countries
+        .filter(c => c.toLowerCase().includes(q))
+        .sort((a, b) => {
+          const rs = rank(a) - rank(b)
+          if (rs !== 0) return rs
+          return a.localeCompare(b)
+        })
+        .slice(0, 10)
+        .map(name => ({ name, kind: 'country' as const }))
+    }
+
+    if (view === 'network') {
+      return contractors
+        .filter(c => c.toLowerCase().includes(q))
+        .sort((a, b) => {
+          const rs = rank(a) - rank(b)
+          if (rs !== 0) return rs
+          return a.localeCompare(b)
+        })
+        .slice(0, 10)
+        .map(name => ({ name, kind: 'contractor' as const }))
+    }
+
+    // Analytics: countries and contractors
+    const countryHits: SearchHit[] = countries
       .filter(c => c.toLowerCase().includes(q))
+      .map(name => ({ name, kind: 'country' as const }))
+    const contractorHits: SearchHit[] = contractors
+      .filter(c => c.toLowerCase().includes(q))
+      .map(name => ({ name, kind: 'contractor' as const }))
+
+    return [...countryHits, ...contractorHits]
       .sort((a, b) => {
-        const al = a.toLowerCase()
-        const bl = b.toLowerCase()
-        const aStarts = al.startsWith(q) ? 0 : 1
-        const bStarts = bl.startsWith(q) ? 0 : 1
-        if (aStarts !== bStarts) return aStarts - bStarts
-        return a.localeCompare(b)
+        const rs = rank(a.name) - rank(b.name)
+        if (rs !== 0) return rs
+        if (a.kind !== b.kind) return a.kind === 'country' ? -1 : 1
+        return a.name.localeCompare(b.name)
       })
       .slice(0, 10)
-  }, [query, countries, contractors, searchContractors])
+  }, [query, countries, contractors, view])
 
   // Clear query when switching views so leftover country/contractor text doesn't confuse
   useEffect(() => {
@@ -81,11 +117,11 @@ export function FilterBar({
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  const selectHit = (name: string) => {
+  const selectHit = (hit: SearchHit) => {
     setQuery('')
     setOpen(false)
-    if (searchContractors) onSelectContractor(name)
-    else onSelectCountry(name)
+    if (hit.kind === 'contractor') onSelectContractor(hit.name)
+    else onSelectCountry(hit.name)
   }
 
   const minYear = parseInt(minDate.slice(0, 4))
@@ -94,29 +130,78 @@ export function FilterBar({
   const toYear = parseInt(dateRange[1].slice(0, 4))
   const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
 
-  const placeholder = searchContractors ? 'Search contractor…' : 'Search country…'
-  const desktopPlaceholder = searchContractors ? 'Contractor…' : 'Country…'
+  const placeholder =
+    view === 'map' ? 'Search country…' : view === 'network' ? 'Search contractor…' : 'Search country or contractor…'
+  const desktopPlaceholder =
+    view === 'map' ? 'Country…' : view === 'network' ? 'Contractor…' : 'Country or contractor…'
 
   const resultsList = (wide: boolean) =>
     open && matches.length > 0 ? (
       <div
         className={`absolute top-full mt-1.5 rounded-lg bg-[#111111] border border-zinc-800/80 shadow-xl z-[100] max-h-56 overflow-y-auto ${
-          wide ? 'left-0 right-0' : 'left-0 w-56'
+          wide ? 'left-0 right-0' : 'left-0 w-64'
         }`}
       >
-        {matches.map(name => (
+        {matches.map(hit => (
           <button
-            key={name}
-            onMouseDown={() => selectHit(name)}
-            className={`w-full text-left px-3 text-zinc-300 hover:bg-zinc-800/80 hover:text-white transition-colors border-b border-zinc-800/50 last:border-0 truncate ${
+            key={`${hit.kind}-${hit.name}`}
+            onMouseDown={() => selectHit(hit)}
+            className={`w-full text-left px-3 text-zinc-300 hover:bg-zinc-800/80 hover:text-white transition-colors border-b border-zinc-800/50 last:border-0 truncate flex items-center gap-2 ${
               wide ? 'py-2 text-xs' : 'py-1.5 text-[11px]'
             }`}
           >
-            {name}
+            <span className="truncate flex-1">{hit.name}</span>
+            {view === 'analytics' && (
+              <span className="text-[9px] uppercase tracking-wider text-zinc-600 shrink-0">
+                {hit.kind === 'contractor' ? 'Co.' : 'Country'}
+              </span>
+            )}
           </button>
         ))}
       </div>
     ) : null
+
+  const viewToggle = (compact: boolean) => (
+    <div className={`flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 flex-shrink-0 h-8 ${compact ? '' : 'ml-auto shrink-0'}`}>
+      {([
+        { id: 'map' as const, label: 'Map' },
+        { id: 'network' as const, label: 'Network' },
+        { id: 'analytics' as const, label: 'Analytics' },
+      ]).map(v => (
+        <button
+          key={v.id}
+          onClick={() => onViewChange(v.id)}
+          aria-label={v.label}
+          className={`flex items-center ${compact ? 'justify-center px-2' : 'gap-1.5 px-2.5'} h-full rounded-md transition-colors ${
+            compact ? '' : 'text-[10px] uppercase tracking-widest'
+          } ${
+            view === v.id ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
+          }`}
+        >
+          {v.id === 'map' ? (
+            <svg width={compact ? 12 : 11} height={compact ? 12 : 11} viewBox="0 0 14 14" fill="none">
+              <path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+              <path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/>
+            </svg>
+          ) : v.id === 'network' ? (
+            <svg width={compact ? 12 : 11} height={compact ? 12 : 11} viewBox="0 0 14 14" fill="none">
+              <circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/>
+              <circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/>
+              <circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/>
+              <circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/>
+              <path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/>
+            </svg>
+          ) : (
+            <svg width={compact ? 12 : 11} height={compact ? 12 : 11} viewBox="0 0 14 14" fill="none">
+              <path d="M1.5 10.5l2.5-3 2 2 3.5-4.5 2.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M1.5 12h11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            </svg>
+          )}
+          {!compact && <span>{v.label}</span>}
+        </button>
+      ))}
+    </div>
+  )
 
   return (
     <div className={`flex-shrink-0 ${embedded ? '' : 'px-3 sm:px-4 md:px-5 py-1.5 md:py-2.5 border-b border-zinc-800/80 bg-[#0d0d0d]'}`}>
@@ -149,26 +234,7 @@ export function FilterBar({
               ))}
             </select>
           </div>
-          <div className="flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 flex-shrink-0 h-8">
-            {(['map', 'network', 'trends'] as const).map(v => (
-              <button
-                key={v}
-                onClick={() => onViewChange(v)}
-                aria-label={v}
-                className={`flex items-center justify-center px-2 h-full rounded-md transition-colors ${
-                  view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
-                }`}
-              >
-                {v === 'map' ? (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
-                ) : v === 'network' ? (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
-                ) : (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1.5 10.5l2.5-3 2 2 3.5-4.5 2.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M1.5 12h11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                )}
-              </button>
-            ))}
-          </div>
+          {viewToggle(true)}
         </div>
 
         <div ref={mobileSearchRef} className="relative w-full">
@@ -231,7 +297,9 @@ export function FilterBar({
               placeholder={desktopPlaceholder}
               onChange={e => { setQuery(e.target.value); setOpen(true) }}
               onFocus={() => { if (query) setOpen(true) }}
-              className="h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2.5 text-xs outline-none transition-colors w-48"
+              className={`h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2.5 text-xs outline-none transition-colors ${
+                view === 'analytics' ? 'w-56' : 'w-48'
+              }`}
             />
             {query && (
               <button
@@ -246,26 +314,7 @@ export function FilterBar({
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-0.5 border border-zinc-800/80 rounded-lg p-0.5 shrink-0 h-8">
-          {(['map', 'network', 'trends'] as const).map(v => (
-            <button
-              key={v}
-              onClick={() => onViewChange(v)}
-              className={`flex items-center gap-1.5 px-2.5 h-full rounded-md text-[10px] uppercase tracking-widest transition-colors ${
-                view === v ? 'bg-zinc-800 text-zinc-200' : 'text-zinc-600 hover:text-zinc-400'
-              }`}
-            >
-              {v === 'map' ? (
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.2"/></svg>
-              ) : v === 'network' ? (
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="2.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="4" r="1.4" stroke="currentColor" strokeWidth="1.1"/><circle cx="11.5" cy="10" r="1.4" stroke="currentColor" strokeWidth="1.1"/><path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.7"/></svg>
-              ) : (
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1.5 10.5l2.5-3 2 2 3.5-4.5 2.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M1.5 12h11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-              )}
-              <span>{v}</span>
-            </button>
-          ))}
-        </div>
+        {viewToggle(false)}
       </div>
       </div>
     </div>

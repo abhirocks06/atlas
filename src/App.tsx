@@ -4,10 +4,10 @@ import rawData from '../data/fms_notifications.json'
 import type { Notification } from './types'
 import { WorldMap } from './components/WorldMap'
 import { NetworkView } from './components/NetworkView'
-import { TrendsPage } from './components/TrendsPage'
+import { AnalyticsPage } from './components/AnalyticsPage'
 import { CountryPage } from './components/CountryPage'
 import { ContractorPage } from './components/ContractorPage'
-import { FilterBar } from './components/FilterBar'
+import { FilterBar, type AppView } from './components/FilterBar'
 import { SummaryStats } from './components/SummaryStats'
 import { categorize, type WeaponCategory } from './utils/weaponCategories'
 import { getNewNotifications } from './utils/newNotifications'
@@ -23,31 +23,16 @@ const dates = allNotifications.map(n => n.date).sort()
 const DATA_MIN_DATE = dates[0]
 const DATA_MAX_DATE = dates[dates.length - 1]
 
-function MapIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M1 3.5l4-1.5 4 1.5 4-1.5v9l-4 1.5-4-1.5-4 1.5v-9z" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round"/>
-      <path d="M5 2v9M9 3.5v9" stroke="currentColor" strokeWidth="1.1"/>
-    </svg>
-  )
-}
-
-function NetworkIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <circle cx="2.5" cy="4" r="1.5" stroke="currentColor" strokeWidth="1.1"/>
-      <circle cx="2.5" cy="10" r="1.5" stroke="currentColor" strokeWidth="1.1"/>
-      <circle cx="11.5" cy="4" r="1.5" stroke="currentColor" strokeWidth="1.1"/>
-      <circle cx="11.5" cy="10" r="1.5" stroke="currentColor" strokeWidth="1.1"/>
-      <path d="M4 4h5.5M4 10h5.5M4 4.5L9.5 9.5M4 9.5L9.5 4.5" stroke="currentColor" strokeWidth="0.9" strokeOpacity="0.6"/>
-    </svg>
-  )
+function parseView(param: string | null): AppView {
+  if (param === 'network') return 'network'
+  // Legacy: trends → analytics
+  if (param === 'analytics' || param === 'trends') return 'analytics'
+  return 'map'
 }
 
 function getInitialState() {
   const params = new URLSearchParams(window.location.search)
-  const viewParam = params.get('view')
-  const view = viewParam === 'network' || viewParam === 'trends' ? viewParam : 'map'
+  const view = parseView(params.get('view'))
   const country = params.get('country') || null
   const contractorRaw = params.get('contractor') || null
   const contractor = contractorRaw ? normalizeContractor(contractorRaw) : null
@@ -80,7 +65,7 @@ export default function App() {
   const [selectedSaleKey, setSelectedSaleKey] = useState<string | null>(initial.sale)
   const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
-  const [view, setView] = useState<'map' | 'network' | 'trends'>(initial.view as 'map' | 'network' | 'trends')
+  const [view, setView] = useState<AppView>(initial.view)
   const floatingHeaderRef = useRef<HTMLDivElement>(null)
   const [headerClearance, setHeaderClearance] = useState(180)
 
@@ -103,13 +88,12 @@ export default function App() {
 
     measure()
     // Second pass after layout/fonts settle — avoids a too-short spacer that
-    // leaves the first Trends card clipped under the bar at scrollTop 0.
+    // leaves the first Analytics card clipped under the bar at scrollTop 0.
     const raf = requestAnimationFrame(() => {
       measure()
       requestAnimationFrame(measure)
     })
     void document.fonts?.ready?.then(measure)
-    // Country/contractor back-nav remounts this chrome mid-animation; catch settled size.
     const settled = window.setTimeout(measure, 220)
 
     const ro = new ResizeObserver(measure)
@@ -123,7 +107,15 @@ export default function App() {
       ro.disconnect()
       window.removeEventListener('resize', measure)
     }
-  }, [view, selectedCountry, selectedContractor])
+  }, [view])
+
+  // Detail pages can leave a window scroll offset; snap back when returning.
+  useLayoutEffect(() => {
+    if (selectedCountry || selectedContractor) return
+    window.scrollTo(0, 0)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+  }, [selectedCountry, selectedContractor])
 
   const openCountry = (country: string | null) => {
     setSelectedContractor(null)
@@ -196,7 +188,7 @@ export default function App() {
   }, [selectedSaleKey])
 
   useEffect(() => {
-    const viewLabel = view === 'map' ? 'Map' : view === 'network' ? 'Network' : 'Trends'
+    const viewLabel = view === 'map' ? 'Map' : view === 'network' ? 'Network' : 'Analytics'
     const detail =
       selectedSale?.system
         ? String(selectedSale.system).trim()
@@ -266,163 +258,166 @@ export default function App() {
     [todayKey],
   )
 
+  const drillIn = Boolean(selectedCountry || selectedContractor)
+
   return (
     <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#080808]">
     <NewNotificationBanner
       notifications={newNotifications}
       onSelect={openCountry}
     />
-    <AnimatePresence mode="wait">
-      {selectedContractor ? (
-        <motion.div
-          key={`contractor-${selectedContractor}`}
-          className="flex-1 min-h-0 overflow-hidden bg-[#080808]"
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 24 }}
-          transition={{ duration: 0.18, ease: 'easeOut' }}
+    {/* Keep map/network mounted under detail pages so back-nav doesn't remount
+        the header spacer and shove the diagram up with empty space below. */}
+    <div className="relative flex-1 min-h-0 overflow-hidden">
+      <div
+        className={`absolute inset-0 bg-[#0a0c10] ${drillIn ? 'invisible pointer-events-none' : ''}`}
+        aria-hidden={drillIn}
+      >
+        <div
+          ref={floatingHeaderRef}
+          className="absolute top-0 left-0 right-0 z-20 px-4 md:px-6 pt-4 pb-3 pointer-events-none"
         >
-          <ContractorPage
-            contractor={selectedContractor}
-            notifications={contractorNotifications}
-            initialSaleKey={selectedSaleKey}
-            onSaleKeyChange={setSelectedSaleKey}
-            onSelectCountry={openCountry}
-            onSelectContractor={openContractor}
-            onBack={() => openContractor(null)}
-          />
-        </motion.div>
-      ) : selectedCountry ? (
-        <motion.div
-          key={`country-${selectedCountry}`}
-          className="flex-1 min-h-0 overflow-hidden bg-[#080808]"
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 24 }}
-          transition={{ duration: 0.18, ease: 'easeOut' }}
-        >
-          <CountryPage
-            country={selectedCountry}
-            notifications={selectedNotifications}
-            initialSaleKey={selectedSaleKey}
-            onSaleKeyChange={setSelectedSaleKey}
-            onSelectContractor={openContractor}
-            onBack={() => openCountry(null)}
-          />
-        </motion.div>
-      ) : (
-        <motion.div
-          key="map"
-          className="relative flex-1 min-h-0 overflow-hidden bg-[#0a0c10]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15, ease: 'easeOut' }}
-        >
-          <div
-            ref={floatingHeaderRef}
-            className="absolute top-0 left-0 right-0 z-20 px-4 md:px-6 pt-4 pb-3 pointer-events-none"
-          >
-            <div className="pointer-events-auto relative rounded-xl border border-zinc-800/80 bg-[#111111]/90 backdrop-blur-md shadow-lg shadow-black/40">
-              <header className="px-4 md:px-6 py-3 sm:py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4 border-b border-zinc-800/60 rounded-t-xl overflow-hidden">
-                <div className="flex items-start gap-1.5 sm:gap-2 md:gap-3 min-w-0 sm:flex-1 sm:items-center overflow-hidden">
-                  {getFlagUrl('United States') && (
-                    <img
-                      src={getFlagUrl('United States')!}
-                      alt="United States"
-                      title="United States"
-                      className="block h-6 sm:h-7 w-auto shrink-0 mt-0.5 sm:mt-0"
-                      decoding="async"
-                      draggable={false}
-                    />
-                  )}
-                  <div className="w-px h-4 sm:h-5 bg-zinc-700 shrink-0 mt-1 sm:mt-0 self-start sm:self-center" />
-                  <div className="min-w-0 overflow-hidden">
-                    <p className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 leading-snug">
-                      <span className="sm:hidden">U.S. FMS Congressional Notifications</span>
-                      <span className="hidden sm:inline">U.S. Foreign Military Sales Congressional Notifications</span>
-                    </p>
-                    <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
-                      <span className="sm:hidden">Source: DSCA &amp; State Department</span>
-                      <span className="hidden sm:inline">Source: Defense Security Cooperation Agency &amp; State Department Bureau of Political-Military Affairs</span>
-                    </p>
-                  </div>
+          <div className="pointer-events-auto relative rounded-xl border border-zinc-800/80 bg-[#111111]/90 backdrop-blur-md shadow-lg shadow-black/40">
+            <header className="px-4 md:px-6 py-3 sm:py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4 border-b border-zinc-800/60 rounded-t-xl overflow-hidden">
+              <div className="flex items-start gap-1.5 sm:gap-2 md:gap-3 min-w-0 sm:flex-1 sm:items-center overflow-hidden">
+                {getFlagUrl('United States') && (
+                  <img
+                    src={getFlagUrl('United States')!}
+                    alt="United States"
+                    title="United States"
+                    className="block h-6 sm:h-7 w-auto shrink-0 mt-0.5 sm:mt-0"
+                    decoding="async"
+                    draggable={false}
+                  />
+                )}
+                <div className="w-px h-4 sm:h-5 bg-zinc-700 shrink-0 mt-1 sm:mt-0 self-start sm:self-center" />
+                <div className="min-w-0 overflow-hidden">
+                  <p className="text-[10px] md:text-xs font-normal tracking-widest uppercase text-zinc-400 leading-snug">
+                    <span className="sm:hidden">U.S. FMS Congressional Notifications</span>
+                    <span className="hidden sm:inline">U.S. Foreign Military Sales Congressional Notifications</span>
+                  </p>
+                  <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
+                    <span className="sm:hidden">Source: DSCA &amp; State Department</span>
+                    <span className="hidden sm:inline">Source: Defense Security Cooperation Agency &amp; State Department Bureau of Political-Military Affairs</span>
+                  </p>
                 </div>
-                <div className="w-full sm:w-auto sm:shrink-0">
-                  <SummaryStats filtered={filtered} />
-                </div>
-              </header>
-              <FilterBar
-                embedded
-                dateRange={dateRange}
-                onDateRangeChange={setDateRange}
-                minDate={DATA_MIN_DATE}
-                maxDate={DATA_MAX_DATE}
-                categoryFilter={categoryFilter}
-                onCategoryFilterChange={setCategoryFilter}
-                view={view}
-                onViewChange={setView}
-                countries={Array.from(countryTotals.keys()).sort()}
-                contractors={contractorOptions}
-                onSelectCountry={openCountry}
-                onSelectContractor={openContractor}
-              />
-            </div>
+              </div>
+              <div className="w-full sm:w-auto sm:shrink-0">
+                <SummaryStats filtered={filtered} />
+              </div>
+            </header>
+            <FilterBar
+              embedded
+              dateRange={dateRange}
+              onDateRangeChange={setDateRange}
+              minDate={DATA_MIN_DATE}
+              maxDate={DATA_MAX_DATE}
+              categoryFilter={categoryFilter}
+              onCategoryFilterChange={setCategoryFilter}
+              view={view}
+              onViewChange={setView}
+              countries={Array.from(countryTotals.keys()).sort()}
+              contractors={contractorOptions}
+              onSelectCountry={openCountry}
+              onSelectContractor={openContractor}
+            />
           </div>
+        </div>
 
-          <div className="absolute inset-0">
-            <AnimatePresence mode="wait">
-              {view === 'map' ? (
-                <motion.div
-                  key="mapview"
-                  className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <WorldMap
-                    countryTotals={countryTotals}
-                    selectedCountry={selectedCountry}
-                    onSelectCountry={openCountry}
-                  />
-                </motion.div>
-              ) : view === 'network' ? (
-                <motion.div
-                  key="networkview"
-                  className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <NetworkView
-                    filtered={filtered}
-                    onSelectCountry={openCountry}
-                    onSelectContractor={openContractor}
-                  />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="trendsview"
-                  className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <TrendsPage
-                    notifications={filtered}
-                    embedded
-                    headerClearance={headerClearance}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <div className="absolute inset-0">
+          <AnimatePresence mode="wait">
+            {view === 'map' ? (
+              <motion.div
+                key="mapview"
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <WorldMap
+                  countryTotals={countryTotals}
+                  selectedCountry={selectedCountry}
+                  onSelectCountry={openCountry}
+                />
+              </motion.div>
+            ) : view === 'network' ? (
+              <motion.div
+                key="networkview"
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <NetworkView
+                  filtered={filtered}
+                  onSelectCountry={openCountry}
+                  onSelectContractor={openContractor}
+                  headerClearance={headerClearance}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="analyticsview"
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <AnalyticsPage
+                  notifications={filtered}
+                  embedded
+                  headerClearance={headerClearance}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {selectedContractor ? (
+          <motion.div
+            key={`contractor-${selectedContractor}`}
+            className="absolute inset-0 z-30 overflow-hidden bg-[#080808]"
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 24 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            <ContractorPage
+              contractor={selectedContractor}
+              notifications={contractorNotifications}
+              initialSaleKey={selectedSaleKey}
+              onSaleKeyChange={setSelectedSaleKey}
+              onSelectCountry={openCountry}
+              onSelectContractor={openContractor}
+              onBack={() => openContractor(null)}
+            />
+          </motion.div>
+        ) : selectedCountry ? (
+          <motion.div
+            key={`country-${selectedCountry}`}
+            className="absolute inset-0 z-30 overflow-hidden bg-[#080808]"
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 24 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            <CountryPage
+              country={selectedCountry}
+              notifications={selectedNotifications}
+              initialSaleKey={selectedSaleKey}
+              onSaleKeyChange={setSelectedSaleKey}
+              onSelectContractor={openContractor}
+              onBack={() => openCountry(null)}
+            />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
     </div>
   )
 }

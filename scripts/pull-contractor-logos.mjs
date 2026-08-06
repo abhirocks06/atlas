@@ -65,6 +65,9 @@ const DOMAINS = [
   'srcinc.com',
   'toyota.com',
   'aarcorp.com',
+  'cat.com',
+  'aollc.biz',
+  'orbitalatk.com',
 ]
 
 function slug(domain) {
@@ -132,6 +135,16 @@ async function fetchLogo(domain) {
               'https://www.google.com/s2/favicons?domain=srcinc.com&sz=256',
               'https://www.srcinc.com/favicon.ico',
             ]
+        : domain === 'aollc.biz'
+          ? [
+              'https://aollc.biz/AO_Logo_Long.png',
+              'https://www.google.com/s2/favicons?domain=aollc.biz&sz=256',
+            ]
+        : domain === 'orbitalatk.com'
+          ? [
+              'https://web.archive.org/web/20180101000000id_/https://logo.clearbit.com/orbitalatk.com',
+              'https://www.google.com/s2/favicons?domain=orbitalatk.com&sz=256',
+            ]
         : [
             `https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/${domain}`,
             `https://web.archive.org/web/20230101000000id_/https://logo.clearbit.com/${domain}`,
@@ -167,6 +180,16 @@ for (const domain of DOMAINS) {
   // General Atomics mark is curated (white star on navy) — Clearbit wordmark is invisible on dark UI
   if (domain === 'generalatomics.com' && !process.argv.includes('--force-ga') && existsSync(file)) {
     console.log(`skip  ${domain} (curated navy mark; pass --force-ga to overwrite)`)
+    ok++
+    continue
+  }
+  if (domain === 'aollc.biz' && !process.argv.includes('--force-ao') && existsSync(file)) {
+    console.log(`skip  ${domain} (curated wordmark; pass --force-ao to overwrite)`)
+    ok++
+    continue
+  }
+  if (domain === 'orbitalatk.com' && !process.argv.includes('--force-orbitalatk') && existsSync(file)) {
+    console.log(`skip  ${domain} (curated mark; pass --force-orbitalatk to overwrite)`)
     ok++
     continue
   }
