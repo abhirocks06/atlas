@@ -267,13 +267,20 @@ export function NetworkView({
       .map(([name, value]) => ({ name, value, count: kCount.get(name) ?? 0 }))
       .sort((a, b) => b.value - a.value)
 
-    const featC = filterByMinEntries(contractorsRanked, MIN_CONTRACTOR_ENTRIES)
     const featS = filterByValue(systemsRanked, MIN_EQUIPMENT_VALUE)
     const featK = filterByValue(countriesRanked, MIN_COUNTRY_VALUE)
-
-    const featCSet = new Set(featC.map(c => c.name))
     const featSSet = new Set(featS.map(s => s.id))
     const featKSet = new Set(featK.map(k => k.name))
+
+    // Also require a ≥$10B equipment link so contractor→US paths can continue.
+    const contractorsWithFeaturedEq = new Set<string>()
+    for (const key of triple.keys()) {
+      const [c, s] = key.split('::') as [string, string, string]
+      if (featSSet.has(s)) contractorsWithFeaturedEq.add(c)
+    }
+    const featC = filterByMinEntries(contractorsRanked, MIN_CONTRACTOR_ENTRIES)
+      .filter(c => contractorsWithFeaturedEq.has(c.name))
+    const featCSet = new Set(featC.map(c => c.name))
 
     const contractors: NodeRow[] = featC.map(c => ({ id: c.name, label: c.name, value: c.value }))
     const systems: NodeRow[] = featS.map(s => ({ id: s.id, label: s.label, value: s.value }))
