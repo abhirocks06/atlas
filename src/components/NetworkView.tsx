@@ -1,5 +1,7 @@
-import { useMemo, useState, useEffect, useRef, type TouchEvent } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { zoom, zoomIdentity } from 'd3-zoom'
+import { select } from 'd3-selection'
 import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
 import { formatCost } from '../utils/formatters'
@@ -113,12 +115,6 @@ function hoverKey(h: Hover): string | null {
   return 'usg'
 }
 
-function touchDistance(a: { clientX: number; clientY: number }, b: { clientX: number; clientY: number }) {
-  const dx = a.clientX - b.clientX
-  const dy = a.clientY - b.clientY
-  return Math.hypot(dx, dy)
-}
-
 export function NetworkView({
   filtered,
   onSelectCountry,
@@ -129,17 +125,8 @@ export function NetworkView({
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
-  const stageRef = useRef<HTMLDivElement>(null)
-  const transformRef = useRef({ x: 0, y: 0, scale: 1 })
-  const pinchRef = useRef<{
-    dist: number
-    scale: number
-    x: number
-    y: number
-    cx: number
-    cy: number
-  } | null>(null)
-  const panRef = useRef<{ x: number; y: number; tx: number; ty: number; moved: boolean } | null>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
+  const gRef = useRef<SVGGElement>(null)
   const suppressClickRef = useRef(false)
 
   useEffect(() => {
@@ -169,94 +156,43 @@ export function NetworkView({
     }
   }, [])
 
-  const applyTransform = () => {
-    const el = stageRef.current
-    if (!el) return
-    const { x, y, scale } = transformRef.current
-    el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
-  }
-
-  const resetTransform = () => {
-    transformRef.current = { x: 0, y: 0, scale: 1 }
-    applyTransform()
-  }
-
+  // Mobile only: d3 pinch/pan on the SVG <g> (crisp vectors — not CSS scale)
   useEffect(() => {
-    if (!isMobile) resetTransform()
+    const svgEl = svgRef.current
+    const gEl = gRef.current
+    if (!svgEl || !gEl) return
+
+    const svg = select(svgEl)
+    const g = select(gEl)
+
+    if (!isMobile) {
+      g.attr('transform', null)
+      svg.on('.zoom', null)
+      return
+    }
+
+    const zoomBehavior = zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.45, 8])
+      .clickDistance(8)
+      .filter((event) => {
+        if (event.type === 'wheel') return true
+        if (event.type === 'dblclick') return false
+        return (!event.ctrlKey || event.type === 'wheel') && !event.button
+      })
+      .on('zoom', (event) => {
+        g.attr('transform', event.transform.toString())
+        const src = event.sourceEvent
+        if (src && (src.type === 'touchmove' || src.type === 'mousemove' || src.type === 'wheel')) {
+          suppressClickRef.current = true
+        }
+      })
+
+    svg.call(zoomBehavior)
+    svg.call(zoomBehavior.transform, zoomIdentity)
+    return () => {
+      svg.on('.zoom', null)
+    }
   }, [isMobile])
-
-  const onTouchStart = (e: TouchEvent) => {
-    if (!isMobile) return
-    suppressClickRef.current = false
-    if (e.touches.length === 2) {
-      const a = e.touches[0]!
-      const b = e.touches[1]!
-      const t = transformRef.current
-      pinchRef.current = {
-        dist: touchDistance(a, b),
-        scale: t.scale,
-        x: t.x,
-        y: t.y,
-        cx: (a.clientX + b.clientX) / 2,
-        cy: (a.clientY + b.clientY) / 2,
-      }
-      panRef.current = null
-      return
-    }
-    if (e.touches.length === 1) {
-      const t = e.touches[0]!
-      const cur = transformRef.current
-      panRef.current = { x: t.clientX, y: t.clientY, tx: cur.x, ty: cur.y, moved: false }
-      pinchRef.current = null
-    }
-  }
-
-  const onTouchMove = (e: TouchEvent) => {
-    if (!isMobile) return
-    if (e.touches.length === 2 && pinchRef.current) {
-      e.preventDefault()
-      const a = e.touches[0]!
-      const b = e.touches[1]!
-      const dist = touchDistance(a, b)
-      const pinch = pinchRef.current
-      const nextScale = Math.min(4, Math.max(1, pinch.scale * (dist / Math.max(pinch.dist, 1))))
-      const cx = (a.clientX + b.clientX) / 2
-      const cy = (a.clientY + b.clientY) / 2
-      const ratio = nextScale / pinch.scale
-      transformRef.current = {
-        scale: nextScale,
-        x: pinch.x + (cx - pinch.cx) + (pinch.cx - pinch.x) * (1 - ratio),
-        y: pinch.y + (cy - pinch.cy) + (pinch.cy - pinch.y) * (1 - ratio),
-      }
-      suppressClickRef.current = true
-      applyTransform()
-      return
-    }
-    if (e.touches.length === 1 && panRef.current && transformRef.current.scale > 1) {
-      const t = e.touches[0]!
-      const pan = panRef.current
-      const dx = t.clientX - pan.x
-      const dy = t.clientY - pan.y
-      if (Math.hypot(dx, dy) > 8) {
-        pan.moved = true
-        suppressClickRef.current = true
-      }
-      if (pan.moved) {
-        e.preventDefault()
-        transformRef.current = { ...transformRef.current, x: pan.tx + dx, y: pan.ty + dy }
-        applyTransform()
-      }
-    }
-  }
-
-  const onTouchEnd = (e: TouchEvent) => {
-    if (!isMobile) return
-    if (e.touches.length < 2) pinchRef.current = null
-    if (e.touches.length === 0) {
-      if (transformRef.current.scale <= 1.02) resetTransform()
-      panRef.current = null
-    }
-  }
 
   const clearHover = () => setHovered(null)
 
@@ -531,23 +467,14 @@ export function NetworkView({
         className="shrink-0"
         style={{ height: headerClearance + (isFullscreen ? 28 : 0) }}
       />
-      <div
-        className={`flex-1 min-h-0 relative ${isMobile ? 'touch-none overflow-hidden' : ''}`}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        onTouchCancel={onTouchEnd}
-      >
-        <div
-          ref={stageRef}
-          className="w-full h-full origin-center will-change-transform"
-        >
+      <div className={`flex-1 min-h-0 relative ${isMobile ? 'overflow-hidden' : ''}`}>
         <svg
+          ref={svgRef}
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           preserveAspectRatio="xMidYMin meet"
-          className="w-full h-full"
+          className={`w-full h-full ${isMobile ? 'touch-none' : ''}`}
         >
-          <g>
+          <g ref={gRef}>
             {/* Tap empty canvas to clear mobile selection */}
             <rect
               x={0}
@@ -919,7 +846,6 @@ export function NetworkView({
             })}
           </g>
         </svg>
-        </div>
       </div>
     </div>
   )
