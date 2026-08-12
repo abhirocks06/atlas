@@ -630,8 +630,8 @@ export function NetworkView({
                 >
                   <motion.rect
                     x={C_X} y={y} width={C_W} height={C_H} rx={compactC ? 4 : 8}
-                    fill="#12151c"
-                    stroke={selected ? '#c4873a' : '#2a303c'}
+                    fill="#111111"
+                    stroke={selected ? '#c4873a' : '#27272a'}
                     strokeWidth={selected ? 1.4 : 1}
                     animate={{ opacity: boxOpacity(active) }}
                     transition={{ duration: 0.15 }}
@@ -686,8 +686,8 @@ export function NetworkView({
             >
               <motion.rect
                 x={U_X} y={U_Y} width={U_W} height={U_H} rx={10}
-                fill="#141820"
-                stroke={hovered?.type === 'usg' ? '#c4873a' : '#2a303c'}
+                fill="#111111"
+                stroke={hovered?.type === 'usg' ? '#c4873a' : '#27272a'}
                 strokeWidth={hovered?.type === 'usg' ? 1.5 : 1}
                 animate={{ opacity: 1 }}
               />
@@ -751,8 +751,8 @@ export function NetworkView({
                 >
                   <motion.rect
                     x={S_X} y={y} width={S_W} height={S_H} rx={compactS ? 4 : 6}
-                    fill="#12151c"
-                    stroke={selected ? '#c4873a' : '#2a303c'}
+                    fill="#111111"
+                    stroke={selected ? '#c4873a' : '#27272a'}
                     strokeWidth={selected ? 1.4 : 1}
                     animate={{ opacity: boxOpacity(active) }}
                     transition={{ duration: 0.15 }}
@@ -815,8 +815,8 @@ export function NetworkView({
                 >
                   <motion.rect
                     x={K_X} y={y} width={K_W} height={K_H} rx={compactK ? 4 : 6}
-                    fill="#12151c"
-                    stroke={selected ? '#c4873a' : '#2a303c'}
+                    fill="#111111"
+                    stroke={selected ? '#c4873a' : '#27272a'}
                     strokeWidth={selected ? 1.4 : 1}
                     animate={{ opacity: boxOpacity(active) }}
                     transition={{ duration: 0.15 }}
