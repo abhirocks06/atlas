@@ -18,7 +18,7 @@ interface Props {
   headerClearance?: number
 }
 
-/** Contractors → USG → Equipment → Countries — value-floor overview (no top-N caps) */
+/** Contractors → Equipment → USG → Countries — value-floor overview (no top-N caps) */
 const VB_W = 1760
 const VB_H = 880
 const PAD_Y = 36
@@ -291,9 +291,9 @@ export function NetworkView({
     const systemContractors = new Map<string, Set<string>>()
     const countrySystems = new Map<string, Set<string>>()
     const contractorCountries = new Map<string, Set<string>>()
-    const cuValues = new Map<string, number>()
-    const usValues = new Map<string, number>()
-    const skValues = new Map<string, number>()
+    const csValues = new Map<string, number>()
+    const suValues = new Map<string, number>()
+    const ukValues = new Map<string, number>()
 
     for (const [key, value] of triple) {
       const [cRaw, sRaw, kRaw] = key.split('::') as [string, string, string]
@@ -302,11 +302,11 @@ export function NetworkView({
       const kFeat = featKSet.has(kRaw)
 
       // Spoke weights: full flow for each featured end-node (hidden partners still count).
-      if (cFeat) cuValues.set(cRaw, (cuValues.get(cRaw) ?? 0) + value)
-      if (sFeat) usValues.set(sRaw, (usValues.get(sRaw) ?? 0) + value)
-      // Cross links only among featured equipment ↔ featured countries.
-      if (sFeat && kFeat) {
-        skValues.set(`${sRaw}::${kRaw}`, (skValues.get(`${sRaw}::${kRaw}`) ?? 0) + value)
+      if (sFeat) suValues.set(sRaw, (suValues.get(sRaw) ?? 0) + value)
+      if (kFeat) ukValues.set(kRaw, (ukValues.get(kRaw) ?? 0) + value)
+      // Cross links only among featured contractors ↔ featured equipment.
+      if (cFeat && sFeat) {
+        csValues.set(`${cRaw}::${sRaw}`, (csValues.get(`${cRaw}::${sRaw}`) ?? 0) + value)
       }
 
       if (cFeat && sFeat) {
@@ -327,9 +327,9 @@ export function NetworkView({
       }
     }
 
-    const skEdges = [...skValues.entries()].map(([key, value]) => {
-      const [systemId, country] = key.split('::') as [string, string]
-      return { systemId, country, value }
+    const csEdges = [...csValues.entries()].map(([key, value]) => {
+      const [contractor, systemId] = key.split('::') as [string, string]
+      return { contractor, systemId, value }
     })
 
     return {
@@ -342,9 +342,9 @@ export function NetworkView({
       systemContractors,
       countrySystems,
       contractorCountries,
-      cuValues,
-      usValues,
-      skEdges,
+      suValues,
+      ukValues,
+      csEdges,
     }
   }, [filtered])
 
@@ -358,9 +358,9 @@ export function NetworkView({
     systemContractors,
     countrySystems,
     contractorCountries,
-    cuValues,
-    usValues,
-    skEdges,
+    suValues,
+    ukValues,
+    csEdges,
   } = graph
 
   const C_W = boxWidthFor(
@@ -386,11 +386,10 @@ export function NetworkView({
   const MID_START = C_X + C_W
   const MID_END = K_X
   const MID_REST = Math.max(120, MID_END - MID_START - U_W - S_W)
-  const GAP_SK = MID_REST * 0.48
-  const GAP_CU = (MID_REST - GAP_SK) / 2
-  const GAP_US = GAP_CU
-  const U_X = MID_START + GAP_CU
-  const S_X = U_X + U_W + GAP_US
+  const GAP_CS = MID_REST * 0.48
+  const GAP_SU = (MID_REST - GAP_CS) / 2
+  const S_X = MID_START + GAP_CS
+  const U_X = S_X + S_W + GAP_SU
   const U_Y = (VB_H - U_H) / 2
 
   // Equal column height: fit everyone into the viewBox (no top-N caps).
@@ -408,7 +407,7 @@ export function NetworkView({
   const kYs = columnYsFrom(countries.length, K_H, DENSE_GAP, colStart)
 
   const sIndex = new Map(systems.map((s, i) => [s.id, i]))
-  const kIndex = new Map(countries.map((c, i) => [c.id, i]))
+  const cIndex = new Map(contractors.map((c, i) => [c.id, i]))
 
   const activeSystems = useMemo((): Set<string> | null => {
     if (!hovered) return null
@@ -443,14 +442,14 @@ export function NetworkView({
   const nodeOn = (active: Set<string> | null, id: string) =>
     active == null ? true : active.has(id)
 
-  const maxCu = Math.max(...[...cuValues.values()], 1)
-  const maxUs = Math.max(...[...usValues.values()], 1)
-  const maxSk = Math.max(...skEdges.map(e => e.value), 1)
+  const maxCs = Math.max(...csEdges.map(e => e.value), 1)
+  const maxSu = Math.max(...[...suValues.values()], 1)
+  const maxUk = Math.max(...[...ukValues.values()], 1)
 
   /** Idle: faint skeleton. On hover: full path lit, others dimmed. */
-  const edgeOpacity = (kind: 'cu' | 'us' | 'sk', active: boolean) => {
+  const edgeOpacity = (kind: 'cs' | 'su' | 'uk', active: boolean) => {
     if (!hovered) {
-      if (kind === 'sk') return 0.07
+      if (kind === 'cs') return 0.07
       return 0.12
     }
     return active ? 0.95 : 0.04
@@ -493,68 +492,68 @@ export function NetworkView({
                 if (isMobile) clearHover()
               }}
             />
-            {/* Contractor → USG */}
-            {contractors.map((c, i) => {
-              const active = nodeOn(activeContractors, c.id)
-              const value = cuValues.get(c.id) ?? 0
-              const w = 1.0 + (Math.log(value + 1) / Math.log(maxCu + 1)) * 3.2
-              const y = cYs[i]! + C_H / 2
+            {/* Contractor → Equipment */}
+            {csEdges.map(e => {
+              const ci = cIndex.get(e.contractor)
+              const si = sIndex.get(e.systemId)
+              if (ci === undefined || si === undefined) return null
+              const active =
+                nodeOn(activeContractors, e.contractor) && nodeOn(activeSystems, e.systemId)
+              const w = 0.65 + (Math.log(e.value + 1) / Math.log(maxCs + 1)) * 2.6
+              const y1 = cYs[ci]! + C_H / 2
+              const y2 = sYs[si]! + S_H / 2
               return (
                 <motion.path
-                  key={`cu-${c.id}`}
-                  d={curve(C_X + C_W, y, U_X, usgMidY)}
+                  key={`cs-${e.contractor}-${e.systemId}`}
+                  d={curve(C_X + C_W, y1, S_X, y2)}
                   fill="none"
                   stroke={edgeStroke(active)}
                   strokeWidth={w}
                   strokeLinecap="round"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: edgeOpacity('cu', active) }}
+                  animate={{ opacity: edgeOpacity('cs', active) }}
                   transition={{ duration: 0.15 }}
                 />
               )
             })}
 
-            {/* USG → Equipment */}
+            {/* Equipment → USG */}
             {systems.map((s, i) => {
               const active = nodeOn(activeSystems, s.id)
-              const value = usValues.get(s.id) ?? 0
-              const w = 1.0 + (Math.log(value + 1) / Math.log(maxUs + 1)) * 3.2
+              const value = suValues.get(s.id) ?? 0
+              const w = 1.0 + (Math.log(value + 1) / Math.log(maxSu + 1)) * 3.2
               const y = sYs[i]! + S_H / 2
               return (
                 <motion.path
-                  key={`us-${s.id}`}
-                  d={curve(U_X + U_W, usgMidY, S_X, y)}
+                  key={`su-${s.id}`}
+                  d={curve(S_X + S_W, y, U_X, usgMidY)}
                   fill="none"
                   stroke={edgeStroke(active)}
                   strokeWidth={w}
                   strokeLinecap="round"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: edgeOpacity('us', active) }}
+                  animate={{ opacity: edgeOpacity('su', active) }}
                   transition={{ duration: 0.15 }}
                 />
               )
             })}
 
-            {/* Equipment → Countries */}
-            {skEdges.map(e => {
-              const si = sIndex.get(e.systemId)
-              const ki = kIndex.get(e.country)
-              if (si === undefined || ki === undefined) return null
-              const active =
-                nodeOn(activeSystems, e.systemId) && nodeOn(activeCountries, e.country)
-              const w = 0.65 + (Math.log(e.value + 1) / Math.log(maxSk + 1)) * 2.6
-              const y1 = sYs[si]! + S_H / 2
-              const y2 = kYs[ki]! + K_H / 2
+            {/* USG → Countries */}
+            {countries.map((k, i) => {
+              const active = nodeOn(activeCountries, k.id)
+              const value = ukValues.get(k.id) ?? 0
+              const w = 1.0 + (Math.log(value + 1) / Math.log(maxUk + 1)) * 3.2
+              const y = kYs[i]! + K_H / 2
               return (
                 <motion.path
-                  key={`sk-${e.systemId}-${e.country}`}
-                  d={curve(S_X + S_W, y1, K_X, y2)}
+                  key={`uk-${k.id}`}
+                  d={curve(U_X + U_W, usgMidY, K_X, y)}
                   fill="none"
                   stroke={edgeStroke(active)}
                   strokeWidth={w}
                   strokeLinecap="round"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: edgeOpacity('sk', active) }}
+                  animate={{ opacity: edgeOpacity('uk', active) }}
                   transition={{ duration: 0.15 }}
                 />
               )
