@@ -69,26 +69,81 @@ function avgByCountry(
   return map
 }
 
-function polar(cx: number, cy: number, r: number, deg: number) {
-  const a = ((deg - 90) * Math.PI) / 180
-  return [cx + r * Math.cos(a), cy + r * Math.sin(a)] as const
+const CATEGORY_SHORT: Record<WeaponCategory, string> = {
+  'Aircraft': 'Aircraft',
+  'Missiles & Munitions': 'Missiles',
+  'Ground Vehicles & Artillery': 'Ground',
+  'Naval Systems': 'Naval',
+  'Electronics & Communications': 'Electronics',
+  'Sustainment & Support': 'Support',
+  'Other': 'Other',
 }
 
-/** SVG path for a pie slice from startDeg → endDeg (clockwise from 12 o'clock). */
-function pieSlice(
-  cx: number,
-  cy: number,
-  r: number,
-  startDeg: number,
-  endDeg: number,
-): string {
-  const sweep = Math.min(Math.max(endDeg - startDeg, 0), 359.999)
-  if (sweep <= 0.001) return ''
-  const end = startDeg + sweep
-  const large = sweep > 180 ? 1 : 0
-  const [x1, y1] = polar(cx, cy, r, startDeg)
-  const [x2, y2] = polar(cx, cy, r, end)
-  return `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`
+type CategoryLeaf = { cat: WeaponCategory; label: string; value: number; share: number }
+
+function hexFill(hex: string, alpha: number) {
+  const n = parseInt(hex.slice(1), 16)
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`
+}
+
+function CategoryTreemap({
+  items,
+  horizontal,
+  activeCat,
+  onHover,
+}: {
+  items: CategoryLeaf[]
+  horizontal: boolean
+  activeCat: WeaponCategory | null
+  onHover: (cat: WeaponCategory | null) => void
+}) {
+  if (items.length === 0) return null
+  if (items.length === 1) {
+    const item = items[0]
+    const dimmed = activeCat != null && activeCat !== item.cat
+    const color = CATEGORY_COLORS[item.cat]
+    return (
+      <div
+        className="h-full w-full min-h-0 min-w-0 flex flex-col justify-end px-2 py-1.5 overflow-hidden transition-opacity duration-150"
+        style={{
+          background: hexFill(color, 0.16 + item.share * 0.28),
+          opacity: dimmed ? 0.32 : 1,
+        }}
+        onMouseEnter={() => onHover(item.cat)}
+        onMouseLeave={() => onHover(null)}
+      >
+        <div className="text-[9px] text-zinc-400 truncate leading-tight">{item.label}</div>
+        <div
+          className="text-[10px] sm:text-[11px] font-semibold tabular-nums truncate leading-tight mt-0.5"
+          style={{ color }}
+        >
+          {(item.share * 100).toFixed(0)}%
+        </div>
+      </div>
+    )
+  }
+  const [first, ...rest] = items
+  const restValue = rest.reduce((sum, leaf) => sum + leaf.value, 0)
+  return (
+    <div className={`flex h-full w-full min-h-0 min-w-0 gap-[3px] ${horizontal ? 'flex-row' : 'flex-col'}`}>
+      <div className="min-h-0 min-w-0 overflow-hidden" style={{ flex: first.value }}>
+        <CategoryTreemap
+          items={[first]}
+          horizontal={!horizontal}
+          activeCat={activeCat}
+          onHover={onHover}
+        />
+      </div>
+      <div className="min-h-0 min-w-0 overflow-hidden" style={{ flex: restValue }}>
+        <CategoryTreemap
+          items={rest}
+          horizontal={!horizontal}
+          activeCat={activeCat}
+          onHover={onHover}
+        />
+      </div>
+    </div>
+  )
 }
 
 export function AnalyticsPage({
@@ -112,7 +167,6 @@ export function AnalyticsPage({
   const [flowYear, setFlowYear] = useState<number | 'All'>('All')
   const [equipmentYear, setEquipmentYear] = useState<number | 'All'>('All')
   const [mutedRegions, setMutedRegions] = useState<Set<Region>>(() => new Set())
-  const [regionLogScale, setRegionLogScale] = useState(false)
   const [hoveredRegionYear, setHoveredRegionYear] = useState<number | null>(null)
   const [hoveredCategory, setHoveredCategory] = useState<WeaponCategory | null>(null)
   /** Grow bars only on first Analytics open — not when switching year pills */
@@ -255,15 +309,12 @@ export function AnalyticsPage({
   const regionPaths = useMemo(() => {
     const n = years.length
     if (n < 2) return []
-    const logMax = Math.log1p(regionMax)
     return activeRegions.map(region => {
       const muted = mutedRegions.has(region)
       const yearMap = regionYearData.get(region)!
       const pts = years.map((year, i) => {
         const v = yearMap.get(year) ?? 0
-        const norm = regionLogScale
-          ? (logMax > 0 ? Math.log1p(v) / logMax : 0)
-          : v / regionMax
+        const norm = v / regionMax
         return {
           x: (i / (n - 1)) * 100,
           y: 100 - norm * 88 - 6,
@@ -272,28 +323,24 @@ export function AnalyticsPage({
       const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ')
       return { region, line, color: REGION_COLORS[region], muted }
     })
-  }, [years, activeRegions, regionYearData, regionMax, mutedRegions, regionLogScale])
+  }, [years, activeRegions, regionYearData, regionMax, mutedRegions])
 
   const regionHoverPts = useMemo(() => {
     if (hoveredRegionYear == null || years.length < 2) return []
     const i = years.indexOf(hoveredRegionYear)
     if (i < 0) return []
     const x = (i / (years.length - 1)) * 100
-    const logMax = Math.log1p(regionMax)
     return visibleRegions.map(region => {
       const v = regionYearData.get(region)!.get(hoveredRegionYear) ?? 0
-      const norm = regionLogScale
-        ? (logMax > 0 ? Math.log1p(v) / logMax : 0)
-        : v / regionMax
       return {
         region,
         value: v,
         x,
-        y: 100 - norm * 88 - 6,
+        y: 100 - (v / regionMax) * 88 - 6,
         color: REGION_COLORS[region],
       }
     })
-  }, [hoveredRegionYear, years, visibleRegions, regionYearData, regionMax, regionLogScale])
+  }, [hoveredRegionYear, years, visibleRegions, regionYearData, regionMax])
 
   const toggleRegion = (region: Region) => {
     setMutedRegions(prev => {
@@ -359,21 +406,23 @@ export function AnalyticsPage({
       .sort((a, b) => b[1] - a[1])
   }, [equipmentSubset])
 
-  const categoryGrandTotal = useMemo(
-    () => categoryTotals.reduce((sum, [, v]) => sum + v, 0),
-    [categoryTotals],
-  )
+  const categoryLeaves = useMemo(() => {
+    const total = categoryTotals.reduce((sum, [, v]) => sum + v, 0) || 1
+    return categoryTotals.map(([cat, value]) => ({
+      cat,
+      label: CATEGORY_SHORT[cat],
+      value,
+      share: value / total,
+    }))
+  }, [categoryTotals])
 
-  const categorySlices = useMemo(() => {
-    const total = categoryGrandTotal || 1
-    let angle = 0
-    return categoryTotals.map(([cat, value]) => {
-      const sweep = (value / total) * 360
-      const start = angle
-      angle += sweep
-      return { cat, value, start, end: angle, share: value / total }
-    })
-  }, [categoryTotals, categoryGrandTotal])
+  useEffect(() => {
+    setHoveredCategory(null)
+  }, [equipmentYear])
+
+  const activeCategoryLeaf = hoveredCategory
+    ? categoryLeaves.find(leaf => leaf.cat === hoveredCategory) ?? null
+    : null
 
   const topSystems = useMemo(() => {
     const map = new Map<string, { label: string; value: number }>()
@@ -470,7 +519,7 @@ export function AnalyticsPage({
         <div className="px-4 md:px-6 pt-5 pb-10 space-y-5">
           {/* Top Recipients + Top Contractors */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5 items-stretch">
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Top Recipients</div>
                 <select
@@ -521,7 +570,7 @@ export function AnalyticsPage({
               </div>
             </div>
 
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Top Contractors</div>
                 <select
@@ -579,7 +628,7 @@ export function AnalyticsPage({
 
           {/* Value by Year + Value by Region */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5">
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col min-h-[220px]">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col min-h-[220px]">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">
                   {metric === 'value' ? 'Value by Year' : 'Count by Year'}
@@ -617,22 +666,10 @@ export function AnalyticsPage({
               )}
             </div>
 
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col min-h-[220px]">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col min-h-[220px]">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Value by Region</div>
                 <div className="flex items-center gap-1 sm:ml-auto shrink-0">
-                  <button
-                    type="button"
-                    onClick={() => setRegionLogScale(v => !v)}
-                    className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-md border transition-colors ${
-                      regionLogScale
-                        ? 'border-zinc-600 text-zinc-300 bg-zinc-800/60'
-                        : 'border-transparent text-zinc-600 hover:text-zinc-400'
-                    }`}
-                    title="Log scale makes large spikes less dominant"
-                  >
-                    Log
-                  </button>
                   {mutedRegions.size > 0 && (
                     <button
                       type="button"
@@ -663,7 +700,7 @@ export function AnalyticsPage({
                   </div>
                   <div className="relative w-full h-[100px] border-b border-zinc-800/60">
                     <motion.svg
-                      key={`${regionLogScale}-${[...mutedRegions].join(',')}-${regionMax}`}
+                      key={`${[...mutedRegions].join(',')}-${regionMax}`}
                       className="absolute inset-0 w-full h-full overflow-visible origin-bottom"
                       viewBox="0 0 100 100"
                       preserveAspectRatio="none"
@@ -740,7 +777,7 @@ export function AnalyticsPage({
 
           {/* Movers + largest list — shared year filter */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5 items-stretch">
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-5">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Top Movers (3Y avg)</div>
                 <select
@@ -817,7 +854,7 @@ export function AnalyticsPage({
               )}
             </div>
 
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-5">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">
                   Largest Notifications
@@ -841,23 +878,25 @@ export function AnalyticsPage({
               {largestNotifications.length === 0 ? (
                 <div className="text-xs text-zinc-600 py-2">No notifications for this year.</div>
               ) : (
-                <div className="space-y-2 flex-1">
+                <div className="flex flex-col flex-1 min-h-0">
                   {largestNotifications.map((n, i) => (
                     <div
                       key={`${n.transmittal ?? n.date}-${i}`}
-                      className="flex items-start gap-2"
+                      className="flex items-center flex-1 min-h-0"
                     >
-                      <div className="text-[9px] text-zinc-600 tabular-nums w-3.5 text-right shrink-0 pt-0.5">
-                        {i + 1}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-[11px] text-zinc-200 truncate">{n.system ?? 'Unknown system'}</div>
-                        <div className="text-[9px] text-zinc-600 truncate">
-                          {n.country ?? '—'} · {yearOf(n)}
+                      <div className="flex items-start gap-2 w-full">
+                        <div className="text-[9px] text-zinc-600 tabular-nums w-3.5 text-right shrink-0 pt-0.5">
+                          {i + 1}
                         </div>
-                      </div>
-                      <div className="text-[11px] font-semibold text-[#c4873a] tabular-nums shrink-0">
-                        {formatCost(n.costUSD)}
+                        <div className="min-w-0 flex-1">
+                          <div className="text-[11px] text-zinc-200 truncate">{n.system ?? 'Unknown system'}</div>
+                          <div className="text-[9px] text-zinc-600 truncate">
+                            {n.country ?? '—'} · {yearOf(n)}
+                          </div>
+                        </div>
+                        <div className="text-[11px] font-semibold text-[#c4873a] tabular-nums shrink-0 pt-0.5">
+                          {formatCost(n.costUSD)}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -868,9 +907,21 @@ export function AnalyticsPage({
 
           {/* What they sell */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5 items-stretch">
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
-                <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">By Category</div>
+                <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium shrink-0">By Category</div>
+                {activeCategoryLeaf && (
+                  <div className="min-w-0 sm:flex-1 text-[12px] font-mono text-zinc-300 truncate">
+                    <span className="text-zinc-500">{activeCategoryLeaf.cat}</span>
+                    {' · '}
+                    <span
+                      className="font-semibold tabular-nums"
+                      style={{ color: CATEGORY_COLORS[activeCategoryLeaf.cat] }}
+                    >
+                      {formatCost(activeCategoryLeaf.value)}
+                    </span>
+                  </div>
+                )}
                 <select
                   aria-label="Category year"
                   value={equipmentYear === 'All' ? 'All' : String(equipmentYear)}
@@ -887,93 +938,21 @@ export function AnalyticsPage({
                   ))}
                 </select>
               </div>
-              {categoryTotals.length === 0 ? (
+              {categoryLeaves.length === 0 ? (
                 <div className="text-xs text-zinc-600 py-2">No category data for this range.</div>
               ) : (
-                <div className="flex flex-col sm:flex-row sm:items-center gap-5 flex-1">
-                  <div className="relative w-[168px] h-[168px] sm:w-[184px] sm:h-[184px] shrink-0 self-center">
-                    <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden>
-                      {categorySlices.map((slice, i) => {
-                        const color = CATEGORY_COLORS[slice.cat]
-                        const dimmed = hoveredCategory != null && hoveredCategory !== slice.cat
-                        const d = pieSlice(100, 100, 96, slice.start, slice.end)
-                        if (!d) return null
-                        return barsIntroDone ? (
-                          <path
-                            key={slice.cat}
-                            d={d}
-                            fill={color}
-                            opacity={dimmed ? 0.28 : 0.95}
-                            style={{ cursor: 'default', transition: 'opacity 0.15s ease' }}
-                            onMouseEnter={() => setHoveredCategory(slice.cat)}
-                            onMouseLeave={() => setHoveredCategory(null)}
-                          />
-                        ) : (
-                          <motion.path
-                            key={slice.cat}
-                            d={d}
-                            fill={color}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: dimmed ? 0.28 : 0.95 }}
-                            transition={{ duration: 0.45, delay: 0.06 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                            style={{ cursor: 'default' }}
-                            onMouseEnter={() => setHoveredCategory(slice.cat)}
-                            onMouseLeave={() => setHoveredCategory(null)}
-                          />
-                        )
-                      })}
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0 space-y-2 w-full">
-                    {categorySlices.map((slice, i) => {
-                      const color = CATEGORY_COLORS[slice.cat]
-                      const active = hoveredCategory === slice.cat
-                      const dimmed = hoveredCategory != null && !active
-                      return (
-                        <div
-                          key={slice.cat}
-                          className="flex items-center gap-2 sm:gap-3"
-                          style={{ opacity: dimmed ? 0.4 : 1, transition: 'opacity 0.15s ease' }}
-                          onMouseEnter={() => setHoveredCategory(slice.cat)}
-                          onMouseLeave={() => setHoveredCategory(null)}
-                        >
-                          <div className="flex items-center gap-2 w-44 sm:w-52 shrink-0 min-w-0">
-                            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: color }} />
-                            <span className={`text-[11px] truncate ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>
-                              {slice.cat}
-                            </span>
-                          </div>
-                          <div className="flex-1 max-w-[7.5rem] sm:max-w-[9rem] h-3 bg-zinc-900/80 rounded-sm overflow-hidden min-w-0">
-                            {barsIntroDone ? (
-                              <div
-                                className="h-full rounded-sm"
-                                style={{ width: `${slice.share * 100}%`, background: color, opacity: 0.85 }}
-                              />
-                            ) : (
-                              <motion.div
-                                className="h-full rounded-sm origin-left"
-                                initial={{ scaleX: 0 }}
-                                animate={{ scaleX: 1 }}
-                                transition={{ duration: 0.7, delay: 0.04 + i * 0.045, ease: [0.22, 1, 0.36, 1] }}
-                                style={{ width: `${slice.share * 100}%`, background: color, opacity: 0.85 }}
-                              />
-                            )}
-                          </div>
-                          <div className="text-[10px] text-zinc-600 tabular-nums w-8 text-right shrink-0">
-                            {(slice.share * 100).toFixed(0)}%
-                          </div>
-                          <div className="text-[11px] font-semibold tabular-nums w-16 sm:w-20 text-right shrink-0" style={{ color }}>
-                            {formatCost(slice.value)}
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
+                <div className="flex-1 min-h-[280px] overflow-hidden rounded-md">
+                  <CategoryTreemap
+                    horizontal
+                    items={categoryLeaves}
+                    activeCat={hoveredCategory}
+                    onHover={setHoveredCategory}
+                  />
                 </div>
               )}
             </div>
 
-            <div className="rounded-xl border border-zinc-800/80 bg-[#0d0f14]/80 px-4 py-4 flex flex-col">
+            <div className="rounded-xl border border-zinc-800/80 bg-[#111111] px-4 py-4 flex flex-col">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-zinc-400 font-medium">Top Systems</div>
                 <select
@@ -992,14 +971,14 @@ export function AnalyticsPage({
                   ))}
                 </select>
               </div>
-              <div className="space-y-2 flex-1">
+              <div className="flex flex-col flex-1 min-h-0">
                 {topSystems.length === 0 ? (
                   <div className="text-xs text-zinc-600 py-2">No system data for this range.</div>
                 ) : (
                   topSystems.map((sys, i) => {
                     const pct = maxSystemValue > 0 ? sys.value / maxSystemValue : 0
                     return (
-                      <div key={`${sys.label}-${i}`} className="flex items-center gap-2 sm:gap-3">
+                      <div key={`${sys.label}-${i}`} className="flex items-center gap-2 sm:gap-3 flex-1 min-h-0">
                         <div className="text-[9px] text-zinc-600 tabular-nums w-4 text-right shrink-0">{i + 1}</div>
                         <div className="w-36 sm:w-48 shrink-0 min-w-0">
                           <span className="text-[11px] text-zinc-300 truncate block">{sys.label}</span>

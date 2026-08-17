@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
@@ -507,7 +506,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium">Contractor/Provider</div>
                   <div className="min-w-0 overflow-hidden text-[9px] uppercase tracking-[0.12em] text-zinc-600 font-medium text-right">Value</div>
                 </div>
-                {filtered.map((n, i) => {
+                {filtered.map(n => {
                   const cat = categorize(n.system)
                   const color = CATEGORY_COLORS[cat]
                   const isSelected = selectedSale === n
@@ -518,12 +517,9 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                   const contractorLabel = contractors.map(c => c.name).join(' · ') || provider || null
 
                   return (
-                    <motion.div
+                    <div
                       key={saleUrlKey(n)}
                       className={`border-b border-zinc-800/40 transition-colors ${isSelected ? 'bg-zinc-900/50' : 'hover:bg-zinc-900/25'}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.15, delay: Math.min(i * 0.015, 0.18) }}
                     >
                       <button
                         type="button"
@@ -621,13 +617,13 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                             </div>
                           </div>
                       </button>
-                    </motion.div>
+                    </div>
                   )
                 })}
               </>
             ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-              {filtered.map((n, i) => {
+              {filtered.map(n => {
                 const cat = categorize(n.system)
                 const color = CATEGORY_COLORS[cat]
                 const isSelected = selectedSale === n
@@ -645,7 +641,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                 const visual = getSystemVisual(n.system)
 
                 return (
-                  <motion.button
+                  <button
                     key={saleUrlKey(n)}
                     type="button"
                     onClick={() => openSale(isSelected ? null : n)}
@@ -654,9 +650,6 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                         ? 'border-amber-700/50 bg-[#161616] ring-1 ring-amber-700/20'
                         : 'border-zinc-800/80 bg-[#0c0c0c] hover:border-zinc-600 hover:bg-[#101010]'
                     }`}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.15, delay: Math.min(i * 0.015, 0.18) }}
                   >
                     {/* Media — bleed 1px under border to kill subpixel gaps at rounded edges */}
                     <div
@@ -751,7 +744,7 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                         </span>
                       </div>
                     </div>
-                  </motion.button>
+                  </button>
                 )
               })}
             </div>
