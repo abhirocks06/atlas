@@ -3,7 +3,7 @@ import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
+import { getContractorLogoUrl, contractorLogoClassName, getContractorInitials } from '../utils/contractorLogos'
 import { getContractorBlurb } from '../utils/contractorBlurbs'
 import { notificationMatchesQuery } from '../utils/notificationSearch'
 import { useCountUp } from '../utils/useCountUp'
@@ -278,7 +278,7 @@ export function ContractorPage({
           <div className="w-px h-8 bg-zinc-800 flex-shrink-0" />
 
           <div className="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
-            {logoUrl && (
+            {logoUrl ? (
               <img
                 src={logoUrl}
                 alt=""
@@ -287,6 +287,13 @@ export function ContractorPage({
                 fetchPriority="high"
                 onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
               />
+            ) : (
+              <span
+                className="h-8 w-8 md:h-9 md:w-9 rounded-md bg-zinc-800 flex-shrink-0 flex items-center justify-center text-[10px] md:text-[11px] font-medium text-zinc-400 leading-none"
+                aria-hidden
+              >
+                {getContractorInitials(contractor)}
+              </span>
             )}
             <div className="min-w-0">
               <h1 className="text-lg md:text-2xl font-light text-white tracking-tight leading-none truncate">{contractor}</h1>

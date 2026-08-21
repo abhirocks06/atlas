@@ -105,6 +105,9 @@ export function prefetchContractorLogos(contractors: Iterable<string>): void {
 }
 
 export function getContractorInitials(contractor: string): string {
+  // Longbow LLC has no public mark; keep both L's so it reads as a JV label.
+  if (/longbow/i.test(contractor)) return 'LL'
+
   return contractor
     .replace(/\b(the|inc|llc|corp|company|co|ltd|lp|plc)\b\.?/gi, '')
     .trim()

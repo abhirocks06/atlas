@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { Notification } from '../types'
 import { formatCost, formatDate } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
+import { getContractorLogoUrl, contractorLogoClassName, getContractorInitials } from '../utils/contractorLogos'
 import { parseContractors, supplyProvider } from '../utils/parseContractors'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getSystemVisual } from '../utils/systemVisuals'
@@ -182,13 +182,20 @@ export function SaleDetailDrawer({
                     Provider
                   </div>
                   <div className="flex items-center gap-3">
-                    {providerLogo && (
+                    {providerLogo ? (
                       <img
                         src={providerLogo}
                         alt=""
                         className={`w-8 h-8 object-contain rounded-sm opacity-70 ${contractorLogoClassName(provider)}`}
                         onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                       />
+                    ) : (
+                      <span
+                        className="w-8 h-8 rounded-sm bg-zinc-800 flex items-center justify-center text-[10px] font-medium text-zinc-400 leading-none"
+                        aria-hidden
+                      >
+                        {getContractorInitials(provider)}
+                      </span>
                     )}
                     <div className="text-[13px] text-zinc-300">{provider}</div>
                   </div>
@@ -206,13 +213,20 @@ export function SaleDetailDrawer({
                       const align = c.location ? 'items-start' : 'items-center'
                       const body = (
                         <>
-                          {logo && (
+                          {logo ? (
                             <img
                               src={logo}
                               alt=""
                               className={`w-8 h-8 object-contain rounded-sm opacity-70 ${c.location ? 'mt-0.5' : ''} ${contractorLogoClassName(c.name)}`}
                               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                             />
+                          ) : (
+                            <span
+                              className={`w-8 h-8 rounded-sm bg-zinc-800 flex items-center justify-center text-[10px] font-medium text-zinc-400 leading-none ${c.location ? 'mt-0.5' : ''}`}
+                              aria-hidden
+                            >
+                              {getContractorInitials(c.name)}
+                            </span>
                           )}
                           <div className="min-w-0">
                             <div className={`text-[13px] text-zinc-300 ${onSelectContractor ? 'group-hover:text-white transition-colors' : ''}`}>

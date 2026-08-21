@@ -6,7 +6,7 @@ import type { Notification } from '../types'
 import { contractorNames } from '../utils/parseContractors'
 import { formatCost } from '../utils/formatters'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl } from '../utils/contractorLogos'
+import { getContractorLogoUrl, getContractorInitials } from '../utils/contractorLogos'
 import { getSystemFamily } from '../utils/systemFamily'
 import { categorize, type WeaponCategory } from '../utils/weaponCategories'
 
@@ -366,7 +366,7 @@ export function NetworkView({
   const C_W = boxWidthFor(
     contractors.map(c => ({
       label: c.label,
-      leftPad: !getContractorLogoUrl(c.label) ? 14 : 36,
+      leftPad: 36,
     })),
   )
   const S_W = boxWidthFor(
@@ -596,12 +596,13 @@ export function NetworkView({
             {contractors.map((c, i) => {
               const active = nodeOn(activeContractors, c.id)
               const logoUrl = getContractorLogoUrl(c.label)
+              const initials = logoUrl ? null : getContractorInitials(c.label)
               const y = cYs[i]!
               const selected = hovered?.type === 'contractor' && hovered.name === c.id
               const clickable = !!onSelectContractor
               const logoSize = compactC ? Math.min(14, C_H - 4) : 18
               const logoY = y + (C_H - logoSize) / 2
-              const textX = C_X + (logoUrl ? 10 + logoSize + 8 : 10)
+              const textX = C_X + 10 + logoSize + 8
               const midY = y + C_H * 0.5 + (compactC ? 3.5 : 0)
               const nameY = compactC ? midY : y + C_H * 0.38
               const valueY = compactC ? midY : y + C_H * 0.78
@@ -635,7 +636,7 @@ export function NetworkView({
                     animate={{ opacity: boxOpacity(active) }}
                     transition={{ duration: 0.15 }}
                   />
-                  {logoUrl && logoSize >= 10 && (
+                  {logoUrl && logoSize >= 10 ? (
                     <image
                       href={logoUrl}
                       x={C_X + 8} y={logoY}
@@ -643,7 +644,28 @@ export function NetworkView({
                       opacity={active ? 0.95 : 0.35}
                       preserveAspectRatio="xMidYMid meet"
                     />
-                  )}
+                  ) : initials && logoSize >= 10 ? (
+                    <>
+                      <rect
+                        x={C_X + 8} y={logoY}
+                        width={logoSize} height={logoSize} rx={2}
+                        fill="#27272a"
+                        opacity={active ? 0.95 : 0.35}
+                      />
+                      <text
+                        x={C_X + 8 + logoSize / 2}
+                        y={logoY + logoSize / 2 + 0.5}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fill={active ? '#a1a1aa' : '#52525b'}
+                        fontSize={Math.max(7, logoSize * 0.42)}
+                        fontFamily="system-ui, sans-serif"
+                        fontWeight={500}
+                      >
+                        {initials}
+                      </text>
+                    </>
+                  ) : null}
                   <text
                     x={textX} y={nameY}
                     fill={active ? '#d4d4d8' : '#52525b'}

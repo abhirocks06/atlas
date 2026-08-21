@@ -4,7 +4,7 @@ import type { Notification } from '../types'
 import { formatCost } from '../utils/formatters'
 import { ALL_REGIONS, REGION_COLORS, regionForCountry, type Region } from '../utils/regions'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
+import { getContractorLogoUrl, contractorLogoClassName, getContractorInitials } from '../utils/contractorLogos'
 import { contractorNames } from '../utils/parseContractors'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
 import { getSystemFamily } from '../utils/systemFamily'
@@ -608,7 +608,12 @@ export function AnalyticsPage({
                               decoding="async"
                             />
                           ) : (
-                            <span className="w-4 h-4 rounded-sm bg-zinc-800 shrink-0" />
+                            <span
+                              className="w-4 h-4 rounded-sm bg-zinc-800 shrink-0 flex items-center justify-center text-[7px] font-medium text-zinc-400 leading-none"
+                              aria-hidden
+                            >
+                              {getContractorInitials(name)}
+                            </span>
                           )}
                           <LabelWithMobileShort name={name} />
                         </div>

@@ -4,7 +4,7 @@ import { formatCost, formatDate } from '../utils/formatters'
 import { categorize, CATEGORY_COLORS, ALL_CATEGORIES, type WeaponCategory } from '../utils/weaponCategories'
 import { notificationMatchesQuery } from '../utils/notificationSearch'
 import { getFlagUrl } from '../utils/countryFlags'
-import { getContractorLogoUrl, contractorLogoClassName } from '../utils/contractorLogos'
+import { getContractorLogoUrl, contractorLogoClassName, getContractorInitials } from '../utils/contractorLogos'
 import { parseContractors, contractorNames, supplyProvider, isSupplyProviderLabel } from '../utils/parseContractors'
 import { isNotificationNew } from '../utils/newNotifications'
 import { getCountryBlurb } from '../utils/countryBlurbs'
@@ -244,7 +244,12 @@ export function CountryPage({ country, notifications, initialSaleKey = null, onS
                             onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                           />
                         ) : (
-                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
+                          <span
+                            className="w-3.5 h-3.5 rounded-sm bg-zinc-800 flex items-center justify-center text-[6px] font-medium text-zinc-400 leading-none"
+                            aria-hidden
+                          >
+                            {getContractorInitials(name)}
+                          </span>
                         )}
                       </span>
                       <span className={`text-[12px] truncate transition-colors ${
