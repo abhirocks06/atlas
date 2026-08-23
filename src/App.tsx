@@ -3,13 +3,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import rawData from '../data/fms_notifications.json'
 import type { Notification } from './types'
 import { WorldMap } from './components/WorldMap'
-import { NetworkView } from './components/NetworkView'
+import { NetworkView, type NetworkFocus, sameNetworkFocus } from './components/NetworkView'
 import { AnalyticsPage } from './components/AnalyticsPage'
 import { CountryPage } from './components/CountryPage'
 import { ContractorPage } from './components/ContractorPage'
 import { FilterBar, type AppView } from './components/FilterBar'
 import { SummaryStats } from './components/SummaryStats'
 import { categorize, type WeaponCategory } from './utils/weaponCategories'
+import { getSystemFamily } from './utils/systemFamily'
 import { getNewNotifications } from './utils/newNotifications'
 import { NewNotificationBanner } from './components/NewNotificationBanner'
 import { getFlagUrl, prefetchFlags } from './utils/countryFlags'
@@ -66,6 +67,7 @@ export default function App() {
   const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
   const [view, setView] = useState<AppView>(initial.view)
+  const [networkFocus, setNetworkFocus] = useState<NetworkFocus[]>([])
   const floatingHeaderRef = useRef<HTMLDivElement>(null)
   const [headerClearance, setHeaderClearance] = useState(180)
 
@@ -214,6 +216,66 @@ export default function App() {
     return map
   }, [filtered])
 
+  const equipmentOptions = useMemo(() => {
+    const byId = new Map<string, string>()
+    for (const n of filtered) {
+      if (!n.country || !n.costUSD) continue
+      const fam = getSystemFamily(n.system)
+      if (fam) byId.set(fam.id, fam.label)
+    }
+    return [...byId.entries()]
+      .map(([id, label]) => ({ id, label }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+  }, [filtered])
+
+  useEffect(() => {
+    setNetworkFocus([])
+  }, [filtered])
+
+  useEffect(() => {
+    if (view !== 'network') setNetworkFocus([])
+  }, [view])
+
+  const applyNetworkFocus = (focus: NetworkFocus, additive = false) => {
+    setNetworkFocus(prev => {
+      if (additive && prev.length > 0) {
+        if (prev.some(p => sameNetworkFocus(p, focus))) {
+          return prev.filter(p => !sameNetworkFocus(p, focus))
+        }
+        return [...prev, focus]
+      }
+      if (prev.length === 1 && sameNetworkFocus(prev[0]!, focus)) return []
+      return [focus]
+    })
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
+    setSelectedContractor(null)
+    setSelectedCountry(null)
+    setSelectedSaleKey(null)
+    setView('network')
+  }
+
+  const handleViewChange = (next: AppView) => {
+    if (next === 'network') {
+      setSelectedContractor(null)
+      setSelectedCountry(null)
+      setSelectedSaleKey(null)
+    }
+    setView(next)
+  }
+
+  const networkSelection = useMemo(() => {
+    if (networkFocus.length === 0) return null
+    if (networkFocus.length > 1) return `${networkFocus.length} selected`
+    const f = networkFocus[0]!
+    if (f.type === 'system') {
+      return equipmentOptions.find(e => e.id === f.id)?.label ?? null
+    }
+    if (f.type === 'country') return f.name
+    return f.name
+  }, [networkFocus, equipmentOptions])
+
   const contractorOptions = useMemo(() => {
     const set = new Set<string>()
     for (const n of filtered) {
@@ -315,11 +377,15 @@ export default function App() {
               categoryFilter={categoryFilter}
               onCategoryFilterChange={setCategoryFilter}
               view={view}
-              onViewChange={setView}
+              onViewChange={handleViewChange}
               countries={Array.from(countryTotals.keys()).sort()}
               contractors={contractorOptions}
+              equipment={equipmentOptions}
               onSelectCountry={openCountry}
               onSelectContractor={openContractor}
+              onNetworkFocus={applyNetworkFocus}
+              networkSelection={networkSelection}
+              onClearNetworkFocus={() => setNetworkFocus([])}
             />
           </div>
         </div>
@@ -352,8 +418,9 @@ export default function App() {
               >
                 <NetworkView
                   filtered={filtered}
-                  onSelectCountry={openCountry}
-                  onSelectContractor={openContractor}
+                  focus={networkFocus}
+                  onClearFocus={() => setNetworkFocus([])}
+                  onFocus={applyNetworkFocus}
                   headerClearance={headerClearance}
                 />
               </motion.div>

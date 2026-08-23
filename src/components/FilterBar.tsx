@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import type { WeaponCategory } from '../utils/weaponCategories'
+import type { NetworkFocus } from './NetworkView'
 
 const selectClass =
   'rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-400 px-2.5 py-0.5 md:py-1 text-[11px] md:text-xs outline-none transition-colors cursor-pointer appearance-none pr-5 bg-no-repeat'
@@ -22,13 +23,20 @@ interface Props {
   onViewChange: (v: AppView) => void
   countries: string[]
   contractors: string[]
+  equipment: Array<{ id: string; label: string }>
   onSelectCountry: (country: string) => void
   onSelectContractor: (contractor: string) => void
+  onNetworkFocus?: (focus: NetworkFocus) => void
+  networkSelection?: string | null
+  onClearNetworkFocus?: () => void
   /** Nest inside a rounded panel — no outer bar chrome */
   embedded?: boolean
 }
 
-type SearchHit = { name: string; kind: 'country' | 'contractor' }
+type SearchHit =
+  | { name: string; kind: 'country' }
+  | { name: string; kind: 'contractor' }
+  | { name: string; kind: 'equipment'; systemId: string }
 
 export function FilterBar({
   dateRange,
@@ -39,14 +47,20 @@ export function FilterBar({
   onViewChange,
   countries,
   contractors,
+  equipment,
   onSelectCountry,
   onSelectContractor,
+  onNetworkFocus,
+  networkSelection = null,
+  onClearNetworkFocus,
   embedded = false,
 }: Props) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const mobileSearchRef = useRef<HTMLDivElement>(null)
   const desktopSearchRef = useRef<HTMLDivElement>(null)
+  const inputValue = view === 'network' && networkSelection ? networkSelection : query
+  const networkSelectionLocked = view === 'network' && Boolean(networkSelection)
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -58,49 +72,48 @@ export function FilterBar({
       return starts
     }
 
-    if (view === 'map') {
-      return countries
+    if (view === 'map' || view === 'analytics') {
+      const countryHits: SearchHit[] = countries
         .filter(c => c.toLowerCase().includes(q))
+        .map(name => ({ name, kind: 'country' as const }))
+      const contractorHits: SearchHit[] = contractors
+        .filter(c => c.toLowerCase().includes(q))
+        .map(name => ({ name, kind: 'contractor' as const }))
+
+      return [...countryHits, ...contractorHits]
         .sort((a, b) => {
-          const rs = rank(a) - rank(b)
+          const rs = rank(a.name) - rank(b.name)
           if (rs !== 0) return rs
-          return a.localeCompare(b)
+          return a.kind === 'country' ? -1 : 1
         })
         .slice(0, 10)
-        .map(name => ({ name, kind: 'country' as const }))
     }
 
     if (view === 'network') {
-      return contractors
+      const countryHits: SearchHit[] = countries
         .filter(c => c.toLowerCase().includes(q))
+        .map(name => ({ name, kind: 'country' as const }))
+      const contractorHits: SearchHit[] = contractors
+        .filter(c => c.toLowerCase().includes(q))
+        .map(name => ({ name, kind: 'contractor' as const }))
+      const equipmentHits: SearchHit[] = equipment
+        .filter(e => e.label.toLowerCase().includes(q))
+        .map(e => ({ name: e.label, kind: 'equipment' as const, systemId: e.id }))
+
+      return [...equipmentHits, ...countryHits, ...contractorHits]
         .sort((a, b) => {
-          const rs = rank(a) - rank(b)
+          const rs = rank(a.name) - rank(b.name)
           if (rs !== 0) return rs
-          return a.localeCompare(b)
+          const kindOrder = { equipment: 0, country: 1, contractor: 2 }
+          return kindOrder[a.kind] - kindOrder[b.kind]
         })
         .slice(0, 10)
-        .map(name => ({ name, kind: 'contractor' as const }))
     }
 
-    // Analytics: countries and contractors
-    const countryHits: SearchHit[] = countries
-      .filter(c => c.toLowerCase().includes(q))
-      .map(name => ({ name, kind: 'country' as const }))
-    const contractorHits: SearchHit[] = contractors
-      .filter(c => c.toLowerCase().includes(q))
-      .map(name => ({ name, kind: 'contractor' as const }))
+    return []
+  }, [query, countries, contractors, equipment, view])
 
-    return [...countryHits, ...contractorHits]
-      .sort((a, b) => {
-        const rs = rank(a.name) - rank(b.name)
-        if (rs !== 0) return rs
-        if (a.kind !== b.kind) return a.kind === 'country' ? -1 : 1
-        return a.name.localeCompare(b.name)
-      })
-      .slice(0, 10)
-  }, [query, countries, contractors, view])
-
-  // Clear query when switching views so leftover country/contractor text doesn't confuse
+  // Clear query when switching views so leftover text doesn't confuse
   useEffect(() => {
     setQuery('')
     setOpen(false)
@@ -120,8 +133,40 @@ export function FilterBar({
   const selectHit = (hit: SearchHit) => {
     setQuery('')
     setOpen(false)
-    if (hit.kind === 'contractor') onSelectContractor(hit.name)
-    else onSelectCountry(hit.name)
+    if (view === 'map') {
+      if (hit.kind === 'contractor') onSelectContractor(hit.name)
+      else onSelectCountry(hit.name)
+      return
+    }
+    const focus: NetworkFocus =
+      hit.kind === 'equipment'
+        ? { type: 'system', id: hit.systemId }
+        : hit.kind === 'country'
+          ? { type: 'country', name: hit.name }
+          : { type: 'contractor', name: hit.name }
+    if (view === 'analytics') {
+      onNetworkFocus?.(focus)
+      onViewChange('network')
+      return
+    }
+    onNetworkFocus?.(focus)
+  }
+
+  const submitFirstMatch = () => {
+    if (matches.length === 0) return
+    selectHit(matches[0]!)
+  }
+
+  const clearSearch = () => {
+    setQuery('')
+    setOpen(false)
+    if (view === 'network') onClearNetworkFocus?.()
+  }
+
+  const handleInputChange = (value: string) => {
+    if (view === 'network' && networkSelection) onClearNetworkFocus?.()
+    setQuery(value)
+    setOpen(true)
   }
 
   const minYear = parseInt(minDate.slice(0, 4))
@@ -131,9 +176,10 @@ export function FilterBar({
   const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
 
   const placeholder =
-    view === 'map' ? 'Search country…' : view === 'network' ? 'Search contractor…' : 'Search country or contractor…'
-  const desktopPlaceholder =
-    view === 'map' ? 'Country…' : view === 'network' ? 'Contractor…' : 'Country or contractor…'
+    view === 'network' ? 'Country, contractor, equipment…' : 'Country, contractor…'
+  const desktopPlaceholder = placeholder
+  const searchInputClass =
+    'h-8 w-56 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2.5 text-xs outline-none transition-colors'
 
   const resultsList = (wide: boolean) =>
     open && matches.length > 0 ? (
@@ -151,7 +197,11 @@ export function FilterBar({
             }`}
           >
             <span className="truncate flex-1">{hit.name}</span>
-            {view === 'analytics' && (
+            {view === 'network' ? (
+              <span className="text-[9px] uppercase tracking-wider text-zinc-600 shrink-0">
+                {hit.kind === 'contractor' ? 'Co.' : hit.kind === 'equipment' ? 'Equip.' : 'Country'}
+              </span>
+            ) : (
               <span className="text-[9px] uppercase tracking-wider text-zinc-600 shrink-0">
                 {hit.kind === 'contractor' ? 'Co.' : 'Country'}
               </span>
@@ -240,15 +290,19 @@ export function FilterBar({
         <div ref={mobileSearchRef} className="relative w-full">
           <input
             type="text"
-            value={query}
+            value={inputValue}
             placeholder={placeholder}
-            onChange={e => { setQuery(e.target.value); setOpen(true) }}
-            onFocus={() => { if (query) setOpen(true) }}
-            className="w-full h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 text-xs outline-none transition-colors"
+            readOnly={networkSelectionLocked}
+            onChange={e => handleInputChange(e.target.value)}
+            onFocus={() => { if (query && !networkSelection) setOpen(true) }}
+            onKeyDown={e => { if (e.key === 'Enter') submitFirstMatch() }}
+            onMouseDown={e => { if (networkSelectionLocked) e.preventDefault() }}
+            onSelect={e => { if (networkSelectionLocked) e.preventDefault() }}
+            className={`w-full h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-600 px-2.5 text-xs outline-none transition-colors${networkSelectionLocked ? ' select-none cursor-default' : ''}`}
           />
-          {query && (
+          {(query || networkSelection) && (
             <button
-              onClick={() => { setQuery(''); setOpen(false) }}
+              onClick={clearSearch}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400 p-1"
               aria-label="Clear"
             >
@@ -293,17 +347,19 @@ export function FilterBar({
           <div className="relative">
             <input
               type="text"
-              value={query}
+              value={inputValue}
               placeholder={desktopPlaceholder}
-              onChange={e => { setQuery(e.target.value); setOpen(true) }}
-              onFocus={() => { if (query) setOpen(true) }}
-              className={`h-8 rounded-lg bg-[#0a0a0a] border border-zinc-800/80 hover:border-zinc-700 focus:border-zinc-600 text-zinc-300 placeholder-zinc-700 px-2.5 text-xs outline-none transition-colors ${
-                view === 'analytics' ? 'w-56' : 'w-48'
-              }`}
+              readOnly={networkSelectionLocked}
+              onChange={e => handleInputChange(e.target.value)}
+              onFocus={() => { if (query && !networkSelection) setOpen(true) }}
+              onKeyDown={e => { if (e.key === 'Enter') submitFirstMatch() }}
+              onMouseDown={e => { if (networkSelectionLocked) e.preventDefault() }}
+              onSelect={e => { if (networkSelectionLocked) e.preventDefault() }}
+              className={`${searchInputClass}${networkSelectionLocked ? ' select-none cursor-default' : ''}`}
             />
-            {query && (
+            {(query || networkSelection) && (
               <button
-                onClick={() => { setQuery(''); setOpen(false) }}
+                onClick={clearSearch}
                 className="absolute right-1.5 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400"
                 aria-label="Clear"
               >
