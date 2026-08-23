@@ -14133,5 +14133,41 @@
     "description": "one hundred and three (103) AIM-9X Sidewinder Block II tactical missiles; and ten (10) AIM-9X Sidewinder Block II Tactical Guidance Units. The following non-major defense equipment items will also be included: active optical target detector; training; weapon system support; training aids and devices; spare parts; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $125 million.",
     "addedAt": "2026-08-21",
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/korea-aim-9x-sidewinder-block-ii-missiles/"
+  },
+  {
+    "date": "2026-08-21",
+    "transmittal": "26-83",
+    "country": "Norway",
+    "system": "UH-60M Black Hawk Helicopters",
+    "costUSD": 2300000000,
+    "contractor": "Lockheed Martin, Sikorsky",
+    "contractorLocation": "Stratford, Connecticut",
+    "description": "twenty-one (21) UH-60M Black Hawk helicopters; forty-six (46) T700-GE-701D engines; twenty-five (25) AN/AAR-57 Common Missile Warning Systems; twenty-five (25) Common Infrared Countermeasure systems; twenty-five (25) AN/APR-39E(V)2 Radar Warning Receivers; fifty (50) EAGLE-M+429 Embedded Global Positioning Systems/Inertial Navigation Systems; one hundred (100) AN/ARC-231A RT-1987 VHF/UHF/line-of-sight satellite communication radios; and eighteen (18) M240H machine guns. The following non-MDE items will also be included: AN/AVR-2B(V) Laser Warning System; APX-128 identification friend or foe transponder; AN/PYQ-10 Simple Key Loader; KIV-79 common IFF crypto appliqué computers; AN/ARN-147(V) VHF omni-directional range/instrument landing system receiver radio; AN/ARN-149(V) low frequency/automatic direction finder radio receiver; AN/ARN-153 tactical air navigation system receiver transmitter; RACC-209 radar altimeter; AN/ARC-201D, AN/ARC-210 Gen 6, AN/PRC-167, AN/ARC-220, and AN/PRC-160 radios; EBC 406HM emergency locator transmitter; Advanced Sight Display Computer Heads-Up Display system; RDR-7000 color weather radar; MX-10D electro-optical/infrared system; engine inlet barrier filters; ballistic armor protection systems; internal auxiliary fuel tank systems; fast rope insertion extraction systems; airframe mounted rescue hoists; external stores support system; LINK-16 (small tactical terminal KOR-24A); Traffic Alert Collision Avoidance System, Type I; snow skis; Bambi Bucket; helicopter terrain awareness system; external gun mount system; maintenance and aircrew training devices/software; spare and repair parts; support equipment; tools and test equipment; technical data and publications; personnel training and training equipment; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of program and logistics support. The estimated total cost is $2.3 billion.",
+    "addedAt": "2026-08-21",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/norway-uh-60m-black-hawk-helicopters/"
+  },
+  {
+    "date": "2026-08-21",
+    "transmittal": "26-92",
+    "country": "Italy",
+    "system": "Advanced Precision Kill Weapon System-II (APKWS-II) Guidance Sections",
+    "costUSD": 364000000,
+    "contractor": "BAE Systems",
+    "contractorLocation": "Nashua, New Hampshire",
+    "description": "five thousand and thirty-one (5,031) Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. The following non-major defense equipment items will also be included: LAU-131 A/A launchers; Mk-152 high explosive warheads; MK66 rocket motors; proximity fuzes; WTU-1/B practice warheads; inert MK66 rocket motors; other support equipment; publications and technical documentation; transportation; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $364 million.",
+    "addedAt": "2026-08-21",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/"
+  },
+  {
+    "date": "2026-08-20",
+    "transmittal": "26-80",
+    "country": "Qatar",
+    "system": "KC-46A Aerial Refueling Aircraft",
+    "costUSD": 4500000000,
+    "contractor": "The Boeing Corporation / Pratt & Whitney Military Engines / RTX Corporation / Northrop Grumman Corporation",
+    "contractorLocation": "Arlington, Virginia / East Hartford, Connecticut / Arlington, Virginia / Rolling Meadows, Illinois",
+    "description": "up to four (4) KC-46A aircraft; eight (8) PW4062 turbofan engines (4 installed, 4 spares); ten (10) AN/ALR-69A radar warning receivers (4 installed, 6 spares); fifteen (15) Guardian Laser Transmitter Assemblies (GTLA) for Large Aircraft Infrared Countermeasure (LAIRCM) systems (12 installed, 3 spares); and eight (8) LAIRCM system processor replacements. The following non-major defense equipment items will also be included: missile warning sensors; cartridge actuated devices and propellent actuated devices; control interface units; user data module cards; electronic warfare database support; KIV-77 crypto module; KY-100M crypto terminals; AN/PYQ-10 simple key loaders; AN/APX-119 Identification Friend or Foe transponder; precision navigation; Computer Program Identification Numbers; integration and test support and equipment; aircraft components, parts, and accessories; support and support equipment; spare parts, consumables and accessories, and repair and return support; training aids, devices, and spare parts; major and minor modifications and maintenance support; instruments and lab equipment; classified and unclassified software delivery and support; unclassified publications and technical documentation; maps, publications, and technical documentation; personnel training and training equipment; clothing, textiles, and individual equipment; trucks and transportation vehicles; facilities and construction support; jet fuel; transportation and airlift support; warranties; site surveys; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $4.50 billion.",
+    "addedAt": "2026-08-20",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/qatar-kc-46a-aerial-refueling-aircraft/"
   }
 ]

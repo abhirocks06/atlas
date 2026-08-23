@@ -10,6 +10,11 @@ interface Props {
   onSelect: (country: string) => void
 }
 
+function bannerSystemLabel(n: Notification): string | null {
+  if (n.transmittal === '26-92') return 'APKWS-II Guidance Sections'
+  return n.system ?? null
+}
+
 function buildSummary(visible: Notification[]): string {
   const latest = visible[0]
   if (!latest) return ''
@@ -83,19 +88,22 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
           transition={{ duration: 0.22, ease: 'easeOut' }}
         >
           <div className="relative flex justify-center px-12">
-            <div className="w-full max-w-xl min-w-0 flex flex-col items-center">
-              <div className="flex items-center justify-center h-9 w-full">
-                <button
-                  type="button"
-                  onClick={handleSummaryClick}
-                  className="flex items-center gap-2 text-[12px] text-zinc-300 hover:text-zinc-100 underline underline-offset-[3px] decoration-zinc-600 hover:decoration-zinc-400 transition-colors max-w-full min-w-0"
-                  aria-expanded={canExpand ? expanded : undefined}
-                >
-                  <span className="shrink-0 w-4 flex items-center justify-center" aria-hidden="true">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  </span>
-                  <span className="truncate">{buildSummary(visible)}</span>
-                </button>
+            <div className="w-full max-w-xl min-w-0">
+              {/* Summary row */}
+              <div className="flex gap-2">
+                <div className="relative w-4 shrink-0 h-9 flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 relative z-10" aria-hidden="true" />
+                </div>
+                <div className="flex-1 min-w-0 flex items-center h-9">
+                  <button
+                    type="button"
+                    onClick={handleSummaryClick}
+                    className="text-[12px] text-zinc-300 hover:text-zinc-100 underline underline-offset-[3px] decoration-zinc-600 hover:decoration-zinc-400 transition-colors max-w-full min-w-0 truncate text-left"
+                    aria-expanded={canExpand ? expanded : undefined}
+                  >
+                    {buildSummary(visible)}
+                  </button>
+                </div>
               </div>
 
               <AnimatePresence initial={false}>
@@ -112,43 +120,50 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
                       {visible.map((n, i) => {
                         const flagUrl = n.country ? getFlagUrl(n.country) : null
                         const isLast = i === visible.length - 1
+                        const systemLabel = bannerSystemLabel(n)
                         return (
                           <li key={getNotificationKey(n)}>
-                            <button
-                              type="button"
-                              onClick={() => handleSelect(n)}
-                              className="w-full flex items-center gap-2 py-1.5 text-[12px] text-zinc-400 hover:text-zinc-100 transition-colors text-left"
-                            >
-                              <span className="relative shrink-0 w-4 h-4" aria-hidden="true">
-                                <span
-                                  className={`absolute left-1/2 -translate-x-1/2 w-px bg-zinc-700 ${
-                                    i === 0 ? '-top-2.5' : 'top-0'
-                                  } bottom-1/2`}
-                                />
-                                {!isLast && (
-                                  <span className="absolute left-1/2 -translate-x-1/2 top-1/2 bottom-0 w-px bg-zinc-700" />
+                            <div className="flex gap-2">
+                              <div className="w-4 shrink-0 flex items-center justify-center py-1.5" aria-hidden="true">
+                                <span className="relative w-4 h-4">
+                                  <span
+                                    className={`absolute left-1/2 -translate-x-1/2 w-px bg-zinc-700 ${
+                                      i === 0 ? '-top-2.5' : 'top-0'
+                                    } bottom-1/2`}
+                                  />
+                                  {!isLast && (
+                                    <span className="absolute left-1/2 -translate-x-1/2 top-1/2 bottom-0 w-px bg-zinc-700" />
+                                  )}
+                                  <span className="absolute left-1/2 top-1/2 -translate-y-1/2 w-2.5 h-px bg-zinc-700" />
+                                </span>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleSelect(n)}
+                                className="flex-1 min-w-0 flex items-center gap-2 py-1.5 text-[12px] text-zinc-400 hover:text-zinc-100 transition-colors text-left"
+                              >
+                                {flagUrl && (
+                                  <img
+                                    src={flagUrl}
+                                    alt=""
+                                    className="w-4 h-3 object-cover rounded-sm shrink-0 opacity-90"
+                                    draggable={false}
+                                  />
                                 )}
-                                <span className="absolute left-1/2 top-1/2 w-2.5 h-px bg-zinc-700" />
-                              </span>
-                              {flagUrl && (
-                                <img
-                                  src={flagUrl}
-                                  alt=""
-                                  className="w-4 h-3 object-cover rounded-sm shrink-0 opacity-90"
-                                  draggable={false}
-                                />
-                              )}
-                              <span className="truncate min-w-0">
-                                <span className="text-zinc-300">{n.country}</span>
-                                {n.system ? <span className="text-zinc-500"> · {n.system}</span> : null}
-                                {n.costUSD ? (
-                                  <span className="text-amber-500/90 font-mono"> · {formatCost(n.costUSD)}</span>
-                                ) : null}
-                                {n.date ? (
-                                  <span className="text-zinc-600 font-mono"> · {formatDate(n.date)}</span>
-                                ) : null}
-                              </span>
-                            </button>
+                                <span className="truncate min-w-0">
+                                  <span className="text-zinc-300">{n.country}</span>
+                                  {systemLabel ? (
+                                    <span className="text-zinc-500"> · {systemLabel}</span>
+                                  ) : null}
+                                  {n.costUSD ? (
+                                    <span className="text-amber-500/90 font-mono"> · {formatCost(n.costUSD)}</span>
+                                  ) : null}
+                                  {n.date ? (
+                                    <span className="text-zinc-600 font-mono"> · {formatDate(n.date)}</span>
+                                  ) : null}
+                                </span>
+                              </button>
+                            </div>
                           </li>
                         )
                       })}
