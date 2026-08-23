@@ -56,6 +56,7 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
   const handleSelect = (n: Notification) => {
     const country = n.country
     dismissOne(n)
+    setExpanded(false)
     if (country) onSelect(country)
   }
 
