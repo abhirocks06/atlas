@@ -286,6 +286,19 @@ export default function App() {
     return Array.from(set).sort((a, b) => a.localeCompare(b))
   }, [filtered])
 
+  /** Network is equipment-linked — omit services-only primes with no named platform. */
+  const networkContractorOptions = useMemo(() => {
+    const linked = new Set<string>()
+    for (const n of filtered) {
+      if (!n.country || !n.costUSD) continue
+      if (!getSystemFamily(n.system)) continue
+      for (const name of contractorNames(n.contractor, n.contractorLocation)) {
+        linked.add(name)
+      }
+    }
+    return Array.from(linked).sort((a, b) => a.localeCompare(b))
+  }, [filtered])
+
   const selectedNotifications = useMemo(() => {
     if (!selectedCountry) return []
     return allNotifications.filter(n =>
@@ -379,7 +392,7 @@ export default function App() {
               view={view}
               onViewChange={handleViewChange}
               countries={Array.from(countryTotals.keys()).sort()}
-              contractors={contractorOptions}
+              contractors={view === 'network' ? networkContractorOptions : contractorOptions}
               equipment={equipmentOptions}
               onSelectCountry={openCountry}
               onSelectContractor={openContractor}
@@ -421,6 +434,8 @@ export default function App() {
                   focus={networkFocus}
                   onClearFocus={() => setNetworkFocus([])}
                   onFocus={applyNetworkFocus}
+                  onSelectCountry={openCountry}
+                  onSelectContractor={openContractor}
                   headerClearance={headerClearance}
                 />
               </motion.div>

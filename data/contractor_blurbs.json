@@ -308,5 +308,45 @@
     "blurb": "Orbital ATK was a U.S. aerospace and defense company formed from Orbital Sciences and Alliant Techsystems, known for munitions, missile components, and precision-guidance kits. It appears in FMS chiefly on ammunition and weapons packages; Northrop Grumman acquired it in 2018.",
     "source": "curated",
     "updatedAt": "2026-08-06"
+  },
+  "GC Micro": {
+    "blurb": "GC Micro is a U.S. technology integrator and value-added reseller that supplies hardware, software, and configured systems to government, defense, and aerospace customers. In Foreign Military Sales it typically appears as a specialty electronics or IT teammate inside larger platform packages.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Spirit Aero": {
+    "blurb": "Spirit AeroSystems is a major aerostructures manufacturer that builds fuselage, wing, and related assemblies for commercial and military aircraft. In FMS notifications it often appears as a structures teammate on helicopter and fixed-wing packages; Boeing completed its acquisition in late 2025.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Telephonics": {
+    "blurb": "Telephonics is a U.S. aerospace and defense electronics company known for surveillance radars, IFF, and maritime/airborne mission systems. It commonly appears in FMS as a sensors and communications supplier within broader aircraft packages, including Black Hawk-related cases.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Pole Zero": {
+    "blurb": "Pole/Zero (an MPG / Dover Microwave Products Group brand) builds RF and microwave filters and related communications-protection gear. In Foreign Military Sales it appears as a specialty RF teammate on avionics and electronic-warfare packages rather than as a platform prime.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Terma": {
+    "blurb": "Terma is a Danish aerospace and defense company that supplies aircraft self-protection, aerostructures, radars, and mission electronics. In U.S. FMS cases it often appears as a teammate providing aircraft survivability equipment and related structures on helicopter and fighter packages.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Symmetrics": {
+    "blurb": "Symetrics Industries (now Extant Aerospace) manufactures and sustains aerospace electronics, including electronic-warfare and data-modem products used on military aircraft. In FMS it typically appears as an avionics or EW teammate on rotary-wing and fixed-wing packages.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Arnprior Aerospace": {
+    "blurb": "Arnprior Aerospace is a Canadian aerostructures manufacturer that designs and builds mechanical structures and assemblies for aerospace and defense customers. In Foreign Military Sales it appears as a structures teammate on aircraft packages rather than as the platform prime.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
+  },
+  "Martin Baker": {
+    "blurb": "Martin-Baker is a UK aircrew-safety company and the world’s leading maker of ejection seats and crashworthy crew seats. In FMS notifications it commonly supplies crashworthy seats and related safety equipment for helicopters such as the UH-60 Black Hawk.",
+    "source": "curated",
+    "updatedAt": "2026-08-24"
   }
 }

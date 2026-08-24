@@ -68,6 +68,15 @@ const DOMAINS = [
   'cat.com',
   'aollc.biz',
   'orbitalatk.com',
+  'gcmicro.com',
+  'spiritaero.com',
+  'telephonics.com',
+  'polezero.com',
+  'terma.com',
+  'extantaerospace.com',
+  'arnprioraerospace.com',
+  'martin-baker.com',
+  'viasat.com',
 ]
 
 function slug(domain) {
@@ -144,6 +153,12 @@ async function fetchLogo(domain) {
           ? [
               'https://web.archive.org/web/20180101000000id_/https://logo.clearbit.com/orbitalatk.com',
               'https://www.google.com/s2/favicons?domain=orbitalatk.com&sz=256',
+            ]
+        : domain === 'martin-baker.com'
+          ? [
+              'https://i0.wp.com/martin-baker.com/wp-content/uploads/2023/10/MB-logo-600-sq-px.png',
+              'https://martin-baker.com/wp-content/uploads/2023/10/MB-logo-600-sq-px.png',
+              'https://www.google.com/s2/favicons?domain=martin-baker.com&sz=256',
             ]
         : [
             `https://web.archive.org/web/20240101000000id_/https://logo.clearbit.com/${domain}`,

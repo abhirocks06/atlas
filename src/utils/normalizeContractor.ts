@@ -270,6 +270,16 @@ export function normalizeContractor(raw: string): string {
   // Progeny Systems (GD Mission Systems business area)
   if (/progeny/i.test(s)) return 'Progeny Systems'
 
+  // Black Hawk / aircraft specialty teammates that recur as slash-list names
+  if (/spirit\s*aero/i.test(s)) return 'Spirit Aero'
+  if (/gc\s*micro/i.test(s)) return 'GC Micro'
+  if (/telephonics/i.test(s)) return 'Telephonics'
+  if (/pole\s*\/?\s*zero/i.test(s)) return 'Pole Zero'
+  if (/^terma\b/i.test(s)) return 'Terma'
+  if (/symmetr?ics|extant\s+aerospace/i.test(s)) return 'Symmetrics'
+  if (/arnprior/i.test(s)) return 'Arnprior Aerospace'
+  if (/martin[\s-]*baker/i.test(s)) return 'Martin Baker'
+
   // ── Generic cleanup for everything else ─────────────────────────────────────
   // Remove parenthetical asides: "(GEAC)", "(United Technologies)", etc.
   s = s.replace(/\s*\([^)]*\)/g, '').trim()

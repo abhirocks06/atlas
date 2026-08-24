@@ -435,7 +435,15 @@ export function NetworkView({
     const contractors: NodeRow[] = featC.map(c => ({ id: c.name, label: c.name, value: c.value }))
     const systems: NodeRow[] = featS.map(s => ({ id: s.id, label: s.label, value: s.value }))
     const countries: NodeRow[] = featK.map(k => ({ id: k.name, label: k.name, value: k.value }))
-    const allContractors: NodeRow[] = contractorsRanked.map(c => ({ id: c.name, label: c.name, value: c.value }))
+    // Only contractors with ≥1 named equipment link — services-only primes are orphans here.
+    const linkedContractorIds = new Set<string>()
+    for (const key of triple.keys()) {
+      const [c, s] = key.split('::') as [string, string, string]
+      if (!s.startsWith('cat:')) linkedContractorIds.add(c)
+    }
+    const allContractors: NodeRow[] = contractorsRanked
+      .filter(c => linkedContractorIds.has(c.name))
+      .map(c => ({ id: c.name, label: c.name, value: c.value }))
     const allSystems: NodeRow[] = systemsRanked.map(s => ({ id: s.id, label: s.label, value: s.value }))
     const allCountries: NodeRow[] = countriesRanked.map(k => ({ id: k.name, label: k.name, value: k.value }))
 
@@ -760,7 +768,7 @@ export function NetworkView({
           onMouseDown={e => e.preventDefault()}
         >
           <g ref={gRef}>
-            {/* Tap empty canvas to clear mobile selection */}
+            {/* Click empty canvas to clear focus / mobile hover */}
             <rect
               x={0}
               y={0}
@@ -768,7 +776,8 @@ export function NetworkView({
               height={VB_H}
               fill="transparent"
               onClick={() => {
-                if (isMobile) clearHover()
+                if (inFocusMode) onClearFocus?.()
+                else if (isMobile) clearHover()
               }}
             />
             {/* Contractor → Equipment */}
@@ -790,6 +799,7 @@ export function NetworkView({
                   stroke={edgeStroke(active)}
                   strokeWidth={w}
                   strokeLinecap="round"
+                  style={{ pointerEvents: 'none' }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: edgeOpacity('cs', active) }}
                   transition={{ duration: 0.15 }}
@@ -812,6 +822,7 @@ export function NetworkView({
                   stroke={edgeStroke(active)}
                   strokeWidth={w}
                   strokeLinecap="round"
+                  style={{ pointerEvents: 'none' }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: edgeOpacity('su', active) }}
                   transition={{ duration: 0.15 }}
@@ -834,6 +845,7 @@ export function NetworkView({
                   stroke={edgeStroke(active)}
                   strokeWidth={w}
                   strokeLinecap="round"
+                  style={{ pointerEvents: 'none' }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: edgeOpacity('uk', active) }}
                   transition={{ duration: 0.15 }}
@@ -898,6 +910,12 @@ export function NetworkView({
                     e.stopPropagation()
                     if (suppressClickRef.current) {
                       suppressClickRef.current = false
+                      return
+                    }
+                    // Second click on the focused contractor → open its page.
+                    if (inFocusMode && onSelectContractor && !e.shiftKey && isPinned('contractor', c.id)) {
+                      onSelectContractor(c.label)
+                      setHovered(null)
                       return
                     }
                     if (onFocus) {
@@ -1098,6 +1116,12 @@ export function NetworkView({
                     e.stopPropagation()
                     if (suppressClickRef.current) {
                       suppressClickRef.current = false
+                      return
+                    }
+                    // Second click on the focused country → open its page.
+                    if (inFocusMode && onSelectCountry && !e.shiftKey && isPinned('country', k.id)) {
+                      onSelectCountry(k.label)
+                      setHovered(null)
                       return
                     }
                     if (onFocus) {

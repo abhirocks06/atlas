@@ -57,6 +57,14 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/\baar\b/i, 'aarcorp.com'],
   [/gulfstream/i, 'gulfstream.com'],
   [/viasat/i, 'viasat.com'],
+  [/gc\s*micro/i, 'gcmicro.com'],
+  [/spirit\s*aero/i, 'spiritaero.com'],
+  [/telephonics/i, 'telephonics.com'],
+  [/pole\s*zero/i, 'polezero.com'],
+  [/\bterma\b/i, 'terma.com'],
+  [/symmetr?ics|extant\s+aerospace/i, 'extantaerospace.com'],
+  [/arnprior/i, 'arnprioraerospace.com'],
+  [/martin[\s-]*baker/i, 'martin-baker.com'],
 ]
 
 function domainToSlug(domain: string): string {
