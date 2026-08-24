@@ -590,6 +590,7 @@ export function NetworkView({
   const inFocusMode = focusList.length > 0
   const inHighlightMode = focusList.length > 0 || hovered != null
 
+  // Width from idle preview only — focus/hover merge must not resize columns.
   let C_W = boxWidthFor(
     previewContractors.map(c => ({
       label: c.label,
@@ -597,11 +598,11 @@ export function NetworkView({
     })),
   )
   let S_W = boxWidthFor(
-    displaySystems.map(s => ({ label: s.label, leftPad: 12 })),
+    previewSystems.map(s => ({ label: s.label, leftPad: 12 })),
     DENSE_CHAR_W,
   )
   let K_W = boxWidthFor(
-    displayCountries.map(k => ({
+    previewCountries.map(k => ({
       label: k.label,
       leftPad: !getFlagUrl(k.label, 160) ? 12 : 34,
     })),
