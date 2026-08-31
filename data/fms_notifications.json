@@ -14169,5 +14169,17 @@
     "description": "up to four (4) KC-46A aircraft; eight (8) PW4062 turbofan engines (4 installed, 4 spares); ten (10) AN/ALR-69A radar warning receivers (4 installed, 6 spares); fifteen (15) Guardian Laser Transmitter Assemblies (GTLA) for Large Aircraft Infrared Countermeasure (LAIRCM) systems (12 installed, 3 spares); and eight (8) LAIRCM system processor replacements. The following non-major defense equipment items will also be included: missile warning sensors; cartridge actuated devices and propellent actuated devices; control interface units; user data module cards; electronic warfare database support; KIV-77 crypto module; KY-100M crypto terminals; AN/PYQ-10 simple key loaders; AN/APX-119 Identification Friend or Foe transponder; precision navigation; Computer Program Identification Numbers; integration and test support and equipment; aircraft components, parts, and accessories; support and support equipment; spare parts, consumables and accessories, and repair and return support; training aids, devices, and spare parts; major and minor modifications and maintenance support; instruments and lab equipment; classified and unclassified software delivery and support; unclassified publications and technical documentation; maps, publications, and technical documentation; personnel training and training equipment; clothing, textiles, and individual equipment; trucks and transportation vehicles; facilities and construction support; jet fuel; transportation and airlift support; warranties; site surveys; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $4.50 billion.",
     "addedAt": "2026-08-20",
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/qatar-kc-46a-aerial-refueling-aircraft/"
+  },
+  {
+    "date": "2026-08-31",
+    "transmittal": "26-85",
+    "country": "Iraq",
+    "system": "Bell 412 and Bell 407M Helicopters",
+    "costUSD": 800000000,
+    "contractor": "Bell-Textron",
+    "contractorLocation": "Fort Worth, Texas",
+    "description": "Bell 412EPX helicopters; Bell 407M helicopters; GAU-19 three-barrel machine gun launchers; M260 2.75-inch, 7-tube rockets; L-3 Wescam MX-15HDI Electro-Optical/Infrared sensor; AN/AAR-60 Block 2 Missile Launch Detection Systems; very high frequency radios; spare parts; peculiar ground support equipment; publications and technical data; new equipment training, including pilot and maintenance; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $800 million.",
+    "addedAt": "2026-08-31",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/iraq-bell-412-and-bell-407m-helicopters/"
   }
 ]
