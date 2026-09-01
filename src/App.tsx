@@ -405,16 +405,9 @@ export default function App() {
                     <span className="sm:hidden">U.S. FMS Congressional Notifications</span>
                     <span className="hidden sm:inline">U.S. Foreign Military Sales Congressional Notifications</span>
                   </p>
-                  <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                    <span className="sm:hidden">Source: DSCA, Federal Register &amp; State PM Bureau</span>
+                  <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
+                    <span className="sm:hidden">State Department</span>
                     <span className="hidden sm:inline">Source: Defense Security Cooperation Agency, Federal Register, and State Department Bureau of Political-Military Affairs</span>
-                    <button
-                      type="button"
-                      onClick={() => setShowAbout(true)}
-                      className="text-zinc-500 hover:text-zinc-300 underline underline-offset-2 decoration-zinc-700 hover:decoration-zinc-500 transition-colors"
-                    >
-                      About
-                    </button>
                   </p>
                 </div>
               </div>

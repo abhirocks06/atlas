@@ -88,36 +88,41 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.22, ease: 'easeOut' }}
         >
-          <div className="relative flex justify-center px-12">
-            <div className="w-full max-w-xl min-w-0">
-              {/* Summary row */}
-              <div className="flex gap-2">
-                <div className="relative w-4 shrink-0 h-9 flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 relative z-10" aria-hidden="true" />
-                </div>
-                <div className="flex-1 min-w-0 flex items-center h-9">
-                  <button
-                    type="button"
-                    onClick={handleSummaryClick}
-                    className="text-[12px] text-zinc-300 hover:text-zinc-100 underline underline-offset-[3px] decoration-zinc-600 hover:decoration-zinc-400 transition-colors max-w-full min-w-0 truncate text-left"
-                    aria-expanded={canExpand ? expanded : undefined}
-                  >
-                    {buildSummary(visible)}
-                  </button>
-                </div>
-              </div>
+          <button
+            type="button"
+            onClick={handleClose}
+            aria-label={expanded ? 'Collapse notifications' : 'Dismiss notifications'}
+            className="absolute right-3 top-2.5 z-10 p-1 text-zinc-600 hover:text-zinc-400 transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 3l8 8M11 3L3 11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            </svg>
+          </button>
 
-              <AnimatePresence initial={false}>
-                {canExpand && expanded && (
-                  <motion.div
-                    key="expanded-list"
-                    className="overflow-hidden"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.18, ease: 'easeOut' }}
-                  >
-                    <ul className="flex flex-col pb-1.5 w-full">
+          <div className="flex flex-col items-center px-4">
+            <div className="flex items-center justify-center gap-2 h-9 min-w-0 max-w-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" aria-hidden="true" />
+              <button
+                type="button"
+                onClick={handleSummaryClick}
+                className="text-[12px] text-zinc-300 hover:text-zinc-100 underline underline-offset-[3px] decoration-zinc-600 hover:decoration-zinc-400 transition-colors min-w-0 truncate text-center"
+                aria-expanded={canExpand ? expanded : undefined}
+              >
+                {buildSummary(visible)}
+              </button>
+            </div>
+
+            <AnimatePresence initial={false}>
+              {canExpand && expanded && (
+                <motion.div
+                  key="expanded-list"
+                  className="w-full max-w-xl overflow-hidden"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                >
+                  <ul className="flex flex-col pb-1.5 w-full">
                       {visible.map((n, i) => {
                         const flagUrl = n.country ? getFlagUrl(n.country) : null
                         const isLast = i === visible.length - 1
@@ -172,18 +177,6 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleClose}
-              aria-label={expanded ? 'Collapse notifications' : 'Dismiss notifications'}
-              className="absolute right-3 top-2.5 p-1 text-zinc-600 hover:text-zinc-400 transition-colors"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 3l8 8M11 3L3 11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-              </svg>
-            </button>
           </div>
         </motion.div>
       )}
