@@ -13,6 +13,7 @@ import { categorize, type WeaponCategory } from './utils/weaponCategories'
 import { getSystemFamily } from './utils/systemFamily'
 import { getNewNotifications } from './utils/newNotifications'
 import { NewNotificationBanner } from './components/NewNotificationBanner'
+import { AboutPage } from './components/AboutPage'
 import { getFlagUrl, prefetchFlags } from './utils/countryFlags'
 import { prefetchContractorLogos } from './utils/contractorLogos'
 import { contractorNames } from './utils/parseContractors'
@@ -26,13 +27,22 @@ const DATA_MAX_DATE = dates[dates.length - 1]
 
 function parseView(param: string | null): AppView {
   if (param === 'network') return 'network'
-  // Legacy: trends → analytics
+  // Legacy: trends → analytics; about opens overlay separately
   if (param === 'analytics' || param === 'trends') return 'analytics'
   return 'map'
 }
 
+function getInitialShowAbout(params: URLSearchParams): boolean {
+  return (
+    params.get('about') === '1' ||
+    params.get('about') === 'true' ||
+    params.get('view') === 'about'
+  )
+}
+
 function getInitialState() {
   const params = new URLSearchParams(window.location.search)
+  const showAbout = getInitialShowAbout(params)
   const view = parseView(params.get('view'))
   const country = params.get('country') || null
   const contractorRaw = params.get('contractor') || null
@@ -48,9 +58,9 @@ function getInitialState() {
   ]
   // Prefer contractor over country if both somehow present
   if (contractor) {
-    return { view, country: null, contractor, sale, dateRange }
+    return { view, country: null, contractor, sale, dateRange, showAbout }
   }
-  return { view, country, contractor: null, sale, dateRange }
+  return { view, country, contractor: null, sale, dateRange, showAbout }
 }
 
 /** Stable URL key for a notification (transmittal preferred). */
@@ -67,6 +77,7 @@ export default function App() {
   const [dateRange, setDateRange] = useState<[string, string]>(initial.dateRange)
   const [categoryFilter, setCategoryFilter] = useState<WeaponCategory | null>(null)
   const [view, setView] = useState<AppView>(initial.view)
+  const [showAbout, setShowAbout] = useState(initial.showAbout)
   const [networkFocus, setNetworkFocus] = useState<NetworkFocus[]>([])
   const floatingHeaderRef = useRef<HTMLDivElement>(null)
   const [headerClearance, setHeaderClearance] = useState(180)
@@ -134,7 +145,8 @@ export default function App() {
   // Sync state → URL
   useEffect(() => {
     const params = new URLSearchParams()
-    if (view !== 'map') params.set('view', view)
+    if (showAbout) params.set('view', 'about')
+    else if (view !== 'map') params.set('view', view)
     if (selectedContractor) params.set('contractor', selectedContractor)
     else if (selectedCountry) params.set('country', selectedCountry)
     if ((selectedCountry || selectedContractor) && selectedSaleKey) params.set('sale', selectedSaleKey)
@@ -144,9 +156,21 @@ export default function App() {
     if (toYear !== DATA_MAX_DATE.slice(0, 4)) params.set('to', toYear)
     const qs = params.toString()
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
-  }, [view, selectedCountry, selectedContractor, selectedSaleKey, dateRange])
+  }, [view, showAbout, selectedCountry, selectedContractor, selectedSaleKey, dateRange])
 
-  // Drop sale key when leaving a detail page
+  useEffect(() => {
+    if (!showAbout) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowAbout(false)
+        window.location.hash = ''
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [showAbout])
+
+  // Detail pages can leave a window scroll offset; snap back when returning.
   useEffect(() => {
     if (!selectedCountry && !selectedContractor) setSelectedSaleKey(null)
   }, [selectedCountry, selectedContractor])
@@ -190,6 +214,7 @@ export default function App() {
   }, [selectedSaleKey])
 
   useEffect(() => {
+    if (showAbout) return
     const viewLabel = view === 'map' ? 'Map' : view === 'network' ? 'Network' : 'Analytics'
     const detail =
       selectedSale?.system
@@ -257,6 +282,7 @@ export default function App() {
   }
 
   const handleViewChange = (next: AppView) => {
+    setShowAbout(false)
     if (next === 'network') {
       setSelectedContractor(null)
       setSelectedCountry(null)
@@ -264,6 +290,14 @@ export default function App() {
     }
     setView(next)
   }
+
+  const countryCount = useMemo(() => {
+    const set = new Set<string>()
+    for (const n of allNotifications) {
+      if (n.country) set.add(n.country)
+    }
+    return set.size
+  }, [])
 
   const networkSelection = useMemo(() => {
     if (networkFocus.length === 0) return null
@@ -371,9 +405,16 @@ export default function App() {
                     <span className="sm:hidden">U.S. FMS Congressional Notifications</span>
                     <span className="hidden sm:inline">U.S. Foreign Military Sales Congressional Notifications</span>
                   </p>
-                  <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
-                    <span className="sm:hidden">Source: DSCA &amp; State Department</span>
-                    <span className="hidden sm:inline">Source: Defense Security Cooperation Agency &amp; State Department Bureau of Political-Military Affairs</span>
+                  <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    <span className="sm:hidden">Source: DSCA, Federal Register &amp; State PM Bureau</span>
+                    <span className="hidden sm:inline">Source: Defense Security Cooperation Agency, Federal Register, and State Department Bureau of Political-Military Affairs</span>
+                    <button
+                      type="button"
+                      onClick={() => setShowAbout(true)}
+                      className="text-zinc-500 hover:text-zinc-300 underline underline-offset-2 decoration-zinc-700 hover:decoration-zinc-500 transition-colors"
+                    >
+                      About
+                    </button>
                   </p>
                 </div>
               </div>
@@ -498,6 +539,28 @@ export default function App() {
             />
           </motion.div>
         ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showAbout && (
+          <motion.div
+            key="about"
+            className="absolute inset-0 z-40"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            <AboutPage
+              notificationCount={allNotifications.length}
+              countryCount={countryCount}
+              dataFromYear={DATA_MIN_DATE.slice(0, 4)}
+              dataToYear={DATA_MAX_DATE.slice(0, 4)}
+              embedded
+              headerClearance={headerClearance}
+            />
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
     </div>
