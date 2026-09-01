@@ -406,7 +406,7 @@ export default function App() {
                     <span className="hidden sm:inline">U.S. Foreign Military Sales Congressional Notifications</span>
                   </p>
                   <p className="text-[9px] md:text-[10px] text-zinc-600 mt-0.5 tracking-wide leading-snug">
-                    <span className="sm:hidden">DSCA, Federal Register &amp; State Dept.</span>
+                    <span className="sm:hidden">DSCA, Federal Register &amp; State Department</span>
                     <span className="hidden sm:inline">Source: Defense Security Cooperation Agency, Federal Register, and State Department Bureau of Political-Military Affairs</span>
                   </p>
                 </div>
