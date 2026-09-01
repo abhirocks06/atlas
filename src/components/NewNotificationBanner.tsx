@@ -99,7 +99,7 @@ export function NewNotificationBanner({ notifications, onSelect }: Props) {
             </svg>
           </button>
 
-          <div className="flex flex-col items-center px-4">
+          <div className="flex flex-col items-center pl-4 pr-9 sm:px-4">
             <div className="flex items-center justify-center gap-2 h-9 min-w-0 max-w-full">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" aria-hidden="true" />
               <button
