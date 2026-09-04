@@ -14181,5 +14181,53 @@
     "description": "Bell 412EPX helicopters; Bell 407M helicopters; GAU-19 three-barrel machine gun launchers; M260 2.75-inch, 7-tube rockets; L-3 Wescam MX-15HDI Electro-Optical/Infrared sensor; AN/AAR-60 Block 2 Missile Launch Detection Systems; very high frequency radios; spare parts; peculiar ground support equipment; publications and technical data; new equipment training, including pilot and maintenance; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $800 million.",
     "addedAt": "2026-08-31",
     "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/iraq-bell-412-and-bell-407m-helicopters/"
+  },
+  {
+    "date": "2026-09-04",
+    "transmittal": "25-83",
+    "country": "Iraq",
+    "system": "Bell 412 Helicopters",
+    "costUSD": 150000000,
+    "contractor": "Bell-Textron",
+    "contractorLocation": "Fort Worth, Texas",
+    "description": "Bell 412EPX helicopters; Very High Frequency (VHF) radios; spare parts; ground support equipment; publications and technical data; new equipment training including pilot and maintenance; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $150 million.",
+    "addedAt": "2026-09-04",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/09/iraq-bell-412-helicopters/"
+  },
+  {
+    "date": "2026-09-04",
+    "transmittal": "26-35",
+    "country": "Saudi Arabia",
+    "system": "Joint Direct Attack Munitions – Extend Range",
+    "costUSD": 5000000000,
+    "contractor": "The Boeing Corporation",
+    "contractorLocation": "Arlington, Virginia",
+    "description": "five thousand four (5,004) KMU-572 Joint Direct Attack Munition (JDAM) guidance kits; five thousand (5,000) KMU-556 JDAM guidance kits; five thousand four (5,004) BLU-111 500-lb general purpose bombs; and five thousand (5,000) BLU-117 2,000-lb general purpose bombs. The following non-major defense equipment will also be included: FMU-139 fuze systems; DSU-38 and DSU-40 target detectors; containers and support equipment; spare parts, consumables and accessories, and repair and return support; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $5.0 billion.",
+    "addedAt": "2026-09-04",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/09/kingdom-of-saudi-arabia-joint-direct-attack-munitions-extend-range/"
+  },
+  {
+    "date": "2026-09-04",
+    "transmittal": "26-71",
+    "country": "Oman",
+    "system": "F-16 Sustainment",
+    "costUSD": 188000000,
+    "contractor": null,
+    "contractorLocation": null,
+    "description": "major and minor modifications support and equipment; spare parts, consumables and accessories, and repair and return support; aircraft components, parts, and accessories; communications equipment; instruments and lab equipment; precision navigation; ground handling equipment; precision measurement equipment laboratory calibration; computer program identification numbers; engine component improvement program; weapons system support to include software, classified and unclassified software and software support, and classified and unclassified publications and technical documentation; maps and charts; clothing, textiles, and individual equipment; personnel training and training equipment; studies and surveys; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $188 million.",
+    "addedAt": "2026-09-04",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/09/oman-f-16-sustainment/"
+  },
+  {
+    "date": "2026-09-04",
+    "transmittal": "26-68",
+    "country": "Saudi Arabia",
+    "system": "AGT-1500 Engines",
+    "costUSD": 750000000,
+    "contractor": "Honeywell",
+    "contractorLocation": "Anniston Army Depot, Alabama",
+    "description": "sixty (60) AGT-1500 tank engines. The following non-major defense equipment items will also be included: AGT-1500 containers; spare parts, consumables, and accessories; contractor logistics support; U.S. Government and contractor engineering, technical, and logistics support services; and other related elements of logistics and program support. The estimated total cost is $750 million.",
+    "addedAt": "2026-09-04",
+    "sourceUrl": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/09/kingdom-of-saudi-arabia-agt-1500-engines/"
   }
 ]
