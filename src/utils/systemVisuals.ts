@@ -423,6 +423,11 @@ const SYSTEM_PROFILES: SystemProfile[] = [
     blurb: 'Turboprop trainer used to teach basic and intermediate military flying skills.',
   },
   {
+    match: /agt-?1500/i,
+    blurb: 'Gas turbine tank engine that powers the M1 Abrams and related heavy armored vehicles.',
+    url: '/system-images/agt-1500.jpg',
+  },
+  {
     match: /abrams|m1a/i,
     blurb: 'Main battle tank combining heavy armor, a 120 mm gun, and networked fire control.',
     url: '/system-images/abrams.jpg',
