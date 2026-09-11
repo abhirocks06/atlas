@@ -159,6 +159,11 @@
     "source": "curated",
     "updatedAt": "2026-07-15"
   },
+  "Kaman Corporation": {
+    "blurb": "Kaman Corporation is a U.S. aerospace and defense company known for naval helicopters and precision fuzes, including the Joint Programmable Fuze used with JDAM and Paveway munitions. In FMS it appears on rotary-wing packages and as a teammate on air-delivered ammunition cases.",
+    "source": "curated",
+    "updatedAt": "2026-09-11"
+  },
   "SAIC": {
     "blurb": "SAIC is a U.S. technology and engineering services contractor supporting defense IT, training, and systems integration. Its FMS footprint is typically advisory or sustainment-oriented rather than platform production.",
     "source": "curated",

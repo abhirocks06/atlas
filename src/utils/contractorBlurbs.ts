@@ -16,6 +16,8 @@ export function getContractorBlurb(contractor: string): string | null {
 const ALIASES: Record<string, string> = {
   'Longbow Limited Liability': 'Longbow LLC',
   'Kratos': 'Kratos Defense & Security Solutions',
+  'Kaman': 'Kaman Corporation',
+  'Kaman Precision Products': 'Kaman Corporation',
   'Beechcraft': 'Beechcraft Defense',
   'Hawker Beechcraft': 'Beechcraft Defense',
   'Oshkosh': 'Oshkosh Defense',

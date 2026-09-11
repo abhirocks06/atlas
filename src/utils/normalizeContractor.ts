@@ -186,8 +186,8 @@ export function normalizeContractor(raw: string): string {
   // Dillon Aero
   if (/dillon/i.test(s)) return 'Dillon Aero'
 
-  // Kaman
-  if (/\bkaman\b/i.test(s)) return 'Kaman'
+  // Kaman Corporation (notices also say Kaman Precision Products)
+  if (/\bkaman\b/i.test(s)) return 'Kaman Corporation'
 
   // Selex (Leonardo UK / Selex ES)
   if (/selex/i.test(s)) return 'Selex ES'

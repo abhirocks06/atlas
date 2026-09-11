@@ -77,6 +77,8 @@ const DOMAINS = [
   'arnprioraerospace.com',
   'martin-baker.com',
   'viasat.com',
+  'sncorp.com',
+  'kaman.com',
 ]
 
 function slug(domain) {
@@ -205,6 +207,16 @@ for (const domain of DOMAINS) {
   }
   if (domain === 'orbitalatk.com' && !process.argv.includes('--force-orbitalatk') && existsSync(file)) {
     console.log(`skip  ${domain} (curated mark; pass --force-orbitalatk to overwrite)`)
+    ok++
+    continue
+  }
+  if (domain === 'sncorp.com' && !process.argv.includes('--force-snc') && existsSync(file)) {
+    console.log(`skip  ${domain} (curated navy mark; pass --force-snc to overwrite)`)
+    ok++
+    continue
+  }
+  if (domain === 'kaman.com' && !process.argv.includes('--force-kaman') && existsSync(file)) {
+    console.log(`skip  ${domain} (curated chevron mark; pass --force-kaman to overwrite)`)
     ok++
     continue
   }

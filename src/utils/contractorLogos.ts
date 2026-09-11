@@ -42,6 +42,8 @@ const CONTRACTOR_DOMAINS: [RegExp, string][] = [
   [/kratos/i, 'kratosdefense.com'],
   [/anduril/i, 'anduril.com'],
   [/maxar/i, 'maxar.com'],
+  [/sierra\s+nevada/i, 'sncorp.com'],
+  [/\bkaman\b/i, 'kaman.com'],
   [/zone\s*5/i, 'zone5tech.com'],
   [/coaspire/i, 'coaspire.com'],
   [/allison\s+transmission/i, 'allisontransmission.com'],
